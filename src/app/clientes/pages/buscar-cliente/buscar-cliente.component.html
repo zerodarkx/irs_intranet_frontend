@@ -1,0 +1,399 @@
+<navbar-buscar-cliente></navbar-buscar-cliente>
+<div
+  class="container-fluid pt-3 pb-3"
+  style="background-color: aqua; min-height: 80vh"
+>
+  <div class="row pt3">
+    <div class="col-md-6">
+      <h2>Buscador de clientes</h2>
+    </div>
+    <div class="col-md-6"></div>
+  </div>
+  <div class="card">
+    <div class="card-body mb-4">
+      <!-- FILTROS PARA LA BUSQUEDA -->
+      <div class="row mt-2">
+        <!-- FILTROS PARA BUSQUEDAS -->
+        <div class="col-md-9">
+          <form [formGroup]="formFiltroBusqueda">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="">Buscar por ID</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="id_cliente"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Buscar por estado</label>
+                <ng-select
+                  [items]="estados"
+                  bindValue="id_estado"
+                  bindLabel="nombre_estado"
+                  placeholder="Seleccione estado"
+                  notFoundText="No se encontraron coincidencias"
+                  formControlName="estado"
+                >
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <label for="">Buscar por ejecutivo</label>
+                <ng-select
+                  [items]="selectEjecutivosBrokers"
+                  placeholder="Seleccionar Ejecutivo"
+                  bindValue="id_usuario"
+                  bindLabel="nombre_ejecutivo"
+                  notFoundText="No se encontraron coincidencias"
+                  formControlName="ejecutivo"
+                >
+                </ng-select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="">Fecha desde</label>
+                <input
+                  type="date"
+                  class="form-control text-center"
+                  formControlName="fechaDesde"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Fecha Hasta</label>
+                <input
+                  type="date"
+                  class="form-control text-center"
+                  formControlName="fechaHasta"
+                />
+                <ng-container
+                  *ngIf="formFiltroBusqueda.hasError('fechaRangoInvalido')"
+                >
+                  <small style="color: red"
+                    >La fecha ingresada es menor o falta agregar fecha
+                    desde</small
+                  >
+                </ng-container>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-12">
+              <button
+                type="button"
+                class="btn btn-success w-100 mt-2"
+                (click)="obtenerClientePorFiltro()"
+                [disabled]="formFiltroBusqueda.invalid"
+              >
+                Buscar
+              </button>
+              <button
+                type="button"
+                class="btn btn-warning w-100 mt-2"
+                (click)="borrarFiltrosTabla()"
+              >
+                Borrar Filtro
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary w-100 mt-2"
+                (click)="exportarExcel()"
+              >
+                Exportar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- TABLA PARA MOSTRAR -->
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <p-table
+            #tabla
+            [value]="clientes"
+            styleClass="p-datatable-striped"
+            [paginator]="true"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
+            [rowsPerPageOptions]="[10, 25, 50, 100]"
+            [globalFilterFields]="[
+              'id',
+              'nom_cli',
+              'propiedad',
+              'com',
+              'nombre_ejecutivo',
+              'origen',
+              'canal',
+              'estado'
+            ]"
+            selectionMode="single"
+            dataKey="id_cliente"
+            [scrollable]="true"
+            scrollDirection="horizontal"
+            [style]="{ width: '100%' }"
+          >
+            <!-- FILTRO GENERAL -->
+            <ng-template pTemplate="caption">
+              <div class="row">
+                <div class="col-md-6">
+                  <button
+                    pButton
+                    class="btn btn-success"
+                    (click)="clear(tabla)"
+                  >
+                    <i class="bi bi-filter"></i>Lipiar Filtros
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <input
+                    iBuscarTodo
+                    type="text"
+                    class="form-control"
+                    (input)="handleFilter($event)"
+                    placeholder="Buscar en toda la tabla"
+                  />
+                </div>
+              </div>
+            </ng-template>
+            <!-- FILTROS POR COLUMNAS -->
+            <ng-template pTemplate="header">
+              <tr>
+                <th
+                  pFrozenColumn
+                  pSortableColumn="id"
+                  [style]="{ 'min-width': '200px' }"
+                >
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">ID Cliente</label>
+                    <div class="">
+                      <p-sortIcon field="id"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="id"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  pSortableColumn="nom_cli"
+                  [style]="{ 'min-width': '250px' }"
+                >
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Nombre Cliente</label>
+                    <div class="">
+                      <p-sortIcon field="nom_cli"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="nom_cli"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  pSortableColumn="propiedad"
+                  [style]="{ 'min-width': '210px' }"
+                >
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Tipo Propiedad</label>
+                    <div class="">
+                      <p-sortIcon field="propiedad"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="propiedad"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="com" [style]="{ 'min-width': '150px' }">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Comuna</label>
+                    <div class="">
+                      <p-sortIcon field="com"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="com"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="dEst" [style]="{ 'min-width': '200px' }">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Deuda Estimada</label>
+                    <div class="">
+                      <p-sortIcon field="dEst"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="dEst"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="vCom" [style]="{ 'min-width': '200px' }">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Valor Comercial</label>
+                    <div class="">
+                      <p-sortIcon field="vCom"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="vCom"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  pSortableColumn="nombre_ejecutivo"
+                  [style]="{ 'min-width': '170px' }"
+                >
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Nombre Ejecutivo</label>
+                    <div class="">
+                      <p-sortIcon field="nombre_ejecutivo"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="nombre_ejecutivo"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="origen" [style]="{ 'min-width': '170px' }">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Plataforma</label>
+                    <div class="">
+                      <p-sortIcon field="origen"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="origen"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="canal" [style]="{ 'min-width': '150px' }">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Tipo Canal</label>
+                    <p-sortIcon field="canal"></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="canal"
+                      display="menu"
+                    ></p-columnFilter>
+                  </div>
+                </th>
+                <th pSortableColumn="estado" [style]="{ 'min-width': '150px' }">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Estado</label>
+                    <div class="">
+                      <p-sortIcon field="estado"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="estado"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  pSortableColumn="fec_ingreso"
+                  [style]="{ 'min-width': '150px' }"
+                >
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Fecha Ingreso</label>
+                    <div class="">
+                      <p-sortIcon field="fec_ingreso"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="fec_ingreso"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  pSortableColumn="fec_contacto"
+                  [style]="{ 'min-width': '150px' }"
+                >
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Fecha Contacto</label>
+                    <div class="">
+                      <p-sortIcon field="fec_contacto"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="fec_contacto"
+                        display="menu"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </ng-template>
+            <!-- CUERPO DE LA TABLA -->
+            <ng-template pTemplate="body" let-cliente>
+              <tr
+                (click)="irDetalleCliente(cliente.id)"
+                style="cursor: pointer"
+                [ngClass]="cliente.fec_contacto !== null ? 'contactado' : ''"
+              >
+                <td pFrozenColumn>{{ cliente.id }}</td>
+                <td>{{ cliente.nom_cli }}</td>
+                <td>{{ cliente.propiedad }}</td>
+                <td>{{ cliente.com }}</td>
+                <td>{{ cliente.dEst }}</td>
+                <td>{{ cliente.vCom }}</td>
+                <td>{{ cliente.nombre_ejecutivo }}</td>
+                <td>{{ cliente.origen }}</td>
+                <td>{{ cliente.canal }}</td>
+                <td>{{ cliente.estado }}</td>
+                <td>{{ cliente.fec_ingreso }}</td>
+                <td>{{ cliente.fec_contacto }}</td>
+              </tr>
+            </ng-template>
+            <!-- MENSAJE DE QUE NO HAY DATOS -->
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="12" class="text-center">
+                  No hay datos disponibles
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<shared-footer></shared-footer>

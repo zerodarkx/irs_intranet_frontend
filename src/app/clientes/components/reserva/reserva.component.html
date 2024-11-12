@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Reservas</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Listado de Inversionistas :</h5>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <table class="table" width="100%">
+                <thead>
+                    <tr>
+                        <th width="40%">Inversionistas</th>
+                        <th width="20%"></th>
+                        <th width="20%">TIR</th>
+                        <th width="20%">LTV</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>' . $value['inversionista'] . '</td>
+                        <td>
+                            <input type="radio" name="inversionista" value="">
+                        </td>
+                        <td>' . $tir . '</td>
+                        <td>' . $ltv[0]['ltv'] . '%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

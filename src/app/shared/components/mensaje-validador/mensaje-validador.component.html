@@ -1,0 +1,4 @@
+<!-- <pre>{{control!.errors | json}}</pre> -->
+<ng-container *ngIf="control && control.invalid && control.touched">
+  <small class="letrasRojas">{{ errorMsg }}</small>
+</ng-container>

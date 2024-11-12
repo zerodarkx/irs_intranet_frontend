@@ -1,0 +1,253 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+
+import {
+  DataObtenerTodosDocumentosCliente,
+  DataObtenerTodosImagenCliente,
+  ResultadoObtenerTodosDocumentosCliente,
+  ResultadoObtenerTodosImagenCliente,
+  ResultadoSubirDocumentoImagen
+} from 'src/app/interfaces/cliente';
+
+import { ITipoDocumento, ResultadoTipoDocumentos } from 'src/app/interfaces/tipoDocumentos';
+import { ITipoImagen, ResultadoTipoImagenes } from 'src/app/interfaces/tipoImagenes';
+import { ClienteService } from 'src/app/services/cliente.service';
+
+import { TipoDocuentosService } from 'src/app/services/tipo-documentos.service';
+import { TipoImagenesService } from 'src/app/services/tipo-imagenes.service';
+import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+import { environment } from 'src/environments2/environments';
+
+@Component({
+  selector: 'app-documentos',
+  templateUrl: './documentos.component.html',
+  styleUrls: ['./documentos.component.css']
+})
+export class DocumentosComponent {
+
+  url: string = environment.descargaUrl;
+  fechaNueva: string = new Date().getTime().toString();
+
+  isAlertVisible: boolean = false;
+
+  selectedDocuemento: File | null = null;
+  selectedImagen: File | null = null;
+
+  //select
+  documentos: ITipoDocumento[] = [];
+  imagenes: ITipoImagen[] = [];
+
+  //documentos e imagenes cargados en sistema
+  documentosCargadosCliente: DataObtenerTodosDocumentosCliente[] = []
+  imagenesCargadosCliente: DataObtenerTodosImagenCliente[] = []
+
+  formularioImagen: FormGroup = this.fb.group({
+    archivo: ['', [
+      Validators.required
+    ]],
+    selectImagen: [[], [
+      Validators.required
+    ]]
+  });
+
+  formularioDocumento: FormGroup = this.fb.group({
+    archivo: [null, [
+      Validators.required
+    ]],
+    selectDocumento: [[], [
+      Validators.required
+    ]]
+  })
+
+  constructor(
+    private fb: FormBuilder,
+    private sTipoDocumento: TipoDocuentosService,
+    private sTipoImagen: TipoImagenesService,
+    private sCliente: ClienteService
+  ) { }
+
+  ngOnInit(): void {
+    this.cargarSelect();
+    this.cargarDocumentosEnSistema();
+    this.cargarImagenesEnSistema();
+  }
+
+  cargarSelect() {
+    this.sTipoDocumento.obtenerTodosTipoDocumentos()
+      .subscribe({
+        next: ({ data }: ResultadoTipoDocumentos) => {
+          this.documentos = data
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      });
+
+    this.sTipoImagen.obtenerTodosTipoImagenes()
+      .subscribe({
+        next: ({ data }: ResultadoTipoImagenes) => {
+          this.imagenes = data
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+  }
+
+  onFileSelected(event: any, tipo: string): void {
+    // const input = (event.target as HTMLInputElement)
+    const file = event.target.files[0];
+    if (file) {
+      if (tipo === 'documento') {
+        this.selectedDocuemento = file;
+        this.formularioDocumento.patchValue({
+          document: file
+        });
+      } else {
+        this.selectedImagen = file;
+        this.formularioImagen.patchValue({
+          document: file
+        });
+      }
+    } else {
+      this.selectedDocuemento = null; // Reiniciar si no hay archivo
+    }
+  }
+
+  showAlert() {
+    this.isAlertVisible = true;
+    // Ocultar la alerta después de 3 segundos
+    setTimeout(() => {
+      this.isAlertVisible = false;
+    }, 5000);
+  }
+
+  cargarDocumentosEnSistema() {
+    this.sCliente.mostrarTodosDocumentosCliente()
+      .subscribe({
+        next: ({ data }: ResultadoObtenerTodosDocumentosCliente) => {
+          this.fechaNueva = new Date().getTime().toString();
+          this.documentosCargadosCliente = data
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+  }
+
+  cargarImagenesEnSistema() {
+    this.sCliente.mostrarTodosImagenesCliente()
+      .subscribe({
+        next: ({ data }: ResultadoObtenerTodosImagenCliente) => {
+          this.fechaNueva = new Date().getTime().toString();
+          this.imagenesCargadosCliente = data
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+  }
+
+  insertarDocumento() {
+    if (this.formularioDocumento.invalid || !this.selectedDocuemento) {
+      this.showAlert()
+      return;
+    }
+
+    // Crear FormData para enviar el archivo y el texto
+    const formData = new FormData();
+    formData.append('archivo', this.selectedDocuemento); // Archivo
+    formData.append('id_documento', this.formularioDocumento.get('selectDocumento')?.value); // Texto
+
+
+    // Enviar la solicitud POST con el archivo y el texto
+    this.sCliente.agregarDocumentoCliente(formData)
+      .subscribe({
+        next: (response) => {
+          mostrarMensaje({
+            icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Error,
+            mensaje: response.data.mensaje,
+            titulo: response.ok ? "Exito" : "Atención"
+          })
+          this.formularioDocumento.reset();
+          this.cargarDocumentosEnSistema()
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      });
+  }
+
+  insertarImagen() {
+    if (this.formularioImagen.invalid || !this.selectedImagen) {
+      this.showAlert()
+      return;
+    }
+
+    // Crear FormData para enviar el archivo y el texto
+    const formData = new FormData();
+    formData.append('archivo', this.selectedImagen); // Archivo
+    formData.append('id_imagen', this.formularioImagen.get('selectImagen')?.value); // Texto
+
+
+    // Enviar la solicitud POST con el archivo y el texto
+    this.sCliente.agregarImagenCliente(formData)
+      .subscribe({
+        next: (response) => {
+          mostrarMensaje({
+            icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Error,
+            mensaje: response.data.mensaje,
+            titulo: response.ok ? "Exito" : "Atención"
+          })
+          this.formularioImagen.reset();
+          this.cargarImagenesEnSistema()
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      });
+  }
+
+  async eliminarDocumento(id_documento: number) {
+
+    if (await mostrarConfirmacion('Atención', 'estas seguro de eliminar el documento')) {
+      this.sCliente.eliminarDocumentoCliente(id_documento)
+        .subscribe({
+          next: (data: ResultadoSubirDocumentoImagen) => {
+            mostrarMensaje({
+              icono: data.ok ? IconoSweetAlert.Success : IconoSweetAlert.Error,
+              mensaje: data.data.mensaje,
+              titulo: data.ok ? "Exito" : "Atención"
+            })
+            this.formularioImagen.reset();
+            this.cargarDocumentosEnSistema()
+          },
+          error: (error: HttpErrorResponse) => {
+            errorConexionServidor(error)
+          }
+        })
+    }
+  }
+
+  async eliminarImagen(id_imagen: number) {
+
+    if (await mostrarConfirmacion('Atención', 'estas seguro de eliminar la imagen')) {
+      this.sCliente.eliminarImagenCliente(id_imagen)
+        .subscribe({
+          next: (data: ResultadoSubirDocumentoImagen) => {
+            mostrarMensaje({
+              icono: data.ok ? IconoSweetAlert.Success : IconoSweetAlert.Error,
+              mensaje: data.data.mensaje,
+              titulo: data.ok ? "Exito" : "Atención"
+            })
+            this.formularioImagen.reset();
+            this.cargarImagenesEnSistema()
+          },
+          error: (error: HttpErrorResponse) => {
+            errorConexionServidor(error)
+          }
+        })
+    }
+  }
+}

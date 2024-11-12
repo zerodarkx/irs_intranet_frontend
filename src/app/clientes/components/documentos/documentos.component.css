@@ -1,0 +1,13 @@
+.imagenes {
+    width: 400px;
+    height: 400px;
+    display: block;
+    margin: auto;
+}
+
+.alert-custom {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+}

@@ -1,0 +1,7 @@
+/* Estilos adicionales para mejorar la visibilidad del formulario */
+.card {
+    background-color: rgba(255, 255, 255, 0.85);
+    /* Fondo semitransparente */
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}

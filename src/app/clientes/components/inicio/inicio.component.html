@@ -1,0 +1,406 @@
+<div class="container-fluid mt-3">
+  <!-- dejar espacio para los botones de los modulos internos -->
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <form [formGroup]="miFormulario" (ngSubmit)="guardarDatos()">
+        <!-- aca agregar el nombre del formulario para acciones-->
+        <div class="container-fluid">
+          <h3>Datos Personales del Cliente</h3>
+          <div class="row mt-2">
+            <div class="col-md-2">
+              <label for="">Rut Cliente</label>
+              <input
+                type="text"
+                class="form-control"
+                (keyup)="formatearRut($event)"
+                formControlName="rut_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('rut_cli'),
+                  'is-valid': validarExitoso('rut_cli')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['rut_cli']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-6">
+              <label for="">Nombre Completo Cliente</label>
+              <input
+                type="text"
+                name="nombre_cli"
+                id="nombre_cli"
+                class="form-control"
+                (change)="mayuscula($event)"
+                formControlName="nombre_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('nombre_cli'),
+                  'is-valid': validarExitoso('nombre_cli')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['nombre_cli']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-4">
+              <label for="">Correo</label>
+              <input
+                type="email"
+                name="correo_cli"
+                id="correo_cli"
+                class="form-control"
+                formControlName="correo_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('correo_cli'),
+                  'is-valid': validarExitoso('correo_cli')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['correo_cli']"
+              ></shared-mensaje-validador>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-1">
+              <label for="">Código Telefónico</label>
+              <select
+                name="cod_telefono"
+                id="cod_telefono"
+                class="select form-select"
+                formControlName="cod_telefono"
+                [ngClass]="{
+                  'is-invalid': validarDatos('cod_telefono'),
+                  'is-valid': validarExitoso('cod_telefono')
+                }"
+              >
+                <option value="">Seleccione</option>
+                <option value="1">+569</option>
+              </select>
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['cod_telefono']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-2">
+              <label for="">Teléfono</label>
+              <input
+                type="text"
+                name="telefono_cli"
+                id="telefono_cli"
+                class="form-control"
+                (change)="soloNumeros($event)"
+                formControlName="telefono_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('telefono_cli'),
+                  'is-valid': validarExitoso('telefono_cli')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['telefono_cli']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-1">
+              <label for="">Fecha Ingreso</label>
+              <input
+                type="date"
+                name="f_ingreso_cli"
+                id="f_ingreso_cli"
+                class="form-control text-center"
+                readonly
+                formControlName="f_ingreso_cli"
+              />
+            </div>
+            <div class="col-md-2">
+              <label for="">Fecha Contacto</label>
+              <input
+                type="date"
+                name="f_contacto_cli"
+                id="f_contacto_cli"
+                class="form-control text-center"
+                formControlName="f_contacto_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('f_contacto_cli'),
+                  'is-valid': validarExitoso('f_contacto_cli')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['f_contacto_cli']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-2">
+              <label for="">ROL</label>
+              <input
+                type="text"
+                name="rol_cli"
+                id="rol_cli"
+                class="form-control"
+                formControlName="rol_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('rol_cli'),
+                  'is-valid': validarExitoso('rol_cli')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['rol_cli']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-2">
+              <label for="">Plataforma</label>
+              <ng-select
+                [items]="selectPlataformas"
+                placeholder="Seleccionar Plataforma"
+                bindValue="id_plataforma"
+                bindLabel="nombre_plataforma"
+                notFoundText="No se encontraron coincidencias"
+                formControlName="l_plataforma_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('l_plataforma_cli'),
+                  'is-valid': validarExitoso('l_plataforma_cli')
+                }"
+              >
+              </ng-select>
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['l_plataforma_cli']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-2">
+              <label for="">Linea Negocío</label>
+              <ng-select
+                [items]="selectLineaNegocios"
+                placeholder="Seleccionar Linea Negocio"
+                bindValue="id_lineaNegocio"
+                bindLabel="nombre_lineaNegocio"
+                notFoundText="No se encontraron coincidencias"
+                formControlName="l_negocio_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('l_negocio_cli'),
+                  'is-valid': validarExitoso('l_negocio_cli')
+                }"
+              >
+              </ng-select>
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['l_negocio_cli']"
+              ></shared-mensaje-validador>
+            </div>
+          </div>
+          <hr class="my-5" />
+          <h3>Datos de Propiedad</h3>
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label for="">Propiedad</label>
+              <ng-select
+                [items]="selectTipoPropiedades"
+                placeholder="Seleccionar Tipo Propiedad"
+                bindValue="id_tipoPropiedad"
+                bindLabel="nombre_tipoPropiedad"
+                notFoundText="No se encontraron coincidencias"
+                formControlName="tipo_propiedad"
+                [ngClass]="{
+                  'is-invalid': validarDatos('tipo_propiedad'),
+                  'is-valid': validarExitoso('tipo_propiedad')
+                }"
+              >
+              </ng-select>
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['tipo_propiedad']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+              <label for="">Región</label>
+              <ng-select
+                [items]="selectRegiones"
+                placeholder="Seleccionar Región"
+                bindValue="id_region"
+                bindLabel="nombre_region"
+                notFoundText="No se encontraron coincidencias"
+                (change)="changeComuna($event)"
+                formControlName="selectRegion"
+                [ngClass]="{
+                  'is-invalid': validarDatos('selectRegion'),
+                  'is-valid': validarExitoso('selectRegion')
+                }"
+              >
+              </ng-select>
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['selectRegion']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+              <label for="">Comuna</label>
+              <ng-select
+                [items]="selectComunas"
+                placeholder="Seleccionar Comuna"
+                bindValue="id_comuna"
+                bindLabel="nombre_comuna"
+                notFoundText="No se encontraron coincidencias"
+                formControlName="selectComuna"
+                [ngClass]="{
+                  'is-invalid': validarDatos('selectComuna'),
+                  'is-valid': validarExitoso('selectComuna')
+                }"
+              >
+              </ng-select>
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['selectComuna']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+              <label for="">Dirección</label>
+              <input
+                type="text"
+                name="direccion_cli"
+                id="direccion_cli"
+                class="form-control"
+                formControlName="direccion_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('direccion_cli'),
+                  'is-valid': validarExitoso('direccion_cli')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['direccion_cli']"
+              ></shared-mensaje-validador>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label for="">Valor Comercial</label>
+              <input
+                type="text"
+                name="valorComercial_cli"
+                id="valorComercial_cli"
+                (change)="formateadorMiles($event)"
+                class="form-control"
+                formControlName="valorComercial_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('valorComercial_cli'),
+                  'is-valid': validarExitoso('valorComercial_cli')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['valorComercial_cli']"
+              ></shared-mensaje-validador>
+            </div>
+
+            <div class="col-md-3">
+              <label for="">Deuda Estimada</label>
+              <input
+                type="text"
+                name="deudaEstimada_cli"
+                id="deudaEstimada_cli"
+                (change)="formateadorMiles($event)"
+                class="form-control"
+                formControlName="deudaEstimada_cli"
+                [ngClass]="{
+                  'is-invalid': validarDatos('deudaEstimada_cli'),
+                  'is-valid': validarExitoso('deudaEstimada_cli')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['deudaEstimada_cli']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+              <label for="">M2 Terreno</label>
+              <input
+                type="text"
+                name="mTerreno"
+                id="mTerreno"
+                (change)="formateadorMiles($event)"
+                class="form-control"
+                formControlName="mTerreno"
+                [ngClass]="{
+                  'is-invalid': validarDatos('mTerreno'),
+                  'is-valid': validarExitoso('mTerreno')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['mTerreno']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+              <label for="">M2 Construidos</label>
+              <input
+                type="text"
+                name="mConstruidos"
+                id="mConstruidos"
+                (change)="formateadorMiles($event)"
+                class="form-control"
+                formControlName="mConstruidos"
+                [ngClass]="{
+                  'is-invalid': validarDatos('mConstruidos'),
+                  'is-valid': validarExitoso('mConstruidos')
+                }"
+              />
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['mConstruidos']"
+              ></shared-mensaje-validador>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-4">
+              <label for="">Ejecutivo</label>
+              <ng-select
+                [items]="selectEjecutivosBrokers"
+                placeholder="Seleccionar Ejecutivo"
+                bindValue="id_usuario"
+                bindLabel="nombre_ejecutivo"
+                notFoundText="No se encontraron coincidencias"
+                formControlName="selectEjecutivo"
+                [ngClass]="{
+                  'is-invalid': validarDatos('selectEjecutivo'),
+                  'is-valid': validarExitoso('selectEjecutivo')
+                }"
+              >
+              </ng-select>
+              <shared-mensaje-validador
+                [forControl]="miFormulario.controls['selectEjecutivo']"
+              ></shared-mensaje-validador>
+            </div>
+            <div class="col-md-4">
+              <label for="">Estado</label>
+              <input type="text" readonly value="{{nombreEstado}}" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label for="">Inversionista</label>
+              <input type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <label for="">Observaciones</label>
+              <textarea
+                name="obs_cli"
+                id="obs_cli"
+                cols="30"
+                rows="2"
+                class="form-control"
+                placeholder="Ingrese Observación"
+                formControlName="obs_cli"
+              ></textarea>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col">
+              <button class="btn btn-danger w-100" type="button">
+                Rechazar
+              </button>
+            </div>
+            <div class="col">
+              <button
+                type="submit"
+                class="btn btn-success w-100"
+                [disabled]="miFormulario.invalid"
+              >
+                Guardar
+              </button>
+            </div>
+            <div class="col">
+              <button class="btn btn-primary w-100" type="button" (click)="pasarSiguienteEstado()">
+                Siguiente estado
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

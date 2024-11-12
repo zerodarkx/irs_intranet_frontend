@@ -1,0 +1,524 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Simulaciones</h3>
+    </div>
+    <div class="col-md 6">
+      <button
+        class="btn btn-success"
+        (click)="abrirNuevaSimulacion('nuevaSimulacion')"
+      >
+        <i class="fas fa-plus"></i>
+        Nueva Simulación
+      </button>
+    </div>
+  </div>
+  <div *ngIf="simulacionesCliente.length > 0; else noExisteSimulacion">
+    <div
+      class="row mt-4"
+      *ngFor="let sim of simulacionesCliente; last as ultimo"
+    >
+      <div class="col-2 text-center align-self-center">
+        <button
+          class="btn btn-success"
+          (click)="detalleSimulacion('detalleSimulacion', sim)"
+        >
+          Ver detalle
+        </button>
+      </div>
+      <div class="col-md 8">
+        <table width="100%">
+          <tr>
+            <td width="20%">Registrado Por:</td>
+            <td>{{ sim.nombreEjecutivo }}</td>
+          </tr>
+          <tr>
+            <td>Canal:</td>
+            <td>{{ sim.canal }}</td>
+          </tr>
+          <tr>
+            <td>Acreedor:</td>
+            <td>{{ sim.banco }}</td>
+          </tr>
+          <tr>
+            <td>Valor Contrato:</td>
+            <td>{{ sim.valor_contrato | currencyPesoChileno }} UF</td>
+          </tr>
+          <tr>
+            <td>Liquido Cliente:</td>
+            <td>{{ sim.liquido_cliente | currencyPesoChileno }} UF</td>
+          </tr>
+          <tr>
+            <td>CAE</td>
+            <td>{{ sim.cae | currencyPesoChileno }} %</td>
+          </tr>
+          <tr>
+            <td>Tasa Mensual</td>
+            <td>{{ sim.renta_mensual | currencyPesoChileno }} %</td>
+          </tr>
+          <tr>
+            <td>Observaciones:</td>
+            <td>{{ sim.obs }}</td>
+          </tr>
+          <tr>
+            <td>Fecha Creación</td>
+            <td>{{ sim.fecha_simulacion | date:'dd-MM-yyyy'}}</td>
+          </tr>
+          <tr>
+            <td>Estado</td>
+            <td>{{ sim.activo ? "Activo" : "" }}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-2">
+        <!-- agregar aca si no tiene simulacion mostrar mensaje de que no tiene-->
+        <img
+          src="/assets/descargables/icono_pdf.png"
+          alt="imagen pdf descargar"
+          class="w-100 h-100 iconos"
+          onclick="descargarSimulacion(descarga_simulacion,1)"
+        />
+      </div>
+      <div *ngIf="!ultimo" class="lineaSeparadora mt-4"></div>
+    </div>
+  </div>
+
+  <ng-template #noExisteSimulacion class="row">
+    <div class="col-md-12">
+      <!-- mensaje de que no tiene simulacion-->
+      <h4>No Existen Simulaciones Disponibles</h4>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Modal detalle simulacion-->
+<div
+  class="modal fade"
+  id="detalleSimulacion"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Detalle de la Simulacion
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="">Moneda</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  value="{{ simulacionDetalle?.moneda }}"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Canal</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  value="{{ simulacionDetalle?.canal }}"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Valor Comercial</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.valor_comercial }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">LTV %</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.descuento }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Plazo Total</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.plazo_total }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Plazo Prepago</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.plazo_prepago }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">Comisión</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.comision }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Banco</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.banco }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Deuda Hipotecaria UF</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.deuda_hipotecaria }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">Contribuciones UF</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.contribuciones }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Gastos Operacionales UF</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.gastos_operacionales }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Renta Mensual Equivalente</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.renta_mensual }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">CAE</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.cae }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Líquido Cliente</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.liquido_cliente }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Valor Contrato</label>
+                <input
+                  type="text"
+                  value="{{ simulacionDetalle?.valor_contrato }}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal generar simulacion-->
+<div
+  class="modal fade"
+  id="nuevaSimulacion"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nueva Simulacion</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formSimulacion">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="">Moneda</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="moneda"
+                  readonly
+                />
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['moneda']"
+                ></shared-mensaje-validador>
+              </div>
+              <div class="col-md-4">
+                <label for="">Canal</label>
+                <ng-select
+                  [items]="canales"
+                  [selectOnTab]="true"
+                  bindLabel="nombre_canal"
+                  bindValue="id_canal"
+                  formControlName="canal"
+                  notFoundText="No se encontraron coincidencias"
+                  placeholder="Seleccionar Canal"
+                  (change)="agregarCanal($event)"
+                ></ng-select>
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['canal']"
+                ></shared-mensaje-validador>
+              </div>
+              <div class="col-md-4">
+                <label for="">Valor Comercial</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="valorComercial"
+                  (change)="formateadorMiles($event)"
+                  (change)="calcularSiluacion()"
+                />
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['valorComercial']"
+                ></shared-mensaje-validador>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">LTV %</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="descuento"
+                  (change)="formateadorMiles($event)"
+                  (change)="calcularSiluacion()"
+                />
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['descuento']"
+                ></shared-mensaje-validador>
+              </div>
+              <div class="col-md-4">
+                <label for="">Plazo Total</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="plazoTotal"
+                  (keyup)="soloNumeros($event)"
+                  (change)="calcularSiluacion()"
+                />
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['plazoTotal']"
+                ></shared-mensaje-validador>
+              </div>
+              <div class="col-md-4">
+                <label for="">Plazo Prepago</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="plazoPrepago"
+                  (keyup)="soloNumeros($event)"
+                  (change)="calcularSiluacion()"
+                />
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['plazoPrepago']"
+                ></shared-mensaje-validador>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">Comisión</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="comision"
+                  (change)="formateadorMiles($event)"
+                  (change)="calcularSiluacion()"
+                />
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['comision']"
+                ></shared-mensaje-validador>
+              </div>
+              <div class="col-md-4">
+                <label for="">Banco</label>
+                <ng-select
+                  [items]="bancos"
+                  [selectOnTab]="true"
+                  bindLabel="nombre_banco"
+                  bindValue="id_banco"
+                  formControlName="banco"
+                  notFoundText="No se encontraron coincidencias"
+                  placeholder="Seleccionar Banco"
+                ></ng-select>
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['banco']"
+                ></shared-mensaje-validador>
+              </div>
+              <div class="col-md-4">
+                <label for="">Deuda Hipotecaria UF</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="deudaHipotecaria"
+                  (change)="formateadorMiles($event)"
+                  (change)="calcularSiluacion()"
+                />
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['deudaHipotecaria']"
+                ></shared-mensaje-validador>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">Contribuciones UF</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="contribuciones"
+                  (change)="formateadorMiles($event)"
+                  (change)="calcularSiluacion()"
+                />
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['contribuciones']"
+                ></shared-mensaje-validador>
+              </div>
+              <div class="col-md-4">
+                <label for="">Gastos Operacionales UF</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="gastosOperacionales"
+                  (change)="formateadorMiles($event)"
+                  (change)="calcularSiluacion()"
+                />
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['gastosOperacionales']"
+                ></shared-mensaje-validador>
+              </div>
+              <div class="col-md-4">
+                <label for="">Renta Mensual Equivalente</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="rentaMensual"
+                  (change)="formateadorMiles($event)"
+                  (change)="calcularSiluacion()"
+                />
+                <shared-mensaje-validador
+                  [forControl]="formSimulacion.controls['rentaMensual']"
+                ></shared-mensaje-validador>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">CAE</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="cae"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Líquido Cliente</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="liquidoCliente"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="">Valor Contrato</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="valorContrato"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label for="">Observaciones</label>
+              <textarea
+                class="form-control"
+                formControlName="obs_simulacion"
+                rows="4"
+              ></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="crearSimulacion()"
+          [disabled]="formSimulacion.invalid"
+        >
+          Crear Simulacion
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
