@@ -8,7 +8,7 @@ import { TipoGestionService } from 'src/app/services/tipo-gestion.service';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
-  selector: 'app-gestion',
+  selector: 'cliente-gestion',
   templateUrl: './gestion.component.html',
   styleUrls: ['./gestion.component.css']
 })

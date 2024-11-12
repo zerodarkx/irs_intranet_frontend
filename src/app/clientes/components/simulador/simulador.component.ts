@@ -18,7 +18,7 @@ import { ResultadoObtenerClienteById } from 'src/app/interfaces/cliente';
 
 
 @Component({
-  selector: 'app-simulador',
+  selector: 'cliente-simulador',
   templateUrl: './simulador.component.html',
   styleUrls: ['./simulador.component.css']
 })
@@ -112,6 +112,11 @@ export class SimuladorComponent implements OnInit {
         }
       })
 
+    this.obtenerSimulaciones();
+
+  }
+
+  obtenerSimulaciones() {
     this.sSimulador.obtenerTodasSimulacionPorCliente()
       .subscribe({
         next: ({ data }: ResultadoObtenerTodasSimulacionPorCliente) => {
@@ -128,7 +133,7 @@ export class SimuladorComponent implements OnInit {
     this.sCliente.obtenerClientePorId()
       .subscribe({
         next: (response: ResultadoObtenerClienteById) => {
-          
+
           this.formSimulacion.reset({
             moneda: 'UF',
             valorComercial: formateadorMilesDesdeBase(response.data.cli_valor_comercial),
@@ -194,7 +199,7 @@ export class SimuladorComponent implements OnInit {
           this.calcularSiluacion()
         },
         error: (error: HttpErrorResponse) => {
-           errorConexionServidor(error)
+          errorConexionServidor(error)
         }
       })
   }
@@ -219,7 +224,7 @@ export class SimuladorComponent implements OnInit {
 
     //formula para el CAE
     let fCae = (administracion + costo_anual + gastos_operacionales) / (montoPreAprobado + deuda_hipotecaria + contribuciones) || 0;
-    fCae = (fCae < 0) ? 0: fCae;
+    fCae = (fCae < 0) ? 0 : fCae;
     this.formSimulacion.patchValue({
       valorContrato: formateadorMiles(valor_contrato.toString()),
       cae: formateadorMilesDesdeBase(fCae.toString()),
@@ -237,7 +242,11 @@ export class SimuladorComponent implements OnInit {
             titulo: response.ok ? 'Exito' : "Atención",
             mensaje: response.data.mensaje
           })
-          if (response.ok) cerrarModal()
+          if (response.ok) {
+            cerrarModal()
+            this.obtenerSimulaciones();
+          }
+
         },
         error: (error: HttpErrorResponse) => {
           errorConexionServidor(error)

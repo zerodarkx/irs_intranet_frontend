@@ -17,7 +17,7 @@ import { mostrarMensaje, IconoSweetAlert } from 'src/app/shared/utils/sweetAlert
 import { rutValidator, soloNumerosFormulario, validarCorreoInstitucional } from 'src/app/shared/utils/validadores';
 
 @Component({
-  selector: 'app-nuevo-cliente',
+  selector: 'cliente-nuevo',
   templateUrl: './nuevo-cliente.component.html',
   styleUrls: ['./nuevo-cliente.component.css']
 })

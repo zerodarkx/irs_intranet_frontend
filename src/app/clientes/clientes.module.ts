@@ -9,7 +9,7 @@ import { TableModule } from 'primeng/table';
 
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { FichaComiteComponent } from './components/ficha-comite/ficha-comite.component';
-import { InicioComponent } from './components/inicio/inicio.component';
+import { DetalleClienteComponent } from './components/detalle-cliente/detalle-cliente.component';
 import { LayoutClienteComponent } from './pages/layout-cliente/layout-cliente.component';
 import { NuevoClienteComponent } from './pages/nuevo-cliente/nuevo-cliente.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
@@ -24,7 +24,7 @@ import { GestionComponent } from './components/gestion/gestion.component';
 @NgModule({
   declarations: [
     LayoutClienteComponent,
-    InicioComponent,
+    DetalleClienteComponent,
     DocumentosComponent,
     FichaComiteComponent,
     ReservaComponent,

@@ -17,16 +17,16 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { TipoDocuentosService } from 'src/app/services/tipo-documentos.service';
 import { TipoImagenesService } from 'src/app/services/tipo-imagenes.service';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
-import { environment } from 'src/environments2/environments';
+import { env } from 'src/environments/environment.development';
 
 @Component({
-  selector: 'app-documentos',
+  selector: 'cliente-documentos',
   templateUrl: './documentos.component.html',
   styleUrls: ['./documentos.component.css']
 })
 export class DocumentosComponent {
 
-  url: string = environment.descargaUrl;
+  url: string = env.descargaUrl;
   fechaNueva: string = new Date().getTime().toString();
 
   isAlertVisible: boolean = false;

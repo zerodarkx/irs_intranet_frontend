@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LayoutClienteComponent } from './pages/layout-cliente/layout-cliente.component';
-import { InicioComponent } from './components/inicio/inicio.component';
+import { DetalleClienteComponent } from './components/detalle-cliente/detalle-cliente.component';
 import { SimuladorComponent } from './components/simulador/simulador.component';
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
@@ -24,7 +24,7 @@ const routes: Routes = [
     path: ':idCliente',
     component: LayoutClienteComponent,
     children: [
-      { path: 'detalle', component: InicioComponent },
+      { path: 'detalle', component: DetalleClienteComponent },
       { path: 'documentos', component: DocumentosComponent },
       { path: 'fichaComite', component: FichaComiteComponent },
       { path: 'reserva', component: ReservaComponent },

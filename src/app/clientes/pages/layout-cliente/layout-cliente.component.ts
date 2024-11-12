@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
-  selector: 'app-layout-cliente',
+  selector: 'cliente-layout',
   templateUrl: './layout-cliente.component.html',
   styles: []
 })

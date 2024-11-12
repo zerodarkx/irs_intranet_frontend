@@ -15,7 +15,7 @@ import { validarFechas } from 'src/app/shared/utils/validadores';
 
 
 @Component({
-  selector: 'app-buscar-cliente',
+  selector: 'cliente-buscar',
   templateUrl: './buscar-cliente.component.html',
   styleUrls: ['./buscar-cliente.component.css']
 })

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-base-inicio',
+  selector: 'inicio-base',
   templateUrl: './base-inicio.component.html',
   styleUrls: ['./base-inicio.component.css']
 })

@@ -1645,28 +1645,7 @@
       <div class="col-md-12">
         <h4>Otras Indicaciones de Valor</h4>
       </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-md-3 align-self-center">Liquidador</div>
-      <div class="col-md-3">
-        <label for="">VMS (Valor Minimo)</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="precioLiquidacion"
-        />
-      </div>
-      <div class="col-md-3">
-        <label for="">Valor Esperado</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="liquidador_vms"
-        />
-      </div>
-    </div>
+    </div>    
     <div class="row mt-3">
       <div class="col-md-3 align-self-center">
         <label for="">Precio de Liquidacón</label>
@@ -1677,7 +1656,7 @@
           type="text"
           (change)="formateadorMiles($event)"
           class="form-control"
-          formControlName="liquidador_valoresperado"
+          formControlName="precioLiquidacion"
         />
       </div>
     </div>
@@ -1846,15 +1825,6 @@
           formControlName="comision"
           (change)="detalleComitePropuesta()"
         />
-      </div>
-      <div class="col-md-3 mt-3">
-        <button
-          type="button"
-          class="btn btn-warning btn-block"
-          (click)="calcularLiquidoFichaComite()"
-        >
-          Calcular Liquido
-        </button>
       </div>
     </div>
     <div class="row mt-4">

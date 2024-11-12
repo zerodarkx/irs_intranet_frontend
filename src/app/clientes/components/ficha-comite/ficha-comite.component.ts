@@ -23,7 +23,7 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 import { rutValidator, soloNumerosFormulario } from 'src/app/shared/utils/validadores';
 
 @Component({
-  selector: 'app-ficha-comite',
+  selector: 'cliente-ficha-comite',
   templateUrl: './ficha-comite.component.html',
   styleUrls: ['./ficha-comite.component.css']
 })
@@ -127,12 +127,6 @@ export class FichaComiteComponent {
       soloNumerosFormulario
     ]],
     precioLiquidacion: ['', [
-      soloNumerosFormulario
-    ]],
-    liquidador_vms: ['', [
-      soloNumerosFormulario
-    ]],
-    liquidador_valoresperado: ['', [
       soloNumerosFormulario
     ]],
     avaluoFiscal: ['', [
@@ -292,6 +286,9 @@ export class FichaComiteComponent {
         renta_anual: formateadorMilesDesdeBase(renta_anual),
         administracion: formateadorMiles(administracion),
       });
+
+      this.calcularLiquidoFichaComite();
+
     }
   }
 
@@ -398,9 +395,7 @@ export class FichaComiteComponent {
               cinstruccionEstimado_uf: formateadorMilesDesdeBase(response.data.cinstruccionEstimado_uf),
               cinstruccionEstimado_m2: formateadorMilesDesdeBase(response.data.cinstruccionEstimado_m2),
               propiedadEstimado_uf: formateadorMilesDesdeBase(response.data.propiedadEstimado_uf),
-              precioLiquidacion: formateadorMilesDesdeBase(response.data.precioLiquidacion),
-              liquidador_vms: formateadorMilesDesdeBase(response.data.liquidador_vms),
-              liquidador_valoresperado: formateadorMilesDesdeBase(response.data.liquidador_valoresperado),
+              precioLiquidacion: formateadorMilesDesdeBase(response.data.precioLiquidacion),              
               avaluoFiscal: formateadorMilesDesdeBase(response.data.avaluoFiscal),
               velocidadVenta: response.data.velocidadVenta || '',
               valor_uf: formateadorMilesDesdeBase(response.data.valor_uf),

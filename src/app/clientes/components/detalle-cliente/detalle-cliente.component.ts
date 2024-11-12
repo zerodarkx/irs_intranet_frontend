@@ -21,11 +21,11 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { IconoSweetAlert, mostrarMensaje, errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
-  selector: 'app-inicio',
-  templateUrl: './inicio.component.html',
+  selector: 'cliente-detalle',
+  templateUrl: './detalle-cliente.component.html',
   styles: []
 })
-export class InicioComponent implements OnInit {
+export class DetalleClienteComponent implements OnInit {
 
   //variables para datos que son solo visuales
   nombreEstado!: string
