@@ -116,11 +116,13 @@ export class NuevoClienteComponent {
   formateadorMiles(event: Event) {
     const input = (event.target as HTMLInputElement)
     input.value = formateadorMiles(input.value)
+    this.miFormulario.get(input.getAttribute('formControlName')!)?.setValue(input.value)
   }
 
   soloNumeros(event: Event): void {
     const input = (event.target as HTMLInputElement)
     input.value = soloNumeros(input.value)
+    this.miFormulario.get(input.getAttribute('formControlName')!)?.setValue(input.value)
   }
 
   validarDatos(campo: string): boolean {

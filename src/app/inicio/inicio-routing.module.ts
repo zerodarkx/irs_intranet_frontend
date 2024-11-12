@@ -4,12 +4,12 @@ import { BaseInicioComponent } from './pages/base-inicio/base-inicio.component';
 
 const routes: Routes = [
   {
-    path: 'inicio',
+    path: '',
     component: BaseInicioComponent,
   },
   {
     path: '**',
-    redirectTo: 'inicio',
+    redirectTo: '',
     pathMatch: 'full'
   }
 ];

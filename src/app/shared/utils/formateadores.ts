@@ -33,11 +33,10 @@ export function soloNumeros(valor: string): string {
 }
 
 export function formateadorMiles(valor: string | number): string {
-    if (!valor) {
+    valor = valor.toString()
+    if (!valor || valor.includes(' ')) {
         return '0,00';
     }
-    valor = valor.toString()
-
     if(valor.includes(',')){
         valor = valor.replaceAll('.', '')
         valor = valor.replace(',', '.')
