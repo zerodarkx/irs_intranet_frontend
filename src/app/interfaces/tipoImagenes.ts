@@ -7,3 +7,14 @@ export interface ResultadoTipoImagenes {
     ok: boolean;
     data: ITipoImagen[];
 }
+
+export interface ResultadoAccionesTipoImagenes{
+    ok: boolean;
+    data: AccionesTipoTipoImagenes
+}
+
+export interface AccionesTipoTipoImagenes {
+    mensaje: string;
+    titulo: string;
+    icono: string;
+}

@@ -79,10 +79,18 @@ export function validarFechas(fechaDesdeKey: string, fechaHastaKey: string): Val
         const fechaDesde = formGroup.get(fechaDesdeKey)?.value;
         const fechaHasta = formGroup.get(fechaHastaKey)?.value;
 
-        if(!fechaDesde && fechaHasta) return { fechaRangoInvalido: true};
+        if (!fechaDesde && fechaHasta) return { fechaRangoInvalido: true };
         if (!fechaDesde || !fechaHasta) return null;
 
         const isInvalid = new Date(fechaDesde) > new Date(fechaHasta);
         return isInvalid ? { fechaRangoInvalido: true } : null;
+    }
+}
+
+export function validarPassword(password1: string, password2: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+        const pass = formGroup.get(password1)?.value;
+        const confirmPass = formGroup.get(password2)?.value;
+        return pass === confirmPass ? null : { passwordNotMach: true };
     }
 }

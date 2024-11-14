@@ -13,7 +13,11 @@
     <div class="card-body mb-4">
       <div class="row mt-2">
         <div class="col-md-12">
-          <a [routerLink]="['/cliente', 'nuevoCliente']" class="btn btn-success w-100">Nuevo Cliente</a>
+          <a
+            [routerLink]="['/cliente', 'nuevoCliente']"
+            class="btn btn-success w-100"
+            >Nuevo Cliente</a
+          >
         </div>
       </div>
       <!-- FILTROS PARA LA BUSQUEDA -->
@@ -154,7 +158,7 @@
                 </div>
                 <div class="col-md-6">
                   <input
-                    iBuscarTodo
+                    #iBuscarTodo
                     type="text"
                     class="form-control"
                     (input)="handleFilter($event)"
@@ -175,13 +179,13 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">ID Cliente</label>
-                    <div class="">
-                      <p-sortIcon field="id"></p-sortIcon>
+                    <div class="d-flex flex-column">
                       <p-columnFilter
                         type="text"
                         field="id"
                         display="menu"
                       ></p-columnFilter>
+                      <p-sortIcon field="id"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -193,13 +197,13 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">Nombre Cliente</label>
-                    <div class="">
-                      <p-sortIcon field="nom_cli"></p-sortIcon>
+                    <div class="d-flex flex-column">
                       <p-columnFilter
                         type="text"
                         field="nom_cli"
                         display="menu"
                       ></p-columnFilter>
+                      <p-sortIcon field="nom_cli"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -211,13 +215,13 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">Tipo Propiedad</label>
-                    <div class="">
-                      <p-sortIcon field="propiedad"></p-sortIcon>
+                    <div class="d-flex flex-column">
                       <p-columnFilter
                         type="text"
                         field="propiedad"
                         display="menu"
                       ></p-columnFilter>
+                      <p-sortIcon field="propiedad"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -226,28 +230,13 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">Comuna</label>
-                    <div class="">
-                      <p-sortIcon field="com"></p-sortIcon>
+                    <div class="d-flex flex-column">
                       <p-columnFilter
                         type="text"
                         field="com"
                         display="menu"
                       ></p-columnFilter>
-                    </div>
-                  </div>
-                </th>
-                <th pSortableColumn="dEst" [style]="{ 'min-width': '200px' }">
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <label for="">Deuda Estimada</label>
-                    <div class="">
-                      <p-sortIcon field="dEst"></p-sortIcon>
-                      <p-columnFilter
-                        type="text"
-                        field="dEst"
-                        display="menu"
-                      ></p-columnFilter>
+                      <p-sortIcon field="com"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -256,13 +245,28 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">Valor Comercial</label>
-                    <div class="">
-                      <p-sortIcon field="vCom"></p-sortIcon>
+                    <div class="d-flex flex-column">
                       <p-columnFilter
                         type="text"
                         field="vCom"
                         display="menu"
                       ></p-columnFilter>
+                      <p-sortIcon field="vCom"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="dEst" [style]="{ 'min-width': '200px' }">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Deuda Estimada</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter
+                        type="text"
+                        field="dEst"
+                        display="menu"
+                      ></p-columnFilter>
+                      <p-sortIcon field="dEst"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -274,13 +278,13 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">Nombre Ejecutivo</label>
-                    <div class="">
-                      <p-sortIcon field="nombre_ejecutivo"></p-sortIcon>
+                    <div class="d-flex flex-column">
                       <p-columnFilter
                         type="text"
                         field="nombre_ejecutivo"
                         display="menu"
                       ></p-columnFilter>
+                      <p-sortIcon field="nombre_ejecutivo"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -289,13 +293,13 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">Plataforma</label>
-                    <div class="">
-                      <p-sortIcon field="origen"></p-sortIcon>
+                    <div class="d-flex flex-column">
                       <p-columnFilter
                         type="text"
                         field="origen"
                         display="menu"
                       ></p-columnFilter>
+                      <p-sortIcon field="origen"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -304,12 +308,14 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">Tipo Canal</label>
-                    <p-sortIcon field="canal"></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="canal"
-                      display="menu"
-                    ></p-columnFilter>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter
+                        type="text"
+                        field="canal"
+                        display="menu"
+                      ></p-columnFilter>
+                      <p-sortIcon field="canal"></p-sortIcon>
+                    </div>
                   </div>
                 </th>
                 <th pSortableColumn="estado" [style]="{ 'min-width': '150px' }">
@@ -317,13 +323,13 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">Estado</label>
-                    <div class="">
-                      <p-sortIcon field="estado"></p-sortIcon>
+                    <div class="d-flex flex-column">
                       <p-columnFilter
                         type="text"
                         field="estado"
                         display="menu"
                       ></p-columnFilter>
+                      <p-sortIcon field="estado"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -335,13 +341,13 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">Fecha Ingreso</label>
-                    <div class="">
-                      <p-sortIcon field="fec_ingreso"></p-sortIcon>
+                    <div class="d-flex flex-column">
                       <p-columnFilter
                         type="text"
                         field="fec_ingreso"
                         display="menu"
                       ></p-columnFilter>
+                      <p-sortIcon field="fec_ingreso"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -353,13 +359,13 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <label for="">Fecha Contacto</label>
-                    <div class="">
-                      <p-sortIcon field="fec_contacto"></p-sortIcon>
+                    <div class="d-flex flex-column">
                       <p-columnFilter
                         type="text"
                         field="fec_contacto"
                         display="menu"
                       ></p-columnFilter>
+                      <p-sortIcon field="fec_contacto"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -376,8 +382,8 @@
                 <td>{{ cliente.nom_cli }}</td>
                 <td>{{ cliente.propiedad }}</td>
                 <td>{{ cliente.com }}</td>
-                <td>{{ cliente.dEst }}</td>
-                <td>{{ cliente.vCom }}</td>
+                <td>{{ cliente.vCom | currencyPesoChileno}}</td>
+                <td>{{ cliente.dEst | currencyPesoChileno}}</td>
                 <td>{{ cliente.nombre_ejecutivo }}</td>
                 <td>{{ cliente.origen }}</td>
                 <td>{{ cliente.canal }}</td>

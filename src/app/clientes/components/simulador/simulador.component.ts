@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { ISimulador, ResultadoCrearSimulacion, ResultadoObtenerTodasSimulacionPorCliente } from '../../../interfaces/simulador';
-import { ITipoCanales, ResultadoComisionTasaByID, ResultadoTipoClientesTodos } from '../../../interfaces/tipoCanales';
+import { ITipoCanales, ResultadoComisionTasaByID, ResultadoCanalesSimulacion } from '../../../interfaces/tipoSimulacionCanales';
 import { IBancos, ResultadoTodosBancos } from 'src/app/interfaces/bancos';
 
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase, soloNumeros } from 'src/app/shared/utils/formateadores';
-import { TipoCanalService } from 'src/app/services/tipo-canal.service';
+import { TipoSimulacionCanalService } from 'src/app/services/tipo-simulacion-canal.service';
 import { BancoService } from 'src/app/services/banco.service';
 import { SimuladorService } from 'src/app/services/simulador.service';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
@@ -81,7 +81,7 @@ export class SimuladorComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private sTipoCanal: TipoCanalService,
+    private sTipoCanal: TipoSimulacionCanalService,
     private sBanco: BancoService,
     private sSimulador: SimuladorService,
     private sCliente: ClienteService,
@@ -94,7 +94,7 @@ export class SimuladorComponent implements OnInit {
   cargarDatosService() {
     this.sTipoCanal.obtenerTodosTipoCanales()
       .subscribe({
-        next: ({ data }: ResultadoTipoClientesTodos) => {
+        next: ({ data }: ResultadoCanalesSimulacion) => {
           this.canales = data
         },
         error: (error: HttpErrorResponse) => {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ResultadoObtenerTodosTipoPropiedad } from '../interfaces/tipoPropiedad';
+import { ResultadoAccionesTipoPropiedad, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad } from '../interfaces/tipoPropiedad';
 import { Observable } from 'rxjs';
 import { env } from 'src/environments/environment.development';
 import { HttpClient } from '@angular/common/http';
@@ -18,5 +18,15 @@ export class TipoPropiedadService {
   obtenerTodasLosTipoPropiedad(): Observable<ResultadoObtenerTodosTipoPropiedad> {
     let url = `${this.url_base}/obtenerTodosTiposPropiedad`;
     return this.http.get<ResultadoObtenerTodosTipoPropiedad>(url);
+  }
+
+  agregarTipoPropiedad(data: TipoPropiedad): Observable<ResultadoAccionesTipoPropiedad> {
+    let url = `${this.url_base}/agregarTiposPropiedad`;
+    return this.http.post<ResultadoAccionesTipoPropiedad>(url, data);
+  }
+
+  editarTipoPropiedad(data: TipoPropiedad): Observable<ResultadoAccionesTipoPropiedad> {
+    let url = `${this.url_base}/editarTiposPropiedad`;
+    return this.http.put<ResultadoAccionesTipoPropiedad>(url, data);
   }
 }

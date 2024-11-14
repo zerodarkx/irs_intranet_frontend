@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
@@ -22,7 +22,7 @@ import { validarFechas } from 'src/app/shared/utils/validadores';
 export class BuscarClienteComponent implements OnInit {
 
   @ViewChild('tabla') tabla!: Table;
-  // @ViewChild('iBuscarTodo') iBuscarTodo!: InputText
+  @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
   ;
   loading: boolean = true;
   clientes: TodosClientes[] = []
@@ -63,7 +63,7 @@ export class BuscarClienteComponent implements OnInit {
 
   clear(table: Table) {
     table.clear();
-    // this.iBuscarTodo('')
+    this.iBuscarTodo.nativeElement.value = ''
   }
 
   handleFilter(event: Event) {

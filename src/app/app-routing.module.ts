@@ -9,12 +9,17 @@ const routes: Routes = [
   },
   {
     path: 'inicio',
-    loadChildren: ()=> import('./inicio/inicio.module').then( m => m.InicioModule),
+    loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'cliente',
     loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'mantendores',
+    loadChildren: () => import('./mantenedores/mantenedores.module').then(m => m.MantenedoresModule),
     canActivate: [AuthGuard]
   },
   {

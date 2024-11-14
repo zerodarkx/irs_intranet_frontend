@@ -6,7 +6,7 @@ export interface ITipoCanales {
     det_canalSimulacion: string;
 }
 
-export interface ResultadoTipoClientesTodos {
+export interface ResultadoCanalesSimulacion {
     ok: boolean;
     data: ITipoCanales[];
 }
@@ -19,4 +19,15 @@ export interface ResultadoComisionTasaByID {
 export interface TipoCanales {
     comision_canal: string;
     renta_mensual: string;
+}
+
+export interface ResultadoAccionesCanalSimulacion{
+    ok: boolean;
+    data: AccionesCanalSimulacion
+}
+
+export interface AccionesCanalSimulacion {
+    mensaje: string;
+    titulo: string;
+    icono: string;
 }

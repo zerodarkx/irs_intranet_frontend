@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary sticky-top" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" [routerLink]="['/']">IRS INVERSIONES</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link fs-3" [routerLink]="['/mantendores']" routerLinkActive="active">Mantenedores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-3" [routerLink]="['usuario']" routerLinkActive="active">Usuario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-3" [routerLink]="['tipoPerfiles']" routerLinkActive="active">Tipo Perfiles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-3" [routerLink]="['tipoPropiedad']" routerLinkActive="active">Tipo Propiedades</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-3" [routerLink]="['tipoImagen']" routerLinkActive="active">Tipo Imagenes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-3" [routerLink]="['tipoDocumento']" routerLinkActive="active">Tipo Documentos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-3" [routerLink]="['tipoCanalContacto']" routerLinkActive="active">Tipo Canal Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-3" [routerLink]="['lineaNegocio']" routerLinkActive="active">Linea Negocio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-3" [routerLink]="['canalSimulacion']" routerLinkActive="active">Canal Simulacion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-3" [routerLink]="['estadoCliente']" routerLinkActive="active">Estados Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-3" style="cursor: pointer;" (click)="cerrarSession()">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
