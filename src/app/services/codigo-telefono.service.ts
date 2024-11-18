@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { env } from 'src/environments/environment.development';
+import { env } from 'src/environments/environment';
 import { ResultadoObtenerTodosCodigoTelefono } from '../interfaces/telefonoCodigo';
 
 @Injectable({

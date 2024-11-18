@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { env } from 'src/environments/environment.development';
+import { env } from 'src/environments/environment';
 import { ISimulador, ResultadoCrearSimulacion, ResultadoObtenerSimulacionPorCliente, ResultadoObtenerTodasSimulacionPorCliente } from '../interfaces/simulador';
 import { ClienteService } from './cliente.service';
 

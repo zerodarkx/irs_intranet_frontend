@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { GestionCliente, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoGestionCliente, ResultadoObtenerClienteById, ResultadoObtenerTodosClientes, ResultadoObtenerTodosDocumentosCliente, ResultadoObtenerTodosImagenCliente, ResultadoSubirDocumentoImagen } from '../interfaces/cliente';
-import { env } from 'src/environments/environment.development';
+import { env } from 'src/environments/environment';
 import { ResultadoObtenerFichaComite } from '../interfaces/fichaComite';
 
 @Injectable({

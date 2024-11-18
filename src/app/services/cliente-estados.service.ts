@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { env } from 'src/environments/environment.development';
+import { env } from 'src/environments/environment';
 import { ResultadoAccionesClienteEstados, ResultadoClienteEstados } from '../interfaces/clienteEstados';
 import { Observable } from 'rxjs';
 

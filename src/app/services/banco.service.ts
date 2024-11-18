@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { env } from "../../environments/environment.development";
+import { env } from "../../environments/environment";
 
 import { ResultadoTodosBancos } from '../interfaces/bancos';
 

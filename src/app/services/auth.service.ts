@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormularioLogin, ResultadoAuthLogin, ValidarSession } from '../interfaces/auth';
 import { Router } from '@angular/router';
-import { env } from 'src/environments/environment.development';
+import { env } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

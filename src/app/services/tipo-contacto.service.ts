@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { env } from 'src/environments/environment.development';
+import { env } from 'src/environments/environment';
 import { ResultadoAccionTipoCanalContacto, ResultadoTipoCanalContacto, TipoCanalContacto } from '../interfaces/tipoContacto';
 import { Observable } from 'rxjs';
 
