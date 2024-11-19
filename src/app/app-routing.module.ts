@@ -18,7 +18,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'mantendores',
+    path: 'mantenedores',
     loadChildren: () => import('./mantenedores/mantenedores.module').then(m => m.MantenedoresModule),
     canActivate: [AuthGuard]
   },

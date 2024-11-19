@@ -20,3 +20,12 @@
 }
 
 @layer reset, primeng;
+
+.fondoTodo {
+    background-color: #e3f2fd;
+    min-height: 80vh
+}
+
+.fondoNavBar {
+    background-color: #e3f2fd!important;
+}

@@ -1,1 +1,16 @@
-<p>inicio-mantendor works!</p>
+<div class="row">
+  <div class="col-md-3 p-3" *ngFor="let rutas of rutasMantenedroes">
+    <div class="card">
+      <div class="card-header">
+        {{ rutas.name }}
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <a class="btn btn-primary w-50" [routerLink]="['/mantendores', rutas.ruta]">Ir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

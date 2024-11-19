@@ -14,6 +14,7 @@ import { SimuladorService } from 'src/app/services/simulador.service';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ResultadoObtenerClienteById } from 'src/app/interfaces/cliente';
+import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
 
 
 
@@ -85,6 +86,7 @@ export class SimuladorComponent implements OnInit {
     private sBanco: BancoService,
     private sSimulador: SimuladorService,
     private sCliente: ClienteService,
+    private sExportarPDF: ExportarPdfService
   ) { }
 
   ngOnInit(): void {
@@ -252,6 +254,25 @@ export class SimuladorComponent implements OnInit {
           errorConexionServidor(error)
         }
       })
+  }
+
+  descargarSimulacion(simulacion: ISimulador){
+    this.sExportarPDF.exportarSimulacionPdf(simulacion.id_simulacion)
+    .subscribe({
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `simulacion_cliente_${simulacion.id_cliente}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error: HttpErrorResponse) => {
+        errorConexionServidor(error);
+      }
+    });
   }
 
 

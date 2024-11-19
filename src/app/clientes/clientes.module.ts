@@ -15,9 +15,7 @@ import { NuevoClienteComponent } from './pages/nuevo-cliente/nuevo-cliente.compo
 import { ReservaComponent } from './components/reserva/reserva.component';
 import { SimuladorComponent } from './components/simulador/simulador.component';
 import { BuscarClienteComponent } from './pages/buscar-cliente/buscar-cliente.component';
-import { NavbarBuscarClienteComponent } from './components/navbar/buscar-cliente/buscar-cliente.component';
 import { NavbarClienteDetalleComponent } from './components/navbar/cliente-detalle/cliente-detalle.component';
-import { NavbarAgregarClienteComponent } from './components/navbar/agregar-cliente/agregar-cliente.component';
 import { GestionComponent } from './components/gestion/gestion.component';
 
 
@@ -31,9 +29,7 @@ import { GestionComponent } from './components/gestion/gestion.component';
     SimuladorComponent,
     NuevoClienteComponent,
     BuscarClienteComponent,
-    NavbarBuscarClienteComponent,
     NavbarClienteDetalleComponent,
-    NavbarAgregarClienteComponent,
     GestionComponent,
   ],
   imports: [

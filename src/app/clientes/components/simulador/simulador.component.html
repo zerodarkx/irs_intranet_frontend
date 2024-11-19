@@ -76,7 +76,7 @@
           src="/assets/descargables/icono_pdf.png"
           alt="imagen pdf descargar"
           class="w-100 h-100 iconos"
-          onclick="descargarSimulacion(descarga_simulacion,1)"
+          (click)="descargarSimulacion(sim)"
         />
       </div>
       <div *ngIf="!ultimo" class="lineaSeparadora mt-4"></div>
