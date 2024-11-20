@@ -3,7 +3,7 @@ name: 'Build and Test Vue app'
 on:
   push:
     branches:
-      - main
+      - master
 #oidc encima de oauth 2.0
 permissions:
   id-token: write
