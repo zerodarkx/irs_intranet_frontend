@@ -1,6 +1,6 @@
 .fondoLogin {
     /* Cambia esta ruta por la URL de tu imagen */
-    background-image: url('/assets/images.jpg');
+    background-image: url('/assets/login.jpg');
     /* Ajusta la imagen para cubrir toda la pantalla */
     background-size: cover;
     /* Centra la imagen */
