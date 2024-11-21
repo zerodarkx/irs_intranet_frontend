@@ -259,7 +259,8 @@ export class SimuladorComponent implements OnInit {
   descargarSimulacion(simulacion: ISimulador){
     this.sExportarPDF.exportarSimulacionPdf(simulacion.id_simulacion)
     .subscribe({
-      next: (blob: Blob) => {
+      next: (response: any) => {
+        const blob = new Blob([new Uint8Array(response.data).buffer])
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -270,6 +271,8 @@ export class SimuladorComponent implements OnInit {
         window.URL.revokeObjectURL(url);
       },
       error: (error: HttpErrorResponse) => {
+        console.log(error);
+        
         errorConexionServidor(error);
       }
     });

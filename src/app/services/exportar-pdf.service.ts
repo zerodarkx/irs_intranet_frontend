@@ -14,8 +14,8 @@ export class ExportarPdfService {
     private http: HttpClient
   ) { }
 
-  exportarSimulacionPdf(id_simulacion: number): Observable<Blob> {
+  exportarSimulacionPdf(id_simulacion: number): Observable<any> {
     let url = `${this.url_base}/descargarSimulacion/${id_simulacion}`;
-    return this.http.post(url, {}, { responseType: 'blob' });
+    return this.http.post<any>(url, {});
   }
 }
