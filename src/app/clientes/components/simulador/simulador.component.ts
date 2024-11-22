@@ -15,6 +15,7 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ResultadoObtenerClienteById } from 'src/app/interfaces/cliente';
 import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
+import { exportarPdf } from 'src/app/interfaces/exportar';
 
 
 
@@ -259,12 +260,12 @@ export class SimuladorComponent implements OnInit {
   descargarSimulacion(simulacion: ISimulador){
     this.sExportarPDF.exportarSimulacionPdf(simulacion.id_simulacion)
     .subscribe({
-      next: (response: any) => {
-        const blob = new Blob([new Uint8Array(response.data).buffer])
+      next: (response: exportarPdf) => {
+        const blob = new Blob([new Uint8Array(response.archivo.data).buffer])
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `simulacion_cliente_${simulacion.id_cliente}.pdf`;
+        a.download = response.nombre_archivo;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

@@ -4,7 +4,7 @@
       <h3>Ficha Comite</h3>
     </div>
     <div class="col-md-6" style="text-align: right">
-      <button class="btn btn-success">Exportar Ficha</button>
+      <button class="btn btn-success" (click)="exportarFicha()">Exportar Ficha</button>
     </div>
   </div>
   <div class="row-mt-2">
@@ -16,98 +16,51 @@
     <div class="row mt-2">
       <div class="col-md-4">
         <label for="">Nombre(s)</label>
-        <input
-          type="text"
-          (change)="mayuscula($event)"
-          class="form-control"
-          formControlName="nom_cliente"
-        />
+        <input type="text" (change)="mayuscula($event)" class="form-control" formControlName="nom_cliente" />
       </div>
       <div class="col-md-4">
         <label for="">Rut</label>
-        <input
-          type="text"
-          (keyup)="formatearRut($event)"
-          class="form-control"
-          formControlName="rut"
-        />
+        <input type="text" (keyup)="formatearRut($event)" class="form-control" formControlName="rut" />
       </div>
       <div class="col-md-4">
         <label for="">Profesión</label>
-        <input
-          type="text"
-          (change)="mayuscula($event)"
-          class="form-control"
-          formControlName="profesion"
-        />
+        <input type="text" (change)="mayuscula($event)" class="form-control" formControlName="profesion" />
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-md-6">
         <label for="">Dirección</label>
-        <input
-          type="text"
-          (change)="mayuscula($event)"
-          class="form-control"
-          formControlName="direccion"
-        />
+        <input type="text" (change)="mayuscula($event)" class="form-control" formControlName="direccion" />
       </div>
       <div class="col-md-3">
         <label for="">Región</label>
-        <ng-select
-          [items]="selectRegiones"
-          placeholder="Seleccionar Region"
-          bindValue="id_region"
-          bindLabel="nombre_region"
-          notFoundText="No se encontraron coincidencias"
-          formControlName="id_region"
-          (change)="changeComuna($event)"
-        >
+        <ng-select [items]="selectRegiones" placeholder="Seleccionar Region" bindValue="id_region"
+          bindLabel="nombre_region" notFoundText="No se encontraron coincidencias" formControlName="id_region"
+          (change)="changeComuna($event)">
         </ng-select>
       </div>
       <div class="col-md-3">
         <label for="">Comuna</label>
-        <ng-select
-          [items]="selectComunas"
-          placeholder="Seleccionar Comuna"
-          bindValue="id_comuna"
-          bindLabel="nombre_comuna"
-          notFoundText="No se encontraron coincidencias"
-          formControlName="id_comuna"
-        >
+        <ng-select [items]="selectComunas" placeholder="Seleccionar Comuna" bindValue="id_comuna"
+          bindLabel="nombre_comuna" notFoundText="No se encontraron coincidencias" formControlName="id_comuna">
         </ng-select>
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-md-1">
         <label for="">Código Telefónico</label>
-        <select
-          name="cod_telefono"
-          id="cod_telefono"
-          class="select form-select"
-          formControlName="id_codigo_telefono"
-        >
+        <select name="cod_telefono" id="cod_telefono" class="select form-select" formControlName="id_codigo_telefono">
           <option value="">Seleccione</option>
           <option value="1">+569</option>
         </select>
       </div>
       <div class="col-md-2">
         <label for="">Telefóno</label>
-        <input
-          type="text"
-          (keyup)="soloNumeros($event)"
-          class="form-control"
-          formControlName="telefono"
-        />
+        <input type="text" (keyup)="soloNumeros($event)" class="form-control" formControlName="telefono" />
       </div>
       <div class="col-md-3">
         <label for="">Contacto Empresa</label>
-        <input
-          type="text"
-          (keyup)="soloNumeros($event)"
-          class="form-control"
-          formControlName="tel_empresa"
-        />
+        <input type="text" (keyup)="soloNumeros($event)" class="form-control" formControlName="tel_empresa" />
       </div>
       <div class="col-md-3">
         <label for="">Email</label>
@@ -121,10 +74,7 @@
     <div class="row mt-2">
       <div class="col-md-12">
         <label for="">Más Información</label>
-        <textarea
-          class="form-control"
-          formControlName="resena_cliente"
-        ></textarea>
+        <textarea class="form-control" formControlName="resena_cliente"></textarea>
       </div>
     </div>
     <hr class="border-success" />
@@ -136,38 +86,21 @@
     <div class="row mt-2">
       <div class="col-md-6">
         <label for="">Compañia</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="nom_compania"
-        />
+        <input type="text" class="form-control" formControlName="nom_compania" />
       </div>
       <div class="col-md-6">
         <label for="">Rut</label>
-        <input
-          type="text"
-          (keyup)="formatearRut($event)"
-          class="form-control"
-          formControlName="rut_empresa"
-        />
+        <input type="text" (keyup)="formatearRut($event)" class="form-control" formControlName="rut_empresa" />
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-md-6">
         <label for="">Participación</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="participacion_empresa"
-        />
+        <input type="text" class="form-control" formControlName="participacion_empresa" />
       </div>
       <div class="col-md-6">
         <label for="">Giro</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="giro_empresa"
-        />
+        <input type="text" class="form-control" formControlName="giro_empresa" />
       </div>
     </div>
     <hr class="border-success" />
@@ -179,19 +112,11 @@
     <div class="row mt-2">
       <div class="col-md-6">
         <label for="">Reseña Cliente</label>
-        <textarea
-          class="form-control"
-          placeholder="Ingrese Observación"
-          formControlName="desResCli"
-        ></textarea>
+        <textarea class="form-control" placeholder="Ingrese Observación" formControlName="desResCli"></textarea>
       </div>
       <div class="col-md-6">
         <label for="">¿Para que necesita realizar la operación?</label>
-        <textarea
-          class="form-control"
-          placeholder="Ingrese Observación"
-          formControlName="desNesOpe"
-        ></textarea>
+        <textarea class="form-control" placeholder="Ingrese Observación" formControlName="desNesOpe"></textarea>
       </div>
     </div>
     <div class="row mt-2">
@@ -201,46 +126,29 @@
         <div class="row">
           <div class="col-md-4">
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="desComReaCom1"
-                value="1"
-                formControlName="desComReaCom"
-              />
+              <input class="form-check-input" type="radio" id="desComReaCom1" value="Venta"
+                formControlName="desComReaCom" />
               <label class="form-check-label" for="desComReaCom1">
                 Venta
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="desComReaCom2"
-                value="2"
-                formControlName="desComReaCom"
-              />
+              <input class="form-check-input" type="radio" id="desComReaCom2" value="Refinanciamiento"
+                formControlName="desComReaCom" />
               <label class="form-check-label" for="desComReaCom2">
                 Refinanciamiento
               </label>
             </div>
           </div>
           <div class="col-md-8">
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="desComReaCom_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación"
+              formControlName="desComReaCom_obs"></textarea>
           </div>
         </div>
       </div>
       <div class="col-md-6 mt-2 validar">
         <label for="">Comentarios</label>
-        <textarea
-          class="form-control"
-          placeholder="Ingrese Observación"
-          formControlName="desComentario"
-        ></textarea>
+        <textarea class="form-control" placeholder="Ingrese Observación" formControlName="desComentario"></textarea>
       </div>
     </div>
     <hr class="border-success" />
@@ -259,40 +167,20 @@
       <div class="col-md-4">
         <div class="row">
           <div class="col-md-9">
-            <label for="" class="text-uppercase"
-              >Informes Comerciales (Sinacofi)</label
-            >
+            <label for="" class="text-uppercase">Informes Comerciales (Sinacofi)</label>
           </div>
           <div class="col-md-3 validar">
             <label for="">Documento</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perInfCom1"
-                value="SI"
-                formControlName="perInfCom"
-              />
+              <input class="form-check-input" type="radio" id="perInfCom1" value="SI" formControlName="perInfCom" />
               <label class="form-check-label" for="perInfCom1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perInfCom2"
-                value="NO"
-                formControlName="perInfCom"
-              />
+              <input class="form-check-input" type="radio" id="perInfCom2" value="NO" formControlName="perInfCom" />
               <label class="form-check-label" for="perInfCom2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perInfCom3"
-                value="N/A"
-                formControlName="perInfCom"
-              />
+              <input class="form-check-input" type="radio" id="perInfCom3" value="N/A" formControlName="perInfCom" />
               <label class="form-check-label" for="perInfCom3"> N/A </label>
             </div>
           </div>
@@ -303,37 +191,22 @@
           <div class="col-md-2 validar">
             <label for="">Cantidad</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perInfCom_cant1"
-                value="1"
-                formControlName="perInfCom_cant"
-              />
+              <input class="form-check-input" type="radio" id="perInfCom_cant1" value="0 - 3"
+                formControlName="perInfCom_cant" />
               <label class="form-check-label" for="perInfCom_cant1">
                 0 - 3
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perInfCom_cant2"
-                value="2"
-                formControlName="perInfCom_cant"
-              />
+              <input class="form-check-input" type="radio" id="perInfCom_cant2" value="4 - 10"
+                formControlName="perInfCom_cant" />
               <label class="form-check-label" for="perInfCom_cant2">
                 4 - 10
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perInfCom_cant3"
-                value="3"
-                formControlName="perInfCom_cant"
-              />
+              <input class="form-check-input" type="radio" id="perInfCom_cant3" value="10+"
+                formControlName="perInfCom_cant" />
               <label class="form-check-label" for="perInfCom_cant3">
                 10+
               </label>
@@ -342,37 +215,22 @@
           <div class="col-md-2 validar">
             <label for="">Monto UF</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perInfCom_monto1"
-                value="1"
-                formControlName="perInfCom_monto"
-              />
+              <input class="form-check-input" type="radio" id="perInfCom_monto1" value="0 - 10M"
+                formControlName="perInfCom_monto" />
               <label class="form-check-label" for="perInfCom_monto1">
                 0 - 10M
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perInfCom_monto2"
-                value="2"
-                formControlName="perInfCom_monto"
-              />
+              <input class="form-check-input" type="radio" id="perInfCom_monto2" value="10M - 30M"
+                formControlName="perInfCom_monto" />
               <label class="form-check-label" for="perInfCom_monto2">
                 10M - 30M
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perInfCom_monto3"
-                value="3"
-                formControlName="perInfCom_monto"
-              />
+              <input class="form-check-input" type="radio" id="perInfCom_monto3" value="30M+"
+                formControlName="perInfCom_monto" />
               <label class="form-check-label" for="perInfCom_monto3">
                 30M+
               </label>
@@ -380,11 +238,7 @@
           </div>
           <div class="col">
             <label for="">Observación</label>
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="perInfCom_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación" formControlName="perInfCom_obs"></textarea>
           </div>
         </div>
       </div>
@@ -399,33 +253,15 @@
           <div class="col-md-3 validar">
             <label for="">Seleccione</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perdeu1"
-                value="SI"
-                formControlName="perdeu"
-              />
+              <input class="form-check-input" type="radio" id="perdeu1" value="SI" formControlName="perdeu" />
               <label class="form-check-label" for="perdeu1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perdeu2"
-                value="NO"
-                formControlName="perdeu"
-              />
+              <input class="form-check-input" type="radio" id="perdeu2" value="NO" formControlName="perdeu" />
               <label class="form-check-label" for="perdeu2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perdeu3"
-                value="N/A"
-                formControlName="perdeu"
-              />
+              <input class="form-check-input" type="radio" id="perdeu3" value="N/A" formControlName="perdeu" />
               <label class="form-check-label" for="perdeu3"> N/A </label>
             </div>
           </div>
@@ -436,37 +272,22 @@
           <div class="col-md-3">
             <label for="">Estado Deuda</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perdeu_est1"
-                value="1"
-                formControlName="perdeu_est"
-              />
+              <input class="form-check-input" type="radio" id="perdeu_est1" value="Vigente"
+                formControlName="perdeu_est" />
               <label class="form-check-label" for="perdeu_est1">
                 Vigente
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perdeu_est2"
-                value="2"
-                formControlName="perdeu_est"
-              />
+              <input class="form-check-input" type="radio" id="perdeu_est2" value="Morosas"
+                formControlName="perdeu_est" />
               <label class="form-check-label" for="perdeu_est2">
                 Morosas
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perdeu_est3"
-                value="3"
-                formControlName="perdeu_est"
-              />
+              <input class="form-check-input" type="radio" id="perdeu_est3" value="Vencida"
+                formControlName="perdeu_est" />
               <label class="form-check-label" for="perdeu_est3">
                 Vencida
               </label>
@@ -474,11 +295,7 @@
           </div>
           <div class="col">
             <label for="">Observación</label>
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="perdeu_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación" formControlName="perdeu_obs"></textarea>
           </div>
         </div>
       </div>
@@ -488,40 +305,20 @@
       <div class="col-md-4">
         <div class="row">
           <div class="col-md-9">
-            <label for="" class="text-uppercase"
-              >CIP (certificado de informaciones previas)</label
-            >
+            <label for="" class="text-uppercase">CIP (certificado de informaciones previas)</label>
           </div>
           <div class="col-md-3 validar">
             <label for="">Seleccione</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="percip1"
-                value="SI"
-                formControlName="percip"
-              />
+              <input class="form-check-input" type="radio" id="percip1" value="SI" formControlName="percip" />
               <label class="form-check-label" for="percip1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="percip2"
-                value="NO"
-                formControlName="percip"
-              />
+              <input class="form-check-input" type="radio" id="percip2" value="NO" formControlName="percip" />
               <label class="form-check-label" for="percip2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="percip3"
-                value="N/A"
-                formControlName="percip"
-              />
+              <input class="form-check-input" type="radio" id="percip3" value="N/A" formControlName="percip" />
               <label class="form-check-label" for="percip3"> N/A </label>
             </div>
           </div>
@@ -529,11 +326,7 @@
       </div>
       <div class="col-md-8">
         <label for="">Observación</label>
-        <textarea
-          class="form-control"
-          placeholder="Ingrese Observación"
-          formControlName="percip_obs"
-        ></textarea>
+        <textarea class="form-control" placeholder="Ingrese Observación" formControlName="percip_obs"></textarea>
       </div>
     </div>
     <div class="row mt-3">
@@ -541,40 +334,23 @@
       <div class="col-md-4">
         <div class="row">
           <div class="col-md-9">
-            <label for="" class="text-uppercase"
-              >Certificado deuda Hipotecaria</label
-            >
+            <label for="" class="text-uppercase">Certificado deuda Hipotecaria</label>
           </div>
           <div class="col-md-3 validar">
             <label for="">Seleccione</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="percerdeuhip1"
-                value="SI"
-                formControlName="percerdeuhip"
-              />
+              <input class="form-check-input" type="radio" id="percerdeuhip1" value="SI"
+                formControlName="percerdeuhip" />
               <label class="form-check-label" for="percerdeuhip1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="percerdeuhip2"
-                value="NO"
-                formControlName="percerdeuhip"
-              />
+              <input class="form-check-input" type="radio" id="percerdeuhip2" value="NO"
+                formControlName="percerdeuhip" />
               <label class="form-check-label" for="percerdeuhip2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="percerdeuhip3"
-                value="N/A"
-                formControlName="percerdeuhip"
-              />
+              <input class="form-check-input" type="radio" id="percerdeuhip3" value="N/A"
+                formControlName="percerdeuhip" />
               <label class="form-check-label" for="percerdeuhip3"> N/A </label>
             </div>
           </div>
@@ -584,20 +360,13 @@
         <div class="row">
           <div class="col-md-3">
             <label for="">Cantidad UF</label>
-            <input
-              type="text"
-              (change)="formateadorMiles($event)"
-              class="form-control"
-              formControlName="percerdeuhip_cant"
-            />
+            <input type="text" (change)="formateadorMiles($event)" class="form-control"
+              formControlName="percerdeuhip_cant" />
           </div>
           <div class="col">
             <label for="">Observación</label>
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="percerdeuhip_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación"
+              formControlName="percerdeuhip_obs"></textarea>
           </div>
         </div>
       </div>
@@ -607,40 +376,23 @@
       <div class="col-md-4">
         <div class="row">
           <div class="col-md-9">
-            <label for="" class="text-uppercase"
-              >Certificado deuda contribuciones</label
-            >
+            <label for="" class="text-uppercase">Certificado deuda contribuciones</label>
           </div>
           <div class="col-md-3 validar">
             <label for="">Seleccione</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="percerdeucon1"
-                value="SI"
-                formControlName="percerdeucon"
-              />
+              <input class="form-check-input" type="radio" id="percerdeucon1" value="SI"
+                formControlName="percerdeucon" />
               <label class="form-check-label" for="percerdeucon1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="percerdeucon2"
-                value="NO"
-                formControlName="percerdeucon"
-              />
+              <input class="form-check-input" type="radio" id="percerdeucon2" value="NO"
+                formControlName="percerdeucon" />
               <label class="form-check-label" for="percerdeucon2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="percerdeucon3"
-                value="N/A"
-                formControlName="percerdeucon"
-              />
+              <input class="form-check-input" type="radio" id="percerdeucon3" value="N/A"
+                formControlName="percerdeucon" />
               <label class="form-check-label" for="percerdeucon3"> N/A </label>
             </div>
           </div>
@@ -650,20 +402,13 @@
         <div class="row">
           <div class="col-md-3">
             <label for="">Cantidad UF</label>
-            <input
-              type="text"
-              (change)="formateadorMiles($event)"
-              class="form-control"
-              formControlName="percerdeucon_cant"
-            />
+            <input type="text" (change)="formateadorMiles($event)" class="form-control"
+              formControlName="percerdeucon_cant" />
           </div>
           <div class="col">
             <label for="">Observación</label>
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="percerdeucon_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación"
+              formControlName="percerdeucon_obs"></textarea>
           </div>
         </div>
       </div>
@@ -683,33 +428,16 @@
           <div class="col-md-3 validar">
             <label for="">Seleccione</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perinflegal1"
-                value="SI"
-                formControlName="perinflegal"
-              />
+              <input class="form-check-input" type="radio" id="perinflegal1" value="SI" formControlName="perinflegal" />
               <label class="form-check-label" for="perinflegal1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perinflegal2"
-                value="NO"
-                formControlName="perinflegal"
-              />
+              <input class="form-check-input" type="radio" id="perinflegal2" value="NO" formControlName="perinflegal" />
               <label class="form-check-label" for="perinflegal2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perinflegal3"
-                value="N/A"
-                formControlName="perinflegal"
-              />
+              <input class="form-check-input" type="radio" id="perinflegal3" value="N/A"
+                formControlName="perinflegal" />
               <label class="form-check-label" for="perinflegal3"> N/A </label>
             </div>
           </div>
@@ -720,37 +448,22 @@
           <div class="col-md-2 validar">
             <label for="">Tipo</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perinflegal_tip1"
-                value="1"
-                formControlName="perinflegal_tip"
-              />
+              <input class="form-check-input" type="radio" id="perinflegal_tip1" value="Civil"
+                formControlName="perinflegal_tip" />
               <label class="form-check-label" for="perinflegal_tip1">
                 Civil
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perinflegal_tip2"
-                value="2"
-                formControlName="perinflegal_tip"
-              />
+              <input class="form-check-input" type="radio" id="perinflegal_tip2" value="Penal"
+                formControlName="perinflegal_tip" />
               <label class="form-check-label" for="perinflegal_tip2">
                 Penal
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perinflegal_tip3"
-                value="3"
-                formControlName="perinflegal_tip"
-              />
+              <input class="form-check-input" type="radio" id="perinflegal_tip3" value="Ambas"
+                formControlName="perinflegal_tip" />
               <label class="form-check-label" for="perinflegal_tip3">
                 Ambas
               </label>
@@ -759,37 +472,22 @@
           <div class="col-md-2 validar">
             <label for="">Cantidad</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perinflegal_cant1"
-                value="1"
-                formControlName="perinflegal_cant"
-              />
+              <input class="form-check-input" type="radio" id="perinflegal_cant1" value="1 - 5"
+                formControlName="perinflegal_cant" />
               <label class="form-check-label" for="perinflegal_cant1">
                 1 - 5
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perinflegal_cant2"
-                value="2"
-                formControlName="perinflegal_cant"
-              />
+              <input class="form-check-input" type="radio" id="perinflegal_cant2" value="5 - 10"
+                formControlName="perinflegal_cant" />
               <label class="form-check-label" for="perinflegal_cant2">
                 5 - 10
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="perinflegal_cant3"
-                value="3"
-                formControlName="perinflegal_cant"
-              />
+              <input class="form-check-input" type="radio" id="perinflegal_cant3" value="10+"
+                formControlName="perinflegal_cant" />
               <label class="form-check-label" for="perinflegal_cant3">
                 10+
               </label>
@@ -797,11 +495,8 @@
           </div>
           <div class="col">
             <label for="">Observación</label>
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="perinflegal_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación"
+              formControlName="perinflegal_obs"></textarea>
           </div>
         </div>
       </div>
@@ -816,40 +511,20 @@
       <div class="col-md-4">
         <div class="row">
           <div class="col-md-9">
-            <label for="" class="text-uppercase"
-              >Informe Comerciales (Sinacofi)</label
-            >
+            <label for="" class="text-uppercase">Informe Comerciales (Sinacofi)</label>
           </div>
           <div class="col-md-3 validar">
             <label for="">Seleccione</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfcom1"
-                value="SI"
-                formControlName="cominfcom"
-              />
+              <input class="form-check-input" type="radio" id="cominfcom1" value="SI" formControlName="cominfcom" />
               <label class="form-check-label" for="cominfcom1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfcom2"
-                value="NO"
-                formControlName="cominfcom"
-              />
+              <input class="form-check-input" type="radio" id="cominfcom2" value="NO" formControlName="cominfcom" />
               <label class="form-check-label" for="cominfcom2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfcom3"
-                value="N/A"
-                formControlName="cominfcom"
-              />
+              <input class="form-check-input" type="radio" id="cominfcom3" value="N/A" formControlName="cominfcom" />
               <label class="form-check-label" for="cominfcom3"> N/A </label>
             </div>
           </div>
@@ -860,37 +535,22 @@
           <div class="col-md-2 validar">
             <label for="">Cantidad</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfcom_cant1"
-                value="1"
-                formControlName="cominfcom_cant"
-              />
+              <input class="form-check-input" type="radio" id="cominfcom_cant1" value="0 - 3"
+                formControlName="cominfcom_cant" />
               <label class="form-check-label" for="cominfcom_cant1">
                 0 - 3
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfcom_cant2"
-                value="2"
-                formControlName="cominfcom_cant"
-              />
+              <input class="form-check-input" type="radio" id="cominfcom_cant2" value="4 - 10"
+                formControlName="cominfcom_cant" />
               <label class="form-check-label" for="cominfcom_cant2">
                 4 - 10
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfcom_cant3"
-                value="3"
-                formControlName="cominfcom_cant"
-              />
+              <input class="form-check-input" type="radio" id="cominfcom_cant3" value="10+"
+                formControlName="cominfcom_cant" />
               <label class="form-check-label" for="cominfcom_cant3">
                 10+
               </label>
@@ -899,37 +559,22 @@
           <div class="col-md-2 validar">
             <label for="">Monto UF</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfcom_monto1"
-                value="1"
-                formControlName="cominfcom_monto"
-              />
+              <input class="form-check-input" type="radio" id="cominfcom_monto1" value="0 - 10M"
+                formControlName="cominfcom_monto" />
               <label class="form-check-label" for="cominfcom_monto1">
                 0 - 10M
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfcom_monto2"
-                value="2"
-                formControlName="cominfcom_monto"
-              />
+              <input class="form-check-input" type="radio" id="cominfcom_monto2" value="10M - 30M"
+                formControlName="cominfcom_monto" />
               <label class="form-check-label" for="cominfcom_monto2">
                 10M - 30M
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfcom_monto3"
-                value="3"
-                formControlName="cominfcom_monto"
-              />
+              <input class="form-check-input" type="radio" id="cominfcom_monto3" value="30M+"
+                formControlName="cominfcom_monto" />
               <label class="form-check-label" for="cominfcom_monto3">
                 30M+
               </label>
@@ -937,11 +582,7 @@
           </div>
           <div class="col">
             <label for="">Observación</label>
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="cominfcom_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación" formControlName="cominfcom_obs"></textarea>
           </div>
         </div>
       </div>
@@ -956,33 +597,15 @@
           <div class="col-md-3 validar">
             <label for="">Seleccione</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comdeu1"
-                value="SI"
-                formControlName="comdeu"
-              />
+              <input class="form-check-input" type="radio" id="comdeu1" value="SI" formControlName="comdeu" />
               <label class="form-check-label" for="comdeu1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comdeu2"
-                value="NO"
-                formControlName="comdeu"
-              />
+              <input class="form-check-input" type="radio" id="comdeu2" value="NO" formControlName="comdeu" />
               <label class="form-check-label" for="comdeu2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comdeu3"
-                value="N/A"
-                formControlName="comdeu"
-              />
+              <input class="form-check-input" type="radio" id="comdeu3" value="N/A" formControlName="comdeu" />
               <label class="form-check-label" for="comdeu3"> N/A </label>
             </div>
           </div>
@@ -993,37 +616,22 @@
           <div class="col-md-3">
             <label for="">Estado Deuda</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comdeu_est1"
-                value="1"
-                formControlName="comdeu_est"
-              />
+              <input class="form-check-input" type="radio" id="comdeu_est1" value="Vigente"
+                formControlName="comdeu_est" />
               <label class="form-check-label" for="comdeu_est1">
                 Vigente
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comdeu_est2"
-                value="2"
-                formControlName="comdeu_est"
-              />
+              <input class="form-check-input" type="radio" id="comdeu_est2" value="Morosas"
+                formControlName="comdeu_est" />
               <label class="form-check-label" for="comdeu_est2">
                 Morosas
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comdeu_est3"
-                value="3"
-                formControlName="comdeu_est"
-              />
+              <input class="form-check-input" type="radio" id="comdeu_est3" value="Vencida"
+                formControlName="comdeu_est" />
               <label class="form-check-label" for="comdeu_est3">
                 Vencida
               </label>
@@ -1031,11 +639,7 @@
           </div>
           <div class="col">
             <label for="">Observación</label>
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="comdeu_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación" formControlName="comdeu_obs"></textarea>
           </div>
         </div>
       </div>
@@ -1043,50 +647,26 @@
     <div class="row mt-3">
       <!-- seccion  -->
       <div class="col-md-3">
-        <label for="" class="text-uppercase"
-          >CIP (certificado de informaciones previa)</label
-        >
+        <label for="" class="text-uppercase">CIP (certificado de informaciones previa)</label>
       </div>
       <div class="col-md-2 validar">
         <label for="">Seleccione</label>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="comcip1"
-            value="SI"
-            formControlName="comcip"
-          />
+          <input class="form-check-input" type="radio" id="comcip1" value="SI" formControlName="comcip" />
           <label class="form-check-label" for="comcip1"> SI </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="comcip2"
-            value="NO"
-            formControlName="comcip"
-          />
+          <input class="form-check-input" type="radio" id="comcip2" value="NO" formControlName="comcip" />
           <label class="form-check-label" for="comcip2"> NO </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="comcip3"
-            value="N/A"
-            formControlName="comcip"
-          />
+          <input class="form-check-input" type="radio" id="comcip3" value="N/A" formControlName="comcip" />
           <label class="form-check-label" for="comcip3"> N/A </label>
         </div>
       </div>
       <div class="col-md-7">
         <label for="">Observación</label>
-        <textarea
-          class="form-control"
-          placeholder="Ingrese Observación"
-          formControlName="comcip_obs"
-        ></textarea>
+        <textarea class="form-control" placeholder="Ingrese Observación" formControlName="comcip_obs"></textarea>
       </div>
     </div>
     <div class="row mt-3">
@@ -1094,40 +674,23 @@
       <div class="col-md-4">
         <div class="row">
           <div class="col-md-9">
-            <label for="" class="text-uppercase"
-              >Certificado deuda hipotecaria</label
-            >
+            <label for="" class="text-uppercase">Certificado deuda hipotecaria</label>
           </div>
           <div class="col-md-3 validar">
             <label for="">Seleccione</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comcerdeuhip1"
-                value="SI"
-                formControlName="comcerdeuhip"
-              />
+              <input class="form-check-input" type="radio" id="comcerdeuhip1" value="SI"
+                formControlName="comcerdeuhip" />
               <label class="form-check-label" for="comcerdeuhip1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comcerdeuhip2"
-                value="NO"
-                formControlName="comcerdeuhip"
-              />
+              <input class="form-check-input" type="radio" id="comcerdeuhip2" value="NO"
+                formControlName="comcerdeuhip" />
               <label class="form-check-label" for="comcerdeuhip2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comcerdeuhip3"
-                value="N/A"
-                formControlName="comcerdeuhip"
-              />
+              <input class="form-check-input" type="radio" id="comcerdeuhip3" value="N/A"
+                formControlName="comcerdeuhip" />
               <label class="form-check-label" for="comcerdeuhip3"> N/A </label>
             </div>
           </div>
@@ -1137,20 +700,13 @@
         <div class="row">
           <div class="col-md-3">
             <label for="">Cantidad UF</label>
-            <input
-              type="text"
-              (change)="formateadorMiles($event)"
-              class="form-control"
-              formControlName="comcerdeuhip_cant"
-            />
+            <input type="text" (change)="formateadorMiles($event)" class="form-control"
+              formControlName="comcerdeuhip_cant" />
           </div>
           <div class="col">
             <label for="">Observación</label>
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="comcerdeuhip_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación"
+              formControlName="comcerdeuhip_obs"></textarea>
           </div>
         </div>
       </div>
@@ -1160,40 +716,23 @@
       <div class="col-md-4">
         <div class="row">
           <div class="col-md-9">
-            <label for="" class="text-uppercase"
-              >Certificado deuda contribuciones</label
-            >
+            <label for="" class="text-uppercase">Certificado deuda contribuciones</label>
           </div>
           <div class="col-md-3 validar">
             <label for="">Seleccione</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comcerdeucontr1"
-                value="SI"
-                formControlName="comcerdeucontr"
-              />
+              <input class="form-check-input" type="radio" id="comcerdeucontr1" value="SI"
+                formControlName="comcerdeucontr" />
               <label class="form-check-label" for="comcerdeucontr1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comcerdeucontr2"
-                value="NO"
-                formControlName="comcerdeucontr"
-              />
+              <input class="form-check-input" type="radio" id="comcerdeucontr2" value="NO"
+                formControlName="comcerdeucontr" />
               <label class="form-check-label" for="comcerdeucontr2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="comcerdeucontr3"
-                value="N/A"
-                formControlName="comcerdeucontr"
-              />
+              <input class="form-check-input" type="radio" id="comcerdeucontr3" value="N/A"
+                formControlName="comcerdeucontr" />
               <label class="form-check-label" for="comcerdeucontr3">
                 N/A
               </label>
@@ -1205,20 +744,13 @@
         <div class="row">
           <div class="col-md-3">
             <label for="">Cantidad UF</label>
-            <input
-              type="text"
-              (change)="formateadorMiles($event)"
-              class="form-control"
-              formControlName="comcerdeucontr_cant"
-            />
+            <input type="text" (change)="formateadorMiles($event)" class="form-control"
+              formControlName="comcerdeucontr_cant" />
           </div>
           <div class="col">
             <label for="">Observación</label>
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="comcerdeucontr_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación"
+              formControlName="comcerdeucontr_obs"></textarea>
           </div>
         </div>
       </div>
@@ -1238,33 +770,15 @@
           <div class="col-md-2 validar">
             <label for="">Seleccione</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfper1"
-                value="SI"
-                formControlName="cominfper"
-              />
+              <input class="form-check-input" type="radio" id="cominfper1" value="SI" formControlName="cominfper" />
               <label class="form-check-label" for="cominfper1"> SI </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfper2"
-                value="NO"
-                formControlName="cominfper"
-              />
+              <input class="form-check-input" type="radio" id="cominfper2" value="NO" formControlName="cominfper" />
               <label class="form-check-label" for="cominfper2"> NO </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfper3"
-                value="N/A"
-                formControlName="cominfper"
-              />
+              <input class="form-check-input" type="radio" id="cominfper3" value="N/A" formControlName="cominfper" />
               <label class="form-check-label" for="cominfper3"> N/A </label>
             </div>
           </div>
@@ -1275,37 +789,22 @@
           <div class="col-md-2">
             <label for="">Tipo</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfper_tip1"
-                value="1"
-                formControlName="cominfper_tip"
-              />
+              <input class="form-check-input" type="radio" id="cominfper_tip1" value="Civil"
+                formControlName="cominfper_tip" />
               <label class="form-check-label" for="cominfper_tip1">
                 Civil
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfper_tip2"
-                value="2"
-                formControlName="cominfper_tip"
-              />
+              <input class="form-check-input" type="radio" id="cominfper_tip2" value="Penal"
+                formControlName="cominfper_tip" />
               <label class="form-check-label" for="cominfper_tip2">
                 Penal
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfper_tip3"
-                value="3"
-                formControlName="cominfper_tip"
-              />
+              <input class="form-check-input" type="radio" id="cominfper_tip3" value="Ambas"
+                formControlName="cominfper_tip" />
               <label class="form-check-label" for="cominfper_tip3">
                 Ambas
               </label>
@@ -1314,37 +813,22 @@
           <div class="col-md-2">
             <label for="">Cantidad</label>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfper_cant1"
-                value="1"
-                formControlName="cominfper_cant"
-              />
+              <input class="form-check-input" type="radio" id="cominfper_cant1" value="1 - 5"
+                formControlName="cominfper_cant" />
               <label class="form-check-label" for="cominfper_cant1">
                 1 - 5
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfper_cant2"
-                value="2"
-                formControlName="cominfper_cant"
-              />
+              <input class="form-check-input" type="radio" id="cominfper_cant2" value="5 - 10"
+                formControlName="cominfper_cant" />
               <label class="form-check-label" for="cominfper_cant2">
                 5 - 10
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="cominfper_cant3"
-                value="3"
-                formControlName="cominfper_cant"
-              />
+              <input class="form-check-input" type="radio" id="cominfper_cant3" value="10+"
+                formControlName="cominfper_cant" />
               <label class="form-check-label" for="cominfper_cant3">
                 10+
               </label>
@@ -1352,11 +836,7 @@
           </div>
           <div class="col">
             <label for="">Observación</label>
-            <textarea
-              class="form-control"
-              placeholder="Ingrese Observación"
-              formControlName="cominfper_obs"
-            ></textarea>
+            <textarea class="form-control" placeholder="Ingrese Observación" formControlName="cominfper_obs"></textarea>
           </div>
         </div>
       </div>
@@ -1379,20 +859,11 @@
       </div>
       <div class="col-md-4 validar">
         <label for="">Tipo Inmueble</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="tipoInmueble"
-        />
+        <input type="text" class="form-control" formControlName="tipoInmueble" />
       </div>
       <div class="col-md-4 validar">
         <label for="">Cantidad Estacionamientos o Bodega</label>
-        <input
-          type="text"
-          (keyup)="soloNumeros($event)"
-          class="form-control"
-          formControlName="estaBodega"
-        />
+        <input type="text" (keyup)="soloNumeros($event)" class="form-control" formControlName="estaBodega" />
       </div>
     </div>
     <div class="row mt-2">
@@ -1403,11 +874,8 @@
     <div class="row mt-3">
       <div class="col-md-4 mt-2 validar">
         <label for="">Tasador</label>
-        <ng-select
-          placeholder="Seleccionar Tasador"
-          notFoundText="No se encontraron coincidencias"
-          formControlName="id_tasador"
-        >
+        <ng-select placeholder="Seleccionar Tasador" notFoundText="No se encontraron coincidencias"
+          formControlName="id_tasador">
           <ng-option [value]="1">Transsa</ng-option>
           <ng-option [value]="2">Tasabank</ng-option>
           <ng-option [value]="3">Colliers</ng-option>
@@ -1416,19 +884,12 @@
       </div>
       <div class="col-md-4 mt-2 validar">
         <label for="">Fecha Informe Tasación</label>
-        <input
-          type="date"
-          class="form-control"
-          formControlName="fechaTasacion"
-        />
+        <input type="date" class="form-control" formControlName="fechaTasacion" />
       </div>
       <div class="col-md-4 mt-2 validar">
         <label for="">Tipo de Construcción</label>
-        <ng-select
-          placeholder="Seleccionar Tipo Construcción"
-          notFoundText="No se encontraron coincidencias"
-          formControlName="id_tipoConstruccion"
-        >
+        <ng-select placeholder="Seleccionar Tipo Construcción" notFoundText="No se encontraron coincidencias"
+          formControlName="id_tipoConstruccion">
           <ng-option [value]="1">Solido</ng-option>
           <ng-option [value]="2">Ligero</ng-option>
           <ng-option [value]="3">Ambos</ng-option>
@@ -1438,129 +899,79 @@
       <div class="col-md-4 mt-2 validar">
         <label for="">Situacion legal de la Propiedad</label>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="detprositlegpro1"
-            value="1"
-            formControlName="detprositlegpro"
-          />
+          <input class="form-check-input" type="radio" id="detprositlegpro1" value="Sin Hipoteca"
+            formControlName="detprositlegpro" />
           <label class="form-check-label" for="detprositlegpro1">
             Sin Hipoteca
           </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="detprositlegpro2"
-            value="2"
-            formControlName="detprositlegpro"
-          />
+          <input class="form-check-input" type="radio" id="detprositlegpro2" value="Con Hipoteca"
+            formControlName="detprositlegpro" />
           <label class="form-check-label" for="detprositlegpro2">
             Con Hipoteca
           </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="detprositlegpro3"
-            value="3"
-            formControlName="detprositlegpro"
-          />
+          <input class="form-check-input" type="radio" id="detprositlegpro3" value="Con Hipoteca / Embargo"
+            formControlName="detprositlegpro" />
           <label class="form-check-label" for="detprositlegpro3">
             Con Hipoteca / Embargo
           </label>
         </div>
-        <ng-select
-          [items]="selectBancos"
-          placeholder="Seleccionar Banco"
-          bindValue="id_banco"
-          bindLabel="nombre_banco"
-          notFoundText="No se encontraron coincidencias"
-          formControlName="detprositlegpro_banco"
-        >
+        <ng-select [items]="selectBancos" placeholder="Seleccionar Banco" bindValue="id_banco" bindLabel="nombre_banco"
+          notFoundText="No se encontraron coincidencias" formControlName="detprositlegpro_banco">
         </ng-select>
       </div>
       <div class="col-md-4 mt-2 validar">
         <label for="">Regularizado Porcentaje (situacion municipal)</label>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="regularizacion1"
-            value="1"
-            formControlName="regularizacion"
-          />
-          <label class="form-check-label" for="regularizacion1"> 0 - 50 </label>
+          <input class="form-check-input" type="radio" id="regularizacion1" value="0 - 50"
+            formControlName="regularizacion" />
+          <label class="form-check-label" for="regularizacion1">
+            0 - 50
+          </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="regularizacion2"
-            value="2"
-            formControlName="regularizacion"
-          />
+          <input class="form-check-input" type="radio" id="regularizacion2" value="50 - 90"
+            formControlName="regularizacion" />
           <label class="form-check-label" for="regularizacion2">
             50 - 90
           </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="regularizacion3"
-            value="3"
-            formControlName="regularizacion"
-          />
-          <label class="form-check-label" for="regularizacion3"> 90+ </label>
+          <input class="form-check-input" type="radio" id="regularizacion3" value="90+"
+            formControlName="regularizacion" />
+          <label class="form-check-label" for="regularizacion3">
+            90+
+          </label>
         </div>
       </div>
       <div class="col-md-4 mt-2 validar">
         <label for="">Quien Vive en el inmueble</label>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="quienViveInmueble1"
-            value="1"
-            formControlName="quienViveInmueble"
-          />
+          <input class="form-check-input" type="radio" id="quienViveInmueble1" value="Propietario"
+            formControlName="quienViveInmueble" />
           <label class="form-check-label" for="quienViveInmueble1">
             Propietario
           </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="quienViveInmueble2"
-            value="2"
-            formControlName="quienViveInmueble"
-          />
+          <input class="form-check-input" type="radio" id="quienViveInmueble2" value="Arrendatario"
+            formControlName="quienViveInmueble" />
           <label class="form-check-label" for="quienViveInmueble2">
             Arrendatario
           </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="quienViveInmueble3"
-            value="3"
-            formControlName="quienViveInmueble"
-          />
+          <input class="form-check-input" type="radio" id="quienViveInmueble3" value="Otros"
+            formControlName="quienViveInmueble" />
           <label class="form-check-label" for="quienViveInmueble3">
             Otros
           </label>
         </div>
-        <textarea
-          class="form-control"
-          placeholder="Ingrese Observación"
-          formControlName="quienViveInmueble_obs"
-        ></textarea>
+        <textarea class="form-control" placeholder="Ingrese Observación"
+          formControlName="quienViveInmueble_obs"></textarea>
       </div>
     </div>
     <div class="row mt-2">
@@ -1573,12 +984,7 @@
         <label for="">Valor UF(Fecha Tasación)asdasdasda</label>
       </div>
       <div class="col-md-3">
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="valor_uf"
-        />
+        <input type="text" (change)="formateadorMiles($event)" class="form-control" formControlName="valor_uf" />
       </div>
     </div>
     <div class="row mt-3">
@@ -1587,21 +993,13 @@
       </div>
       <div class="col-md-3 validar">
         <label for="">Valor UF</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="terrenoEstimado_uf"
-        />
+        <input type="text" (change)="formateadorMiles($event)" class="form-control"
+          formControlName="terrenoEstimado_uf" />
       </div>
       <div class="col-md-3 validar">
         <label for="">Superfice m<sup>2</sup></label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="terrenoEstimado_m2"
-        />
+        <input type="text" (change)="formateadorMiles($event)" class="form-control"
+          formControlName="terrenoEstimado_m2" />
       </div>
     </div>
     <div class="row mt-3">
@@ -1610,21 +1008,13 @@
       </div>
       <div class="col-md-3 validar">
         <label for="">Valor UF</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="cinstruccionEstimado_uf"
-        />
+        <input type="text" (change)="formateadorMiles($event)" class="form-control"
+          formControlName="cinstruccionEstimado_uf" />
       </div>
       <div class="col-md-3 validar">
         <label for="">Superfice m<sup>2</sup></label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="cinstruccionEstimado_m2"
-        />
+        <input type="text" (change)="formateadorMiles($event)" class="form-control"
+          formControlName="cinstruccionEstimado_m2" />
       </div>
     </div>
     <div class="row mt-2">
@@ -1633,31 +1023,23 @@
       </div>
       <div class="col-md-3 validar">
         <label for="">Valor UF</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="propiedadEstimado_uf"
-        />
+        <input type="text" (change)="formateadorMiles($event)" class="form-control"
+          formControlName="propiedadEstimado_uf" />
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-md-12">
         <h4>Otras Indicaciones de Valor</h4>
       </div>
-    </div>    
+    </div>
     <div class="row mt-3">
       <div class="col-md-3 align-self-center">
         <label for="">Precio de Liquidacón</label>
       </div>
       <div class="col-md-3 validar">
         <label for="">Valor UF</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="precioLiquidacion"
-        />
+        <input type="text" (change)="formateadorMiles($event)" class="form-control"
+          formControlName="precioLiquidacion" />
       </div>
     </div>
     <div class="row mt-3 validar">
@@ -1666,12 +1048,7 @@
       </div>
       <div class="col-md-3 validar">
         <label for="">Valor (CL)</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="avaluoFiscal"
-        />
+        <input type="text" (change)="formateadorMiles($event)" class="form-control" formControlName="avaluoFiscal" />
       </div>
     </div>
     <div class="row mt-3">
@@ -1680,33 +1057,18 @@
       </div>
       <div class="col-md-3 validar">
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="velocidadVenta1"
-            value="1"
-            formControlName="velocidadVenta"
-          />
+          <input class="form-check-input" type="radio" id="velocidadVenta1" value="Lenta"
+            formControlName="velocidadVenta" />
           <label class="form-check-label" for="velocidadVenta1"> Lenta </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="velocidadVenta2"
-            value="2"
-            formControlName="velocidadVenta"
-          />
+          <input class="form-check-input" type="radio" id="velocidadVenta2" value="Media"
+            formControlName="velocidadVenta" />
           <label class="form-check-label" for="velocidadVenta2"> Media </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="velocidadVenta3"
-            value="3"
-            formControlName="velocidadVenta"
-          />
+          <input class="form-check-input" type="radio" id="velocidadVenta3" value="Veloz"
+            formControlName="velocidadVenta" />
           <label class="form-check-label" for="velocidadVenta3"> Veloz </label>
         </div>
       </div>
@@ -1720,120 +1082,61 @@
     <div class="row mt-2">
       <div class="col-md-3 mt-2">
         <label for="">LTV (verificar funcion)</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          (change)="detalleComitePropuesta()"
-          class="form-control"
-          formControlName="ltv"
-        />
+        <input type="text" (change)="formateadorMiles($event)" (change)="detalleComitePropuesta()" class="form-control"
+          formControlName="ltv" />
       </div>
       <div class="col-md-3 mt-2">
         <label for="">Compra Venta</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="compraventa"
-          readonly
-        />
+        <input type="text" class="form-control" formControlName="compraventa" readonly />
       </div>
       <div class="col-md-3 mt-2">
         <label for="">Renta Anual</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="renta_anual"
-          readonly
-        />
+        <input type="text" class="form-control" formControlName="renta_anual" readonly />
       </div>
       <div class="col-md-3 mt-2">
         <label for="">Gastos Operacionales</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          (change)="detalleComitePropuesta()"
-          class="form-control"
-          formControlName="gastos_operacionales"
-        />
+        <input type="text" (change)="formateadorMiles($event)" (change)="detalleComitePropuesta()" class="form-control"
+          formControlName="gastos_operacionales" />
       </div>
       <div class="col-md-3 mt-2">
         <label for="">Alzamiento</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          (change)="detalleComitePropuesta()"
-          class="form-control"
-          formControlName="alzamiento"
-        />
+        <input type="text" (change)="formateadorMiles($event)" (change)="detalleComitePropuesta()" class="form-control"
+          formControlName="alzamiento" />
       </div>
       <div class="col-md-3 mt-2">
         <label for="">Administracion</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="administracion"
-          readonly
-        />
+        <input type="text" class="form-control" formControlName="administracion" readonly />
       </div>
       <div class="col-md-3 mt-2">
         <label for="">Contribuciones</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          (change)="detalleComitePropuesta()"
-          class="form-control"
-          formControlName="contribuciones"
-        />
+        <input type="text" (change)="formateadorMiles($event)" (change)="detalleComitePropuesta()" class="form-control"
+          formControlName="contribuciones" />
       </div>
       <div class="col-md-3 mt-2">
         <label for="">Provisión Contribuciones</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          (change)="detalleComitePropuesta()"
-          class="form-control"
-          formControlName="provicion_contribuciones"
-        />
+        <input type="text" (change)="formateadorMiles($event)" (change)="detalleComitePropuesta()" class="form-control"
+          formControlName="provicion_contribuciones" />
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-md-3 mt-2">
         <label for="">Liquido Cliente</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="liquido_cliente"
-          readonly
-        />
+        <input type="text" class="form-control" formControlName="liquido_cliente" readonly />
       </div>
       <div class="col-md-3 mt-2">
         <label for="">Tasa</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="tasa"
-          (change)="detalleComitePropuesta()"
-        />
+        <input type="text" (change)="formateadorMiles($event)" class="form-control" formControlName="tasa"
+          (change)="detalleComitePropuesta()" />
       </div>
       <div class="col-md-3 mt-2">
         <label for="">Comision</label>
-        <input
-          type="text"
-          (change)="formateadorMiles($event)"
-          class="form-control"
-          formControlName="comision"
-          (change)="detalleComitePropuesta()"
-        />
+        <input type="text" (change)="formateadorMiles($event)" class="form-control" formControlName="comision"
+          (change)="detalleComitePropuesta()" />
       </div>
     </div>
     <div class="row mt-4">
       <div class="col-md-12">
-        <button
-          type="submit"
-          class="btn btn-success w-100"
-          [disabled]="formFichaComite.invalid"
-        >
+        <button type="submit" class="btn btn-success w-100" [disabled]="formFichaComite.invalid">
           Guardar
         </button>
       </div>

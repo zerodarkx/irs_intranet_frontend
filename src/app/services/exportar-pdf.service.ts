@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from 'src/environments/environment';
+import { exportarPdf } from '../interfaces/exportar';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,13 @@ export class ExportarPdfService {
     private http: HttpClient
   ) { }
 
-  exportarSimulacionPdf(id_simulacion: number): Observable<any> {
+  exportarSimulacionPdf(id_simulacion: number): Observable<exportarPdf> {
     let url = `${this.url_base}/descargarSimulacion/${id_simulacion}`;
-    return this.http.post<any>(url, {});
+    return this.http.post<exportarPdf>(url, {});
+  }
+
+  exportarFichaComitePdf(id_cliente: number): Observable<exportarPdf> {
+    let url = `${this.url_base}/descargarFichaComite/${id_cliente}`;
+    return this.http.post<exportarPdf>(url, {});
   }
 }

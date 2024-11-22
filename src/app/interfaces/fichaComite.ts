@@ -69,7 +69,7 @@ export interface FichaComite {
     id_tasador:               number;
     fechaTasacion:            Date;
     detprositlegpro:          string;
-    detprositlegpro_banco:    string;
+    detprositlegpro_banco:    number;
     situacionLegalPro:        string;
     id_tipoConstruccion:      number;
     regularizacion:           string;

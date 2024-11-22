@@ -3,12 +3,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IBancos, ResultadoTodosBancos } from 'src/app/interfaces/bancos';
 import { Comuna, ResultadoObtenerComunas } from 'src/app/interfaces/comuna';
+import { exportarPdf } from 'src/app/interfaces/exportar';
 import { ResultadoObtenerFichaComite } from 'src/app/interfaces/fichaComite';
 import { Iregiones, ResultadoObtenerTodasRegiones } from 'src/app/interfaces/regiones';
 import { ResultadoObtenerSimulacionPorCliente } from 'src/app/interfaces/simulador';
 import { BancoService } from 'src/app/services/banco.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ComunaService } from 'src/app/services/comuna.service';
+import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
 import { RegionService } from 'src/app/services/region.service';
 import { SimuladorService } from 'src/app/services/simulador.service';
 import {
@@ -174,6 +176,7 @@ export class FichaComiteComponent {
     private sRegion: RegionService,
     private sBanco: BancoService,
     private sSimulador: SimuladorService,
+    private sExpotarPdf: ExportarPdfService,
   ) { }
 
   ngOnInit(): void {
@@ -244,7 +247,7 @@ export class FichaComiteComponent {
             this.selectComunas = data
           },
           error: (error: HttpErrorResponse) => {
-          errorConexionServidor(error)
+            errorConexionServidor(error)
           }
         });
     }
@@ -315,6 +318,7 @@ export class FichaComiteComponent {
       .subscribe({
         next: (response: ResultadoObtenerFichaComite) => {
           if (response.ok) {
+            // console.log(response.data.detprositlegpro_banco);
 
             this.formFichaComite.patchValue({
               id_fichaComite: response.data.id_fichaComite || '',
@@ -395,7 +399,7 @@ export class FichaComiteComponent {
               cinstruccionEstimado_uf: formateadorMilesDesdeBase(response.data.cinstruccionEstimado_uf),
               cinstruccionEstimado_m2: formateadorMilesDesdeBase(response.data.cinstruccionEstimado_m2),
               propiedadEstimado_uf: formateadorMilesDesdeBase(response.data.propiedadEstimado_uf),
-              precioLiquidacion: formateadorMilesDesdeBase(response.data.precioLiquidacion),              
+              precioLiquidacion: formateadorMilesDesdeBase(response.data.precioLiquidacion),
               avaluoFiscal: formateadorMilesDesdeBase(response.data.avaluoFiscal),
               velocidadVenta: response.data.velocidadVenta || '',
               valor_uf: formateadorMilesDesdeBase(response.data.valor_uf),
@@ -415,7 +419,7 @@ export class FichaComiteComponent {
               .subscribe({
                 next: ({ data }: ResultadoObtenerSimulacionPorCliente) => {
                   if (!data) return
-                  
+
                   this.formFichaComite.patchValue({
                     id_cliente: response.data.id_cliente,
                     nom_cliente: response.data.nom_cliente,
@@ -467,6 +471,27 @@ export class FichaComiteComponent {
         },
         error: (error: HttpErrorResponse) => {
           errorConexionServidor(error)
+        }
+      });
+  }
+
+  exportarFicha() {
+
+    this.sExpotarPdf.exportarFichaComitePdf(this.formFichaComite.get('id_cliente')?.value)
+      .subscribe({
+        next: (response: exportarPdf) => {
+          const blob = new Blob([new Uint8Array(response.archivo.data).buffer])
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = response.nombre_archivo;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
         }
       });
   }
