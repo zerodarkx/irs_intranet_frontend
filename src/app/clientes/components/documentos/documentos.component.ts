@@ -95,9 +95,9 @@ export class DocumentosComponent {
       })
   }
 
-  onFileSelected(event: any, tipo: string): void {
-    // const input = (event.target as HTMLInputElement)
-    const file = event.target.files[0];
+  onFileSelected(event: Event, tipo: string): void {
+    const input = event.target as HTMLInputElement
+    const file = input.files ? input.files[0] : null;
     if (file) {
       if (tipo === 'documento') {
         this.selectedDocuemento = file;
