@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Gastos del Cliente</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <label for="">Total Abonos</label>
+        <input type="text" class="form-control text-end" [(ngModel)]="categorias[0].total" disabled>
+    </div>
+    <div class="col-md-3">
+        <label for="">Total Gasto</label>
+        <input type="text" class="form-control text-end" [(ngModel)]="totalGastos" disabled>
+    </div>
+    <div class="col-md-3">
+        <label for="">Saldo a Favor</label>
+        <input type="text" class="form-control text-end" [(ngModel)]="saldoFavor" disabled>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-success w-100 mt-2" (click)="guardarGastos()">
+            Guardar
+        </button>
+        <button class="btn btn-primary w-100 mt-2">
+            exportar
+        </button>
+    </div>
+</div>
+
+<div class="row mt-2" *ngFor="let categoria of categorias">
+    <div class="col-md-12">
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <h3>{{ categoria.titulo }}</h3>
+            </div>
+            <div class="col-md-4">
+                <button (click)="agregarGasto(categoria.clave)" class="btn btn-success w-50">Agregar Gasto
+                    {{categoria.titulo}}</button>
+            </div>
+            <div class="col-md-4">
+                <label for="">Total</label>
+                <input type="text" class="form-control text-end" [(ngModel)]="categoria.total" disabled>
+            </div>
+        </div>
+        <ng-container *ngIf="categoria.data.length > 0">
+            <div class="row mt-2">
+                <div class="col-md-3">
+                    Tipo
+                </div>
+                <div class="col-md-3">
+                    Monto
+                </div>
+                <div class="col-md-3">
+                    Fecha
+                </div>
+                <div class="col-md-3">
+                    Acciones
+                </div>
+            </div>
+            <div class="row mt-2" *ngFor="let gasto of categoria.data; let i = index">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" [(ngModel)]="gasto.tipo" />
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control text-end" [(ngModel)]="gasto.monto"
+                        (change)="sumarPorCategoria(categoria.clave)" (change)="formateadorMilesSinDecimal($event)" />
+                </div>
+                <div class="col-md-3">
+                    <input type="date" class="form-control text-center" [(ngModel)]="gasto.fecha" />
+                </div>
+                <div class="col-md-3">
+                    <button (click)="eliminarGasto(categoria.clave, i)" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -17,6 +17,8 @@ import { SimuladorComponent } from './components/simulador/simulador.component';
 import { BuscarClienteComponent } from './pages/buscar-cliente/buscar-cliente.component';
 import { NavbarClienteDetalleComponent } from './components/navbar/cliente-detalle/cliente-detalle.component';
 import { GestionComponent } from './components/gestion/gestion.component';
+import { CurseComponent } from './components/curse/curse.component';
+import { GastosClienteComponent } from './components/gastos-cliente/gastos-cliente.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { GestionComponent } from './components/gestion/gestion.component';
     BuscarClienteComponent,
     NavbarClienteDetalleComponent,
     GestionComponent,
+    CurseComponent,
+    GastosClienteComponent,
   ],
   imports: [
     ClientesRoutingModule,

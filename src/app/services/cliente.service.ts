@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GestionCliente, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoGestionCliente, ResultadoObtenerClienteById, ResultadoObtenerTodosClientes, ResultadoObtenerTodosDocumentosCliente, ResultadoObtenerTodosImagenCliente, ResultadoSubirDocumentoImagen } from '../interfaces/cliente';
+import { GestionCliente, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoGestionCliente, ResultadoObtenerClienteById, ResultadoObtenerGastoCliente, ResultadoObtenerTodosClientes, ResultadoObtenerTodosDocumentosCliente, ResultadoObtenerTodosImagenCliente, ResultadoSubirDocumentoImagen } from '../interfaces/cliente';
 import { env } from 'src/environments/environment';
 import { ResultadoObtenerFichaComite } from '../interfaces/fichaComite';
 
@@ -101,9 +101,19 @@ export class ClienteService {
     return this.http.post<ResultadoObtenerTodosClientes>(url, data)
   }
 
-  cambiarSiguienteEstado():Observable<ResultadoCambiarEstado> {
+  cambiarSiguienteEstado(): Observable<ResultadoCambiarEstado> {
     let url = `${this.url_base}/cambiarEstado/${this.id_cliente}`;
     return this.http.post<ResultadoCambiarEstado>(url, null);
+  }
+
+  obtenerGastosCliente(): Observable<ResultadoObtenerGastoCliente> {
+    let url = `${this.url_base}/gastosCliente/${this.id_cliente}`;
+    return this.http.get<ResultadoObtenerGastoCliente>(url);
+  }
+
+  agregarGastosCliente(data: any): Observable<any> {
+    let url = `${this.url_base}/gastosCliente/${this.id_cliente}`;
+    return this.http.post<any>(url, data);
   }
 
 }

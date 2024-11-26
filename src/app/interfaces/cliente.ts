@@ -146,3 +146,67 @@ export interface CambiarEstado {
     titulo: string;
     estado?: string;
 }
+
+export interface GastoClienteTipo {
+    clave: string;
+    titulo: string;
+    data: CategoriaGastoCliente[];
+    total: string;
+}
+
+export interface ResultadoObtenerGastoCliente {
+    ok: boolean;
+    data: DataResultadoGastoCLiente
+}
+
+export interface DataResultadoGastoCLiente{
+    id_gasto:       number;
+    id_cliente:     number;
+    total_gasto:    number;
+    total_favor:    number;
+    abonos:         CategoriaGastoCliente[];
+    tasacion:       CategoriaGastoCliente[];
+    seguros:        CategoriaGastoCliente[];
+    conservador:    CategoriaGastoCliente[];
+    notaria:        CategoriaGastoCliente[];
+    abogados:       CategoriaGastoCliente[];
+    contribuciones: CategoriaGastoCliente[];
+    otros:          CategoriaGastoCliente[];
+}
+
+// export interface GastoCliente {
+//     id_gasto: number;
+//     id_cliente: number;
+//     cat_abonos_tipo: string[]
+//     cat_tasacion_tipo: string[];
+//     cat_seguros_tipo: string[];
+//     cat_escritura_tipo: string[];
+//     cat_notaria_tipo: string[];
+//     cat_abogados_tipo: string[];
+//     cat_contribuciones_tipo: string[];
+//     cat_otros_tipo: string[];
+//     cat_abonos_fecha: string[]
+//     cat_tasacion_fecha: string[];
+//     cat_seguros_fecha: string[];
+//     cat_escritura_fecha: string[];
+//     cat_notaria_fecha: string[];
+//     cat_abogados_fecha: string[];
+//     cat_contribuciones_fecha: string[];
+//     cat_otros_fecha: string[];
+//     cat_abonos_monto: string[]
+//     cat_tasacion_monto: string[];
+//     cat_seguros_monto: string[];
+//     cat_escritura_monto: string[];
+//     cat_notaria_monto: string[];
+//     cat_abogados_monto: string[];
+//     cat_contribuciones_monto: string[];
+//     cat_otros_monto: string[];
+//     // tasasion: CategoriaGastoCliente[];
+//     // [key: string]: any;
+// }
+
+export interface CategoriaGastoCliente {
+    tipo: string;
+    monto: string;
+    fecha: string;
+}

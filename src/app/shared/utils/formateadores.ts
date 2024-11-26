@@ -51,6 +51,32 @@ export function formateadorMiles(valor: string | number): string {
     return `${parteEntera},${parteDecimal}`;
 }
 
+export function formateadorMilesSinDecimal(valor: string | number): string {
+    valor = valor.toString()
+    if (!valor || valor.includes(' ')) {
+        return '0';
+    }
+    if(valor.includes('.')){
+        valor = valor.replaceAll('.', '')
+    }
+
+    // Formatear parte entera con puntos cada 3 dígitos
+    valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    return valor;
+}
+
+export function formateadorMilesSinDecimalDesdeBase(valor: string | number): string {
+    valor = valor.toString()
+    if (!valor || valor.includes(' ')) {
+        return '0';
+    }
+    if(valor.includes('.')){
+        valor = valor.replaceAll('.', '')
+    }
+    return valor;
+}
+
 export function formateadorMilesDesdeBase(valor: string | number): string {
     if (!valor) {
         return '0,00';

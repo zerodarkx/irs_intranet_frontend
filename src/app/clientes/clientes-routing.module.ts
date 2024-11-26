@@ -10,6 +10,7 @@ import { FichaComiteComponent } from './components/ficha-comite/ficha-comite.com
 import { NuevoClienteComponent } from './pages/nuevo-cliente/nuevo-cliente.component';
 import { BuscarClienteComponent } from './pages/buscar-cliente/buscar-cliente.component';
 import { GestionComponent } from './components/gestion/gestion.component';
+import { GastosClienteComponent } from './components/gastos-cliente/gastos-cliente.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: 'reserva', component: ReservaComponent },
       { path: 'simulador', component: SimuladorComponent },
       { path: 'gestion', component: GestionComponent },
+      { path: 'gastoCliente', component: GastosClienteComponent },
       { path: '**', redirectTo: 'detalle', pathMatch: 'full' }
     ]
   },
