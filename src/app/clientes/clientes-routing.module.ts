@@ -11,6 +11,7 @@ import { NuevoClienteComponent } from './pages/nuevo-cliente/nuevo-cliente.compo
 import { BuscarClienteComponent } from './pages/buscar-cliente/buscar-cliente.component';
 import { GestionComponent } from './components/gestion/gestion.component';
 import { GastosClienteComponent } from './components/gastos-cliente/gastos-cliente.component';
+import { CurseComponent } from './components/curse/curse.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: 'simulador', component: SimuladorComponent },
       { path: 'gestion', component: GestionComponent },
       { path: 'gastoCliente', component: GastosClienteComponent },
+      { path: 'curse', component: CurseComponent },
       { path: '**', redirectTo: 'detalle', pathMatch: 'full' }
     ]
   },

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GestionCliente, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoGestionCliente, ResultadoObtenerClienteById, ResultadoObtenerGastoCliente, ResultadoObtenerTodosClientes, ResultadoObtenerTodosDocumentosCliente, ResultadoObtenerTodosImagenCliente, ResultadoSubirDocumentoImagen } from '../interfaces/cliente';
+import { GestionCliente, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoGestionCliente, ResultadoNuevoDocumentoCurse, ResultadoObtenerClienteById, ResultadoObtenerDocumentosCurse, ResultadoObtenerGastoCliente, ResultadoObtenerTodosClientes, ResultadoObtenerTodosDocumentosCliente, ResultadoObtenerTodosImagenCliente, ResultadoSubirDocumentoImagen } from '../interfaces/cliente';
 import { env } from 'src/environments/environment';
 import { ResultadoObtenerFichaComite } from '../interfaces/fichaComite';
 
@@ -114,6 +114,31 @@ export class ClienteService {
   agregarGastosCliente(data: any): Observable<any> {
     let url = `${this.url_base}/gastosCliente/${this.id_cliente}`;
     return this.http.post<any>(url, data);
+  }
+
+  obtenerDocumentosCurse(): Observable<ResultadoObtenerDocumentosCurse> {
+    let url = `${this.url_base}/documentosCurse/${this.id_cliente}`;
+    return this.http.get<ResultadoObtenerDocumentosCurse>(url);
+  }
+
+  agregarDocumentoCurse(data: any): Observable<ResultadoNuevoDocumentoCurse> {
+    let url = `${this.url_base}/documentosCurse/${this.id_cliente}`;
+    return this.http.post<ResultadoNuevoDocumentoCurse>(url, data);
+  }
+
+  eliminarDocumentoCurse(id_documentoCurse: number): Observable<any> {
+    let url = `${this.url_base}/eliminarDocumentoCurse/${id_documentoCurse}`;
+    return this.http.delete<any>(url);
+  }
+
+  editarDocumentoCurse(data: any): Observable<ResultadoNuevoDocumentoCurse> {
+    let url = `${this.url_base}/editarDocumentoCurse`;
+    return this.http.put<ResultadoNuevoDocumentoCurse>(url, data);
+  }
+
+  editarArchivoDocumentoCurse(data: any): Observable<ResultadoNuevoDocumentoCurse> {
+    let url = `${this.url_base}/documentosCurse/editarArchivo/${this.id_cliente}`;
+    return this.http.put<ResultadoNuevoDocumentoCurse>(url, data);
   }
 
 }
