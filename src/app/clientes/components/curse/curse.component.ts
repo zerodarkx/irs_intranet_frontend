@@ -233,8 +233,8 @@ export class CurseComponent implements OnInit {
               mensaje: response.data.mensaje
             });
 
-            // this.cargarData();
-            // cerrarModal();
+            this.cargarData();
+            cerrarModal();
             return
           }
 
