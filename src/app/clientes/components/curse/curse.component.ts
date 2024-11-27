@@ -68,7 +68,7 @@ export class CurseComponent implements OnInit {
     tipo_cuota: [, [
       Validators.required
     ]],
-    cuota: ['', [
+    cuotas: ['', [
       Validators.required
     ]],
     fecha_contrato: ['', [

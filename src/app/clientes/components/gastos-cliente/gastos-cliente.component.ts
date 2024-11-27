@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CategoriaGastoCliente, GastoClienteTipo, ResultadoObtenerGastoCliente } from 'src/app/interfaces/cliente';
+import { exportarPdf } from 'src/app/interfaces/exportar';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
 import { formateadorMilesSinDecimal, formateadorMilesSinDecimalDesdeBase } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
@@ -27,7 +30,8 @@ export class GastosClienteComponent implements OnInit {
   ];
 
   constructor(
-    private sCliente: ClienteService
+    private sCliente: ClienteService,
+    private sExpotarPdf: ExportarPdfService,
   ) { }
 
   ngOnInit(): void {
@@ -35,9 +39,13 @@ export class GastosClienteComponent implements OnInit {
   }
 
   formateadorMilesSinDecimal(event: Event) {
-    const input = (event.target as HTMLInputElement)
-    input.value = formateadorMilesSinDecimal(input.value)
-    // this.formFichaComite.get(input.getAttribute('formControlName')!)?.setValue(input.value)
+    const input = (event.target as HTMLInputElement);
+    input.value = formateadorMilesSinDecimal(input.value);
+  }
+
+  eliminarFormato(event: Event) {
+    const input = (event.target as HTMLInputElement);
+    input.value = input.value.toString().replace(/\./g, '') || '';
   }
 
   guardarGastos() {
@@ -48,7 +56,14 @@ export class GastosClienteComponent implements OnInit {
       categorias: this.categorias
     }
     this.sCliente.agregarGastosCliente(data)
-      .subscribe()
+      .subscribe({
+        next: () => {
+
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      })
   }
 
   cargarDatosInicio() {
@@ -68,7 +83,14 @@ export class GastosClienteComponent implements OnInit {
             this.categorias[7].data = response.data.otros;
 
             this.categorias.forEach(ele => this.sumarPorCategoria(ele.clave));
-            // this.sumarTotalGastos();
+            this.sumarTotalGastos();
+
+            this.categorias.forEach(categoria => {
+              categoria.data.forEach(gasto => {
+                gasto.monto = formateadorMilesSinDecimal(gasto.monto);
+              });
+            });
+
           }
         },
         error: (error) => {
@@ -78,7 +100,7 @@ export class GastosClienteComponent implements OnInit {
   }
 
   agregarGasto(categoria: string) {
-    const nuevaFila = { tipo: '', monto: '0', fecha: '' };
+    const nuevaFila = { tipo: '', monto: '', fecha: '' };
     const categoriaEncontrada = this.categorias.find((cat: GastoClienteTipo) => cat.clave === categoria);
     categoriaEncontrada?.data.push(nuevaFila);
   }
@@ -92,17 +114,14 @@ export class GastosClienteComponent implements OnInit {
 
   sumarPorCategoria(categoriaKey: string): void {
     const categoria = this.categorias.find((cat: GastoClienteTipo) => cat.clave === categoriaKey);
-    
+
     if (categoria) {
-      
       categoria.total = categoria.data.reduce((total: number, gasto: CategoriaGastoCliente) =>
-        total + parseInt(gasto.monto),
+        total + (parseInt(formateadorMilesSinDecimalDesdeBase(gasto.monto)) || 0),
         0
       ).toString();
-     
-
       categoria.total = formateadorMilesSinDecimal(categoria.total)
-      
+
     }
     this.sumarTotalGastos();
   }
@@ -115,13 +134,33 @@ export class GastosClienteComponent implements OnInit {
           (subtotal: number, gasto: CategoriaGastoCliente) => subtotal + parseInt(formateadorMilesSinDecimalDesdeBase(gasto.monto)),
           0
         );
-        
+
         return total + sumaCategoria; // Suma el total de cada categoría al acumulador.
       }, 0).toString();
 
     this.saldoFavor = (parseInt(formateadorMilesSinDecimalDesdeBase(this.categorias[0].total)) - parseInt(formateadorMilesSinDecimalDesdeBase(this.totalGastos))).toString();
     this.saldoFavor = formateadorMilesSinDecimal(this.saldoFavor)
     this.totalGastos = formateadorMilesSinDecimal(this.totalGastos)
+  }
+
+  descargarGastoCliente(id_ficha: number) {
+    this.sExpotarPdf.exportarGastosClientePdf(id_ficha)
+      .subscribe({
+        next: (response: exportarPdf) => {
+          const blob = new Blob([new Uint8Array(response.archivo.data).buffer])
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = response.nombre_archivo;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      });
   }
 
 }

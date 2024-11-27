@@ -24,4 +24,9 @@ export class ExportarPdfService {
     let url = `${this.url_base}/descargarFichaComite/${id_cliente}`;
     return this.http.post<exportarPdf>(url, {});
   }
+
+  exportarGastosClientePdf(id_cliente: number): Observable<exportarPdf> {
+    let url = `${this.url_base}/descargarGastoCliente/${id_cliente}`;
+    return this.http.post<exportarPdf>(url, {});
+  }
 }

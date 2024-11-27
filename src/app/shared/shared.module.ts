@@ -7,6 +7,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CargandoComponent } from './components/cargando/cargando.component';
 import { CurrencyPesoChilenoPipe } from '../pipe/currency-peso-chileno.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { InputPesoChilenoPipe } from '../pipe/input-peso-chileno.pipe';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     CargandoComponent,
     CurrencyPesoChilenoPipe,
     NavbarComponent,
+    InputPesoChilenoPipe
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MensajeValidadorComponent,
     CargandoComponent,
     CurrencyPesoChilenoPipe,
-    NavbarComponent
+    NavbarComponent,
+    InputPesoChilenoPipe
   ],
 })
 export class SharedModule { }

@@ -20,7 +20,7 @@
         <button class="btn btn-success w-100 mt-2" (click)="guardarGastos()">
             Guardar
         </button>
-        <button class="btn btn-primary w-100 mt-2">
+        <button class="btn btn-primary w-100 mt-2" (click)="descargarGastoCliente(id_ficha)">
             exportar
         </button>
     </div>
@@ -62,7 +62,8 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" class="form-control text-end" [(ngModel)]="gasto.monto"
-                        (change)="sumarPorCategoria(categoria.clave)" (change)="formateadorMilesSinDecimal($event)" />
+                        (blur)="formateadorMilesSinDecimal($event)" (change)="sumarPorCategoria(categoria.clave)" 
+                        (focus)="eliminarFormato($event)">
                 </div>
                 <div class="col-md-3">
                     <input type="date" class="form-control text-center" [(ngModel)]="gasto.fecha" />
