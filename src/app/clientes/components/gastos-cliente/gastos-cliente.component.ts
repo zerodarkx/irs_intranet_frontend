@@ -57,9 +57,7 @@ export class GastosClienteComponent implements OnInit {
     }
     this.sCliente.agregarGastosCliente(data)
       .subscribe({
-        next: (response: any) => {
-          console.log(response);
-          
+        next: (response: any) => {          
           if (response.ok) {
             this.id_ficha = response.data.id_ficha;
             mostrarMensaje({
