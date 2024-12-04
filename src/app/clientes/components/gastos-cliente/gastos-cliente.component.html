@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <h1>Gastos del Cliente</h1>
+        {{id_ficha}}
     </div>
 </div>
 <div class="row">
@@ -20,7 +21,7 @@
         <button class="btn btn-success w-100 mt-2" (click)="guardarGastos()">
             Guardar
         </button>
-        <button class="btn btn-primary w-100 mt-2" (click)="descargarGastoCliente(id_ficha)">
+        <button class="btn btn-primary w-100 mt-2" (click)="descargarGastoCliente(id_ficha)" [disabled]="!id_ficha">
             exportar
         </button>
     </div>

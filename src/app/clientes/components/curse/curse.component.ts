@@ -40,7 +40,7 @@ export class CurseComponent implements OnInit {
     tipo_cuota: [, [
       Validators.required
     ]],
-    cuota: ['', [
+    cuotas: ['', [
       Validators.required
     ]],
     f_firma: ['', [
@@ -256,7 +256,7 @@ export class CurseComponent implements OnInit {
       moneda: curse.moneda,
       monto: curse.monto,
       tipo_cuota: curse.tipo_cuota,
-      cuota: curse.cuotas,
+      cuotas: curse.cuotas,
       fecha_contrato: curse.fecha_contrato,
       fecha_termino: curse.fecha_termino,
       fecha_vencimiento: curse.fecha_vencimiento,

@@ -5,7 +5,7 @@ import { exportarPdf } from 'src/app/interfaces/exportar';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
 import { formateadorMilesSinDecimal, formateadorMilesSinDecimalDesdeBase } from 'src/app/shared/utils/formateadores';
-import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
+import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
   selector: 'app-gastos-cliente',
@@ -57,7 +57,17 @@ export class GastosClienteComponent implements OnInit {
     }
     this.sCliente.agregarGastosCliente(data)
       .subscribe({
-        next: () => {
+        next: (response: any) => {
+          console.log(response);
+          
+          if (response.ok) {
+            this.id_ficha = response.data.id_ficha;
+            mostrarMensaje({
+              icono: IconoSweetAlert.Success,
+              titulo: "Exito",
+              mensaje: response.data.mensaje
+            });
+          }
 
         },
         error: (error: HttpErrorResponse) => {
