@@ -256,8 +256,6 @@ export class DetalleClienteComponent implements OnInit {
       .subscribe({
         next: (response: ResultadoObtenerClienteById) => {
           if (response.ok) {
-            console.log(response.data);
-            
             this.miFormulario.patchValue({
               rut_cli: response.data.cli_rut,
               nombre_cli: response.data.cli_nombre,

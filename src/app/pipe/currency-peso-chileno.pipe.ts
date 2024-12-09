@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CurrencyPesoChilenoPipe implements PipeTransform {
 
-  transform(value: number | string, decimales: boolean = false): string {
+  transform(value: number | string | undefined, decimales: boolean = false): string {
 
     if (!value) return '0';
     const numberValue = typeof value === 'string' ? parseFloat(value) : value;

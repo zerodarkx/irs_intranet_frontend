@@ -134,6 +134,7 @@ export interface TodosClientes {
     det_estado: string;
     fec_ingreso: Date;
     fec_contacto: Date;
+    nombre_inversionista: string;
 }
 
 export interface ResultadoCambiarEstado {
@@ -206,4 +207,19 @@ export interface DocumentosCurse {
 export interface ResultadoNuevoDocumentoCurse {
     ok: boolean
     data: Data
+}
+
+
+export interface ResultadoObtenerReservasClientes {
+    ok:   boolean;
+    data: ReservasClientes[];
+}
+
+export interface ReservasClientes {
+    inv_cli:              number;
+    inv_res:              number;
+    tir:                  number;
+    nombre_inversionista: string;
+    ltv:                  number;
+    valor_contrato:       number;
 }

@@ -1,10 +1,31 @@
-import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ReservasClientes, ResultadoObtenerReservasClientes } from 'src/app/interfaces/cliente';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
   selector: 'cliente-reserva',
   templateUrl: './reserva.component.html',
   styleUrls: ['./reserva.component.css']
 })
-export class ReservaComponent {
+export class ReservaComponent implements OnInit {
 
+  datosInversionistas: ReservasClientes[] = []
+
+  constructor(
+    private sCliente: ClienteService
+  ) { }
+
+  ngOnInit(): void {
+    this.sCliente.obtenerReservasCliente()
+      .subscribe({
+        next: (response: ResultadoObtenerReservasClientes) => {
+          this.datosInversionistas = response.data;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      })
+  }
 }

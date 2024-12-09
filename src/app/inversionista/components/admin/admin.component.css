@@ -1,0 +1,28 @@
+.separadorEspacio {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.tarjeta {
+    width: 20rem;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.iconoTarjeta {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #6c757d;
+    cursor: pointer;
+}
+
+i {
+    cursor: pointer;
+}
+
+.fff {
+    font-size: 10px;
+}

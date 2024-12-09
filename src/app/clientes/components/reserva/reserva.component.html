@@ -14,20 +14,26 @@
             <table class="table" width="100%">
                 <thead>
                     <tr>
-                        <th width="40%">Inversionistas</th>
-                        <th width="20%"></th>
-                        <th width="20%">TIR</th>
-                        <th width="20%">LTV</th>
+                        <th width="20%">Inversionistas</th>
+                        <th width="10%">TIR</th>
+                        <th width="10%">LTV</th>
+                        <th width="20%">Valor Contrato</th>
+                        <th width="20%">Monto Inversion</th>
+                        <th width="10%">Rentabilidad</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>' . $value['inversionista'] . '</td>
-                        <td>
-                            <input type="radio" name="inversionista" value="">
+                    <tr *ngFor="let inversionista of datosInversionistas"
+                        [ngClass]="{ 'table-success': inversionista.inv_cli == inversionista.inv_res}">
+                        <td> {{inversionista.nombre_inversionista}}</td>
+                        <td> {{inversionista.tir}} </td>
+                        <td> {{inversionista.ltv}} %</td>
+                        <td> {{inversionista.valor_contrato |currencyPesoChileno}}  UF</td>
+                        <td> {{inversionista.valor_contrato / ((100 + inversionista.tir) / 100) |currencyPesoChileno}} UF
                         </td>
-                        <td>' . $tir . '</td>
-                        <td>' . $ltv[0]['ltv'] . '%</td>
+                        <td>{{ inversionista.valor_contrato - (inversionista.valor_contrato / ((100 + inversionista.tir)
+                            / 100))
+                            |currencyPesoChileno}} UF</td>
                     </tr>
                 </tbody>
             </table>

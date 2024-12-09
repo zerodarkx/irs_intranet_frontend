@@ -1,0 +1,524 @@
+<div class="row">
+    <div class="col-md-12">
+        <h4>Negocios</h4>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Tarjeta 0 -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body d-flex align-items-center">
+                    <!-- Contenido de la tarjeta -->
+                    <div class="flex-grow-1">
+                        <h3 class="card-title tamano">Casos Disponibles</h3>
+                        <p class="card-text">Valor: <strong>{{contadorDatosDisponibles.cantidad}}</strong></p>
+                    </div>
+                    <!-- Ícono de lupa -->
+                    <i class="bi bi-search fs-3" (click)="mostratCasosDisponibles()"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Tarjeta 1 -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body d-flex align-items-center">
+                    <!-- Contenido de la tarjeta -->
+                    <div class="flex-grow-1">
+                        <h3 class="card-title tamano">Comité</h3>
+                        <p class="card-text">Valor: <strong>{{contadorDatosComite.cantidad}}</strong></p>
+                    </div>
+                    <!-- Ícono de lupa -->
+                    <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosComite)"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Tarjeta 2 -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body d-flex align-items-center">
+                    <!-- Contenido de la tarjeta -->
+                    <div class="flex-grow-1">
+                        <h3 class="card-title tamano">Pendiente</h3>
+                        <p class="card-text">Valor: <strong>{{contadorDatosPendiente.cantidad}}</strong></p>
+                    </div>
+                    <!-- Ícono de lupa -->
+                    <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosPendiente)"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Tarjeta 3 -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body d-flex align-items-center">
+                    <!-- Contenido de la tarjeta -->
+                    <div class="flex-grow-1">
+                        <h3 class="card-title tamano">
+                            Pre-Aprobados <div class="fff">(Falta Cierre de Negocio)</div>
+                        </h3>
+                        <p class="card-text">Valor: <strong>{{contadorDatosPreAprobado.cantidad}}</strong></p>
+                    </div>
+                    <!-- Ícono de lupa -->
+                    <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosPreAprobado)"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Tarjeta 4 -->
+        <div class="col-md-6 mb-3">
+            <div class="card text-white bg-secondary">
+                <div class="card-body d-flex align-items-center">
+                    <!-- Contenido de la tarjeta -->
+                    <div class="flex-grow-1">
+                        <h3 class="card-title tamano">Aprobados</h3>
+                        <p class="card-text">Valor: <strong>{{contadorDatosAprobado.cantidad}}</strong></p>
+                    </div>
+                    <!-- Ícono de lupa -->
+                    <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosAprobado)"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Tarjeta 5 -->
+        <div class="col-md-6 mb-3">
+            <div class="card text-white bg-success">
+                <div class="card-body d-flex align-items-center">
+                    <!-- Contenido de la tarjeta -->
+                    <div class="flex-grow-1">
+                        <h3 class="card-title tamano">Cursados</h3>
+                        <p class="card-text">Valor: <strong>{{contadorDatosCursado.cantidad}}</strong></p>
+                    </div>
+                    <!-- Ícono de lupa -->
+                    <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosCursado)"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+        <!-- Tarjeta 6 -->
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-danger">
+                <div class="card-body d-flex align-items-center">
+                    <!-- Contenido de la tarjeta -->
+                    <div class="flex-grow-1">
+                        <h3 class="card-title tamano">Rechazados</h3>
+                        <p class="card-text">Valor: <strong>{{contadorDatosRechazado.cantidad}}</strong></p>
+                    </div>
+                    <!-- Ícono de lupa -->
+                    <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosRechazado)"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Tarjeta 6 -->
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body d-flex align-items-center">
+                    <!-- Contenido de la tarjeta -->
+                    <div class="flex-grow-1">
+                        <h3 class="card-title tamano">Desistidos</h3>
+                        <p class="card-text">Valor: <strong>{{contadorDatosDesistido.cantidad}}</strong></p>
+                    </div>
+                    <!-- Ícono de lupa -->
+                    <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosDesistido)"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="separadorEspacio"></div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Casos {{tituloMostrar}}</h3>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <p-table #tabla [value]="datosMostar" styleClass="p-datatable-striped" [paginator]="true" [rows]="10"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
+                [rowsPerPageOptions]="[10, 25, 50, 100, 250, 500]"
+                [globalFilterFields]="['id','nom_cli','ejecutivo','propiedad','comuna','v_comercial','v_contrato','ltv']"
+                selectionMode="single" dataKey="id" [scrollable]="true" scrollDirection="horizontal"
+                [style]="{ width: '100%' }">
+                <!-- FILTRO GENERAL -->
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button pButton class="btn btn-success" (click)="clear(tabla)">
+                                <i class="bi bi-filter"></i>Lipiar Filtros
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <input #iBuscarTodo type="text" class="form-control" (input)="handleFilter($event)"
+                                placeholder="Buscar en toda la tabla" />
+                        </div>
+                    </div>
+                </ng-template>
+                <!-- FILTROS POR COLUMNAS -->
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="id">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">ID</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="id" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="id"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="inversionista" *ngIf="estadoMostrar != 0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">Inversionista</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="inversionista" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="inversionista"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="nom_cli">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">Cliente</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="nom_cli" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="nom_cli"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="ejecutivo">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">Ejecutivo</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="ejecutivo" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="ejecutivo"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="propiedad">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">Propiedad</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="propiedad" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="propiedad"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="comuna">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">Comuna</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="comuna" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="comuna"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="v_comercial">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">Valor Propiedad</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="v_comercial" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="v_comercial"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="v_contrato">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">Valor Contrato</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="v_contrato" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="v_contrato"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="ltv">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">LTV</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="ltv" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="ltv"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="monto_inv" *ngIf="estadoMostrar != 0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">Monto Inversion</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="monto_inv" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="monto_inv"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th pSortableColumn="tir" *ngIf="estadoMostrar != 0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">TIR</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="tir" display="menu"></p-columnFilter>
+                                    <p-sortIcon field="tir"></p-sortIcon>
+                                </div>
+                            </div>
+                        </th>
+                        <th [style]="{ width: '150px' }">
+                            <div class="text-center">
+                                <label for="">Opciones</label>
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <!-- CUERPO DE LA TABLA -->
+                <ng-template pTemplate="body" let-data let-i="rowIndex">
+                    <tr>
+                        <td>{{ data.id }}</td>
+                        <td *ngIf="estadoMostrar != 0">{{ data.inversionista }}</td>
+                        <td>{{ data.nom_cli }}</td>
+                        <td>{{ data.ejecutivo }}</td>
+                        <td>{{ data.propiedad }}</td>
+                        <td>{{ data.comuna }}</td>
+                        <td>{{ data.v_comercial | currencyPesoChileno }}</td>
+                        <td>{{ data.v_contrato | currencyPesoChileno}}</td>
+                        <td>{{ data.ltv }}%</td>
+                        <td *ngIf="estadoMostrar != 0">{{ data.v_contrato / ((100 + data.tir) / 100) |
+                            currencyPesoChileno}}</td>
+                        <td *ngIf="estadoMostrar != 0">{{ data.tir }}%</td>
+                        <td>
+                            <div class="text-center">
+                                <i class="bi bi-pencil-square" *ngIf="estadoMostrar != 0"
+                                    (click)="abrirModal(data)"></i>
+                                <i class="bi bi-pencil-square" *ngIf="estadoMostrar == 0"
+                                    (click)="abrirModalCasoDisponible(data)"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <!-- MENSAJE DE QUE NO HAY DATOS -->
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="20" class="text-center">No hay datos disponibles</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PARA MOSTRAR DISPONIBELS -->
+<div class="modal fade" id="modalDetalleCasoDisponible" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Detalle caso
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Datos del Cliente</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td width="30%">Nombre Cliente</td>
+                                    <td width="70%">{{detallePorCaso?.nom_cli}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Propiedad</td>
+                                    <td>{{detallePorCaso?.propiedad}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Comuna</td>
+                                    <td>{{detallePorCaso?.comuna}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Valor Propiedad</td>
+                                    <td>{{detallePorCaso?.v_comercial | currencyPesoChileno}} UF</td>
+                                </tr>
+                                <tr>
+                                    <td>Valor Contrato</td>
+                                    <td>{{detallePorCaso?.v_contrato | currencyPesoChileno}} UF</td>
+                                </tr>
+                                <tr>
+                                    <td>LTV</td>
+                                    <td>{{detallePorCaso?.ltv}}%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Datos Inversionista</h3>
+                    </div>
+                </div>
+                <form [formGroup]="formAsignarAComite">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Seleccione invsersionista</label>
+                            <ng-select [items]="selectInversionistaDisponibles" placeholder="Seleccionar Inversionista"
+                                bindValue="id_inv" bindLabel="inv" notFoundText="No se encontraron coincidencias"
+                                (change)="mostrarDataInversionistaOnChangeSelect($event)" formControlName="id_inv">
+                            </ng-select>
+                            <shared-mensaje-validador
+                                [forControl]="formAsignarAComite.controls['id_inv']"></shared-mensaje-validador>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="dataInversor">
+                        <div class="col-md-12">
+                            <table width="100%" class="table">
+                                <tbody>
+                                    <tr>
+                                        <td width="25%">Total Inversion</td>
+                                        <td width="75%">{{total_inversion | currencyPesoChileno}} UF</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">TIR</td>
+                                        <td width="75%">
+                                            <input type="text" class="form-control" formControlName="tir"
+                                                (change)="formatearMiles($event)" (change)="cambiarTirInput($event)">
+                                            <shared-mensaje-validador
+                                                [forControl]="formAsignarAComite.controls['tir']"></shared-mensaje-validador>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rentabilidad</td>
+                                        <td>{{rentabilidad | currencyPesoChileno}} UF</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="aceptarCasoAComite()"
+                    [disabled]="formAsignarAComite.invalid">
+                    Pasar a Comité
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PARA MOSTRAR OTROS-->
+<div class="modal fade" id="modalDetalleCaso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Detalle caso
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formCamioEstado">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Datos del Cliente</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td width="30%">Nombre Cliente</td>
+                                        <td width="70%">{{detallePorCaso?.nom_cli}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Propiedad</td>
+                                        <td>{{detallePorCaso?.propiedad}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comuna</td>
+                                        <td>{{detallePorCaso?.comuna}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Valor Propiedad</td>
+                                        <td>{{detallePorCaso?.v_comercial}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Valor Contrato</td>
+                                        <td>{{detallePorCaso?.v_contrato}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LTV</td>
+                                        <td>{{detallePorCaso?.ltv}}%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Datos Inversionista</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Seleccione invsersionista</label>
+                            <input type="text" class="form-control" disabled [value]="detallePorCaso?.inversionista">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Estado a Cambiar</label>
+                            <ng-select placeholder="Seleccionar Inversionista"
+                                notFoundText="No se encontraron coincidencias" formControlName="estado_reserva">
+                                <ng-option [value]="1">Comité</ng-option>
+                                <ng-option [value]="2">Pendiente</ng-option>
+                                <ng-option [value]="3">Rechazado</ng-option>
+                                <ng-option [value]="4">Desistido</ng-option>
+                                <ng-option [value]="5">Pre-Aprobado</ng-option>
+                                <ng-option [value]="6" *ngIf="contadorTemporal!.estado >= 5">Aprobado</ng-option>
+                                <ng-option [value]="7" *ngIf="contadorTemporal!.estado >= 6">Cursado</ng-option>
+                            </ng-select>
+                            <shared-mensaje-validador
+                                [forControl]="formAsignarAComite.controls['estado_reserva']"></shared-mensaje-validador>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table width="100%" class="table">
+                                <tbody>
+                                    <tr>
+                                        <td width="25%">Total Inversion</td>
+                                        <td width="75%">{{total_inversion | currencyPesoChileno}} UF</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">TIR</td>
+                                        <td width="75%">
+                                            <input type="text" class="form-control" formControlName="tir"
+                                                (change)="formatearMiles($event)" (change)="cambiarTirInput($event)">
+                                            <shared-mensaje-validador
+                                                [forControl]="formAsignarAComite.controls['tir']"></shared-mensaje-validador>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rentabilidad</td>
+                                        <td>{{rentabilidad | currencyPesoChileno}} UF</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="cambiarDeEstadoDeReserva()"
+                    [disabled]="formCamioEstado.invalid">
+                    Modificar
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

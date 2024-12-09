@@ -31,3 +31,13 @@ export interface AccionesUsuario {
     titulo: string;
     icono: string;
 }
+
+export interface ResultadoObtenerSelectInversionistaDisponibles {
+    ok:   boolean;
+    data: SelectInversionistaDisponibles[];
+}
+
+export interface SelectInversionistaDisponibles {
+    id_inv: number;
+    inv:    string;
+}

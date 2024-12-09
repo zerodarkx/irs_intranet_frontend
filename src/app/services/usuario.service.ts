@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from 'src/environments/environment';
 import { ResultadoObtenerEjecutivoYbroker } from '../interfaces/cliente';
-import { ResultadoAccionesUsuario, ResultadoObtenerTodosUsuario } from '../interfaces/usuario';
+import { ResultadoAccionesUsuario, ResultadoObtenerSelectInversionistaDisponibles, ResultadoObtenerTodosUsuario } from '../interfaces/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,11 @@ export class UsuarioService {
   cambiarEstadoUsuario(data: any): Observable<ResultadoAccionesUsuario> {
     let url = `${this.url_base}/cambiarEstadoUsuario`;
     return this.http.put<ResultadoAccionesUsuario>(url, data);
+  }
+
+  obtenerSelectInversionistaDisponibles(id_cliente: number): Observable<ResultadoObtenerSelectInversionistaDisponibles> {
+    let url = `${this.url_base}/obtenerTodosInversionistaDisponibles/${id_cliente}}`;
+    return this.http.get<ResultadoObtenerSelectInversionistaDisponibles>(url);
   }
 
 }

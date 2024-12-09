@@ -23,6 +23,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'inversionista',
+    loadChildren: () => import('./inversionista/inversionista.module').then(m => m.InversionistaModule),
+  },
+  {
     path: '**',
     redirectTo: 'inicio',
     pathMatch: 'full'
