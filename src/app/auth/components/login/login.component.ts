@@ -13,6 +13,8 @@ import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 })
 export class LoginComponent {
 
+  mensajeError: string = '';
+
   formLogin: FormGroup = this.fb.group({
     usuario: ['', [
       Validators.required,
@@ -35,10 +37,11 @@ export class LoginComponent {
           if (response.ok) {
             localStorage.setItem('token', response.token);
             this.router.navigate(['/inicio']);
-          }          
+          }
         },
         error: (error: HttpErrorResponse) => {
-          errorConexionServidor(error);
+          this.mensajeError = 'Usuario o Contraseña invalida';
+
         }
       })
   }

@@ -11,23 +11,26 @@ import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 export class RecuperarContrasenaComponent {
 
   correoRecuperar: string = '';
+  mensajeError: string = '';
 
   constructor(
-    private sAuth: AuthService,
-    private router: Router
+    private sAuth: AuthService
   ) { }
 
   recuperarPassword() {
     this.sAuth.recuperarPassword(this.correoRecuperar)
       .subscribe({
         next: (response: any) => {
+          console.log(response);
+          
           if (response.ok) {
-            localStorage.setItem('token', response.token);
-            this.router.navigate(['/inicio']);
+            this.mensajeError = response.data.message;
+            return;
           }
+          this.mensajeError = response.data.message;
         },
         error: (error: any) => {
-          errorConexionServidor(error);
+          this.mensajeError = 'Favor avisar a un administrador'
         }
       })
   }

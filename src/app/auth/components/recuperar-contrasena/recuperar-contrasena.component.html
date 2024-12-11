@@ -10,9 +10,13 @@
         class="form-control"
         placeholder="Ingresa su Correo"
         required
+        [(ngModel)]="correoRecuperar"
       />
     </div>
-    <button type="submit" class="btn btn-primary w-100">Recuperar contraseña</button>
+    <div class="mb-3" *ngIf="mensajeError">
+      <div class="alert alert-warning" role="alert" >{{mensajeError}}</div>
+    </div>
+    <button type="button" class="btn btn-primary w-100" (click)="recuperarPassword()" [disabled]="!correoRecuperar">Recuperar contraseña</button>
     <div class="text-center mt-3">
       <a routerLink="/auth" class="text-decoration-none">Ir al login</a>
     </div>
