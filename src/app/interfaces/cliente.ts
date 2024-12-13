@@ -58,13 +58,13 @@ export interface ResultadoObtenerClienteById {
 
 export interface ClienteById {
     id_cliente: number;
-    id_ejecutivo: null;
-    id_inversionista: null;
+    id_ejecutivo: number;
+    id_inversionista: number;
     id_tipoPropiedad: number;
     id_codigo_telefono: number;
-    id_canal: null;
-    id_estado: null;
-    id_lineaNegocio: null;
+    id_canal: number;
+    id_estado: number;
+    id_lineaNegocio: number;
     id_comuna: number;
     id_plataforma: number;
     cli_rut: string;
@@ -73,17 +73,18 @@ export interface ClienteById {
     cli_correo: string;
     cli_direccion: string;
     cli_obs: string;
-    rol: null;
+    rol: string;
     cli_deuda_estimada: string;
     cli_valor_comercial: string;
     mConstruidos: string;
     mTerreno: string;
     cli_fecha_ingreso: Date;
-    cli_fecha_contacto: null;
-    motivo_rechazo: null;
-    tipo_salida: null;
+    cli_fecha_contacto: Date;
+    motivo_rechazo: string;
+    tipo_salida: string;
     id_region: number;
     nombre_estado: string;
+    inversionista: string;
 }
 
 export interface ResultadoGestionCliente {
@@ -211,15 +212,26 @@ export interface ResultadoNuevoDocumentoCurse {
 
 
 export interface ResultadoObtenerReservasClientes {
-    ok:   boolean;
+    ok: boolean;
     data: ReservasClientes[];
 }
 
 export interface ReservasClientes {
-    inv_cli:              number;
-    inv_res:              number;
-    tir:                  number;
+    inv_cli: number;
+    inv_res: number;
+    tir: number;
+    nombre_estado: string;
     nombre_inversionista: string;
-    ltv:                  number;
-    valor_contrato:       number;
+    ltv: number;
+    valor_contrato: number;
+}
+
+export interface ResultadoObtenerFechaCursado {
+    ok: true;
+    data: ObtenerFechaCursado;
+}
+
+export interface ObtenerFechaCursado {
+    fecha_cursado_inicio: Date;
+    fecha_cursado_termino: Date;
 }

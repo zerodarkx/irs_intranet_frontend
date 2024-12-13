@@ -15,8 +15,9 @@
                 <thead>
                     <tr>
                         <th width="20%">Inversionistas</th>
-                        <th width="10%">TIR</th>
-                        <th width="10%">LTV</th>
+                        <th width="10%">Estado Reserva</th>
+                        <th width="5%">TIR</th>
+                        <th width="5%">LTV</th>
                         <th width="20%">Valor Contrato</th>
                         <th width="20%">Monto Inversion</th>
                         <th width="10%">Rentabilidad</th>
@@ -26,6 +27,7 @@
                     <tr *ngFor="let inversionista of datosInversionistas"
                         [ngClass]="{ 'table-success': inversionista.inv_cli == inversionista.inv_res}">
                         <td> {{inversionista.nombre_inversionista}}</td>
+                        <td> {{inversionista.nombre_estado}}</td>
                         <td> {{inversionista.tir}} </td>
                         <td> {{inversionista.ltv}} %</td>
                         <td> {{inversionista.valor_contrato |currencyPesoChileno}}  UF</td>

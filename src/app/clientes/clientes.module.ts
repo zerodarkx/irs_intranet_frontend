@@ -15,10 +15,10 @@ import { NuevoClienteComponent } from './pages/nuevo-cliente/nuevo-cliente.compo
 import { ReservaComponent } from './components/reserva/reserva.component';
 import { SimuladorComponent } from './components/simulador/simulador.component';
 import { BuscarClienteComponent } from './pages/buscar-cliente/buscar-cliente.component';
-import { NavbarClienteDetalleComponent } from './components/navbar/cliente-detalle/cliente-detalle.component';
 import { GestionComponent } from './components/gestion/gestion.component';
 import { CurseComponent } from './components/curse/curse.component';
 import { GastosClienteComponent } from './components/gastos-cliente/gastos-cliente.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 
 @NgModule({
@@ -31,10 +31,10 @@ import { GastosClienteComponent } from './components/gastos-cliente/gastos-clien
     SimuladorComponent,
     NuevoClienteComponent,
     BuscarClienteComponent,
-    NavbarClienteDetalleComponent,
     GestionComponent,
     CurseComponent,
     GastosClienteComponent,
+    MenuComponent,
   ],
   imports: [
     ClientesRoutingModule,

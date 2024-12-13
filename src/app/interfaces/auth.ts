@@ -1,6 +1,7 @@
 export interface ResultadoAuthLogin {
     ok: boolean;
     token: string;
+    permisos_usuario: string;
 }
 
 export interface FormularioLogin{

@@ -87,7 +87,16 @@ export class CurseComponent implements OnInit {
     documento: ['', [
       Validators.required
     ]]
-  })
+  });
+
+  formDatosCursado: FormGroup = this.fb.group({
+    fecha_cursado_inicio: ['', [
+      Validators.required
+    ]],
+    fecha_cursado_termino: ['', [
+      Validators.required
+    ]]
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -98,7 +107,25 @@ export class CurseComponent implements OnInit {
   }
   ngOnInit(): void {
     this.cargarData();
-    this.cargarTipoDocumentoCurse()
+    this.cargarTipoDocumentoCurse();
+    this.obtenerFechas();
+  }
+
+  obtenerFechas() {
+    this.sCliente.obtenerFechaCursadoCliente()
+      .subscribe({
+        next: (response) => {
+          if (response.ok) {
+            this.formDatosCursado.patchValue({
+              fecha_cursado_inicio: response.data.fecha_cursado_inicio,
+              fecha_cursado_termino: response.data.fecha_cursado_termino
+            })
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
   }
 
   formateadorMiles(event: Event) {
@@ -225,7 +252,7 @@ export class CurseComponent implements OnInit {
       .subscribe({
         next: (response: ResultadoNuevoDocumentoCurse) => {
           console.log(response);
-          
+
           if (response.ok) {
             mostrarMensaje({
               icono: IconoSweetAlert.Success,
@@ -299,6 +326,30 @@ export class CurseComponent implements OnInit {
     setTimeout(() => {
       this.isAlertVisible = false;
     }, 5000);
+  }
+
+  guardarFechaCursado() {
+    this.sCliente.agregarFechaCursadoCliente(this.formDatosCursado.value)
+      .subscribe({
+        next: (response) => {
+          if (response.ok) {
+            mostrarMensaje({
+              icono: IconoSweetAlert.Success,
+              titulo: "Exito",
+              mensaje: "se guardo correctamente"
+            });
+            return;
+          }
+          mostrarMensaje({
+            icono: IconoSweetAlert.Error,
+            titulo: "Atencion",
+            mensaje: "no se guardo correctamente"
+          });
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      })
   }
 
 }

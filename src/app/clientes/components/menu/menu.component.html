@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs d-flex mb-4">
+    <li class="nav-item flex-fill text-center" *ngFor="let menu of menuDinamico">
+        <a class="nav-link" [routerLink]="[menu.link]" routerLinkActive="active" *ngIf="menu.permiso">{{menu.nombre}}</a>
+    </li>
+</ul>

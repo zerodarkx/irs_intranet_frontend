@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GestionCliente, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoGestionCliente, ResultadoNuevoDocumentoCurse, ResultadoObtenerClienteById, ResultadoObtenerDocumentosCurse, ResultadoObtenerGastoCliente, ResultadoObtenerReservasClientes, ResultadoObtenerTodosClientes, ResultadoObtenerTodosDocumentosCliente, ResultadoObtenerTodosImagenCliente, ResultadoSubirDocumentoImagen } from '../interfaces/cliente';
+import { GestionCliente, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoGestionCliente, ResultadoNuevoDocumentoCurse, ResultadoObtenerClienteById, ResultadoObtenerDocumentosCurse, ResultadoObtenerFechaCursado, ResultadoObtenerGastoCliente, ResultadoObtenerReservasClientes, ResultadoObtenerTodosClientes, ResultadoObtenerTodosDocumentosCliente, ResultadoObtenerTodosImagenCliente, ResultadoSubirDocumentoImagen } from '../interfaces/cliente';
 import { env } from 'src/environments/environment';
 import { ResultadoObtenerFichaComite } from '../interfaces/fichaComite';
 
@@ -144,6 +144,16 @@ export class ClienteService {
   obtenerReservasCliente(): Observable<ResultadoObtenerReservasClientes> {
     let url = `${this.url_base}/obtenerReservasCliente/${this.id_cliente}`;
     return this.http.get<ResultadoObtenerReservasClientes>(url);
+  }
+
+  obtenerFechaCursadoCliente(): Observable<ResultadoObtenerFechaCursado> {
+    let url = `${this.url_base}/obtenerFechaCursadoCliente/${this.id_cliente}`;
+    return this.http.get<ResultadoObtenerFechaCursado>(url);
+  }
+
+  agregarFechaCursadoCliente(data: any): Observable<{ ok: boolean }> {
+    let url = `${this.url_base}/agregarFechaCursadoCliente/${this.id_cliente}`;
+    return this.http.post<{ ok: boolean }>(url, data);
   }
 
 }

@@ -7,7 +7,7 @@ import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 @Component({
   selector: 'cliente-reserva',
   templateUrl: './reserva.component.html',
-  styleUrls: ['./reserva.component.css']
+  styles: []
 })
 export class ReservaComponent implements OnInit {
 

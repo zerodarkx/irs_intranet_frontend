@@ -28,12 +28,12 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  cerrarSession(){
+  cerrarSession() {
     localStorage.removeItem('token')
     this.router.navigate(['./auth'])
   }
 
-  verificarToken(): Observable<ValidarSession>{
+  verificarToken(): Observable<ValidarSession> {
     let url = `${this.url_base}/verificar`;
     return this.http.get<ResultadoAuthLogin>(url);
   }
@@ -43,8 +43,14 @@ export class AuthService {
     return this.http.post<ResultadoAuthLogin>(url, data);
   }
 
-  recuperarPassword(correo: string): Observable<any>{
+  recuperarPassword(correo: string): Observable<any> {
     let url = `${this.url_base}/recuperarPassword`;
-    return this.http.post<any>(url, {correo})
+    return this.http.post<any>(url, { correo })
+  }
+
+
+  renovarToken(): Observable<{ token: string }> {
+    let url = `${this.url_base}/renovarToken`;
+    return this.http.post<{ token: string }>(url, {})
   }
 }

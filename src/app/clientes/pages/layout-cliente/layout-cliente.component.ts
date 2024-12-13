@@ -36,7 +36,6 @@ export class LayoutClienteComponent {
           return
         },
         error: (error: HttpErrorResponse) => {
-          // this.errorMessage = 'Error al obtener los datos';
           console.error('Error al obtener los datos:', error);
           return this.router.navigate(['/cliente']);
         }

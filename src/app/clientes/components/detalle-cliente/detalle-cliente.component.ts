@@ -28,8 +28,9 @@ import { IconoSweetAlert, mostrarMensaje, errorConexionServidor } from 'src/app/
 export class DetalleClienteComponent implements OnInit {
 
   //variables para datos que son solo visuales
-  nombreEstado!: string
-  nombre_inversionista:string = ''
+  estado_cliente: number = 0;
+  nombreEstado: string = '';
+  nombre_inversionista: string = '';
 
   //variables para los select
   selectComunas: Comuna[] = []
@@ -278,8 +279,10 @@ export class DetalleClienteComponent implements OnInit {
               obs_cli: response.data.cli_obs,
               selectEjecutivo: response.data.id_ejecutivo,
             })
-            
+
+            this.estado_cliente = response.data.id_estado;
             this.nombreEstado = response.data.nombre_estado;
+            this.nombre_inversionista = response.data.inversionista;
 
             this.selectRegion();
             this.selectPlataforma();
@@ -315,7 +318,7 @@ export class DetalleClienteComponent implements OnInit {
       });
   }
 
-  pasarSiguienteEstado(){
+  pasarSiguienteEstado() {
     this.sCliente.cambiarSiguienteEstado()
       .subscribe({
         next: (response: ResultadoCambiarEstado) => {
