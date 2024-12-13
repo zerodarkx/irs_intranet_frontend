@@ -15,8 +15,6 @@ interface Payload {
 })
 export class MenuComponent implements OnInit {
 
-  permisosUsuario: string[] = [];
-
   menuDinamico: SubModuloCliente[] = [
     { nombre: 'Detalle', link: 'detalle', permiso: 'VER_DETALLE_CLIENTE' },
     { nombre: 'Simulador', link: 'simulador', permiso: 'VER_SIMULACION_CLIENTE' },
@@ -39,9 +37,8 @@ export class MenuComponent implements OnInit {
       const decodedToken = jwtDecode<Payload>(token);
       let permisos: string[] = decodedToken.permisos;
 
-      this.permisosUsuario = permisos;
       this.menuDinamico = this.menuDinamico.filter(menu =>
-        this.permisosUsuario.includes(menu.permiso)
+        permisos.includes(menu.permiso)
       );
     }
   }
