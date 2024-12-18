@@ -7,6 +7,7 @@
       <button
         class="btn btn-success"
         (click)="abrirNuevaSimulacion('nuevaSimulacion')"
+        *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULADOR_CLIENTE', 'BTN_NUEVA_SIMULACION')"
       >
         <i class="fas fa-plus"></i>
         Nueva Simulación
@@ -22,6 +23,7 @@
         <button
           class="btn btn-success"
           (click)="detalleSimulacion('detalleSimulacion', sim)"
+          [disabled]="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULADOR_CLIENTE', 'BTN_VER_SIMULACION')"
         >
           Ver detalle
         </button>
@@ -70,7 +72,7 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2" *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULADOR_CLIENTE', 'BTN_DESCARGAR_SIMULACION')">
         <!-- agregar aca si no tiene simulacion mostrar mensaje de que no tiene-->
         <img
           src="/assets/descargables/icono_pdf.png"

@@ -8,9 +8,10 @@ import { nombreApellidoEjecutivoId, ResultadoObtenerEjecutivoYbroker, ResultadoO
 
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ExportarExcelService } from 'src/app/services/exportar-excel.service';
+import { PermisosService } from 'src/app/services/permisos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
-import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 import { validarFechas } from 'src/app/shared/utils/validadores';
 
 
@@ -42,11 +43,17 @@ export class BuscarClienteComponent implements OnInit {
     id_cliente: ['', []],
     estado: [, []],
     ejecutivo: [, []],
-    fechaDesde: ['', []],
-    fechaHasta: ['', []],
-  }, {
-    validators: validarFechas('fechaDesde', 'fechaHasta')
+    fechasIngreso: this.fb.group({
+      fechaDesde: ['', []],
+      fechaHasta: ['', []],
+    }, { validators: [validarFechas('fechaDesde', 'fechaHasta')] }),
+    fechasCursado: this.fb.group({
+      fechaDesde: ['', []],
+      fechaHasta: ['', []],
+    }, { validators: [validarFechas('fechaDesde', 'fechaHasta')] }),
   });
+
+  permisos!: Record<string, any>;
 
   constructor(
     private fb: FormBuilder,
@@ -54,11 +61,13 @@ export class BuscarClienteComponent implements OnInit {
     private sUsuario: UsuarioService,
     private sExportar: ExportarExcelService,
     private router: Router,
+    private sPermiso: PermisosService
   ) { }
 
   ngOnInit(): void {
     this.obtenerClientePorFiltro();
     this.selectEjecutivoBroker();
+    this.permisos = this.sPermiso.obtenerPermisos();
   }
 
   clear(table: Table) {

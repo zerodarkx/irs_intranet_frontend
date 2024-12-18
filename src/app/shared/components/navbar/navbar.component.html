@@ -7,15 +7,15 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="offcanvas offcanvas-end"  data-bs-scroll="true" tabindex="-1"
-            id="menuDelNavegador" aria-labelledby="menuDelNavegadorLabel">
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="menuDelNavegador"
+            aria-labelledby="menuDelNavegadorLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="menuDelNavegadorLabel">Contenido</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" *ngIf="permisos['VER_MODULO_CLIENTE'].activo">
                         <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
                             (click)="toggleDropdown('menuClientes')" aria-expanded="false">
                             Clientes
@@ -27,11 +27,14 @@
                             </li>
                             <li>
                                 <a class="dropdown-item fs-5" [routerLink]="['/cliente', 'nuevoCliente']"
-                                    routerLinkActive="active">Agregar Cliente</a>
+                                    routerLinkActive="active"
+                                    *ngIf="permisos['VER_MODULO_CLIENTE'].categorias['VER_BUSCAR_CLIENTE'].subcategorias['BTN_AGREGAR_CLIENTE'].activo">
+                                    Agregar Cliente
+                                </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" *ngIf="permisos['VER_MODULO_NEGOCIO'].activo">
                         <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
                             (click)="toggleDropdown('menuInversionista')" aria-expanded="false">
                             Inversionista
@@ -43,9 +46,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" *ngIf="permisos['VER_MODULO_MANTENEDORES'].activo">
                         <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
-                        (click)="toggleDropdown('menuMantenedores')" aria-expanded="false">
+                            (click)="toggleDropdown('menuMantenedores')" aria-expanded="false">
                             Mantenedores
                         </a>
                         <ul id="menuMantenedores" class="dropdown-menu">
@@ -97,86 +100,5 @@
                 </ul>
             </div>
         </div>
-        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Contenido</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
-                            data-bs-target="#menuClientes" aria-expanded="false">
-                            Clientes
-                        </a>
-                        <ul id="menuClientes" class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/cliente', 'buscarCliente']"
-                                    routerLinkActive="active">Buscar Cliente</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/cliente', 'nuevoCliente']"
-                                    routerLinkActive="active">Agregar Cliente</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
-                            data-bs-target="#menuMantenedores" aria-expanded="false">
-                            Mantenedores
-                        </a>
-                        <ul id="menuMantenedores" class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/mantenedores', 'usuario']"
-                                    routerLinkActive="active">Usuario</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/mantenedores', 'tipoPerfiles']"
-                                    routerLinkActive="active">Tipo
-                                    Perfiles</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/mantenedores', 'tipoPropiedad']"
-                                    routerLinkActive="active">Tipo Propiedades</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/mantenedores', 'tipoImagen']"
-                                    routerLinkActive="active">Tipo Imagenes</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/mantenedores', 'tipoDocumento']"
-                                    routerLinkActive="active">Tipo Documentos</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/mantenedores', 'tipoCanalContacto']"
-                                    routerLinkActive="active">Tipo Canal Contacto</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/mantenedores', 'lineaNegocio']"
-                                    routerLinkActive="active">Linea Negocio</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/mantenedores', 'canalSimulacion']"
-                                    routerLinkActive="active">Canal Simulacion</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/mantenedores', 'estadoCliente']"
-                                    routerLinkActive="active">Estados Cliente</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <hr>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-3" style="cursor: pointer;" (click)="cerrarSession()">Cerrar Session</a>
-                    </li>
-                </ul>
-            </div>
-        </div> -->
     </div>
 </nav>

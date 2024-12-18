@@ -13,6 +13,7 @@ import {
 import { ITipoDocumento, ResultadoTipoDocumentos } from 'src/app/interfaces/tipoDocumentos';
 import { ITipoImagen, ResultadoTipoImagenes } from 'src/app/interfaces/tipoImagenes';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { PermisosService } from 'src/app/services/permisos.service';
 
 import { TipoDocuentosService } from 'src/app/services/tipo-documentos.service';
 import { TipoImagenesService } from 'src/app/services/tipo-imagenes.service';
@@ -30,7 +31,7 @@ export class DocumentosComponent {
   fechaNueva: string = new Date().getTime().toString();
 
   isAlertVisible: boolean = false;
-
+  permisos!: Record<string, any>;
   selectedDocuemento: File | null = null;
   selectedImagen: File | null = null;
 
@@ -64,13 +65,22 @@ export class DocumentosComponent {
     private fb: FormBuilder,
     private sTipoDocumento: TipoDocuentosService,
     private sTipoImagen: TipoImagenesService,
-    private sCliente: ClienteService
+    private sCliente: ClienteService,
+    private sPermiso: PermisosService
   ) { }
 
   ngOnInit(): void {
     this.cargarSelect();
     this.cargarDocumentosEnSistema();
     this.cargarImagenesEnSistema();
+    this.permisos = this.sPermiso.obtenerPermisos();
+  }
+
+  obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = '') {
+    if (!modulo) return false;
+    if (!categoria) return this.permisos[modulo].activo
+    if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo
+    return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo
   }
 
   cargarSelect() {

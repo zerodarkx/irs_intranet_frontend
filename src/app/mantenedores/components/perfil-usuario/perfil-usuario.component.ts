@@ -2,11 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
+import { PermisoConId } from 'src/app/interfaces/usuario';
 import { ResultadoAccionesPerfil, ResultadoObtenerTodosPerfiles, TipoPerfilUsuario } from 'src/app/interfaces/usuarioPerfiles';
 import { TipoPerfilService } from 'src/app/services/tipo-perfil.service';
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+import { PermisosComponent } from '../permisos/permisos.component';
 
 @Component({
   selector: 'mantendor-perfil-usuario',
@@ -16,10 +18,12 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 export class PerfilUsuarioComponent implements OnInit {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+  @ViewChild(PermisosComponent) permisoComponente!: PermisosComponent;
 
   titulo_cabecera: string = '';
 
   tipoPerfiles: TipoPerfilUsuario[] = []
+  permisosPorPerfil?: PermisoConId;
 
   formTipoPerfil: FormGroup = this.fb.group({
     id_tipoUsuario: [0],
@@ -59,7 +63,7 @@ export class PerfilUsuarioComponent implements OnInit {
       this.formTipoPerfil.patchValue({
         id_tipoUsuario: tipoPerfil.id_tipoUsuario,
         nombre_tipoUsuario: tipoPerfil.nombre_tipoUsuario,
-      })
+      });
     }
     abrirModal('modalTipoPerfil')
   }
@@ -116,6 +120,35 @@ export class PerfilUsuarioComponent implements OnInit {
           }
         })
     }
+  }
+
+  modalPermisos(tipoPerfil: TipoPerfilUsuario) {
+    this.permisosPorPerfil = {
+      id: tipoPerfil.id_tipoUsuario,
+      permisos: JSON.parse(tipoPerfil.permisos)
+    };
+    abrirModal('modalPermisos')
+  }
+
+  guardarPermisos() {
+    this.sTipoPerfil.guardarPermisosTipoPerfil(this.permisoComponente.permisosForm.value)
+      .subscribe({
+        next: (response) => {
+          mostrarMensaje({
+            icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Warning,
+            titulo: response.ok ? "Exito" : "Atencion",
+            mensaje: response.data.mensaje
+          });
+          if (response.ok) {
+            cerrarModal();
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+    const perfil = this.tipoPerfiles.find((u) => u.id_tipoUsuario === this.permisoComponente.permisosForm.get('id')?.value);
+    perfil!.permisos = JSON.stringify(this.permisoComponente.permisosForm.get('modulos')?.value);
   }
 
 }

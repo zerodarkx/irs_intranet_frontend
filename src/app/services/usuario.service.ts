@@ -51,5 +51,10 @@ export class UsuarioService {
     return this.http.get<ResultadoObtenerSelectInversionistaDisponibles>(url);
   }
 
+  guardarPermisosUsuario(data: any): Observable<any> {
+    let url = `${this.url_base}/modificarPermisosUsuario`;
+    return this.http.put<any>(url, data);
+  }
+
 }
 

@@ -17,6 +17,7 @@ export interface DataContador {
     cantidad: number;
     estado: number;
     titulo: string;
+    montoTotal: number;
 }
 
 export interface ResultadoObtenerTodosInversionesPorEstado {
@@ -60,6 +61,21 @@ export interface DataInversionista {
 }
 
 export interface ResultadoAgregarCasoNuevoReserva {
+    ok: boolean;
+    mensaje: string;
+}
+
+export interface ResultadoobtenerComentarioPorInversionista{
+    ok:boolean;
+    data: obtenerComentarioPorInversionista[]
+}
+
+export interface obtenerComentarioPorInversionista{
+    comentario: string;
+    fecha: Date;
+}
+
+export interface ResultadoagregarComentarioPorInversionista{
     ok: boolean;
     mensaje: string;
 }

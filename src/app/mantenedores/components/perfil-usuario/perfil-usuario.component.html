@@ -13,22 +13,11 @@
 </div>
 <div class="row">
   <div class="col-mn-12">
-    <p-table
-      #tabla
-      [value]="tipoPerfiles"
-      styleClass="p-datatable-striped"
-      [paginator]="true"
-      [rows]="10"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
-      [rowsPerPageOptions]="[10, 25, 50, 100, 250, 500]"
-      [globalFilterFields]="['nombre_tipoUsuario']"
-      selectionMode="single"
-      dataKey="id_tipoUsuario"
-      [scrollable]="true"
-      scrollDirection="horizontal"
-      [style]="{ width: '100%' }"
-    >
+    <p-table #tabla [value]="tipoPerfiles" styleClass="p-datatable-striped" [paginator]="true" [rows]="10"
+      [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
+      [rowsPerPageOptions]="[10, 25, 50, 100, 250, 500]" [globalFilterFields]="['nombre_tipoUsuario']"
+      selectionMode="single" dataKey="id_tipoUsuario" [scrollable]="true" scrollDirection="horizontal"
+      [style]="{ width: '100%' }">
       <!-- FILTRO GENERAL -->
       <ng-template pTemplate="caption">
         <div class="row">
@@ -38,13 +27,8 @@
             </button>
           </div>
           <div class="col-md-6">
-            <input
-              #iBuscarTodo
-              type="text"
-              class="form-control"
-              (input)="handleFilter($event)"
-              placeholder="Buscar en toda la tabla"
-            />
+            <input #iBuscarTodo type="text" class="form-control" (input)="handleFilter($event)"
+              placeholder="Buscar en toda la tabla" />
           </div>
         </div>
       </ng-template>
@@ -60,11 +44,7 @@
             <div class="d-flex justify-content-between align-items-center">
               <label for="">Nombre Perfil</label>
               <div class="d-flex flex-column">
-                <p-columnFilter
-                  type="text"
-                  field="nombre_tipoUsuario"
-                  display="menu"
-                ></p-columnFilter>
+                <p-columnFilter type="text" field="nombre_tipoUsuario" display="menu"></p-columnFilter>
                 <p-sortIcon field="nombre_tipoUsuario"></p-sortIcon>
               </div>
             </div>
@@ -80,13 +60,10 @@
       <ng-template pTemplate="body" let-perfil let-i="rowIndex">
         <tr>
           <td>{{ i + 1 }}</td>
-          <td>{{ perfil.nombre_tipoUsuario }}</td>
+          <td (click)="modalPermisos(perfil)" style="cursor: pointer">{{ perfil.nombre_tipoUsuario }}</td>
           <td>
             <div class="text-center">
-              <i
-                class="bi bi-pencil-square"
-                (click)="modalTipoPerfil(perfil)"
-              ></i>
+              <i class="bi bi-pencil-square" (click)="modalTipoPerfil(perfil)"></i>
             </div>
           </td>
         </tr>
@@ -102,50 +79,25 @@
 </div>
 
 <!-- MODAL PARA AGREGAR O ELIMINAR -->
-<div
-  class="modal fade"
-  id="modalTipoPerfil"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="modalTipoPerfil" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
           {{ titulo_cabecera }} Perfil
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="formTipoPerfil">
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="">Nombre Perfil</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="nombre_tipoUsuario"
-                  (keyup)="mayuscula($event)"
-                />
-                <shared-mensaje-validador
-                  [forControl]="formTipoPerfil.controls['nombre_tipoUsuario']"
-                ></shared-mensaje-validador>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <h5>Proximo a colocar permisos</h5>
-                </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="">Nombre Perfil</label>
+              <input type="text" class="form-control" formControlName="nombre_tipoUsuario"
+                (keyup)="mayuscula($event)" />
+              <shared-mensaje-validador
+                [forControl]="formTipoPerfil.controls['nombre_tipoUsuario']"></shared-mensaje-validador>
             </div>
           </div>
         </form>
@@ -154,13 +106,35 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cerrar
         </button>
-        <button
-          type="submit"
-          class="btn btn-success"
-          (click)="accionTipoPerfil()"
-          [disabled]="formTipoPerfil.invalid"
-        >
+        <button type="submit" class="btn btn-success" (click)="accionTipoPerfil()" [disabled]="formTipoPerfil.invalid">
           {{ titulo_cabecera }} Perfil
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para agregar permisos -->
+<div class="modal fade" id="modalPermisos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  >
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Modificar Permisos
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <mantenedores-permisos [permisos]="permisosPorPerfil"></mantenedores-permisos>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="guardarPermisos()">
+          Cambiar Permisos
         </button>
       </div>
     </div>

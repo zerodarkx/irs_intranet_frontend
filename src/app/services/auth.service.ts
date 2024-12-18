@@ -30,7 +30,7 @@ export class AuthService {
 
   cerrarSession() {
     localStorage.removeItem('token')
-    this.router.navigate(['./auth'])
+    this.router.navigate(['/auth'])
   }
 
   verificarToken(): Observable<ValidarSession> {
@@ -47,7 +47,6 @@ export class AuthService {
     let url = `${this.url_base}/recuperarPassword`;
     return this.http.post<any>(url, { correo })
   }
-
 
   renovarToken(): Observable<{ token: string }> {
     let url = `${this.url_base}/renovarToken`;

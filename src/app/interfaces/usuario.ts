@@ -19,6 +19,7 @@ export interface ResultadoUsuario {
     id_codigoTelefonico: number;
     nombre_plataforma: string;
     id_jefatura: number;
+    permisos: string;
 }
 
 export interface ResultadoAccionesUsuario {
@@ -40,4 +41,28 @@ export interface ResultadoObtenerSelectInversionistaDisponibles {
 export interface SelectInversionistaDisponibles {
     id_inv: number;
     inv:    string;
+}
+
+export interface PermisosModulo {
+  nombre: string;
+  categorias?: PermisosCategoria[];
+  activo: boolean;
+  permiso: string;
+}
+
+export interface PermisosCategoria {
+  nombre: string;
+  subcategorias?: PermisosSubCategoria[];
+  activo: boolean;
+  permiso: string;
+}
+export interface PermisosSubCategoria {
+  nombre: string;
+  activo: boolean;
+  permiso: string;
+}
+
+export interface PermisoConId{
+    id: number;
+    permisos: PermisosModulo[];
 }

@@ -13,7 +13,7 @@
                     <!-- Contenido de la tarjeta -->
                     <div class="flex-grow-1">
                         <h3 class="card-title tamano">Casos Disponibles</h3>
-                        <p class="card-text">Valor: <strong>{{contadorDatosDisponibles.cantidad}}</strong></p>
+                        <p class="card-text">Cantidad: <strong>{{contadorDatosDisponibles.cantidad}}</strong></p>
                     </div>
                     <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostratCasosDisponibles()"></i>
@@ -25,9 +25,12 @@
             <div class="card text-white bg-primary">
                 <div class="card-body d-flex align-items-center">
                     <!-- Contenido de la tarjeta -->
-                    <div class="flex-grow-1">
+                    <div class="flex-grow-1 no-spacing">
                         <h3 class="card-title tamano">Comité</h3>
-                        <p class="card-text">Valor: <strong>{{contadorDatosComite.cantidad}}</strong></p>
+                        <p class="card-text">Cantidad: <strong>{{contadorDatosComite.cantidad | currencyPesoChileno :
+                                false}}</strong></p>
+                        <p class="card-text">Total UF: <strong>{{contadorDatosComite.montoTotal |
+                                currencyPesoChileno}}</strong></p>
                     </div>
                     <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosComite)"></i>
@@ -39,9 +42,11 @@
             <div class="card text-white bg-primary">
                 <div class="card-body d-flex align-items-center">
                     <!-- Contenido de la tarjeta -->
-                    <div class="flex-grow-1">
+                    <div class="flex-grow-1 no-spacing">
                         <h3 class="card-title tamano">Pendiente</h3>
-                        <p class="card-text">Valor: <strong>{{contadorDatosPendiente.cantidad}}</strong></p>
+                        <p class="card-text">Cantidad: <strong>{{contadorDatosPendiente.cantidad}}</strong></p>
+                        <p class="card-text">Total UF: <strong>{{contadorDatosPendiente.montoTotal |
+                                currencyPesoChileno}}</strong></p>
                     </div>
                     <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosPendiente)"></i>
@@ -53,11 +58,13 @@
             <div class="card text-white bg-primary">
                 <div class="card-body d-flex align-items-center">
                     <!-- Contenido de la tarjeta -->
-                    <div class="flex-grow-1">
+                    <div class="flex-grow-1 no-spacing">
                         <h3 class="card-title tamano">
                             Pre-Aprobados <div class="fff">(Falta Cierre de Negocio)</div>
                         </h3>
-                        <p class="card-text">Valor: <strong>{{contadorDatosPreAprobado.cantidad}}</strong></p>
+                        <p class="card-text">Cantidad: <strong>{{contadorDatosPreAprobado.cantidad}}</strong></p>
+                        <p class="card-text">Total UF: <strong>{{contadorDatosPreAprobado.montoTotal |
+                                currencyPesoChileno}}</strong></p>
                     </div>
                     <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosPreAprobado)"></i>
@@ -71,9 +78,11 @@
             <div class="card text-white bg-secondary">
                 <div class="card-body d-flex align-items-center">
                     <!-- Contenido de la tarjeta -->
-                    <div class="flex-grow-1">
+                    <div class="flex-grow-1 no-spacing">
                         <h3 class="card-title tamano">Aprobados</h3>
-                        <p class="card-text">Valor: <strong>{{contadorDatosAprobado.cantidad}}</strong></p>
+                        <p class="card-text">Cantidad: <strong>{{contadorDatosAprobado.cantidad}}</strong></p>
+                        <p class="card-text">Total UF: <strong>{{contadorDatosAprobado.montoTotal |
+                                currencyPesoChileno}}</strong></p>
                     </div>
                     <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosAprobado)"></i>
@@ -85,9 +94,11 @@
             <div class="card text-white bg-success">
                 <div class="card-body d-flex align-items-center">
                     <!-- Contenido de la tarjeta -->
-                    <div class="flex-grow-1">
+                    <div class="flex-grow-1 no-spacing">
                         <h3 class="card-title tamano">Cursados</h3>
-                        <p class="card-text">Valor: <strong>{{contadorDatosCursado.cantidad}}</strong></p>
+                        <p class="card-text">Cantidad: <strong>{{contadorDatosCursado.cantidad}}</strong></p>
+                        <p class="card-text">Total UF: <strong>{{contadorDatosCursado.montoTotal |
+                                currencyPesoChileno}}</strong></p>
                     </div>
                     <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosCursado)"></i>
@@ -101,9 +112,11 @@
             <div class="card text-white bg-danger">
                 <div class="card-body d-flex align-items-center">
                     <!-- Contenido de la tarjeta -->
-                    <div class="flex-grow-1">
+                    <div class="flex-grow-1 no-spacing">
                         <h3 class="card-title tamano">Rechazados</h3>
-                        <p class="card-text">Valor: <strong>{{contadorDatosRechazado.cantidad}}</strong></p>
+                        <p class="card-text">Cantidad: <strong>{{contadorDatosRechazado.cantidad}}</strong></p>
+                        <p class="card-text">Total UF: <strong>{{contadorDatosRechazado.montoTotal |
+                                currencyPesoChileno}}</strong></p>
                     </div>
                     <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosRechazado)"></i>
@@ -115,9 +128,11 @@
             <div class="card text-white bg-warning">
                 <div class="card-body d-flex align-items-center">
                     <!-- Contenido de la tarjeta -->
-                    <div class="flex-grow-1">
+                    <div class="flex-grow-1 no-spacing">
                         <h3 class="card-title tamano">Desistidos</h3>
-                        <p class="card-text">Valor: <strong>{{contadorDatosDesistido.cantidad}}</strong></p>
+                        <p class="card-text">Cantidad: <strong>{{contadorDatosDesistido.cantidad}}</strong></p>
+                        <p class="card-text">Total UF: <strong>{{contadorDatosDesistido.montoTotal |
+                                currencyPesoChileno}}</strong></p>
                     </div>
                     <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosDesistido)"></i>
@@ -308,7 +323,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    Detalle caso
+                    Detalle caso {{detallePorCaso?.id}}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -414,7 +429,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    Detalle caso
+                    Detalle caso {{detallePorCaso?.id}}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -511,10 +526,94 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-warning" (click)="modalComentario()">
+                    Comentarios
+                </button>
                 <button type="button" class="btn btn-success" (click)="cambiarDeEstadoDeReserva()"
                     [disabled]="formCamioEstado.invalid">
                     Modificar
                 </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PARA COMENTARIOS-->
+<div class="modal fade" id="modalComentarios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Comentarios Cliente {{detallePorCaso?.id}}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formComentario">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Nuevo Comentarios</h3>
+                        </div>
+                    </div>
+                    <div class="row gap-2">
+                        <div class="col-md-12">
+                            <label for="">Comentario</label>
+                            <textarea rows="3" class="form-control" formControlName="comentario"></textarea>
+                            <shared-mensaje-validador
+                                [forControl]="formAsignarAComite.controls['comentario']">></shared-mensaje-validador>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-success w-100" (click)="guardarComentario()">
+                                Agregar Comentario
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-4">
+                    <p-table [value]="comentarioCaso" styleClass="p-datatable-striped" [paginator]="true"
+                        [rows]="10" [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
+                        [rowsPerPageOptions]="[10, 25]" selectionMode="single" dataKey="id" [scrollable]="true"
+                        scrollDirection="horizontal" [style]="{ width: '100%' }">
+                        <!-- FILTROS POR COLUMNAS -->
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">Comentario</label>
+                                    </div>
+                                </th>
+                                <th pSortableColumn="fecha" width="20%">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">Fecha</label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="fecha" display="menu"></p-columnFilter>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <!-- CUERPO DE LA TABLA -->
+                        <ng-template pTemplate="body" let-data let-i="rowIndex">
+                            <tr>
+                                <td>{{ data.comentario }}</td>
+                                <td>{{ data.fecha }}</td>
+                            </tr>
+                        </ng-template>
+                        <!-- MENSAJE DE QUE NO HAY DATOS -->
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="20" class="text-center">No hay datos disponibles</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cerrar
                 </button>

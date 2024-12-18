@@ -16,6 +16,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { ResultadoObtenerClienteById } from 'src/app/interfaces/cliente';
 import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
 import { exportarPdf } from 'src/app/interfaces/exportar';
+import { PermisosService } from 'src/app/services/permisos.service';
 
 
 
@@ -81,17 +82,28 @@ export class SimuladorComponent implements OnInit {
   canales: ITipoCanales[] = []
   bancos: IBancos[] = []
 
+  permisos!: Record<string, any>;
+
   constructor(
     private fb: FormBuilder,
     private sTipoCanal: TipoSimulacionCanalService,
     private sBanco: BancoService,
     private sSimulador: SimuladorService,
     private sCliente: ClienteService,
-    private sExportarPDF: ExportarPdfService
+    private sExportarPDF: ExportarPdfService,
+    private sPermiso: PermisosService
   ) { }
 
   ngOnInit(): void {
     this.cargarDatosService()
+    this.permisos = this.sPermiso.obtenerPermisos();
+  }
+
+  obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = '') {
+    if (!modulo) return false;
+    if (!categoria) return this.permisos[modulo].activo
+    if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo
+    return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo
   }
 
   cargarDatosService() {
@@ -257,26 +269,26 @@ export class SimuladorComponent implements OnInit {
       })
   }
 
-  descargarSimulacion(simulacion: ISimulador){
+  descargarSimulacion(simulacion: ISimulador) {
     this.sExportarPDF.exportarSimulacionPdf(simulacion.id_simulacion)
-    .subscribe({
-      next: (response: exportarPdf) => {
-        const blob = new Blob([new Uint8Array(response.archivo.data).buffer])
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = response.nombre_archivo;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-        
-        errorConexionServidor(error);
-      }
-    });
+      .subscribe({
+        next: (response: exportarPdf) => {
+          const blob = new Blob([new Uint8Array(response.archivo.data).buffer])
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = response.nombre_archivo;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+
+          errorConexionServidor(error);
+        }
+      });
   }
 
 

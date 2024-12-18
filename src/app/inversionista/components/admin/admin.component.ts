@@ -24,18 +24,19 @@ export class AdminComponent implements OnInit, AfterViewInit {
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
 
 
-  contadorTemporal: DataContador = { cantidad: 0, estado: 0, titulo: '' };
-  contadorDatosDisponibles: DataContador = { cantidad: 0, estado: 0, titulo: 'Disponibles' };
-  contadorDatosComite: DataContador = { cantidad: 0, estado: 1, titulo: 'Comite' };
-  contadorDatosPendiente: DataContador = { cantidad: 0, estado: 2, titulo: 'Pendiente' };
-  contadorDatosRechazado: DataContador = { cantidad: 0, estado: 3, titulo: 'Rechazado' };
-  contadorDatosDesistido: DataContador = { cantidad: 0, estado: 4, titulo: 'Desistido' };
-  contadorDatosPreAprobado: DataContador = { cantidad: 0, estado: 5, titulo: 'Pre Aprobado' };
-  contadorDatosAprobado: DataContador = { cantidad: 0, estado: 6, titulo: 'Aprobado' };
-  contadorDatosCursado: DataContador = { cantidad: 0, estado: 7, titulo: 'Cursado' };
+  contadorTemporal: DataContador = { cantidad: 0, estado: 0, titulo: '', montoTotal: 0 };
+  contadorDatosDisponibles: DataContador = { cantidad: 0, estado: 0, titulo: 'Disponibles', montoTotal: 0 };
+  contadorDatosComite: DataContador = { cantidad: 0, estado: 1, titulo: 'Comite', montoTotal: 0 };
+  contadorDatosPendiente: DataContador = { cantidad: 0, estado: 2, titulo: 'Pendiente', montoTotal: 0 };
+  contadorDatosRechazado: DataContador = { cantidad: 0, estado: 3, titulo: 'Rechazado', montoTotal: 0 };
+  contadorDatosDesistido: DataContador = { cantidad: 0, estado: 4, titulo: 'Desistido', montoTotal: 0 };
+  contadorDatosPreAprobado: DataContador = { cantidad: 0, estado: 5, titulo: 'Pre Aprobado', montoTotal: 0 };
+  contadorDatosAprobado: DataContador = { cantidad: 0, estado: 6, titulo: 'Aprobado', montoTotal: 0 };
+  contadorDatosCursado: DataContador = { cantidad: 0, estado: 7, titulo: 'Cursado', montoTotal: 0 };
 
   datosMostar: ObtenerTodosInversionesPorEstado[] = []
   detallePorCaso?: ObtenerTodosInversionesPorEstado;
+  comentarioCaso?: any = [];
   estadoMostrar: number = 0;
   tituloMostrar: string = 'Disponibles';
 
@@ -67,6 +68,14 @@ export class AdminComponent implements OnInit, AfterViewInit {
     id_reserva: []
   });
 
+  formComentario: FormGroup = this.fb.group({
+    id_cliente: [],
+    id_inversionista: [],
+    comentario: ['', [
+      Validators.required
+    ]]
+  })
+
   constructor(
     private fb: FormBuilder,
     private sInversionista: InversionistasService,
@@ -80,6 +89,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.calcularAlturaMaxima('.card .text-white');
+    this.calcularAlturaMaxima('.flex-grow-1');
     this.calcularAlturaMaxima('.tamano');
   }
 
@@ -119,13 +129,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.sInversionista.obtenerTodosInversionistaContador()
       .subscribe({
         next: (response: ResultadoObtenerTodosInversionesContador) => {
-          this.contadorDatosComite.cantidad = response.data.Comite.cantidad ?? 0;
-          this.contadorDatosPendiente.cantidad = response.data.Pendiente.cantidad ?? 0;
-          this.contadorDatosRechazado.cantidad = response.data.Rechazado.cantidad ?? 0;
-          this.contadorDatosDesistido.cantidad = response.data.Desistido.cantidad ?? 0;
-          this.contadorDatosPreAprobado.cantidad = response.data.PreAprobado?.cantidad ?? 0;
-          this.contadorDatosAprobado.cantidad = response.data.Aprobado.cantidad ?? 0;
-          this.contadorDatosCursado.cantidad = response.data.Cursado.cantidad ?? 0;
+          this.contadorDatosPendiente = response.data.Pendiente;
+          this.contadorDatosComite = response.data.Comite;
+          this.contadorDatosRechazado = response.data.Rechazado;
+          this.contadorDatosDesistido = response.data.Desistido;
+          this.contadorDatosPreAprobado = response.data.PreAprobado;
+          this.contadorDatosAprobado = response.data.Aprobado;
+          this.contadorDatosCursado = response.data.Cursado;
         },
         error: (error: HttpErrorResponse) => {
           errorConexionServidor(error)
@@ -274,5 +284,47 @@ export class AdminComponent implements OnInit, AfterViewInit {
         }
       })
 
+  }
+
+  cargarComentario() {
+    if (!this.detallePorCaso) return
+    this.sInversionista.obtenerComentarioPorInversionista(this.detallePorCaso?.id, this.detallePorCaso?.id_inversionista)
+      .subscribe({
+        next: (response) => {
+          this.comentarioCaso = response.data
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      });
+    this.formComentario.patchValue({
+      id_cliente: this.detallePorCaso.id,
+      id_inversionista: this.detallePorCaso.id_inversionista
+    })
+  }
+
+  modalComentario() {
+    this.cargarComentario()
+    abrirModal('modalComentarios')
+  }
+
+  guardarComentario() {
+    this.sInversionista.agregarComentarioPorInversionista(this.formComentario.value)
+      .subscribe({
+        next: (response) => {
+          mostrarMensaje({
+            icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Error,
+            titulo: '',
+            mensaje: response.mensaje
+          });
+
+          if (response.ok){
+            this.cargarComentario();
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
   }
 }

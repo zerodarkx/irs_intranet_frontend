@@ -6,7 +6,7 @@ export interface ResultadoObtenerTodosPerfiles{
 export interface TipoPerfilUsuario{
     id_tipoUsuario:          number;
     nombre_tipoUsuario:      string;
-    descripcion_tipoUsuario: string;
+    permisos: string;
 }
 
 export interface ResultadoAccionesPerfil{

@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class TokenInterceptorService implements HttpInterceptor {
 
   private isRefreshing = false; // Evita múltiples solicitudes de renovación simultáneamente
+  private excludedUrls: string[] = ['/auth']
 
   constructor(
     private router: Router,
@@ -18,6 +19,10 @@ export class TokenInterceptorService implements HttpInterceptor {
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    const isExcluded = this.excludedUrls.some(url => req.url.includes(url));
+    if (isExcluded) return next.handle(req);
+
     const token = localStorage.getItem('token');
 
     if (token && this.isTokenNearExpiry(token)) {
@@ -46,7 +51,7 @@ export class TokenInterceptorService implements HttpInterceptor {
       }
     }
 
-    if (!token && this.router.url !== '/auth/login') {
+    if (!token) {
       this.router.navigate(['/auth/login']);
     }
 

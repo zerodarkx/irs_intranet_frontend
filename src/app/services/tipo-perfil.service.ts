@@ -29,4 +29,9 @@ export class TipoPerfilService {
     let url = `${this.url_base}/editarTipoPerfil`;
     return this.http.put<ResultadoAccionesPerfil>(url, data);
   }
+
+  guardarPermisosTipoPerfil(data: any): Observable<any> {
+    let url = `${this.url_base}/modificarPermisosTipoPerfil`;
+    return this.http.put<any>(url, data);
+  }
 }

@@ -18,6 +18,7 @@ import { LineaNegocioComponent } from './components/linea-negocio/linea-negocio.
 import { CanalSimulacionComponent } from './components/canal-simulacion/canal-simulacion.component';
 import { InicioMantendorComponent } from './components/inicio-mantendor/inicio-mantendor.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
+import { PermisosComponent } from './components/permisos/permisos.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuar
     LineaNegocioComponent,
     CanalSimulacionComponent,
     InicioMantendorComponent,
-    PerfilUsuarioComponent
+    PerfilUsuarioComponent,
+    PermisosComponent
   ],
   imports: [
     CommonModule,

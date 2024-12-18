@@ -26,3 +26,7 @@ i {
 .fff {
     font-size: 10px;
 }
+
+.no-spacing {
+    line-height: 0.5;
+}

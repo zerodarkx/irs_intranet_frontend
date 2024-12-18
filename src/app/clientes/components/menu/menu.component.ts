@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SubModuloCliente } from 'src/app/interfaces/menu';
-import { jwtDecode } from 'jwt-decode';
-
-interface Payload {
-  permisos: string[];
-  nombre: string;
-  exp: number;
-}
+import { PermisosService } from 'src/app/services/permisos.service';
+import { PermisosModulo } from 'src/app/interfaces/usuario';
 
 @Component({
   selector: 'cliente-menu',
@@ -15,31 +10,20 @@ interface Payload {
 })
 export class MenuComponent implements OnInit {
 
-  menuDinamico: SubModuloCliente[] = [
-    { nombre: 'Detalle', link: 'detalle', permiso: 'VER_DETALLE_CLIENTE' },
-    { nombre: 'Simulador', link: 'simulador', permiso: 'VER_SIMULACION_CLIENTE' },
-    { nombre: 'Reserva', link: 'reserva', permiso: 'VER_RESERVA_CLIENTE' },
-    { nombre: 'Gestión', link: 'gestion', permiso: 'VER_GESTION_CLIENTE' },
-    { nombre: 'Documentos', link: 'documentos', permiso: 'VER_DOCUMENTOS_CLIENTE' },
-    { nombre: 'Ficha Comité', link: 'fichaComite', permiso: 'VER_FICHACOMITE_CLIENTE' },
-    { nombre: 'Gastos Cliente', link: 'gastoCliente', permiso: 'VER_GASTOCLIENTE_CLIENTE' },
-    { nombre: 'Curse', link: 'curse', permiso: 'VER_CURSE_CLIENTE' },
-  ]
+  permisos!: Record<string, any>;
 
-  constructor() { }
+  constructor(
+    private sPermiso: PermisosService
+  ) { }
+
   ngOnInit(): void {
-    this.verificarPermiso();
+    this.permisos = this.sPermiso.obtenerPermisos();
   }
 
-  verificarPermiso() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = jwtDecode<Payload>(token);
-      let permisos: string[] = decodedToken.permisos;
-
-      this.menuDinamico = this.menuDinamico.filter(menu =>
-        permisos.includes(menu.permiso)
-      );
-    }
+  obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = '') {
+    if (!modulo) return false;
+    if (!categoria) return this.permisos[modulo].activo
+    if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo
+    return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo
   }
 }

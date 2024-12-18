@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { Plataforma, ResultadoObtenerTodasPlataformas } from 'src/app/interfaces/plataforma';
 import { CodigoTelefono, ResultadoObtenerTodosCodigoTelefono } from 'src/app/interfaces/telefonoCodigo';
-import { ResultadoAccionesUsuario, ResultadoObtenerTodosUsuario, ResultadoUsuario } from 'src/app/interfaces/usuario';
+import { PermisoConId, ResultadoAccionesUsuario, ResultadoObtenerTodosUsuario, ResultadoUsuario } from 'src/app/interfaces/usuario';
 import { ResultadoObtenerTodosPerfiles, TipoPerfilUsuario } from 'src/app/interfaces/usuarioPerfiles';
 import { CodigoTelefonoService } from 'src/app/services/codigo-telefono.service';
 import { PlataformaService } from 'src/app/services/plataforma.service';
@@ -14,6 +14,7 @@ import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { agregarMayusculas, formatearRut } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 import { rutValidator, validarPassword } from 'src/app/shared/utils/validadores';
+import { PermisosComponent } from '../permisos/permisos.component';
 
 @Component({
   selector: 'mantendor-usuario',
@@ -24,10 +25,12 @@ export class UsuarioComponent implements OnInit {
 
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+  @ViewChild(PermisosComponent) permisoComponente!: PermisosComponent;
 
   titulo_cabecera: string = '';
   usuarios: ResultadoUsuario[] = [];
   id_usuario: string = '';
+  permisosPorUsuario?: PermisoConId;
 
   /** SELECTs */
   selectTipoPerfil: TipoPerfilUsuario[] = []
@@ -250,7 +253,7 @@ export class UsuarioComponent implements OnInit {
   }
 
   cambiarPassword() {
-    
+
     const data = {
       id_usuario: this.id_usuario,
       password: this.formPassword.get('password')?.value
@@ -316,5 +319,32 @@ export class UsuarioComponent implements OnInit {
           }
         })
     }
+  }
+
+  modalPermisos(usuario: ResultadoUsuario) {
+    this.permisosPorUsuario = {
+      id: usuario.id_usuario,
+      permisos: JSON.parse(usuario.permisos)
+    };
+    abrirModal('modalPermisos')
+  }
+
+  guardarPermisos() {
+    this.sUsuario.guardarPermisosUsuario(this.permisoComponente.permisosForm.value)
+      .subscribe({
+        next: (response) => {
+          mostrarMensaje({
+            icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Warning,
+            titulo: response.ok ? "Exito" : "Atencion",
+            mensaje: response.data.mensaje
+          });
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+    const usuario = this.usuarios.find((u) => u.id_usuario === this.permisoComponente.permisosForm.get('id')?.value);
+    usuario!.permisos = JSON.stringify(this.permisoComponente.permisosForm.get('modulos')?.value);
+    cerrarModal();
   }
 }

@@ -1,0 +1,40 @@
+<form [formGroup]="permisosForm" class="container mt-4">
+    <div formArrayName="modulos">
+        <div *ngFor="let modulo of obtenerModulos().controls; let i = index" [formGroupName]="i" class="mb-4">
+            <h3 class="text-primary">
+                <input type="checkbox" formControlName="activo" class="form-check-input me-2"
+                    id="{{modulo.get('nombre')?.value}}">
+                <label class="form-check-label ms-2" for="{{modulo.get('nombre')?.value}}">
+                    {{ modulo.get('nombre')?.value }}
+                </label>
+            </h3>
+
+            <!-- Categorías -->
+            <div *ngIf="modulo.get('categorias')?.value.length > 0" formArrayName="categorias" class="ms-4">
+                <div *ngFor="let categoria of obtenerCategorias(i).controls; let j = index" [formGroupName]="j"
+                    class="mb-3 form-switch">
+                    <h5 class="text-secondary">
+                        <input type="checkbox" formControlName="activo" class="form-check-input me-2"
+                            id="{{categoria.get('nombre')?.value}}{{j}}">
+                        <label class="form-check-label ms-2" for="{{categoria.get('nombre')?.value}}{{j}}">
+                            {{ categoria.get('nombre')?.value }}
+                        </label>
+                    </h5>
+
+                    <!-- Subcategorías -->
+                    <div *ngIf="categoria.get('subcategorias')?.value.length > 0" formArrayName="subcategorias"
+                        class="row ms-4">
+                        <div *ngFor="let subcategoria of obtenerSubcategorias(i, j).controls; let k = index"
+                            [formGroupName]="k" class="col-md-3 form-check form-switch">
+                            <input type="checkbox" formControlName="activo" class="form-check-input" role="switch"
+                                id="{{subcategoria.get('nombre')?.value}}{{i}}{{j}}">
+                            <label class="form-check-label ms-2" for="{{subcategoria.get('nombre')?.value}}{{i}}{{j}}">
+                                {{ subcategoria.get('nombre')?.value }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

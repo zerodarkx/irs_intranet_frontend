@@ -19,6 +19,7 @@ import { nombreApellidoEjecutivoId, ResultadoCambiarEstado, ResultadoCrearClient
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { IconoSweetAlert, mostrarMensaje, errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
+import { PermisosService } from 'src/app/services/permisos.service';
 
 @Component({
   selector: 'cliente-detalle',
@@ -39,6 +40,8 @@ export class DetalleClienteComponent implements OnInit {
   selectLineaNegocios: LineaNegocio[] = []
   selectTipoPropiedades: TipoPropiedad[] = []
   selectEjecutivosBrokers: nombreApellidoEjecutivoId[] = []
+
+  permisos!: Record<string, any>;
 
   //variable del formulario
   miFormulario: FormGroup = this.fb.group({
@@ -119,10 +122,19 @@ export class DetalleClienteComponent implements OnInit {
     private sLineaNegocio: LineaNegocioService,
     private sTipoPropiedad: TipoPropiedadService,
     private sUsuario: UsuarioService,
+    private sPermiso: PermisosService
   ) { }
 
   ngOnInit(): void {
     this.obtenerCliente();
+    this.permisos = this.sPermiso.obtenerPermisos();
+  }
+
+  obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = '') {
+    if (!modulo) return false;
+    if (!categoria) return this.permisos[modulo].activo
+    if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo
+    return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo
   }
 
   mayuscula(event: Event): void {

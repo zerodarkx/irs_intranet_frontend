@@ -13,13 +13,10 @@ export class AppComponent implements OnInit {
 
   constructor(
     public sCargando: CargandoService,
-    private primengConfig: PrimeNGConfig,
+    private primengConfig: PrimeNGConfig
   ) { }
   ngOnInit(): void {
     this.primengConfig.setTranslation(dataLenguage);
   }
 
-  translate(lang: string) {
-
-  }
 }

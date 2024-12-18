@@ -1,41 +1,25 @@
 <div class="container-fluid">
   <div class="row">
     <!-- DOCUMENTOS -->
-    <div class="col-md-6">
-      <form
-        [formGroup]="formularioDocumento"
-        enctype="multipart/form-data"
-        (ngSubmit)="insertarDocumento()"
-      >
+    <div class="col-md-6"
+      *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_DOCUMENTOS_CLIENTE', 'BTN_GUARDAR_DOCUMENTO')">
+      <form [formGroup]="formularioDocumento" enctype="multipart/form-data" (ngSubmit)="insertarDocumento()">
         <div class="row">
           <div class="col-md-12 mt-2 text-center">
             <h3>Documentos Clientes</h3>
           </div>
           <div class="col-md-12">
-            <ng-select
-              [items]="documentos"
-              placeholder="Seleccionar Tipo Documento"
-              [selectOnTab]="true"
-              bindValue="id_tipoDocumento"
-              bindLabel="nombre_tipoDocumento"
-              notFoundText="No se encontraron coincidencias"
-              formControlName="selectDocumento"
-            >
+            <ng-select [items]="documentos" placeholder="Seleccionar Tipo Documento" [selectOnTab]="true"
+              bindValue="id_tipoDocumento" bindLabel="nombre_tipoDocumento"
+              notFoundText="No se encontraron coincidencias" formControlName="selectDocumento">
             </ng-select>
             <shared-mensaje-validador
-              [forControl]="formularioDocumento.controls['selectDocumento']"
-            ></shared-mensaje-validador>
+              [forControl]="formularioDocumento.controls['selectDocumento']"></shared-mensaje-validador>
           </div>
           <div class="col-md-8 mt-2">
-            <input
-              type="file"
-              class="form-control"
-              formControlName="archivo"
-              (change)="onFileSelected($event, 'documento')"
-            />
-            <shared-mensaje-validador
-              [forControl]="formularioDocumento.controls['archivo']"
-            ></shared-mensaje-validador>
+            <input type="file" class="form-control" formControlName="archivo"
+              (change)="onFileSelected($event, 'documento')" />
+            <shared-mensaje-validador [forControl]="formularioDocumento.controls['archivo']"></shared-mensaje-validador>
           </div>
           <div class="col-md-4 mt-2">
             <button class="btn btn-success w-100">Guardar Documento</button>
@@ -44,41 +28,24 @@
       </form>
     </div>
     <!-- IMAGENES -->
-    <div class="col-md-6">
-      <form
-        [formGroup]="formularioImagen"
-        enctype="multipart/form-data"
-        (ngSubmit)="insertarImagen()"
-      >
+    <div class="col-md-6" *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_DOCUMENTOS_CLIENTE', 'BTN_GUARDAR_IMAGEN')">
+      <form [formGroup]="formularioImagen" enctype="multipart/form-data" (ngSubmit)="insertarImagen()">
         <div class="row">
           <div class="col-md-12 mt-2 text-center">
             <h3>Imagenes Propiedad</h3>
           </div>
           <div class="col-md-12">
-            <ng-select
-              [items]="imagenes"
-              placeholder="Seleccionar Tipo Imagen"
-              [selectOnTab]="true"
-              bindValue="id_tipoImagen"
-              bindLabel="nombre_tipoImagen"
-              notFoundText="No se encontraron coincidencias"
-              formControlName="selectImagen"
-            >
+            <ng-select [items]="imagenes" placeholder="Seleccionar Tipo Imagen" [selectOnTab]="true"
+              bindValue="id_tipoImagen" bindLabel="nombre_tipoImagen" notFoundText="No se encontraron coincidencias"
+              formControlName="selectImagen">
             </ng-select>
             <shared-mensaje-validador
-              [forControl]="formularioImagen.controls['selectImagen']"
-            ></shared-mensaje-validador>
+              [forControl]="formularioImagen.controls['selectImagen']"></shared-mensaje-validador>
           </div>
           <div class="col-md-8 mt-2">
-            <input
-              type="file"
-              class="form-control"
-              formControlName="archivo"
-              (change)="onFileSelected($event, 'imagen')"
-            />
-            <shared-mensaje-validador
-              [forControl]="formularioImagen.controls['archivo']"
-            ></shared-mensaje-validador>
+            <input type="file" class="form-control" formControlName="archivo"
+              (change)="onFileSelected($event, 'imagen')" />
+            <shared-mensaje-validador [forControl]="formularioImagen.controls['archivo']"></shared-mensaje-validador>
           </div>
           <div class="col-md-4 mt-2">
             <button class="btn btn-success w-100">Guardar Imagen</button>
@@ -95,20 +62,12 @@
         </div>
       </div>
       <div class="row">
-        <div
-          class="col-md-12"
-          *ngIf="documentosCargadosCliente.length > 0; else noDocumentos"
-        >
-          <div
-            class="alert alert-secondary mt-3"
-            *ngFor="let doc of documentosCargadosCliente"
-          >
+        <div class="col-md-12" *ngIf="documentosCargadosCliente.length > 0; else noDocumentos">
+          <div class="alert alert-secondary mt-3" *ngFor="let doc of documentosCargadosCliente">
             <div class="row">
               <div class="col-md-1 text-center">
-                <i
-                  class="bi bi-trash fs-3"
-                  (click)="eliminarDocumento(doc.id_documento)"
-                ></i>
+                <i class="bi bi-trash fs-3" (click)="eliminarDocumento(doc.id_documento)"
+                  *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_DOCUMENTOS_CLIENTE', 'BTN_ELIMINAR_DOCUMENTO')"></i>
               </div>
               <div class="col-md-10 text-center">
                 <h4>{{ doc.nom_documento }}</h4>
@@ -132,23 +91,14 @@
           <h3>Imagenes Disponibles</h3>
         </div>
       </div>
-      <div
-        class="row"
-        *ngIf="imagenesCargadosCliente.length > 0; else noImagenes"
-      >
+      <div class="row" *ngIf="imagenesCargadosCliente.length > 0; else noImagenes">
         <div class="col-md-6 mt-2" *ngFor="let img of imagenesCargadosCliente">
           <h4 class="text-center">
             {{ img.nom_imagen }}
-            <i
-              class="bi bi-trash fs-3"
-              (click)="eliminarImagen(img.id_imagen)"
-            ></i>
+            <i class="bi bi-trash fs-3" (click)="eliminarImagen(img.id_imagen)"
+              *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_DOCUMENTOS_CLIENTE', 'BTN_ELIMINAR_IMAGEN')"></i>
           </h4>
-          <img
-            [src]="url + img.path + '?t=' + fechaNueva"
-            alt="{{ img.nom_imagen }}"
-            class="img-thumbnail imagenes"
-          />
+          <img [src]="url + img.path + '?t=' + fechaNueva" alt="{{ img.nom_imagen }}" class="img-thumbnail imagenes" />
         </div>
       </div>
       <ng-template class="row" #noImagenes>
@@ -160,10 +110,6 @@
   </div>
 </div>
 
-<div
-  *ngIf="isAlertVisible"
-  class="alert alert-danger alert-dismissible fade show alert-custom"
-  role="alert"
->
+<div *ngIf="isAlertVisible" class="alert alert-danger alert-dismissible fade show alert-custom" role="alert">
   <strong>Atención!</strong> documento o imagen no fue cargado correctamente
 </div>
