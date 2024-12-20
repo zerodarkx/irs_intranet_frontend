@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { InversorComponent } from './components/inversor/inversor.component';
+import { InversionistaGuard } from '../guards/inversionista.guard';
+import { InversionistaAdminGuard } from '../guards/inversionista-admin.guard';
 
 const routes: Routes = [
   {
@@ -10,11 +13,19 @@ const routes: Routes = [
     children: [
       {
         path: 'admin',
-        component: AdminComponent
+        component: AdminComponent,
+        canActivate: [InversionistaGuard],
+        data: { perfil: [1, 2] }
+      },
+      {
+        path: 'inversor',
+        component: InversorComponent,
+        canActivate: [InversionistaAdminGuard],
+        data: { perfil: [1, 2] }
       },
       {
         path: '**',
-        redirectTo: 'admin',
+        redirectTo: 'inversor',
         pathMatch: 'full'
       }
     ]

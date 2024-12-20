@@ -79,3 +79,13 @@ export interface ResultadoagregarComentarioPorInversionista{
     ok: boolean;
     mensaje: string;
 }
+
+export interface ResultadoObtenerDocumentosPorInversionista{
+    ok: boolean;
+    data: DocumentosPorInversionista[]
+}
+
+export interface DocumentosPorInversionista{
+    nom_documento: string;
+    path: string;
+}

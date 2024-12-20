@@ -8,12 +8,14 @@ import { SharedModule } from "../shared/shared.module";
 import { TableModule } from 'primeng/table';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InversorComponent } from './components/inversor/inversor.component';
 
 
 @NgModule({
   declarations: [
     InicioComponent,
-    AdminComponent
+    AdminComponent,
+    InversorComponent
   ],
   imports: [
     CommonModule,

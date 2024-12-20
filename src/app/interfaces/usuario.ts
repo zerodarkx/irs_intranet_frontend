@@ -34,35 +34,62 @@ export interface AccionesUsuario {
 }
 
 export interface ResultadoObtenerSelectInversionistaDisponibles {
-    ok:   boolean;
+    ok: boolean;
     data: SelectInversionistaDisponibles[];
 }
 
 export interface SelectInversionistaDisponibles {
     id_inv: number;
-    inv:    string;
+    inv: string;
 }
 
 export interface PermisosModulo {
-  nombre: string;
-  categorias?: PermisosCategoria[];
-  activo: boolean;
-  permiso: string;
+    nombre: string;
+    categorias?: PermisosCategoria[];
+    activo: boolean;
+    permiso: string;
 }
 
 export interface PermisosCategoria {
-  nombre: string;
-  subcategorias?: PermisosSubCategoria[];
-  activo: boolean;
-  permiso: string;
+    nombre: string;
+    subcategorias?: PermisosSubCategoria[];
+    activo: boolean;
+    permiso: string;
 }
 export interface PermisosSubCategoria {
-  nombre: string;
-  activo: boolean;
-  permiso: string;
+    nombre: string;
+    activo: boolean;
+    permiso: string;
 }
 
-export interface PermisoConId{
+export interface PermisoConId {
     id: number;
     permisos: PermisosModulo[];
+}
+
+export interface ResultadoObtenerDataInversionista {
+    ok: true;
+    data: obtenerDataInversionista
+}
+
+export interface obtenerDataInversionista {
+    id_inversionista: number;
+    monto_invertir_desde: number;
+    monto_invertir_hasta: number;
+    ltv_desde: number;
+    ltv_hasta: number;
+    plazo_desde: number;
+    plazo_hasta: number;
+    tir: number;
+    propiedades: any;
+    documentos: number[]
+}
+
+export interface ResultadoGuardarDataInversionista {
+    ok: true;
+    data: GuardarDataInversionista
+}
+
+export interface GuardarDataInversionista {
+    mensaje: string;
 }

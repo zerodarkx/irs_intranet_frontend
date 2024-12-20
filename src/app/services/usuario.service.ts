@@ -3,7 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from 'src/environments/environment';
 import { ResultadoObtenerEjecutivoYbroker } from '../interfaces/cliente';
-import { ResultadoAccionesUsuario, ResultadoObtenerSelectInversionistaDisponibles, ResultadoObtenerTodosUsuario } from '../interfaces/usuario';
+import {
+  ResultadoAccionesUsuario,
+  ResultadoGuardarDataInversionista,
+  ResultadoObtenerDataInversionista,
+  ResultadoObtenerSelectInversionistaDisponibles,
+  ResultadoObtenerTodosUsuario
+} from '../interfaces/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +60,16 @@ export class UsuarioService {
   guardarPermisosUsuario(data: any): Observable<any> {
     let url = `${this.url_base}/modificarPermisosUsuario`;
     return this.http.put<any>(url, data);
+  }
+
+  obtenerDataInversionista(id_usuario: Number): Observable<ResultadoObtenerDataInversionista> {
+    let url = `${this.url_base}/obtenerDataInversionista/${id_usuario}`;
+    return this.http.get<ResultadoObtenerDataInversionista>(url);
+  }
+
+  guardarDataInversionista(data: any): Observable<ResultadoGuardarDataInversionista> {
+    let url = `${this.url_base}/guardarDataInversionista`;
+    return this.http.put<ResultadoGuardarDataInversionista>(url, data);
   }
 
 }

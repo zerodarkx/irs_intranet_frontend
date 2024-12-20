@@ -43,12 +43,10 @@
       <!-- FILTROS POR COLUMNAS -->
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="i">
+          <th>
             <div class="d-flex justify-content-between align-items-center">
               <label for="">N°</label>
               <div class="d-flex flex-column">
-                <p-columnFilter type="text" field="i" display="menu"></p-columnFilter>
-                <p-sortIcon field="i"></p-sortIcon>
               </div>
             </div>
           </th>
@@ -88,12 +86,12 @@
               </div>
             </div>
           </th>
-          <th pSortableColumn="plataforma">
+          <th pSortableColumn="nombre_plataforma">
             <div class="d-flex justify-content-between align-items-center">
               <label for="">Plataforma</label>
               <div class="d-flex flex-column">
-                <p-columnFilter type="text" field="plataforma" display="menu"></p-columnFilter>
-                <p-sortIcon field="plataforma"></p-sortIcon>
+                <p-columnFilter type="text" field="nombre_plataforma" display="menu"></p-columnFilter>
+                <p-sortIcon field="nombre_plataforma"></p-sortIcon>
               </div>
             </div>
           </th>
@@ -126,7 +124,9 @@
           <td>
             <div class="d-flex justify-content-between align-items-center">
               <i class="bi bi-pencil-square" (click)="modalUsuario(usuario)"></i>
-              <i class="bi bi-key-fill" (click)="modalPassword(usuario.id_usuario)"></i>
+              <i class="bi bi-key-fill" (click)="modalPassword(usuario)"></i>
+              <i class="bi bi-currency-dollar" (click)="modalInversionista(usuario)"
+                *ngIf="[8,9].includes(usuario.id_perfil)"></i>
               <i (click)="toggleEstadoUsuario(usuario)" [ngClass]="
                   usuario.activo ? 'bi bi-check-circle' : 'bi bi-dash-circle'
                 "></i>
@@ -269,7 +269,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Cambiar Password
+          Cambiar Password - Usuario : {{nombre_usuario}}
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -315,7 +315,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Modificar Permisos
+          Modificar Permisos - Usuario : {{nombre_usuario}}
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -328,6 +328,121 @@
         </button>
         <button type="button" class="btn btn-primary" (click)="guardarPermisos()">
           Cambiar Permisos
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para agregar data inversionista -->
+<div class="modal fade" id="modalInversionista" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  >
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Informacion Inversionista : {{nombre_usuario}}
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="cargaDeFormulario">
+        <form [formGroup]="inversionistaForm">
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <h3>Personal de Interes</h3>
+            </div>
+            <div class="col-md-12">
+              <div class="row p-1">
+                <div class="col-md-3 mt-2">
+                  <label for="">Invertir UF Desde</label>
+                  <input type="text" class="form-control" formControlName="uf_desde"
+                    (change)="formateadorMiles($event)">
+                  <shared-mensaje-validador
+                    [forControl]="inversionistaForm.controls['uf_desde']"></shared-mensaje-validador>
+                </div>
+                <div class="col-md-3 mt-2">
+                  <label for="">Invertir UF Hasta</label>
+                  <input type="text" class="form-control" formControlName="uf_hasta"
+                    (change)="formateadorMiles($event)">
+                  <shared-mensaje-validador
+                    [forControl]="inversionistaForm.controls['uf_hasta']"></shared-mensaje-validador>
+                </div>
+                <div class="col-md-3 mt-2">
+                  <label for="">LTV Desde</label>
+                  <input type="text" class="form-control" formControlName="ltv_desde"
+                    (change)="formateadorMiles($event)">
+                  <shared-mensaje-validador
+                    [forControl]="inversionistaForm.controls['ltv_desde']"></shared-mensaje-validador>
+                </div>
+                <div class="col-md-3 mt-2">
+                  <label for="">LTV Hasta</label>
+                  <input type="text" class="form-control" formControlName="ltv_hasta"
+                    (change)="formateadorMiles($event)">
+                  <shared-mensaje-validador
+                    [forControl]="inversionistaForm.controls['ltv_hasta']"></shared-mensaje-validador>
+                </div>
+                <div class="col-md-3 mt-2">
+                  <label for="">Plazo Desde (meses)</label>
+                  <input type="text" class="form-control" formControlName="plazo_desde"
+                    (change)="formateadorMiles($event)">
+                  <shared-mensaje-validador
+                    [forControl]="inversionistaForm.controls['plazo_desde']"></shared-mensaje-validador>
+                </div>
+                <div class="col-md-3 mt-2">
+                  <label for="">Plazo Hasta (meses)</label>
+                  <input type="text" class="form-control" formControlName="plazo_hasta"
+                    (change)="formateadorMiles($event)">
+                  <shared-mensaje-validador
+                    [forControl]="inversionistaForm.controls['plazo_hasta']"></shared-mensaje-validador>
+                </div>
+                <div class="col-md-3 mt-2">
+                  <label for="">TIR</label>
+                  <input type="text" class="form-control" formControlName="tir" onchange="formateadorMiles($event)">
+                  <shared-mensaje-validador [forControl]="inversionistaForm.controls['tir']"></shared-mensaje-validador>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <h3>Documentos a Ver</h3>
+            </div>
+            <div class="col-md-12">
+              <div class="row p-1" *ngIf="cargaDeDocumento">
+                <div class="col-md-4" *ngFor="let documento of documentosParaVer; let i = index"
+                  formGroupName="verDocumentos">
+                  <input type="checkbox" [formControlName]="i" class="form-check-input documento_ver"
+                    id="{{ documento.nombre_tipoDocumento }}" />
+                  <label for="{{ documento.nombre_tipoDocumento }}" class="form-check-label ms-2">{{
+                    documento.nombre_tipoDocumento }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <h3>Propiedades</h3>
+            </div>
+            <div class="col-md-12">
+              <div class="row p-1" *ngIf="cargaDeDocumento">
+                <div class="col-md-4" *ngFor="let documento of propiedadesParaVer; let i = index"
+                  formGroupName="verPropiedades">
+                  <input type="checkbox" [formControlName]="i" class="form-check-input documento_ver"
+                    id="{{ documento.nombre_tipoPropiedad }}" />
+                  <label for="{{ documento.nombre_tipoPropiedad }}" class="form-check-label ms-2">{{
+                    documento.nombre_tipoPropiedad }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="guardarDocumentos()"
+          [disabled]="inversionistaForm.invalid">Guardar Documentos</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
         </button>
       </div>
     </div>

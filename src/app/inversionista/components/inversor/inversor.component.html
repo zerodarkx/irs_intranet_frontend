@@ -6,29 +6,15 @@
 <!-- BOTONES -->
 <div class="container mt-4">
     <div class="row">
-        <!-- Tarjeta 0 -->
-        <div class="col-md-3 mb-3">
-            <div class="card text-white bg-primary tamanoCard">
-                <div class="card-body d-flex align-items-center">
-                    <!-- Contenido de la tarjeta -->
-                    <div class="flex-grow-1 tamanoTexto1">
-                        <h3 class="card-title tamanoTexto2">Casos Disponibles</h3>
-                        <p class="card-text">Cantidad: <strong>{{contadorDatosDisponibles.cantidad}}</strong></p>
-                    </div>
-                    <!-- Ícono de lupa -->
-                    <i class="bi bi-search fs-3" (click)="mostratCasosDisponibles()"></i>
-                </div>
-            </div>
-        </div>
         <!-- Tarjeta 1 -->
-        <div class="col-md-3 mb-3">
+        <div class="col-md-4 mb-3">
             <div class="card text-white bg-primary tamanoCard">
                 <div class="card-body d-flex align-items-center">
                     <!-- Contenido de la tarjeta -->
                     <div class="flex-grow-1 tamanoTexto1 no-spacing">
                         <h3 class="card-title tamanoTexto2">Comité</h3>
-                        <p class="card-text">Cantidad: <strong>{{contadorDatosComite.cantidad | currencyPesoChileno :
-                                false}}</strong></p>
+                        <p class="card-text">Cantidad: <strong>{{contadorDatosComite.cantidad | currencyPesoChileno
+                                :false}}</strong></p>
                         <p class="card-text">Total UF: <strong>{{contadorDatosComite.montoTotal |
                                 currencyPesoChileno}}</strong></p>
                     </div>
@@ -38,7 +24,7 @@
             </div>
         </div>
         <!-- Tarjeta 2 -->
-        <div class="col-md-3 mb-3">
+        <div class="col-md-4 mb-3">
             <div class="card text-white bg-primary tamanoCard">
                 <div class="card-body d-flex align-items-center">
                     <!-- Contenido de la tarjeta -->
@@ -54,7 +40,7 @@
             </div>
         </div>
         <!-- Tarjeta 3 -->
-        <div class="col-md-3 mb-3">
+        <div class="col-md-4 mb-3">
             <div class="card text-white bg-primary tamanoCard">
                 <div class="card-body d-flex align-items-center">
                     <!-- Contenido de la tarjeta -->
@@ -184,7 +170,7 @@
                                 </div>
                             </div>
                         </th>
-                        <th pSortableColumn="inversionista" *ngIf="estadoMostrar != 0">
+                        <th pSortableColumn="inversionista">
                             <div class="d-flex justify-content-between align-items-center">
                                 <label for="">Inversionista</label>
                                 <div class="d-flex flex-column">
@@ -256,7 +242,7 @@
                                 </div>
                             </div>
                         </th>
-                        <th pSortableColumn="monto_inv" *ngIf="estadoMostrar != 0">
+                        <th pSortableColumn="monto_inv">
                             <div class="d-flex justify-content-between align-items-center">
                                 <label for="">Monto Inversion</label>
                                 <div class="d-flex flex-column">
@@ -265,7 +251,7 @@
                                 </div>
                             </div>
                         </th>
-                        <th pSortableColumn="tir" *ngIf="estadoMostrar != 0">
+                        <th pSortableColumn="tir">
                             <div class="d-flex justify-content-between align-items-center">
                                 <label for="">TIR</label>
                                 <div class="d-flex flex-column">
@@ -285,7 +271,7 @@
                 <ng-template pTemplate="body" let-data let-i="rowIndex">
                     <tr>
                         <td>{{ data.id }}</td>
-                        <td *ngIf="estadoMostrar != 0">{{ data.inversionista }}</td>
+                        <td>{{ data.inversionista }}</td>
                         <td>{{ data.nom_cli }}</td>
                         <td>{{ data.ejecutivo }}</td>
                         <td>{{ data.propiedad }}</td>
@@ -293,15 +279,12 @@
                         <td>{{ data.v_comercial | currencyPesoChileno }}</td>
                         <td>{{ data.v_contrato | currencyPesoChileno}}</td>
                         <td>{{ data.ltv }}%</td>
-                        <td *ngIf="estadoMostrar != 0">{{ data.v_contrato / ((100 + data.tir) / 100) |
+                        <td>{{ data.v_contrato / ((100 + data.tir) / 100) |
                             currencyPesoChileno}}</td>
-                        <td *ngIf="estadoMostrar != 0">{{ data.tir }}%</td>
+                        <td>{{ data.tir }}%</td>
                         <td>
                             <div class="text-center">
-                                <i class="bi bi-pencil-square" *ngIf="estadoMostrar != 0"
-                                    (click)="abrirModal(data)"></i>
-                                <i class="bi bi-pencil-square" *ngIf="estadoMostrar == 0"
-                                    (click)="abrirModalCasoDisponible(data)"></i>
+                                <i class="bi bi-pencil-square" (click)="abrirModal(data)"></i>
                             </div>
                         </td>
                     </tr>
@@ -317,8 +300,8 @@
     </div>
 </div>
 
-<!-- MODAL PARA MOSTRAR DISPONIBELS -->
-<div class="modal fade" id="modalDetalleCasoDisponible" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- MODAL PARA MOSTRAR OTROS-->
+<div class="modal fade" id="modalDetalleCaso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -352,11 +335,11 @@
                                 </tr>
                                 <tr>
                                     <td>Valor Propiedad</td>
-                                    <td>{{detallePorCaso?.v_comercial | currencyPesoChileno}} UF</td>
+                                    <td>{{detallePorCaso?.v_comercial}}</td>
                                 </tr>
                                 <tr>
                                     <td>Valor Contrato</td>
-                                    <td>{{detallePorCaso?.v_contrato | currencyPesoChileno}} UF</td>
+                                    <td>{{detallePorCaso?.v_contrato}}</td>
                                 </tr>
                                 <tr>
                                     <td>LTV</td>
@@ -371,168 +354,45 @@
                         <h3>Datos Inversionista</h3>
                     </div>
                 </div>
-                <form [formGroup]="formAsignarAComite">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="">Seleccione invsersionista</label>
-                            <ng-select [items]="selectInversionistaDisponibles" placeholder="Seleccionar Inversionista"
-                                bindValue="id_inv" bindLabel="inv" notFoundText="No se encontraron coincidencias"
-                                (change)="mostrarDataInversionistaOnChangeSelect($event)" formControlName="id_inv">
-                            </ng-select>
-                            <shared-mensaje-validador
-                                [forControl]="formAsignarAComite.controls['id_inv']"></shared-mensaje-validador>
-                        </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">Seleccione invsersionista</label>
+                        <input type="text" class="form-control" disabled [value]="detallePorCaso?.inversionista">
                     </div>
-                    <div class="row" *ngIf="dataInversor">
-                        <div class="col-md-12">
-                            <table width="100%" class="table">
-                                <tbody>
-                                    <tr>
-                                        <td width="25%">Total Inversion</td>
-                                        <td width="75%">{{total_inversion | currencyPesoChileno}} UF</td>
-                                    </tr>
-                                    <tr>
-                                        <td width="25%">TIR</td>
-                                        <td width="75%">
-                                            <input type="text" class="form-control" formControlName="tir"
-                                                (change)="formatearMiles($event)" (change)="cambiarTirInput($event)">
-                                            <shared-mensaje-validador
-                                                [forControl]="formAsignarAComite.controls['tir']"></shared-mensaje-validador>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rentabilidad</td>
-                                        <td>{{rentabilidad | currencyPesoChileno}} UF</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="col-md-6">
+                        <label for="">Estado</label>
+                        <input type="text" value="{{this.tituloMostrar}}" class="form-control" disabled>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" (click)="aceptarCasoAComite()"
-                    [disabled]="formAsignarAComite.invalid">
-                    Pasar a Comité
-                </button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL PARA MOSTRAR OTROS-->
-<div class="modal fade" id="modalDetalleCaso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Detalle caso {{detallePorCaso?.id}}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="formCamioEstado">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Datos del Cliente</h3>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table width="100%" class="table">
+                            <tbody>
+                                <tr>
+                                    <td width="25%">Total Inversion</td>
+                                    <td width="75%">{{total_inversion | currencyPesoChileno}} UF</td>
+                                </tr>
+                                <tr>
+                                    <td width="25%">TIR</td>
+                                    <td width="75%">
+                                        {{tir}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Rentabilidad</td>
+                                    <td>{{rentabilidad | currencyPesoChileno}} UF</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table" width="100%">
-                                <tbody>
-                                    <tr>
-                                        <td width="30%">Nombre Cliente</td>
-                                        <td width="70%">{{detallePorCaso?.nom_cli}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Propiedad</td>
-                                        <td>{{detallePorCaso?.propiedad}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Comuna</td>
-                                        <td>{{detallePorCaso?.comuna}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Valor Propiedad</td>
-                                        <td>{{detallePorCaso?.v_comercial}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Valor Contrato</td>
-                                        <td>{{detallePorCaso?.v_contrato}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>LTV</td>
-                                        <td>{{detallePorCaso?.ltv}}%</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Datos Inversionista</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="">Seleccione invsersionista</label>
-                            <input type="text" class="form-control" disabled [value]="detallePorCaso?.inversionista">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">Estado a Cambiar</label>
-                            <ng-select placeholder="Seleccionar Inversionista"
-                                notFoundText="No se encontraron coincidencias" formControlName="estado_reserva">
-                                <ng-option [value]="1">Comité</ng-option>
-                                <ng-option [value]="2">Pendiente</ng-option>
-                                <ng-option [value]="3">Rechazado</ng-option>
-                                <ng-option [value]="4">Desistido</ng-option>
-                                <ng-option [value]="5">Pre-Aprobado</ng-option>
-                                <ng-option [value]="6" *ngIf="contadorTemporal!.estado >= 5">Aprobado</ng-option>
-                                <ng-option [value]="7" *ngIf="contadorTemporal!.estado >= 6">Cursado</ng-option>
-                            </ng-select>
-                            <shared-mensaje-validador
-                                [forControl]="formAsignarAComite.controls['estado_reserva']"></shared-mensaje-validador>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table width="100%" class="table">
-                                <tbody>
-                                    <tr>
-                                        <td width="25%">Total Inversion</td>
-                                        <td width="75%">{{total_inversion | currencyPesoChileno}} UF</td>
-                                    </tr>
-                                    <tr>
-                                        <td width="25%">TIR</td>
-                                        <td width="75%">
-                                            <input type="text" class="form-control" formControlName="tir"
-                                                (change)="formatearMiles($event)" (change)="cambiarTirInput($event)">
-                                            <shared-mensaje-validador
-                                                [forControl]="formAsignarAComite.controls['tir']"></shared-mensaje-validador>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rentabilidad</td>
-                                        <td>{{rentabilidad | currencyPesoChileno}} UF</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" (click)="modalComentario()">
                     Comentarios
                 </button>
-                <button type="button" class="btn btn-success" (click)="cambiarDeEstadoDeReserva()"
-                    [disabled]="formCamioEstado.invalid">
-                    Modificar
+                <button type="button" class="btn btn-primary" (click)="modalDocumentos()">
+                    Documentos
                 </button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cerrar
@@ -549,12 +409,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    Comentarios Cliente {{detallePorCaso?.id}}
+                    Comentarios Caso {{detallePorCaso?.id}}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="formComentario">
+                <!-- <form [formGroup]="formComentario">
                     <div class="row">
                         <div class="col-md-12">
                             <h3>Nuevo Comentarios</h3>
@@ -565,7 +425,7 @@
                             <label for="">Comentario</label>
                             <textarea rows="3" class="form-control" formControlName="comentario"></textarea>
                             <shared-mensaje-validador
-                                [forControl]="formAsignarAComite.controls['comentario']">></shared-mensaje-validador>
+                                [forControl]="formComentario.controls['comentario']">></shared-mensaje-validador>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-success w-100" (click)="guardarComentario()">
@@ -573,45 +433,79 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                </form> -->
                 <div class="row mt-4">
-                    <p-table [value]="comentarioCaso" styleClass="p-datatable-striped" [paginator]="true"
-                        [rows]="10" [showCurrentPageReport]="true"
-                        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
-                        [rowsPerPageOptions]="[10, 25]" selectionMode="single" dataKey="id" [scrollable]="true"
-                        scrollDirection="horizontal" [style]="{ width: '100%' }">
-                        <!-- FILTROS POR COLUMNAS -->
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <label for="">Comentario</label>
-                                    </div>
-                                </th>
-                                <th pSortableColumn="fecha" width="20%">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <label for="">Fecha</label>
-                                        <div class="d-flex flex-column">
-                                            <p-columnFilter type="text" field="fecha" display="menu"></p-columnFilter>
+                    <div class="col-md-12">
+                        <p-table [value]="comentarioCaso" styleClass="p-datatable-striped" [paginator]="true"
+                            [rows]="10" [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
+                            [rowsPerPageOptions]="[10, 25]" selectionMode="single" dataKey="id" [scrollable]="true"
+                            scrollDirection="horizontal" [style]="{ width: '100%' }">
+                            <!-- FILTROS POR COLUMNAS -->
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <label for="">Comentario</label>
                                         </div>
-                                    </div>
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <!-- CUERPO DE LA TABLA -->
-                        <ng-template pTemplate="body" let-data let-i="rowIndex">
-                            <tr>
-                                <td>{{ data.comentario }}</td>
-                                <td>{{ data.fecha }}</td>
-                            </tr>
-                        </ng-template>
-                        <!-- MENSAJE DE QUE NO HAY DATOS -->
-                        <ng-template pTemplate="emptymessage">
-                            <tr>
-                                <td colspan="20" class="text-center">No hay datos disponibles</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
+                                    </th>
+                                    <th pSortableColumn="fecha" width="20%">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <label for="">Fecha</label>
+                                            <div class="d-flex flex-column">
+                                                <p-columnFilter type="text" field="fecha"
+                                                    display="menu"></p-columnFilter>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <!-- CUERPO DE LA TABLA -->
+                            <ng-template pTemplate="body" let-data let-i="rowIndex">
+                                <tr>
+                                    <td>{{ data.comentario }}</td>
+                                    <td>{{ data.fecha }}</td>
+                                </tr>
+                            </ng-template>
+                            <!-- MENSAJE DE QUE NO HAY DATOS -->
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="20" class="text-center">No hay datos disponibles</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PARA DOCUMENTOS-->
+<div class="modal fade" id="modalDocumentos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Documentos Caso {{detallePorCaso?.id}}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul *ngFor="let documento of documentosPorInversionista">
+                            <li>
+                                <a [href]="url + documento.path" target="_blank">{{documento.nom_documento}}</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

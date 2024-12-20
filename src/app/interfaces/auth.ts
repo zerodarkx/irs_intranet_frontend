@@ -16,6 +16,8 @@ export interface ValidarSession {
 }
 
 export interface Payload {
+    id_usuario: number;
+    perfil: number;
     permisos: string;
     nombre: string;
     exp: number;

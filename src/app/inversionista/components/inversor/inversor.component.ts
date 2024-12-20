@@ -1,0 +1,202 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { jwtDecode } from 'jwt-decode';
+import { Table } from 'primeng/table';
+import { Payload } from 'src/app/interfaces/auth';
+import {
+  DataContador,
+  DocumentosPorInversionista,
+  obtenerComentarioPorInversionista,
+  ObtenerTodosInversionesPorEstado,
+  ResultadoObtenerTodosInversionesContador,
+  ResultadoObtenerTodosInversionesPorEstado
+} from 'src/app/interfaces/inversionista';
+import { SelectInversionistaDisponibles } from 'src/app/interfaces/usuario';
+import { InversionistasService } from 'src/app/services/inversionistas.service';
+import { abrirModal } from 'src/app/shared/utils/bootstrap';
+import { formateadorMilesDesdeBase } from 'src/app/shared/utils/formateadores';
+import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+import { env } from 'src/environments/environment';
+
+@Component({
+  selector: 'app-inversor',
+  templateUrl: './inversor.component.html',
+  styleUrls: ['./inversor.component.css']
+})
+export class InversorComponent {
+  @ViewChild('tabla') tabla!: Table;
+  @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+
+  url: string = env.descargaUrl;
+
+  contadorTemporal: DataContador = { cantidad: 0, estado: 0, titulo: '', montoTotal: 0 };
+  contadorDatosComite: DataContador = { cantidad: 0, estado: 1, titulo: 'Comite', montoTotal: 0 };
+  contadorDatosPendiente: DataContador = { cantidad: 0, estado: 2, titulo: 'Pendiente', montoTotal: 0 };
+  contadorDatosRechazado: DataContador = { cantidad: 0, estado: 3, titulo: 'Rechazado', montoTotal: 0 };
+  contadorDatosDesistido: DataContador = { cantidad: 0, estado: 4, titulo: 'Desistido', montoTotal: 0 };
+  contadorDatosPreAprobado: DataContador = { cantidad: 0, estado: 5, titulo: 'Pre Aprobado', montoTotal: 0 };
+  contadorDatosAprobado: DataContador = { cantidad: 0, estado: 6, titulo: 'Aprobado', montoTotal: 0 };
+  contadorDatosCursado: DataContador = { cantidad: 0, estado: 7, titulo: 'Cursado', montoTotal: 0 };
+
+  id_inv: number = 0;
+  datosMostar: ObtenerTodosInversionesPorEstado[] = []
+  detallePorCaso?: ObtenerTodosInversionesPorEstado;
+  comentarioCaso: obtenerComentarioPorInversionista[] = [];
+  documentosPorInversionista: DocumentosPorInversionista[] = [];
+  tituloMostrar: string = '';
+
+  total_inversion: number = 0;
+  rentabilidad: number = 0;
+  tir: string = '';
+
+  selectInversionistaDisponibles: SelectInversionistaDisponibles[] = [];
+
+  formComentario: FormGroup = this.fb.group({
+    id_cliente: [],
+    id_inversionista: [],
+    comentario: ['', [
+      Validators.required
+    ]]
+  })
+
+  constructor(
+    private fb: FormBuilder,
+    private sInversionista: InversionistasService
+  ) { }
+
+  ngOnInit(): void {
+    this.id_inv = jwtDecode<Payload>(localStorage.getItem('token')!).id_usuario;
+    this.obtenerContadorCasos();
+    this.mostrarDataPorEstado(this.contadorDatosComite);
+
+  }
+
+  ngAfterViewInit() {
+    this.calcularAlturaMaxima('.tamanoCard');
+    this.calcularAlturaMaxima('.tamanoTexto1');
+    this.calcularAlturaMaxima('.tamanoTexto2');
+  }
+
+  calcularAlturaMaxima(query: string) {
+    const tarjetas = document.querySelectorAll(query);
+    let maxHeight = 0;
+
+    tarjetas.forEach((tarjeta: any) => {
+      const altura = tarjeta.offsetHeight;
+      if (altura > maxHeight) {
+        maxHeight = altura;
+      }
+    });
+
+    tarjetas.forEach((tarjeta: any) => {
+      tarjeta.style.height = `${maxHeight}px`;
+    })
+  }
+
+  clear(table: Table) {
+    table.clear();
+    this.iBuscarTodo.nativeElement.value = ''
+  }
+
+  handleFilter(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.tabla.filterGlobal(inputElement.value, 'contains');
+  }
+
+  obtenerContadorCasos() {
+    this.sInversionista.obtenerTodosInversionistaContadorByInversionista(this.id_inv)
+      .subscribe({
+        next: (response: ResultadoObtenerTodosInversionesContador) => {
+          this.contadorDatosPendiente = response.data.Pendiente || this.contadorDatosPendiente;
+          this.contadorDatosComite = response.data.Comite || this.contadorDatosComite;
+          this.contadorDatosRechazado = response.data.Rechazado || this.contadorDatosRechazado;
+          this.contadorDatosDesistido = response.data.Desistido || this.contadorDatosDesistido;
+          this.contadorDatosPreAprobado = response.data.PreAprobado || this.contadorDatosPreAprobado;
+          this.contadorDatosAprobado = response.data.Aprobado || this.contadorDatosAprobado;
+          this.contadorDatosCursado = response.data.Cursado || this.contadorDatosCursado;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+  }
+
+  mostrarDataPorEstado(data: DataContador) {
+    this.contadorTemporal = data;
+    this.tituloMostrar = data.titulo;
+    this.sInversionista.obtenerTodosInversionesPorEstadoByInversionista(this.id_inv, data.estado)
+      .subscribe({
+        next: (response: ResultadoObtenerTodosInversionesPorEstado) => {
+          this.datosMostar = response.data;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      })
+  }
+
+  abrirModal(detalle: ObtenerTodosInversionesPorEstado) {
+    this.detallePorCaso = detalle;
+    this.tir = formateadorMilesDesdeBase(this.detallePorCaso.tir);
+    this.total_inversion = this.detallePorCaso.v_contrato / ((100 + this.detallePorCaso.tir) / 100);
+    this.rentabilidad = this.detallePorCaso.v_contrato - this.total_inversion;
+    abrirModal('modalDetalleCaso');
+  }
+
+  cargarComentario() {
+    if (!this.detallePorCaso) return
+    this.sInversionista.obtenerComentarioPorInversionista(this.detallePorCaso?.id, this.detallePorCaso?.id_inversionista)
+      .subscribe({
+        next: (response) => {
+          this.comentarioCaso = response.data
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      });
+    this.formComentario.patchValue({
+      id_cliente: this.detallePorCaso.id,
+      id_inversionista: this.detallePorCaso.id_inversionista
+    })
+  }
+
+  modalComentario() {
+    this.cargarComentario()
+    abrirModal('modalComentarios')
+  }
+
+  guardarComentario() {
+    this.sInversionista.agregarComentarioPorInversionista(this.formComentario.value)
+      .subscribe({
+        next: (response) => {
+          mostrarMensaje({
+            icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Error,
+            titulo: '',
+            mensaje: response.mensaje
+          });
+
+          if (response.ok) {
+            this.cargarComentario();
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+  }
+
+  modalDocumentos() {
+    if (!this.detallePorCaso) return
+    this.sInversionista.obtenerDocumentosPorInversionista(this.detallePorCaso.id_inversionista)
+      .subscribe({
+        next: (response) => {
+          this.documentosPorInversionista = response.data
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+    abrirModal('modalDocumentos')
+  }
+}

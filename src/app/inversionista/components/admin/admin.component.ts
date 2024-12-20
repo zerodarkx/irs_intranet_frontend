@@ -23,7 +23,6 @@ export class AdminComponent implements OnInit, AfterViewInit {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
 
-
   contadorTemporal: DataContador = { cantidad: 0, estado: 0, titulo: '', montoTotal: 0 };
   contadorDatosDisponibles: DataContador = { cantidad: 0, estado: 0, titulo: 'Disponibles', montoTotal: 0 };
   contadorDatosComite: DataContador = { cantidad: 0, estado: 1, titulo: 'Comite', montoTotal: 0 };
@@ -88,9 +87,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.calcularAlturaMaxima('.card .text-white');
-    this.calcularAlturaMaxima('.flex-grow-1');
-    this.calcularAlturaMaxima('.tamano');
+    this.calcularAlturaMaxima('.tamanoCard');
+    this.calcularAlturaMaxima('.tamanoTexto1');
+    this.calcularAlturaMaxima('.tamanoTexto2');
   }
 
   calcularAlturaMaxima(query: string) {
@@ -123,19 +122,20 @@ export class AdminComponent implements OnInit, AfterViewInit {
     const input = (event.target as HTMLInputElement)
     input.value = formateadorMiles(input.value)
     this.formAsignarAComite.get(input.getAttribute('formControlName')!)?.setValue(input.value)
+    this.formCamioEstado.get(input.getAttribute('formControlName')!)?.setValue(input.value)
   }
 
   obtenerContadorCasos() {
     this.sInversionista.obtenerTodosInversionistaContador()
       .subscribe({
         next: (response: ResultadoObtenerTodosInversionesContador) => {
-          this.contadorDatosPendiente = response.data.Pendiente;
-          this.contadorDatosComite = response.data.Comite;
-          this.contadorDatosRechazado = response.data.Rechazado;
-          this.contadorDatosDesistido = response.data.Desistido;
-          this.contadorDatosPreAprobado = response.data.PreAprobado;
-          this.contadorDatosAprobado = response.data.Aprobado;
-          this.contadorDatosCursado = response.data.Cursado;
+          this.contadorDatosPendiente = response.data.Pendiente || this.contadorDatosPendiente;
+          this.contadorDatosComite = response.data.Comite || this.contadorDatosComite;
+          this.contadorDatosRechazado = response.data.Rechazado || this.contadorDatosRechazado;
+          this.contadorDatosDesistido = response.data.Desistido || this.contadorDatosDesistido;
+          this.contadorDatosPreAprobado = response.data.PreAprobado || this.contadorDatosPreAprobado;
+          this.contadorDatosAprobado = response.data.Aprobado || this.contadorDatosAprobado;
+          this.contadorDatosCursado = response.data.Cursado || this.contadorDatosCursado;
         },
         error: (error: HttpErrorResponse) => {
           errorConexionServidor(error)
@@ -318,7 +318,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
             mensaje: response.mensaje
           });
 
-          if (response.ok){
+          if (response.ok) {
             this.cargarComentario();
           }
         },

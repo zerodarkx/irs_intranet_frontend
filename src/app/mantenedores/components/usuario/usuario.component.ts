@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { Plataforma, ResultadoObtenerTodasPlataformas } from 'src/app/interfaces/plataforma';
 import { CodigoTelefono, ResultadoObtenerTodosCodigoTelefono } from 'src/app/interfaces/telefonoCodigo';
@@ -11,10 +11,15 @@ import { PlataformaService } from 'src/app/services/plataforma.service';
 import { TipoPerfilService } from 'src/app/services/tipo-perfil.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
-import { agregarMayusculas, formatearRut } from 'src/app/shared/utils/formateadores';
+import { agregarMayusculas, formateadorMiles, formateadorMilesDesdeBase, formatearRut } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 import { rutValidator, validarPassword } from 'src/app/shared/utils/validadores';
 import { PermisosComponent } from '../permisos/permisos.component';
+import { TipoDocuentosService } from 'src/app/services/tipo-documentos.service';
+import { ITipoDocumento } from 'src/app/interfaces/tipoDocumentos';
+import { lastValueFrom } from 'rxjs';
+import { TipoPropiedadService } from 'src/app/services/tipo-propiedad.service';
+import { TipoPropiedad } from 'src/app/interfaces/tipoPropiedad';
 
 @Component({
   selector: 'mantendor-usuario',
@@ -29,8 +34,15 @@ export class UsuarioComponent implements OnInit {
 
   titulo_cabecera: string = '';
   usuarios: ResultadoUsuario[] = [];
-  id_usuario: string = '';
+  id_usuario: number = 0;
+  nombre_usuario: string = '';
   permisosPorUsuario?: PermisoConId;
+
+  inversionistaForm: FormGroup = this.fb.group({})
+  documentosParaVer: ITipoDocumento[] = [];
+  propiedadesParaVer: TipoPropiedad[] = [];
+  cargaDeFormulario: boolean = false;
+  cargaDeDocumento: boolean = false;
 
   /** SELECTs */
   selectTipoPerfil: TipoPerfilUsuario[] = []
@@ -99,6 +111,8 @@ export class UsuarioComponent implements OnInit {
     private sPlataforma: PlataformaService,
     private sTipoPerfil: TipoPerfilService,
     private sCodigoTelefono: CodigoTelefonoService,
+    private sTipoDocumento: TipoDocuentosService,
+    private sTipoPropiedad: TipoPropiedadService
   ) { }
 
   ngOnInit(): void {
@@ -107,6 +121,8 @@ export class UsuarioComponent implements OnInit {
     this.obtenerSelectPlataforma();
     this.obtenerSelectTipoPerfil();
     this.obtenerSelectJefatura();
+    this.obtenerTodosLosDocumentos();
+    this.obtenerTodoTipoPropiedades();
   }
 
   mayuscula(event: Event): void {
@@ -124,6 +140,12 @@ export class UsuarioComponent implements OnInit {
   clear(table: Table) {
     table.clear();
     this.iBuscarTodo.nativeElement.value = ''
+  }
+
+  formateadorMiles(event: Event) {
+    const input = (event.target as HTMLInputElement)
+    input.value = formateadorMiles(input.value)
+    this.inversionistaForm.get(input.getAttribute('formControlName')!)?.setValue(input.value)
   }
 
   handleFilter(event: Event) {
@@ -183,6 +205,30 @@ export class UsuarioComponent implements OnInit {
       })
   }
 
+  obtenerTodosLosDocumentos() {
+    this.sTipoDocumento.obtenerTodosTipoDocumentos()
+      .subscribe({
+        next: (response) => {
+          this.documentosParaVer = response.data;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+  }
+
+  obtenerTodoTipoPropiedades() {
+    this.sTipoPropiedad.obtenerTodasLosTipoPropiedad()
+      .subscribe({
+        next: (response) => {
+          this.propiedadesParaVer = response.data;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+  }
+
   modalUsuario(usuario: ResultadoUsuario | null) {
     this.formUsuario.reset();
     this.titulo_cabecera = (!usuario) ? 'Nuevo' : 'Editar';
@@ -218,8 +264,9 @@ export class UsuarioComponent implements OnInit {
     abrirModal('modalUsuario')
   }
 
-  modalPassword(id_usuario: string) {
-    this.id_usuario = id_usuario;
+  modalPassword(usuario: ResultadoUsuario) {
+    this.nombre_usuario = usuario.nombreCompleto
+    this.id_usuario = usuario.id_usuario;
     this.formPassword.reset();
     abrirModal('modalPassword')
   }
@@ -322,6 +369,7 @@ export class UsuarioComponent implements OnInit {
   }
 
   modalPermisos(usuario: ResultadoUsuario) {
+    this.nombre_usuario = usuario.nombreCompleto
     this.permisosPorUsuario = {
       id: usuario.id_usuario,
       permisos: JSON.parse(usuario.permisos)
@@ -346,5 +394,64 @@ export class UsuarioComponent implements OnInit {
     const usuario = this.usuarios.find((u) => u.id_usuario === this.permisoComponente.permisosForm.get('id')?.value);
     usuario!.permisos = JSON.stringify(this.permisoComponente.permisosForm.get('modulos')?.value);
     cerrarModal();
+  }
+
+  async modalInversionista(usuario: ResultadoUsuario): Promise<void> {
+    this.nombre_usuario = usuario.nombreCompleto
+    const response = await lastValueFrom(this.sUsuario.obtenerDataInversionista(usuario.id_usuario));
+    this.inversionistaForm = this.fb.group({
+      id_usuario: usuario.id_usuario,
+      uf_desde: [formateadorMilesDesdeBase(response.data.monto_invertir_desde), Validators.required],
+      uf_hasta: [formateadorMilesDesdeBase(response.data.monto_invertir_hasta), Validators.required],
+      ltv_desde: [formateadorMilesDesdeBase(response.data.ltv_desde), Validators.required],
+      ltv_hasta: [formateadorMilesDesdeBase(response.data.ltv_hasta), Validators.required],
+      plazo_desde: [formateadorMilesDesdeBase(response.data.plazo_desde), Validators.required],
+      plazo_hasta: [formateadorMilesDesdeBase(response.data.plazo_hasta), Validators.required],
+      tir: [formateadorMilesDesdeBase(response.data.tir), Validators.required],
+      verDocumentos: this.fb.array(
+        this.documentosParaVer.map((ele) => this.fb.control(response.data.documentos.includes(ele.id_tipoDocumento)))
+      ),
+      verPropiedades: this.fb.array(
+        this.propiedadesParaVer.map((ele) => this.fb.control(response.data.propiedades.includes(ele.id_tipoPropiedad)))
+      ),
+    });
+
+    this.cargaDeFormulario = true;
+    this.cargaDeDocumento = true;
+    abrirModal('modalInversionista');
+
+  }
+
+  guardarDocumentos(): void {
+    const documentoSeleccionados = this.inversionistaForm.value.verDocumentos
+      .map((checked: boolean, i: number) => (checked ? this.documentosParaVer[i].id_tipoDocumento : null))
+      .filter((id: number | null) => id !== null);
+
+    const propiedadesseleccionados = this.inversionistaForm.value.verPropiedades
+      .map((checked: boolean, i: number) => (checked ? this.propiedadesParaVer[i].id_tipoPropiedad : null))
+      .filter((id: number | null) => id !== null);
+
+    const { verDocumentos, verPropiedades, ...data } = this.inversionistaForm.value;
+    
+    data.documentos = documentoSeleccionados;
+    data.propiedades = propiedadesseleccionados;
+
+    console.log(data);
+    
+
+    this.sUsuario.guardarDataInversionista(data)
+      .subscribe({
+        next: (response) => {
+          mostrarMensaje({
+            icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Error,
+            titulo: response.ok ? 'Exito' : 'Atencion',
+            mensaje: response.data.mensaje
+          })
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+
   }
 }

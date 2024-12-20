@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 
 import { jwtDecode } from 'jwt-decode';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Payload } from '../interfaces/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.sAuth.isLoggedIn()) {
 
-      const decoded: any = jwtDecode(this.sAuth.getToken()!);
+      const decoded = jwtDecode<Payload>(this.sAuth.getToken()!);
       const currentTime = Date.now() / 1000; // Obtener el tiempo actual en segundos
 
       // Comparar la fecha de expiración con la hora actual

@@ -16,11 +16,6 @@ export class NavbarComponent implements OnInit {
 
   permisos!: Record<string, any>;
 
-  permisosSubCliente = {
-    agregarCliente: false,
-    exportarExcel: false
-  };
-
   constructor(
     private sAuth: AuthService,
     private sPermiso: PermisosService
