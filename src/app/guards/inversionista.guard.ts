@@ -16,8 +16,6 @@ export class InversionistaGuard implements CanActivate {
 
   canActivate(route: any): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const decoded = jwtDecode<Payload>(this.sAuth.getToken()!);
-    console.log(decoded.perfil);
-    
     const perfilPermitido = route.data.perfil;
 
     if(!perfilPermitido.includes(decoded.perfil)){

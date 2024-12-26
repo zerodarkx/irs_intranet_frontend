@@ -1,30 +1,20 @@
-<div class="row">
-    <div class="col-md-12">
-        <h4>Negocios</h4>
-    </div>
-</div>
 <!-- BOTONES -->
 <div class="container mt-4">
     <div class="row">
-        <!-- Tarjeta 0 -->
         <div class="col-md-3 mb-3">
             <div class="card text-white bg-primary tamanoCard">
                 <div class="card-body d-flex align-items-center">
-                    <!-- Contenido de la tarjeta -->
                     <div class="flex-grow-1 tamanoTexto1">
                         <h3 class="card-title tamanoTexto2">Casos Disponibles</h3>
                         <p class="card-text">Cantidad: <strong>{{contadorDatosDisponibles.cantidad}}</strong></p>
                     </div>
-                    <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostratCasosDisponibles()"></i>
                 </div>
             </div>
         </div>
-        <!-- Tarjeta 1 -->
         <div class="col-md-3 mb-3">
             <div class="card text-white bg-primary tamanoCard">
                 <div class="card-body d-flex align-items-center">
-                    <!-- Contenido de la tarjeta -->
                     <div class="flex-grow-1 tamanoTexto1 no-spacing">
                         <h3 class="card-title tamanoTexto2">Comité</h3>
                         <p class="card-text">Cantidad: <strong>{{contadorDatosComite.cantidad | currencyPesoChileno :
@@ -32,32 +22,26 @@
                         <p class="card-text">Total UF: <strong>{{contadorDatosComite.montoTotal |
                                 currencyPesoChileno}}</strong></p>
                     </div>
-                    <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosComite)"></i>
                 </div>
             </div>
         </div>
-        <!-- Tarjeta 2 -->
         <div class="col-md-3 mb-3">
             <div class="card text-white bg-primary tamanoCard">
                 <div class="card-body d-flex align-items-center">
-                    <!-- Contenido de la tarjeta -->
                     <div class="flex-grow-1 tamanoTexto1 no-spacing">
                         <h3 class="card-title tamanoTexto2">Pendiente</h3>
                         <p class="card-text">Cantidad: <strong>{{contadorDatosPendiente.cantidad}}</strong></p>
                         <p class="card-text">Total UF: <strong>{{contadorDatosPendiente.montoTotal |
                                 currencyPesoChileno}}</strong></p>
                     </div>
-                    <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosPendiente)"></i>
                 </div>
             </div>
         </div>
-        <!-- Tarjeta 3 -->
         <div class="col-md-3 mb-3">
             <div class="card text-white bg-primary tamanoCard">
                 <div class="card-body d-flex align-items-center">
-                    <!-- Contenido de la tarjeta -->
                     <div class="flex-grow-1 tamanoTexto1 no-spacing">
                         <h3 class="card-title tamanoTexto2">
                             Pre-Aprobados <div class="fff">(Falta Cierre de Negocio)</div>
@@ -66,82 +50,163 @@
                         <p class="card-text">Total UF: <strong>{{contadorDatosPreAprobado.montoTotal |
                                 currencyPesoChileno}}</strong></p>
                     </div>
-                    <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosPreAprobado)"></i>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <!-- Tarjeta 4 -->
         <div class="col-md-6 mb-3">
             <div class="card text-white bg-secondary tamanoCard">
                 <div class="card-body d-flex align-items-center">
-                    <!-- Contenido de la tarjeta -->
                     <div class="flex-grow-1 tamanoTexto1 no-spacing">
                         <h3 class="card-title tamanoTexto2">Aprobados</h3>
                         <p class="card-text">Cantidad: <strong>{{contadorDatosAprobado.cantidad}}</strong></p>
                         <p class="card-text">Total UF: <strong>{{contadorDatosAprobado.montoTotal |
                                 currencyPesoChileno}}</strong></p>
                     </div>
-                    <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosAprobado)"></i>
                 </div>
             </div>
         </div>
-        <!-- Tarjeta 5 -->
         <div class="col-md-6 mb-3">
             <div class="card text-white bg-success tamanoCard">
                 <div class="card-body d-flex align-items-center">
-                    <!-- Contenido de la tarjeta -->
                     <div class="flex-grow-1 tamanoTexto1 no-spacing">
                         <h3 class="card-title tamanoTexto2">Cursados</h3>
                         <p class="card-text">Cantidad: <strong>{{contadorDatosCursado.cantidad}}</strong></p>
                         <p class="card-text">Total UF: <strong>{{contadorDatosCursado.montoTotal |
                                 currencyPesoChileno}}</strong></p>
                     </div>
-                    <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosCursado)"></i>
                 </div>
             </div>
         </div>
     </div>
     <div class="row justify-content-center align-items-center">
-        <!-- Tarjeta 6 -->
         <div class="col-md-4 mb-3">
             <div class="card text-white bg-danger tamanoCard">
                 <div class="card-body d-flex align-items-center">
-                    <!-- Contenido de la tarjeta -->
                     <div class="flex-grow-1 tamanoTexto1 no-spacing">
                         <h3 class="card-title tamanoTexto2">Rechazados</h3>
                         <p class="card-text">Cantidad: <strong>{{contadorDatosRechazado.cantidad}}</strong></p>
                         <p class="card-text">Total UF: <strong>{{contadorDatosRechazado.montoTotal |
                                 currencyPesoChileno}}</strong></p>
                     </div>
-                    <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosRechazado)"></i>
                 </div>
             </div>
         </div>
-        <!-- Tarjeta 6 -->
         <div class="col-md-4 mb-3">
             <div class="card text-white bg-warning tamanoCard">
                 <div class="card-body d-flex align-items-center">
-                    <!-- Contenido de la tarjeta -->
                     <div class="flex-grow-1 tamanoTexto1 no-spacing">
                         <h3 class="card-title tamanoTexto2">Desistidos</h3>
                         <p class="card-text">Cantidad: <strong>{{contadorDatosDesistido.cantidad}}</strong></p>
                         <p class="card-text">Total UF: <strong>{{contadorDatosDesistido.montoTotal |
                                 currencyPesoChileno}}</strong></p>
                     </div>
-                    <!-- Ícono de lupa -->
                     <i class="bi bi-search fs-3" (click)="mostrarDataPorEstado(contadorDatosDesistido)"></i>
                 </div>
             </div>
         </div>
     </div>
-    <div class="separadorEspacio"></div>
 </div>
+<div class="separadorEspacio"></div>
+
+<!-- BOTONES PARA EXPORTAR -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Filtros Exportar</h3>
+        </div>
+    </div>
+    <div class="row">
+        <form [formGroup]="formExportar">
+            <div class="col-md-12">
+                <div class="row mt-2">
+                    <div class="col-md-3">
+                        <label for="">Ejecutivo</label>
+                        <ng-select [items]="selectEjecutivos" bindValue="id_usuario" bindLabel="nombre_ejecutivo"
+                            placeholder="Seleccione Ejecutivo" notFoundText="No se encontraron coincidencias"
+                            formControlName="id_ejecutivo">
+                        </ng-select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Inversionista</label>
+                        <ng-select [items]="selectInversionista" bindValue="id_inv" bindLabel="inv"
+                            placeholder="Seleccione Inversionista" notFoundText="No se encontraron coincidencias"
+                            formControlName="id_inversionista">
+                        </ng-select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Tipo Propiedad</label>
+                        <ng-select [items]="selectTipoPropiedad" bindValue="id_tipoPropiedad"
+                            bindLabel="nombre_tipoPropiedad" placeholder="Seleccione Tipo Propiedad"
+                            notFoundText="No se encontraron coincidencias" formControlName="tipo_propiedad">
+                        </ng-select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Estado</label>
+                        <ng-select placeholder="Seleccionar Estado" notFoundText="No se encontraron coincidencias"
+                            formControlName="estado" (change)="estadoCursadoFiltro($event)">
+                            <ng-option value="1">Comite</ng-option>
+                            <ng-option value="2">Pendiente</ng-option>
+                            <ng-option value="5">Pre - Aprobados</ng-option>
+                            <ng-option value="6">Aprobados</ng-option>
+                            <ng-option value="7">Cursados</ng-option>
+                            <ng-option value="3">Rechazados</ng-option>
+                            <ng-option value="4">Desistidos</ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-3" formGroupName="fecha_cursado">
+                        <label for="">Fecha Cursado Desde</label>
+                        <input type="date" class="form-control text-center" formControlName="fechaDesde">
+                    </div>
+                    <div class="col-md-3" formGroupName="fecha_cursado">
+                        <label for="">Fecha Cursado Hasta</label>
+                        <input type="date" class="form-control text-center" formControlName="fechaHasta">
+                        <div *ngIf="formExportar.get('fecha_cursado')?.hasError('fechaRangoInvalido')">
+                            <small class="text-danger">La fecha inicial debe ser menor o igual a la fecha final en
+                                búsqueda.</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Region</label>
+                        <ng-select [items]="selectRegiones" bindValue="id_region"
+                            bindLabel="nombre_region" placeholder="Seleccione Region"
+                            notFoundText="No se encontraron coincidencias" formControlName="region"
+                            (change)="changeComuna($event)">
+                        </ng-select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Comuna</label>
+                        <ng-select [items]="selectComunas" bindValue="id_comuna"
+                            bindLabel="nombre_comuna" placeholder="Seleccione Comuna"
+                            notFoundText="No se encontraron coincidencias" formControlName="comuna">
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <button type="button" class="btn btn-warning w-100 mt-2" (click)="borrarFiltrosTablaExportar()">
+                            Borrar Filtro
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary w-100 mt-2" [disabled]="formExportar.invalid" (click)="exportarCasosExcel()">
+                            Exportar Casos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="separadorEspacio"></div>
+
 <!-- TABLA INFORMACION -->
 <div class="container-fluid">
     <div class="row">
@@ -575,8 +640,8 @@
                     </div>
                 </form>
                 <div class="row mt-4">
-                    <p-table [value]="comentarioCaso" styleClass="p-datatable-striped" [paginator]="true"
-                        [rows]="10" [showCurrentPageReport]="true"
+                    <p-table [value]="comentarioCaso" styleClass="p-datatable-striped" [paginator]="true" [rows]="10"
+                        [showCurrentPageReport]="true"
                         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
                         [rowsPerPageOptions]="[10, 25]" selectionMode="single" dataKey="id" [scrollable]="true"
                         scrollDirection="horizontal" [style]="{ width: '100%' }">

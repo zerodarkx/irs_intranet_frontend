@@ -53,7 +53,12 @@ export class UsuarioService {
   }
 
   obtenerSelectInversionistaDisponibles(id_cliente: number): Observable<ResultadoObtenerSelectInversionistaDisponibles> {
-    let url = `${this.url_base}/obtenerTodosInversionistaDisponibles/${id_cliente}}`;
+    let url = `${this.url_base}/obtenerTodosInversionistaDisponibles/${id_cliente}`;
+    return this.http.get<ResultadoObtenerSelectInversionistaDisponibles>(url);
+  }
+
+  obtenerSelectInversionista(): Observable<ResultadoObtenerSelectInversionistaDisponibles> {
+    let url = `${this.url_base}/obtenerTodosInversionista`;
     return this.http.get<ResultadoObtenerSelectInversionistaDisponibles>(url);
   }
 

@@ -19,14 +19,16 @@ export class ExportarPdfService {
     let url = `${this.url_base}/descargarSimulacion/${id_simulacion}`;
     return this.http.post<exportarPdf>(url, {});
   }
-
   exportarFichaComitePdf(id_cliente: number): Observable<exportarPdf> {
     let url = `${this.url_base}/descargarFichaComite/${id_cliente}`;
     return this.http.post<exportarPdf>(url, {});
   }
-
   exportarGastosClientePdf(id_cliente: number): Observable<exportarPdf> {
     let url = `${this.url_base}/descargarGastoCliente/${id_cliente}`;
     return this.http.post<exportarPdf>(url, {});
+  }
+  exportarFichaInversionistaPdf(data: any): Observable<exportarPdf> {
+    let url = `${this.url_base}/descargarFcihaInversionista`;
+    return this.http.post<exportarPdf>(url, data);
   }
 }

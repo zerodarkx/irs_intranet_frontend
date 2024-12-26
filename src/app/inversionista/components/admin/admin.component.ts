@@ -2,16 +2,25 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
+import { nombreApellidoEjecutivoId } from 'src/app/interfaces/cliente';
+import { Comuna } from 'src/app/interfaces/comuna';
 import {
   DataContador, ObtenerTodosInversionesPorEstado, ResultadoAgregarCasoNuevoReserva, ResultadoObtenerDataInversionista,
   ResultadoObtenerTodosInversionesContador, ResultadoObtenerTodosInversionesPorEstado
 } from 'src/app/interfaces/inversionista';
+import { Iregiones } from 'src/app/interfaces/regiones';
+import { TipoPropiedad } from 'src/app/interfaces/tipoPropiedad';
 import { ResultadoObtenerSelectInversionistaDisponibles, SelectInversionistaDisponibles } from 'src/app/interfaces/usuario';
+import { ComunaService } from 'src/app/services/comuna.service';
+import { ExportarExcelService } from 'src/app/services/exportar-excel.service';
 import { InversionistasService } from 'src/app/services/inversionistas.service';
+import { RegionService } from 'src/app/services/region.service';
+import { TipoPropiedadService } from 'src/app/services/tipo-propiedad.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+import { validarFechas } from 'src/app/shared/utils/validadores';
 
 @Component({
   selector: 'app-admin',
@@ -45,6 +54,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   selectInversionistaDisponibles: SelectInversionistaDisponibles[] = [];
 
+  selectEjecutivos: nombreApellidoEjecutivoId[] = []
+  selectInversionista: SelectInversionistaDisponibles[] = []
+  selectTipoPropiedad: TipoPropiedad[] = []
+  selectRegiones: Iregiones[] = []
+  selectComunas: Comuna[] = []
+
   formAsignarAComite: FormGroup = this.fb.group({
     id_inv: [[], [
       Validators.required
@@ -73,17 +88,37 @@ export class AdminComponent implements OnInit, AfterViewInit {
     comentario: ['', [
       Validators.required
     ]]
-  })
+  });
+
+  formExportar: FormGroup = this.fb.group({
+    id_ejecutivo: [],
+    id_inversionista: [],
+    tipo_propiedad: [],
+    estado: [],
+    fecha_cursado: this.fb.group({
+      fechaDesde: [, []],
+      fechaHasta: [, []],
+    }, { validators: [validarFechas('fechaDesde', 'fechaHasta')] }),
+    region: [],
+    comuna: []
+  });
 
   constructor(
     private fb: FormBuilder,
     private sInversionista: InversionistasService,
-    private sUsuario: UsuarioService
+    private sUsuario: UsuarioService,
+    private sTipoPropiedad: TipoPropiedadService,
+    private sExportar: ExportarExcelService,
+    private sRegion: RegionService,
+    private sComuna: ComunaService
   ) { }
 
   ngOnInit(): void {
     this.obtenerContadorCasos();
     this.mostratCasosDisponibles();
+    this.cargarDatosParaExportar();
+    this.otenerRegiones();
+    this.formExportar.get('fecha_cursado')?.disable();
   }
 
   ngAfterViewInit() {
@@ -326,5 +361,107 @@ export class AdminComponent implements OnInit, AfterViewInit {
           errorConexionServidor(error)
         }
       })
+  }
+
+  borrarFiltrosTablaExportar() {
+    this.formExportar.reset();
+    this.formExportar.get('fecha_cursado')?.disable();
+  }
+
+  cargarDatosParaExportar() {
+    // ejecutivos
+    this.sUsuario.obtenerEjecutivosBrokers()
+      .subscribe({
+        next: (response) => {
+          this.selectEjecutivos = response.data;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+    // inversionistas
+    this.sUsuario.obtenerSelectInversionista()
+      .subscribe({
+        next: (response) => {
+          this.selectInversionista = response.data;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+    // tipo propiedades
+    this.sTipoPropiedad.obtenerTodasLosTipoPropiedad()
+      .subscribe({
+        next: (response) => {
+          this.selectTipoPropiedad = response.data;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+  }
+
+  exportarCasosExcel() {
+    let fechaHoy = new Date().toLocaleDateString();
+    let nombreArchivo = `exportarCasosInversionista_${fechaHoy}.xlsx`;
+
+    this.sExportar.exportarCasosInversionistas(this.formExportar.getRawValue())
+      .subscribe({
+        next: (blob: Blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = nombreArchivo;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      });
+  }
+
+  estadoCursadoFiltro(estado: string) {
+    const fechaCursadoGroup = this.formExportar.get('fecha_cursado');
+    if (estado === '7') {
+      fechaCursadoGroup?.enable();
+    } else {
+      fechaCursadoGroup?.disable();
+      fechaCursadoGroup?.reset();
+    }
+  }
+
+  otenerRegiones() {
+    this.sRegion.obtenerTodasLasRegiones()
+      .subscribe({
+        next: ({ data }) => {
+          this.selectRegiones = data
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      });
+  }
+
+  changeComuna(event: Iregiones): void {
+
+    const region = event?.id_region
+    this.selectComunas = []
+    this.formExportar.get('comuna')?.reset();
+
+    // modificar esta parte de aca para generarse de forma automatica
+    if (region) {
+      this.sComuna.obtenerComunasPorRegion(region)
+        .subscribe({
+          next: ({ data }) => {
+            this.selectComunas = data
+          },
+          error: (error: HttpErrorResponse) => {
+            errorConexionServidor(error);
+          }
+        });
+    }
   }
 }

@@ -141,7 +141,7 @@
                 [showCurrentPageReport]="true"
                 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
                 [rowsPerPageOptions]="[10, 25, 50, 100, 250, 500]"
-                [globalFilterFields]="['id','nom_cli','ejecutivo','propiedad','comuna','v_comercial','v_contrato','ltv']"
+                [globalFilterFields]="['id','nom_cli','propiedad','comuna','v_comercial','v_contrato','ltv']"
                 selectionMode="single" dataKey="id" [scrollable]="true" scrollDirection="horizontal"
                 [style]="{ width: '100%' }">
                 <!-- FILTRO GENERAL -->
@@ -185,15 +185,6 @@
                                 <div class="d-flex flex-column">
                                     <p-columnFilter type="text" field="nom_cli" display="menu"></p-columnFilter>
                                     <p-sortIcon field="nom_cli"></p-sortIcon>
-                                </div>
-                            </div>
-                        </th>
-                        <th pSortableColumn="ejecutivo">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <label for="">Ejecutivo</label>
-                                <div class="d-flex flex-column">
-                                    <p-columnFilter type="text" field="ejecutivo" display="menu"></p-columnFilter>
-                                    <p-sortIcon field="ejecutivo"></p-sortIcon>
                                 </div>
                             </div>
                         </th>
@@ -273,7 +264,6 @@
                         <td>{{ data.id }}</td>
                         <td>{{ data.inversionista }}</td>
                         <td>{{ data.nom_cli }}</td>
-                        <td>{{ data.ejecutivo }}</td>
                         <td>{{ data.propiedad }}</td>
                         <td>{{ data.comuna }}</td>
                         <td>{{ data.v_comercial | currencyPesoChileno }}</td>
@@ -388,96 +378,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning" (click)="modalComentario()">
-                    Comentarios
-                </button>
                 <button type="button" class="btn btn-primary" (click)="modalDocumentos()">
                     Documentos
                 </button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
+                <button type="button" class="btn btn-warning" (click)="exportarFichaPdf()">
+                    Exportar Ficha
                 </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL PARA COMENTARIOS-->
-<div class="modal fade" id="modalComentarios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Comentarios Caso {{detallePorCaso?.id}}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- <form [formGroup]="formComentario">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Nuevo Comentarios</h3>
-                        </div>
-                    </div>
-                    <div class="row gap-2">
-                        <div class="col-md-12">
-                            <label for="">Comentario</label>
-                            <textarea rows="3" class="form-control" formControlName="comentario"></textarea>
-                            <shared-mensaje-validador
-                                [forControl]="formComentario.controls['comentario']">></shared-mensaje-validador>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-success w-100" (click)="guardarComentario()">
-                                Agregar Comentario
-                            </button>
-                        </div>
-                    </div>
-                </form> -->
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <p-table [value]="comentarioCaso" styleClass="p-datatable-striped" [paginator]="true"
-                            [rows]="10" [showCurrentPageReport]="true"
-                            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
-                            [rowsPerPageOptions]="[10, 25]" selectionMode="single" dataKey="id" [scrollable]="true"
-                            scrollDirection="horizontal" [style]="{ width: '100%' }">
-                            <!-- FILTROS POR COLUMNAS -->
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <label for="">Comentario</label>
-                                        </div>
-                                    </th>
-                                    <th pSortableColumn="fecha" width="20%">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <label for="">Fecha</label>
-                                            <div class="d-flex flex-column">
-                                                <p-columnFilter type="text" field="fecha"
-                                                    display="menu"></p-columnFilter>
-                                            </div>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </ng-template>
-                            <!-- CUERPO DE LA TABLA -->
-                            <ng-template pTemplate="body" let-data let-i="rowIndex">
-                                <tr>
-                                    <td>{{ data.comentario }}</td>
-                                    <td>{{ data.fecha }}</td>
-                                </tr>
-                            </ng-template>
-                            <!-- MENSAJE DE QUE NO HAY DATOS -->
-                            <ng-template pTemplate="emptymessage">
-                                <tr>
-                                    <td colspan="20" class="text-center">No hay datos disponibles</td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cerrar
                 </button>

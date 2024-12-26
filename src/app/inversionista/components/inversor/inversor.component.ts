@@ -1,22 +1,21 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { jwtDecode } from 'jwt-decode';
 import { Table } from 'primeng/table';
 import { Payload } from 'src/app/interfaces/auth';
 import {
   DataContador,
   DocumentosPorInversionista,
-  obtenerComentarioPorInversionista,
   ObtenerTodosInversionesPorEstado,
   ResultadoObtenerTodosInversionesContador,
   ResultadoObtenerTodosInversionesPorEstado
 } from 'src/app/interfaces/inversionista';
 import { SelectInversionistaDisponibles } from 'src/app/interfaces/usuario';
+import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
 import { InversionistasService } from 'src/app/services/inversionistas.service';
 import { abrirModal } from 'src/app/shared/utils/bootstrap';
 import { formateadorMilesDesdeBase } from 'src/app/shared/utils/formateadores';
-import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 import { env } from 'src/environments/environment';
 
 @Component({
@@ -42,7 +41,6 @@ export class InversorComponent {
   id_inv: number = 0;
   datosMostar: ObtenerTodosInversionesPorEstado[] = []
   detallePorCaso?: ObtenerTodosInversionesPorEstado;
-  comentarioCaso: obtenerComentarioPorInversionista[] = [];
   documentosPorInversionista: DocumentosPorInversionista[] = [];
   tituloMostrar: string = '';
 
@@ -52,24 +50,15 @@ export class InversorComponent {
 
   selectInversionistaDisponibles: SelectInversionistaDisponibles[] = [];
 
-  formComentario: FormGroup = this.fb.group({
-    id_cliente: [],
-    id_inversionista: [],
-    comentario: ['', [
-      Validators.required
-    ]]
-  })
-
   constructor(
-    private fb: FormBuilder,
-    private sInversionista: InversionistasService
+    private sInversionista: InversionistasService,
+    private sExportarPDF: ExportarPdfService
   ) { }
 
   ngOnInit(): void {
     this.id_inv = jwtDecode<Payload>(localStorage.getItem('token')!).id_usuario;
     this.obtenerContadorCasos();
     this.mostrarDataPorEstado(this.contadorDatosComite);
-
   }
 
   ngAfterViewInit() {
@@ -144,48 +133,6 @@ export class InversorComponent {
     abrirModal('modalDetalleCaso');
   }
 
-  cargarComentario() {
-    if (!this.detallePorCaso) return
-    this.sInversionista.obtenerComentarioPorInversionista(this.detallePorCaso?.id, this.detallePorCaso?.id_inversionista)
-      .subscribe({
-        next: (response) => {
-          this.comentarioCaso = response.data
-        },
-        error: (error: HttpErrorResponse) => {
-          errorConexionServidor(error)
-        }
-      });
-    this.formComentario.patchValue({
-      id_cliente: this.detallePorCaso.id,
-      id_inversionista: this.detallePorCaso.id_inversionista
-    })
-  }
-
-  modalComentario() {
-    this.cargarComentario()
-    abrirModal('modalComentarios')
-  }
-
-  guardarComentario() {
-    this.sInversionista.agregarComentarioPorInversionista(this.formComentario.value)
-      .subscribe({
-        next: (response) => {
-          mostrarMensaje({
-            icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Error,
-            titulo: '',
-            mensaje: response.mensaje
-          });
-
-          if (response.ok) {
-            this.cargarComentario();
-          }
-        },
-        error: (error: HttpErrorResponse) => {
-          errorConexionServidor(error)
-        }
-      })
-  }
-
   modalDocumentos() {
     if (!this.detallePorCaso) return
     this.sInversionista.obtenerDocumentosPorInversionista(this.detallePorCaso.id_inversionista)
@@ -198,5 +145,30 @@ export class InversorComponent {
         }
       })
     abrirModal('modalDocumentos')
+  }
+
+  exportarFichaPdf() {
+    if (!this.detallePorCaso) return
+    const data = {
+      id_cliente: this.detallePorCaso.id,
+      id_inversionista: this.detallePorCaso.id_inversionista
+    }
+    this.sExportarPDF.exportarFichaInversionistaPdf(data)
+      .subscribe({
+        next: (response) => {
+          const blob = new Blob([new Uint8Array(response.archivo.data).buffer])
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = response.nombre_archivo;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      });
   }
 }

@@ -45,7 +45,7 @@ export function errorConexionServidor(error: HttpErrorResponse) {
                 <table class="table table-bordered" width="100%">
                     <tr >
                         <td width="25%" class="align-middle">
-                            <b>mensaje:</b>
+                            <b>Mensaje</b>
                         </td>
                         <td>
                             ${error.message}
@@ -53,7 +53,7 @@ export function errorConexionServidor(error: HttpErrorResponse) {
                     </tr>
                     <tr>
                         <td class="align-middle">
-                            <b>nombre:</b>
+                            <b>Tipo</b>
                         </td>
                         <td>
                             ${error.name}
@@ -61,7 +61,7 @@ export function errorConexionServidor(error: HttpErrorResponse) {
                     </tr>
                     <tr>
                         <td class="align-middle">
-                            <b>nombre:</b>
+                            <b>Interno</b>
                         </td>
                         <td>
                             ${error.error.error}
