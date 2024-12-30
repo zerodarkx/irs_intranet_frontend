@@ -31,51 +31,21 @@ export class SimuladorComponent implements OnInit {
   simulacionesCliente: ISimulador[] = []
 
   formSimulacion: FormGroup = this.fb.group({
-    moneda: ['UF', [
-      Validators.required
-    ]],
-    canal: [[], [
-      Validators.required
-    ]],
-    valorComercial: [0, [
-      Validators.required
-    ]],
-    descuento: ['', [
-      Validators.required,
-    ]],
-    plazoTotal: ['', [
-      Validators.required,
-    ]],
-    plazoPrepago: ['', [
-      Validators.required,
-    ]],
-    comision: ['', [
-      Validators.required,
-    ]],
-    banco: [[''], [
-      Validators.required
-    ]],
-    deudaHipotecaria: ['', [
-      Validators.required,
-    ]],
-    contribuciones: ['', [
-      Validators.required,
-    ]],
-    gastosOperacionales: ['', [
-      Validators.required,
-    ]],
-    rentaMensual: ['', [
-      Validators.required,
-    ]],
-    cae: ['', [
-      Validators.required,
-    ]],
-    liquidoCliente: ['', [
-      Validators.required,
-    ]],
-    valorContrato: ['', [
-      Validators.required,
-    ]],
+    moneda: ['UF', [Validators.required]],
+    canal: [[], [Validators.required]],
+    valorComercial: [0, [Validators.required]],
+    descuento: ['', [Validators.required,]],
+    plazoTotal: ['', [Validators.required,]],
+    plazoPrepago: ['', [Validators.required,]],
+    comision: ['', [Validators.required,]],
+    banco: [[''], [Validators.required]],
+    deudaHipotecaria: ['', [Validators.required,]],
+    contribuciones: ['', [Validators.required,]],
+    gastosOperacionales: ['', [Validators.required,]],
+    rentaMensual: ['', [Validators.required,]],
+    cae: ['', [Validators.required,]],
+    liquidoCliente: ['', [Validators.required,]],
+    valorContrato: ['', [Validators.required,]],
     obs_simulacion: []
   })
 
@@ -99,11 +69,11 @@ export class SimuladorComponent implements OnInit {
     this.permisos = this.sPermiso.obtenerPermisos();
   }
 
-  obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = '') {
+  obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = ''): boolean {
     if (!modulo) return false;
-    if (!categoria) return this.permisos[modulo].activo
-    if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo
-    return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo
+    if (!categoria) return this.permisos[modulo].activo || false;
+    if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo || false;
+    return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo || false;
   }
 
   cargarDatosService() {
@@ -154,8 +124,8 @@ export class SimuladorComponent implements OnInit {
             valorComercial: formateadorMilesDesdeBase(response.data.cli_valor_comercial),
             deudaHipotecaria: formateadorMilesDesdeBase(response.data.cli_deuda_estimada),
             gastosOperacionales: 100
-
           })
+
           abrirModal(formulario);
         },
         error: (error: HttpErrorResponse) => {
@@ -203,20 +173,26 @@ export class SimuladorComponent implements OnInit {
   }
 
   agregarCanal(tipoCanal: ITipoCanales) {
-
-    this.sTipoCanal.obtenerComisionRentaById(tipoCanal.id_canal)
-      .subscribe({
-        next: ({ tipoCanales }: ResultadoComisionTasaByID) => {
-          this.formSimulacion.patchValue({
-            comision: formateadorMilesDesdeBase(tipoCanales.comision_canal),
-            rentaMensual: formateadorMilesDesdeBase(tipoCanales.renta_mensual)
-          })
-          this.calcularSiluacion()
-        },
-        error: (error: HttpErrorResponse) => {
-          errorConexionServidor(error)
-        }
+    if (tipoCanal) {
+      this.sTipoCanal.obtenerComisionRentaById(tipoCanal.id_canal)
+        .subscribe({
+          next: ({ tipoCanales }: ResultadoComisionTasaByID) => {
+            this.formSimulacion.patchValue({
+              comision: formateadorMilesDesdeBase(tipoCanales.comision_canal),
+              rentaMensual: formateadorMilesDesdeBase(tipoCanales.renta_mensual)
+            })
+            this.calcularSiluacion()
+          },
+          error: (error: HttpErrorResponse) => {
+            errorConexionServidor(error)
+          }
+        })
+    } else {
+      this.formSimulacion.patchValue({
+        comision: [],
+        rentaMensual: []
       })
+    }
   }
 
   calcularSiluacion(): void {

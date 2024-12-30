@@ -1,5 +1,17 @@
 <shared-navbar></shared-navbar>
+<div class="container-fluid pt-3 pb-3 fondoTodo">
+    <ng-container *ngIf="[1, 2].includes(perfil)">
+        <!-- ADMIN -->
+        <inicio-base-admin></inicio-base-admin>
+    </ng-container>
+    <ng-container *ngIf="[3,4,5,6,7].includes(perfil)">
+        <!-- EJECUTIVO -->
+        <inicio-base-ejecutivo></inicio-base-ejecutivo>
+    </ng-container>
+    <ng-container *ngIf="[8,9].includes(perfil)">
+        <!-- INVERSIONISTA -->
+        <inicio-base-inversionista></inicio-base-inversionista>
+    </ng-container>
+</div>
 
-<p>base-inicio works!</p>
-<h1>INICIO A TODO</h1>
-<router-outlet></router-outlet>
+<shared-footer></shared-footer>

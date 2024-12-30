@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col-md-4" *ngFor="let grafico of data; let i=index">
+        <div class="card">
+            <div class="card-body">
+                <p-chart type="pie" [data]="grafico" [options]="options[i]" />
+            </div>
+        </div>
+    </div>
+</div>

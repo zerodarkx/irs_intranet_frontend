@@ -1133,6 +1133,13 @@
         <input type="text" (change)="formateadorMiles($event)" class="form-control" formControlName="comision"
           (change)="detalleComitePropuesta()" />
       </div>
+      <div class="col-md-3 mt-2">
+        <label for="">Inversionista</label>
+        <ng-select [items]="selectInversionista" placeholder="Seleccionar Inversionista" bindValue="id"
+          bindLabel="nombre" notFoundText="No se encontraron coincidencias"
+          (change)="cambiarInversionistaComisionTasa($event)">
+        </ng-select>
+      </div>
     </div>
     <div class="row mt-4">
       <div class="col-md-12">

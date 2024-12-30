@@ -35,6 +35,11 @@ export class FichaComiteComponent {
   selectRegiones: Iregiones[] = []
   selectBancos: IBancos[] = []
 
+  selectInversionista = [
+    { id: 1, nombre: 'BOC', comision: 0, tasa: 1.4 },
+    { id: 2, nombre: 'Quest', comision: 2.5, tasa: 1.08 },
+  ]
+
   formFichaComite: FormGroup = this.fb.group({
     id_fichaComite: [0, []],
     id_cliente: ['', []],
@@ -166,7 +171,7 @@ export class FichaComiteComponent {
       soloNumerosFormulario
     ]],
     tasa: ['', []],
-    comision: ['2,5', []],
+    comision: ['', []],
   })
 
   constructor(
@@ -276,10 +281,10 @@ export class FichaComiteComponent {
 
       let tasa = parseFloat(dejarNumeroBrutos(this.formFichaComite.get('tasa')?.value || 0));
       let comision = parseFloat(dejarNumeroBrutos(this.formFichaComite.get('comision')?.value || 0));
-
+      
+      
       tasa = tasa / 100;
       comision = comision / 100;
-
       let valor_contrato = valor_propiedad * ltv;
       let renta_anual = (valor_contrato * tasa * 12).toFixed(2);
       let administracion = (valor_contrato * comision).toFixed(2);
@@ -287,7 +292,7 @@ export class FichaComiteComponent {
       this.formFichaComite.patchValue({
         compraventa: formateadorMilesDesdeBase(valor_contrato),
         renta_anual: formateadorMilesDesdeBase(renta_anual),
-        administracion: formateadorMiles(administracion),
+        administracion: formateadorMilesDesdeBase(administracion),
       });
 
       this.calcularLiquidoFichaComite();
@@ -306,9 +311,9 @@ export class FichaComiteComponent {
     let provicion_contribuciones = parseFloat(dejarNumeroBrutos(this.formFichaComite.get('provicion_contribuciones')?.value || 0));
 
     let liquido = compraventa - renta_anual - gastos_operacionales - alzamiento - administracion - contribuciones - provicion_contribuciones;
-
+    
     this.formFichaComite.patchValue({
-      liquido_cliente: formateadorMiles(liquido)
+      liquido_cliente: formateadorMilesDesdeBase(liquido)
     })
 
   }
@@ -413,6 +418,7 @@ export class FichaComiteComponent {
               provicion_contribuciones: formateadorMilesDesdeBase(response.data.provicion_contribuciones),
               liquido_cliente: formateadorMilesDesdeBase(response.data.liquido_cliente),
               tasa: formateadorMilesDesdeBase(response.data.tasa),
+              comision: formateadorMilesDesdeBase(response.data.comision),
             })
           } else {
             this.sSimulador.obtenerSimulacionPorIdCliente()
@@ -494,6 +500,23 @@ export class FichaComiteComponent {
           errorConexionServidor(error);
         }
       });
+  }
+
+  cambiarInversionistaComisionTasa(event: any) {
+    if (event) {
+      this.formFichaComite.patchValue({
+        comision: formateadorMilesDesdeBase(event.comision),
+        tasa: formateadorMilesDesdeBase(event.tasa),
+      });
+    } else {
+      this.formFichaComite.patchValue({
+        comision: 0,
+        tasa: 0,
+      });
+    }
+
+    this.detalleComitePropuesta();
+
   }
 
 }

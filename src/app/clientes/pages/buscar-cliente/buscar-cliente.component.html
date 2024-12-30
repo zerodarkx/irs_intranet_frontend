@@ -248,14 +248,14 @@
                 <td>{{ cliente.nombre_inversionista }}</td>
                 <td>{{ cliente.propiedad }}</td>
                 <td>{{ cliente.com }}</td>
-                <td>{{ cliente.vCom | currencyPesoChileno}}</td>
-                <td>{{ cliente.dEst | currencyPesoChileno}}</td>
+                <td class="text-center">{{ cliente.vCom | currencyPesoChileno}}</td>
+                <td class="text-center">{{ cliente.dEst | currencyPesoChileno}}</td>
                 <td>{{ cliente.nombre_ejecutivo }}</td>
                 <td>{{ cliente.origen }}</td>
                 <td>{{ cliente.canal }}</td>
                 <td>{{ cliente.estado }}</td>
-                <td>{{ cliente.fec_ingreso }}</td>
-                <td>{{ cliente.fec_contacto }}</td>
+                <td>{{ cliente.fec_ingreso | date:'dd-MM-yyyy' }}</td>
+                <td>{{ cliente.fec_contacto | date:'dd-MM-yyyy' }}</td>
               </tr>
             </ng-template>
             <!-- MENSAJE DE QUE NO HAY DATOS -->

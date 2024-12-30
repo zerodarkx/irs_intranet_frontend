@@ -23,7 +23,7 @@
         <button
           class="btn btn-success"
           (click)="detalleSimulacion('detalleSimulacion', sim)"
-          [disabled]="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULADOR_CLIENTE', 'BTN_VER_SIMULACION')"
+          [disabled]="!obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULADOR_CLIENTE', 'BTN_VER_SIMULACION')"
         >
           Ver detalle
         </button>
@@ -68,7 +68,7 @@
           </tr>
           <tr>
             <td>Estado</td>
-            <td>{{ sim.activo ? "Activo" : "" }}</td>
+            <td>{{ sim.activo ? "Activo" : "Desactivado" }}</td>
           </tr>
         </table>
       </div>
@@ -392,6 +392,7 @@
                   formControlName="comision"
                   (change)="formateadorMiles($event)"
                   (change)="calcularSiluacion()"
+                  [readOnly]="!obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULADOR_CLIENTE', 'PER_MODIFICAR_COMISION')"
                 />
                 <shared-mensaje-validador
                   [forControl]="formSimulacion.controls['comision']"
@@ -461,6 +462,7 @@
                   formControlName="rentaMensual"
                   (change)="formateadorMiles($event)"
                   (change)="calcularSiluacion()"
+                  [readOnly]="!obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULADOR_CLIENTE', 'PER_MODIFICAR_RENTA')"
                 />
                 <shared-mensaje-validador
                   [forControl]="formSimulacion.controls['rentaMensual']"

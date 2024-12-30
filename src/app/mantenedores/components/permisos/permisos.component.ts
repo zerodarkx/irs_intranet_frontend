@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { PermisoConId, PermisosModulo } from 'src/app/interfaces/usuario';
-import { UsuarioService } from 'src/app/services/usuario.service';
-import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+import { PermisoConId, PermisosCategoria, PermisosModulo, PermisosSubCategoria } from 'src/app/interfaces/usuario';
+import { TipoSimulacionCanalService } from 'src/app/services/tipo-simulacion-canal.service';
+import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
   selector: 'mantenedores-permisos',
@@ -64,9 +64,17 @@ export class PermisosComponent implements OnChanges {
             { nombre: 'Nueva Simulacion', activo: false, permiso: 'BTN_NUEVA_SIMULACION' },
             { nombre: 'Ver Simulacion', activo: false, permiso: 'BTN_VER_SIMULACION' },
             { nombre: 'Descargar Simulacion', activo: false, permiso: 'BTN_DESCARGAR_SIMULACION' },
+            { nombre: 'Modificiar Comision', activo: false, permiso: 'PER_MODIFICAR_COMISION' },
+            { nombre: 'Modificar Rentar', activo: false, permiso: 'PER_MODIFICAR_RENTA' },
           ],
           activo: false,
-          permiso:'VER_SIMULADOR_CLIENTE'
+          permiso: 'VER_SIMULADOR_CLIENTE'
+        },
+        {
+          nombre: 'Canales Simulador',
+          subcategorias: [],
+          activo: false,
+          permiso: 'VER_CANALES_CLIENTE'
         },
         {
           nombre: 'Gestion',
@@ -90,7 +98,7 @@ export class PermisosComponent implements OnChanges {
     {
       nombre: 'Negocios',
       activo: false,
-      permiso: 'VER_MODULO_NEGOCIO'
+      permiso: 'VER_MODULO_NEGOCIO',
     },
     {
       nombre: 'Mantenedores',
@@ -99,13 +107,14 @@ export class PermisosComponent implements OnChanges {
     }
   ];
 
-  modulosMostrar: PermisosModulo[] = [];
-
   permisosForm!: FormGroup;
 
   constructor(
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder,
+    private sCanalesSimulacion: TipoSimulacionCanalService
+  ) {
+    this.obtenerCanalesSimulacion();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['usuarioPermisos']) {
@@ -114,8 +123,8 @@ export class PermisosComponent implements OnChanges {
         modulos: this.fb.array([]),
       });
 
-      this.modulosMostrar = (this.usuarioPermisos?.permisos) ? this.usuarioPermisos?.permisos : this.modulos;
-      this.cargarFormulario(this.modulosMostrar);
+      const permisos = this.combinarPermisos();
+      this.cargarFormulario(permisos);
     }
   }
 
@@ -169,5 +178,49 @@ export class PermisosComponent implements OnChanges {
 
   obtenerSubcategorias(moduloIndex: number, categoriaIndex: number): FormArray {
     return this.obtenerCategorias(moduloIndex).at(categoriaIndex).get('subcategorias') as FormArray;
+  }
+
+  obtenerCanalesSimulacion() {
+    const dataModulo = this.modulos.find(modulo => modulo.nombre == 'Cliente');
+    const dataCategoria = dataModulo?.categorias?.find(categoria => categoria.nombre == 'Canales Simulador');
+    this.sCanalesSimulacion.obtenerTodosTipoCanales()
+      .subscribe({
+        next: (response) => {
+          for (const sub of response.data) {
+            dataCategoria!.subcategorias!.push({ nombre: sub.nombre_canal, activo: false, permiso: sub.det_canalSimulacion.toLocaleUpperCase() });
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      });
+  }
+
+  combinarPermisos(): PermisosModulo[] {
+    const backend = (this.usuarioPermisos?.permisos) ? this.usuarioPermisos.permisos : this.modulos;
+
+    return this.modulos.map((modulo, i) => {
+      const moduloBackend = backend[i];
+      // Si no existe en backend, agregar el módulo completo (ajusta según tus necesidades)
+      if (!moduloBackend) {
+        return modulo;
+      }
+      return {
+        ...moduloBackend,
+        categorias: modulo.categorias?.map(categoria => {
+          const categoriaBackend = moduloBackend.categorias?.find(cat => cat.nombre === categoria.nombre) || categoria;
+
+          return {
+            ...categoriaBackend,
+            // Si no existe en backend, mantener subcategorías del inicial
+            subcategorias: categoria.subcategorias?.map(subCategoria => {
+              const subCategoriaBackend = categoriaBackend.subcategorias?.find(cat => cat.nombre === subCategoria.nombre) || subCategoria;
+              return subCategoriaBackend
+            })
+          };
+        })
+      };
+    });
+
   }
 }

@@ -18,7 +18,7 @@ import { PermisosService } from 'src/app/services/permisos.service';
 import { TipoDocuentosService } from 'src/app/services/tipo-documentos.service';
 import { TipoImagenesService } from 'src/app/services/tipo-imagenes.service';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
-import { env } from 'src/environments/environment.development';
+import { env } from 'src/environments/environment';
 
 @Component({
   selector: 'cliente-documentos',

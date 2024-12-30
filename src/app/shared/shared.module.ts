@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ChartModule } from 'primeng/chart';
 
 import { MensajeValidadorComponent } from './components/mensaje-validador/mensaje-validador.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -26,7 +27,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MensajeValidadorComponent,
     CargandoComponent,
     CurrencyPesoChilenoPipe,
-    NavbarComponent
+    NavbarComponent,
+    ChartModule
   ],
 })
 export class SharedModule { }
