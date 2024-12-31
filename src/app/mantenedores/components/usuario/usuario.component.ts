@@ -372,7 +372,7 @@ export class UsuarioComponent implements OnInit {
     this.nombre_usuario = usuario.nombreCompleto
     this.permisosPorUsuario = {
       id: usuario.id_usuario,
-      permisos: JSON.parse(usuario.permisos)
+      permisos: usuario.permisos
     };
     abrirModal('modalPermisos')
   }
@@ -392,7 +392,7 @@ export class UsuarioComponent implements OnInit {
         }
       })
     const usuario = this.usuarios.find((u) => u.id_usuario === this.permisoComponente.permisosForm.get('id')?.value);
-    usuario!.permisos = JSON.stringify(this.permisoComponente.permisosForm.get('modulos')?.value);
+    usuario!.permisos = this.permisoComponente.permisosForm.get('modulos')?.value;
     cerrarModal();
   }
 

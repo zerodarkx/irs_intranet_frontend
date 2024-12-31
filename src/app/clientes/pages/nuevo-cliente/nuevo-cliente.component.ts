@@ -13,7 +13,7 @@ import { PlataformaService } from 'src/app/services/plataforma.service';
 import { RegionService } from 'src/app/services/region.service';
 import { TipoPropiedadService } from 'src/app/services/tipo-propiedad.service';
 import { agregarMayusculas, formateadorMiles, formatearRut, soloNumeros } from 'src/app/shared/utils/formateadores';
-import { mostrarMensaje, IconoSweetAlert } from 'src/app/shared/utils/sweetAlert';
+import { mostrarMensaje, IconoSweetAlert, errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 import { rutValidator, soloNumerosFormulario, validarCorreoInstitucional } from 'src/app/shared/utils/validadores';
 
 @Component({
@@ -211,6 +211,7 @@ export class NuevoClienteComponent {
         error: (error: HttpErrorResponse) => {
           // this.errorMessage = 'Error al obtener los datos';
           console.error('Error al obtener los datos:', error);
+          errorConexionServidor(error);
         }
       });
   }

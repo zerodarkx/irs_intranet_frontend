@@ -17,7 +17,7 @@ export class PermisosService {
     const token = localStorage.getItem('token');
     if (!token) return []
     const decodedToken = jwtDecode<Payload>(token);
-    const permisos: PermisosModulo[] = JSON.parse(decodedToken.permisos);
+    const permisos: PermisosModulo[] = decodedToken.permisos;
     return this.generarPermisosJson(permisos);
   }
 

@@ -42,7 +42,7 @@ export class LoginComponent {
           if (response.ok) {
             localStorage.setItem('token', response.token);
             const decodedToken = jwtDecode<Payload>(response.token);
-            const permisos : PermisosModulo[] = JSON.parse(decodedToken.permisos)
+            const permisos : PermisosModulo[] = decodedToken.permisos
             this.sPermisos.guardarPermisos(permisos);
             this.router.navigate(['/inicio']);
           }

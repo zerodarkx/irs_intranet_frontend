@@ -19,7 +19,7 @@ export interface ResultadoUsuario {
     id_codigoTelefonico: number;
     nombre_plataforma: string;
     id_jefatura: number;
-    permisos: string;
+    permisos: PermisosModulo[];
 }
 
 export interface ResultadoAccionesUsuario {
