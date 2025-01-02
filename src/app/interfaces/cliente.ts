@@ -147,6 +147,7 @@ export interface CambiarEstado {
     mensaje: string;
     titulo: string;
     estado?: string;
+    id_estado?: number;
 }
 
 export interface GastoClienteTipo {
@@ -234,4 +235,13 @@ export interface ResultadoObtenerFechaCursado {
 export interface ObtenerFechaCursado {
     fecha_cursado_inicio: Date;
     fecha_cursado_termino: Date;
+}
+
+export interface ResultadoRechazarCliente{
+    ok: boolean;
+    data: MensajeRechazado
+}
+
+export interface MensajeRechazado{
+    mensaje: string;
 }

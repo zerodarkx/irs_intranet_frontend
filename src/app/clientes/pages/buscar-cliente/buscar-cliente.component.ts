@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
 
 import { nombreApellidoEjecutivoId, ResultadoObtenerEjecutivoYbroker, ResultadoObtenerTodosClientes, TodosClientes } from 'src/app/interfaces/cliente';
+import { Estados } from 'src/app/interfaces/estado';
 
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ExportarExcelService } from 'src/app/services/exportar-excel.service';
@@ -28,16 +29,16 @@ export class BuscarClienteComponent implements OnInit {
   loading: boolean = true;
   clientes: TodosClientes[] = []
   selectEjecutivosBrokers: nombreApellidoEjecutivoId[] = [];
-  estados = [
-    { id_estado: '1', nombre_estado: 'Rechazado' },
-    { id_estado: '2', nombre_estado: 'No Asignado' },
-    { id_estado: '3', nombre_estado: 'Asignado' },
-    { id_estado: '4', nombre_estado: 'Pre-Aprobado' },
-    { id_estado: '5', nombre_estado: 'Comité' },
-    { id_estado: '6', nombre_estado: 'Exclusivo' },
-    { id_estado: '7', nombre_estado: 'Pre-Cursado' },
-    { id_estado: '8', nombre_estado: 'Cursado' },
-  ];
+  estadosMostrar: Estados[] = [
+    { id_estado: 1, nombre_estado: 'Rechazado', det_estado: 'EST_RECHAZADO' },
+    { id_estado: 2, nombre_estado: 'No Asignado', det_estado: 'EST_PENDIENTE' },
+    { id_estado: 3, nombre_estado: 'Asignado', det_estado: 'EST_ASIGNADO' },
+    { id_estado: 4, nombre_estado: 'Pre-Aprobado', det_estado: 'EST_PREAPROBADO' },
+    { id_estado: 5, nombre_estado: 'Comité', det_estado: 'EST_COMITE' },
+    { id_estado: 6, nombre_estado: 'Exclusivo', det_estado: 'EST_EXCLUSIVO' },
+    { id_estado: 7, nombre_estado: 'Pre-Cursado', det_estado: 'EST_PRECURSADO' },
+    { id_estado: 8, nombre_estado: 'Cursado', det_estado: 'EST_CURSADO' },
+  ]
 
   formFiltroBusqueda: FormGroup = this.fb.group({
     id_cliente: ['', []],
@@ -65,9 +66,20 @@ export class BuscarClienteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.obtenerClientePorFiltro();
-    this.selectEjecutivoBroker();
     this.permisos = this.sPermiso.obtenerPermisos();
+    this.obtenerEstados();
+    this.selectEjecutivoBroker();
+  }
+
+  obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = '') {
+    try {
+      if (!modulo) return false;
+      if (!categoria) return this.permisos[modulo].activo
+      if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo
+      return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo
+    } catch (error) {
+      return false;
+    }
   }
 
   clear(table: Table) {
@@ -78,6 +90,18 @@ export class BuscarClienteComponent implements OnInit {
   handleFilter(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     this.tabla.filterGlobal(inputElement.value, 'contains');
+  }
+
+  obtenerEstados() {
+    console.log(this.sPermiso.obtenerPermisosBrutos());
+    
+    let permisos = this.sPermiso.obtenerPermisosBrutos();
+    const dataModulo = permisos.find(modulo => modulo.nombre == 'Cliente');
+    const dataCategoria = dataModulo?.categorias?.find(categoria => categoria.nombre == 'Estados Cliente');
+
+    this.estadosMostrar = this.estadosMostrar.filter((estado) =>
+      dataCategoria?.subcategorias!.some((categoria) => categoria.permiso === estado.det_estado && categoria.activo)
+    );
   }
 
   obtenerClientePorFiltro() {

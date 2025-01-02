@@ -125,7 +125,7 @@ export class PerfilUsuarioComponent implements OnInit {
   modalPermisos(tipoPerfil: TipoPerfilUsuario) {
     this.permisosPorPerfil = {
       id: tipoPerfil.id_tipoUsuario,
-      permisos: JSON.parse(tipoPerfil.permisos)
+      permisos: tipoPerfil.permisos
     };
     abrirModal('modalPermisos')
   }
@@ -148,7 +148,7 @@ export class PerfilUsuarioComponent implements OnInit {
         }
       })
     const perfil = this.tipoPerfiles.find((u) => u.id_tipoUsuario === this.permisoComponente.permisosForm.get('id')?.value);
-    perfil!.permisos = JSON.stringify(this.permisoComponente.permisosForm.get('modulos')?.value);
+    perfil!.permisos = this.permisoComponente.permisosForm.get('modulos')?.value;
   }
 
 }

@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { PermisoConId, PermisosCategoria, PermisosModulo, PermisosSubCategoria } from 'src/app/interfaces/usuario';
+import { EstadoClientesService } from 'src/app/services/estado-clientes.service';
 import { TipoSimulacionCanalService } from 'src/app/services/tipo-simulacion-canal.service';
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
@@ -21,7 +22,8 @@ export class PermisosComponent implements OnChanges {
           nombre: 'Buscar Cliente',
           subcategorias: [
             { nombre: 'Agregar Cliente', activo: false, permiso: 'BTN_AGREGAR_CLIENTE' },
-            { nombre: 'Exportar Excel', activo: false, permiso: 'BTN_EXPORTAREXCEL_CLIENTE' }
+            { nombre: 'Exportar Excel', activo: false, permiso: 'BTN_EXPORTAREXCEL_CLIENTE' },
+            { nombre: 'Filtrar Por Ejecutivo', activo: false, permiso: 'PER_FILTRAREJECUTIVO_CLIENTE' },
           ],
           activo: false,
           permiso: 'VER_BUSCAR_CLIENTE',
@@ -33,6 +35,7 @@ export class PermisosComponent implements OnChanges {
             { nombre: 'Volver Estado', activo: false, permiso: 'BTN_VOLVER_CLIENTE' },
             { nombre: 'Guardar Cliente', activo: false, permiso: 'BTN_GUARDAR_CLIENTE' },
             { nombre: 'Siguiente Estado', activo: false, permiso: 'BTN_SIGUIENTE_CLIENTE' },
+            { nombre: 'Asignar Ejecutivo', activo: false, permiso: 'PER_ASIGNAR_EJECUTIVO' },
           ],
           activo: false,
           permiso: 'VER_DETALLE_CLIENTE'
@@ -91,6 +94,12 @@ export class PermisosComponent implements OnChanges {
           activo: false,
           permiso: 'VER_GASTOS_CLIENTE'
         },
+        {
+          nombre: 'Estados Cliente',
+          activo: false,
+          subcategorias: [],
+          permiso: 'VER_ESTADOS_CLIENTE'
+        },
       ],
       activo: false,
       permiso: 'VER_MODULO_CLIENTE'
@@ -111,9 +120,11 @@ export class PermisosComponent implements OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private sCanalesSimulacion: TipoSimulacionCanalService
+    private sCanalesSimulacion: TipoSimulacionCanalService,
+    private sEstadosCliente: EstadoClientesService
   ) {
     this.obtenerCanalesSimulacion();
+    this.obtenerEstadosClientes();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -188,6 +199,22 @@ export class PermisosComponent implements OnChanges {
         next: (response) => {
           for (const sub of response.data) {
             dataCategoria!.subcategorias!.push({ nombre: sub.nombre_canal, activo: false, permiso: sub.det_canalSimulacion.toLocaleUpperCase() });
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      });
+  }
+
+  obtenerEstadosClientes() {
+    const dataModulo = this.modulos.find(modulo => modulo.nombre == 'Cliente');
+    const dataCategoria = dataModulo?.categorias?.find(categoria => categoria.nombre == 'Estados Cliente');
+    this.sEstadosCliente.obtenerTodosLosEstados()
+      .subscribe({
+        next: (response) => {
+          for (const sub of response.data) {
+            dataCategoria!.subcategorias!.push({ nombre: sub.nombre_estado, activo: false, permiso: sub.det_estado.toLocaleUpperCase() });
           }
         },
         error: (error: HttpErrorResponse) => {

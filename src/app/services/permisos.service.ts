@@ -29,6 +29,14 @@ export class PermisosService {
     return this.permisosSubject.getValue();
   }
 
+  obtenerPermisosBrutos(): PermisosModulo[]{
+    const token = localStorage.getItem('token');
+    if (!token) return []
+    const decodedToken = jwtDecode<Payload>(token);
+    return decodedToken.permisos;
+    
+  }
+
   generarPermisosJson(arreglo: PermisosModulo[]): Record<string, any> {
     return arreglo.reduce((resultado: Record<string, any>, modulo: PermisosModulo) => {
       const categoriasTransformadas = modulo.categorias

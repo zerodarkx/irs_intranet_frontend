@@ -10,7 +10,10 @@
     <div class="card-body mb-4">
       <div class="row mt-2">
         <div class="col-md-12">
-          <a [routerLink]="['/cliente', 'nuevoCliente']" class="btn btn-success w-100">Nuevo Cliente</a>
+          <a [routerLink]="['/cliente', 'nuevoCliente']" class="btn btn-success w-100"
+            *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_BUSCAR_CLIENTE','BTN_AGREGAR_CLIENTE')">
+            Nuevo Cliente
+          </a>
         </div>
       </div>
       <!-- FILTROS PARA LA BUSQUEDA -->
@@ -25,12 +28,12 @@
               </div>
               <div class="col-md-4">
                 <label for="">Buscar por estado</label>
-                <ng-select [items]="estados" bindValue="id_estado" bindLabel="nombre_estado"
+                <ng-select [items]="estadosMostrar" bindValue="id_estado" bindLabel="nombre_estado"
                   placeholder="Seleccione estado" notFoundText="No se encontraron coincidencias"
                   formControlName="estado">
                 </ng-select>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4" *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_BUSCAR_CLIENTE', 'PER_FILTRAREJECUTIVO_CLIENTE')">
                 <label for="">Buscar por ejecutivo</label>
                 <ng-select [items]="selectEjecutivosBrokers" placeholder="Seleccionar Ejecutivo" bindValue="id_usuario"
                   bindLabel="nombre_ejecutivo" notFoundText="No se encontraron coincidencias"
@@ -79,7 +82,7 @@
                 Borrar Filtro
               </button>
               <button type="button" class="btn btn-secondary w-100 mt-2" (click)="exportarExcel()"
-                *ngIf="permisos['VER_MODULO_CLIENTE'].categorias['VER_BUSCAR_CLIENTE'].subcategorias['BTN_EXPORTAREXCEL_CLIENTE'].activo">
+                *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_BUSCAR_CLIENTE','BTN_EXPORTAREXCEL_CLIENTE')">
                 Exportar
               </button>
             </div>

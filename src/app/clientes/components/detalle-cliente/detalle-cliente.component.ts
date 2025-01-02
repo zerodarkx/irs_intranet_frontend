@@ -20,6 +20,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { IconoSweetAlert, mostrarMensaje, errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 import { PermisosService } from 'src/app/services/permisos.service';
+import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 
 @Component({
   selector: 'cliente-detalle',
@@ -90,19 +91,19 @@ export class DetalleClienteComponent implements OnInit {
     direccion_cli: ['', [
       Validators.required
     ]],
-    valorComercial_cli: ['', [
+    valorComercial_cli: [0, [
       Validators.required,
       soloNumerosFormulario
     ]],
-    deudaEstimada_cli: ['', [
+    deudaEstimada_cli: [0, [
       Validators.required,
       soloNumerosFormulario
     ]],
-    mTerreno: ['', [
+    mTerreno: [0, [
       Validators.required,
       soloNumerosFormulario
     ]],
-    mConstruidos: ['', [
+    mConstruidos: [0, [
       Validators.required,
       soloNumerosFormulario
     ]],
@@ -110,7 +111,12 @@ export class DetalleClienteComponent implements OnInit {
     selectEjecutivo: [[], [
       Validators.required
     ]
-    ]
+    ],
+    motivo_rechazo: []
+  })
+
+  formRechazo: FormGroup = this.fb.group({
+    rechazo: ['', Validators.required]
   })
 
   constructor(
@@ -284,12 +290,13 @@ export class DetalleClienteComponent implements OnInit {
               selectRegion: response.data.id_region,
               selectComuna: response.data.id_comuna,
               direccion_cli: response.data.cli_direccion,
-              valorComercial_cli: response.data.cli_valor_comercial,
-              deudaEstimada_cli: response.data.cli_deuda_estimada,
-              mTerreno: response.data.mTerreno,
-              mConstruidos: response.data.mConstruidos,
+              valorComercial_cli: formateadorMiles(response.data.cli_valor_comercial),
+              deudaEstimada_cli: formateadorMiles(response.data.cli_deuda_estimada),
+              mTerreno: formateadorMiles(response.data.mTerreno),
+              mConstruidos: formateadorMiles(response.data.mConstruidos),
               obs_cli: response.data.cli_obs,
               selectEjecutivo: response.data.id_ejecutivo,
+              motivo_rechazo: response.data.motivo_rechazo
             })
 
             this.estado_cliente = response.data.id_estado;
@@ -330,6 +337,26 @@ export class DetalleClienteComponent implements OnInit {
       });
   }
 
+  volverEstadoCliente() {
+    this.sCliente.volverEstadoCliente()
+      .subscribe({
+        next: (response: ResultadoCambiarEstado) => {
+          mostrarMensaje({
+            icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Warning,
+            titulo: response.data.titulo,
+            mensaje: response.data.mensaje
+          })
+          if (response.ok) {
+            this.nombreEstado = response.data.estado!
+            this.estado_cliente = response.data.id_estado!;
+          }
+
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      });
+  }
   pasarSiguienteEstado() {
     this.sCliente.cambiarSiguienteEstado()
       .subscribe({
@@ -339,13 +366,45 @@ export class DetalleClienteComponent implements OnInit {
             titulo: response.data.titulo,
             mensaje: response.data.mensaje
           })
-          if (response.ok) this.nombreEstado = response.data.estado!;
+          if (response.ok) {
+            this.nombreEstado = response.data.estado!
+            this.estado_cliente = response.data.id_estado!;
+          }
 
         },
         error: (error: HttpErrorResponse) => {
           errorConexionServidor(error)
         }
       });
+  }
+
+  modalRechazarCliente() {
+    abrirModal('modalRechazarCliente')
+  }
+
+  rechazarCliente() {
+    this.sCliente.rechazarCliente(this.formRechazo.value)
+      .subscribe({
+        next: (response) => {
+          mostrarMensaje({
+            icono: IconoSweetAlert.Success,
+            titulo: "Mensaje de Confirmacion",
+            mensaje: response.data.mensaje
+          });
+
+          if (response.ok) {
+            this.estado_cliente = 1;
+            this.nombreEstado = 'Rechazado'
+            this.miFormulario.patchValue({
+              motivo_rechazo: this.formRechazo.value.rechazo
+            })
+            cerrarModal()
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
   }
 
 }

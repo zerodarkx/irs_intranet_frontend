@@ -199,6 +199,7 @@
               <label for="">Ejecutivo</label>
               <ng-select [items]="selectEjecutivosBrokers" placeholder="Seleccionar Ejecutivo" bindValue="id_usuario"
                 bindLabel="nombre_ejecutivo" notFoundText="No se encontraron coincidencias"
+                [readonly]="!obtenerPermiso('VER_MODULO_CLIENTE', 'VER_DETALLE_CLIENTE', 'PER_ASIGNAR_EJECUTIVO')"
                 formControlName="selectEjecutivo" [ngClass]="{
                   'is-invalid': validarDatos('selectEjecutivo'),
                   'is-valid': validarExitoso('selectEjecutivo')
@@ -219,20 +220,27 @@
           <div class="row mt-3">
             <div class="col-md-12">
               <label for="">Observaciones</label>
-              <textarea name="obs_cli" id="obs_cli" cols="30" rows="2" class="form-control"
-                placeholder="Ingrese Observación" formControlName="obs_cli"></textarea>
+              <textarea cols="30" rows="2" class="form-control" placeholder="Ingrese Observación"
+                formControlName="obs_cli"></textarea>
+            </div>
+          </div>
+          <div class="row mt-3" *ngIf="estado_cliente === 1">
+            <div class="col-md-12">
+              <label for="">Motivo Rechazo</label>
+              <textarea rows="2" class="form-control" placeholder="Ingrese Observación"
+                formControlName="motivo_rechazo"></textarea>
             </div>
           </div>
           <div class="row mt-3">
             <div class="col"
-              *ngIf="![1, 6,7,8].includes(estado_cliente) && obtenerPermiso('VER_MODULO_CLIENTE','VER_DETALLE_CLIENTE','BTN_RECHAZAR_CLIENTE')">
-              <button class="btn btn-danger w-100" type="button">
+              *ngIf="![1,6,7,8].includes(estado_cliente) && obtenerPermiso('VER_MODULO_CLIENTE','VER_DETALLE_CLIENTE','BTN_RECHAZAR_CLIENTE')">
+              <button class="btn btn-danger w-100" type="button" (click)="modalRechazarCliente()">
                 Rechazar
               </button>
             </div>
             <div class="col"
-              *ngIf="estado_cliente != 1 && estado_cliente < 6 && obtenerPermiso('VER_MODULO_CLIENTE','VER_DETALLE_CLIENTE','BTN_VOLVER_CLIENTE')">
-              <button type="submit" class="btn btn-warning w-100">
+              *ngIf="estado_cliente === 4 && obtenerPermiso('VER_MODULO_CLIENTE','VER_DETALLE_CLIENTE','BTN_VOLVER_CLIENTE')">
+              <button type="button" class="btn btn-warning w-100" (click)="volverEstadoCliente()">
                 Volver Estado
               </button>
             </div>
@@ -250,6 +258,39 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalRechazarCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Motivo del Rachazo Cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formRechazo">
+          <div class="modal-body">
+            <div class="row mt-2">
+              <div class="col-md-12">
+                <label for="">Motivo Rechazo</label>
+                <textarea class="form-control" formControlName="rechazo" rows="4"></textarea>
+                <shared-mensaje-validador [forControl]="formRechazo.controls['rechazo']"></shared-mensaje-validador>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="formRechazo.invalid" (click)="rechazarCliente()">
+          Rechazar
+        </button>
+      </div>
     </div>
   </div>
 </div>

@@ -1,7 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GestionCliente, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoGestionCliente, ResultadoNuevoDocumentoCurse, ResultadoObtenerClienteById, ResultadoObtenerDocumentosCurse, ResultadoObtenerFechaCursado, ResultadoObtenerGastoCliente, ResultadoObtenerReservasClientes, ResultadoObtenerTodosClientes, ResultadoObtenerTodosDocumentosCliente, ResultadoObtenerTodosImagenCliente, ResultadoSubirDocumentoImagen } from '../interfaces/cliente';
+import {
+  GestionCliente, ResultadoCambiarEstado,
+  ResultadoCrearCliente, ResultadoGestionCliente,
+  ResultadoNuevoDocumentoCurse, ResultadoObtenerClienteById,
+  ResultadoObtenerDocumentosCurse, ResultadoObtenerFechaCursado,
+  ResultadoObtenerGastoCliente, ResultadoObtenerReservasClientes,
+  ResultadoObtenerTodosClientes, ResultadoObtenerTodosDocumentosCliente,
+  ResultadoObtenerTodosImagenCliente, ResultadoRechazarCliente,
+  ResultadoSubirDocumentoImagen
+} from '../interfaces/cliente';
 import { env } from 'src/environments/environment';
 import { ResultadoObtenerFichaComite } from '../interfaces/fichaComite';
 
@@ -154,6 +163,15 @@ export class ClienteService {
   agregarFechaCursadoCliente(data: any): Observable<{ ok: boolean }> {
     let url = `${this.url_base}/agregarFechaCursadoCliente/${this.id_cliente}`;
     return this.http.post<{ ok: boolean }>(url, data);
+  }
+
+  rechazarCliente(rechazo: any): Observable<ResultadoRechazarCliente> {
+    let url = `${this.url_base}/rechazarCliente/${this.id_cliente}`;
+    return this.http.post<ResultadoRechazarCliente>(url, rechazo);
+  }
+  volverEstadoCliente(): Observable<ResultadoCambiarEstado> {
+    let url = `${this.url_base}/volverEstado/${this.id_cliente}`;
+    return this.http.post<ResultadoCambiarEstado>(url, {});
   }
 
 }

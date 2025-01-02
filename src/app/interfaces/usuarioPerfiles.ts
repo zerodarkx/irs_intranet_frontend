@@ -1,3 +1,5 @@
+import { PermisosModulo } from "./usuario";
+
 export interface ResultadoObtenerTodosPerfiles{
     ok: boolean;
     data: TipoPerfilUsuario[]
@@ -6,7 +8,7 @@ export interface ResultadoObtenerTodosPerfiles{
 export interface TipoPerfilUsuario{
     id_tipoUsuario:          number;
     nombre_tipoUsuario:      string;
-    permisos: string;
+    permisos: PermisosModulo[];
 }
 
 export interface ResultadoAccionesPerfil{
