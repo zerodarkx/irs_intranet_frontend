@@ -21,9 +21,13 @@ export class MenuComponent implements OnInit {
   }
 
   obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = '') {
-    if (!modulo) return false;
-    if (!categoria) return this.permisos[modulo].activo
-    if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo
-    return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo
+    try {
+      if (!modulo) return false;
+      if (!categoria) return this.permisos[modulo].activo
+      if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo
+      return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo
+    } catch (error) {
+      return false
+    }
   }
 }

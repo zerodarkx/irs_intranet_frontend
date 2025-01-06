@@ -70,10 +70,14 @@ export class SimuladorComponent implements OnInit {
   }
 
   obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = ''): boolean {
-    if (!modulo) return false;
-    if (!categoria) return this.permisos[modulo].activo || false;
-    if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo || false;
-    return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo || false;
+    try {
+      if (!modulo) return false;
+      if (!categoria) return this.permisos[modulo].activo;
+      if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo;
+      return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo;
+    } catch (error) {
+      return false;
+    }
   }
 
   cargarDatosService() {

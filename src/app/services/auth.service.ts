@@ -52,4 +52,9 @@ export class AuthService {
     let url = `${this.url_base}/renovarToken`;
     return this.http.post<{ token: string }>(url, {})
   }
+
+  generarTokenTemporal(): Observable<{ token: string }> {
+    let url = `${this.url_base}/generarTokenTemporal`;
+    return this.http.get<{ token: string }>(url)
+  }
 }

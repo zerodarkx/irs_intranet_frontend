@@ -174,4 +174,9 @@ export class ClienteService {
     return this.http.post<ResultadoCambiarEstado>(url, {});
   }
 
+  crearClienteFormularioExterno(data: any): Observable<ResultadoCrearCliente> {
+    let url = `${this.url_base}/crearClienteFormulario`;
+    return this.http.post<ResultadoCrearCliente>(url, data);
+  }
+
 }

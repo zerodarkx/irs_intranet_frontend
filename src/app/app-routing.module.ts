@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('./inversionista/inversionista.module').then(m => m.InversionistaModule),
   },
   {
+    path: 'formularios',
+    loadChildren: () => import('./formularios/formularios.module').then(m => m.FormulariosModule),
+  },
+  {
     path: '**',
     redirectTo: 'inicio',
     pathMatch: 'full'

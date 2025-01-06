@@ -1,0 +1,98 @@
+<div class="container-fluid mt-2" style="border-color: red;">
+    <form [formGroup]="formCliente">
+        <div class="row mt-2">
+            <div class="col-md-3">
+                <label for="">Rut</label>
+                <input type="text" class="form-control" formControlName="cli_rut" (input)="formatearRut($event)">
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_rut']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+                <label for="">Nombre Completo</label>
+                <input type="text" class="form-control" formControlName="cli_nombre" (change)="mayuscula($event)">
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_nombre']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+                <label for="">Teléfono</label>
+                <input type="text" class="form-control" formControlName="cli_telefono">
+                <shared-mensaje-validador
+                    [forControl]="formCliente.controls['cli_telefono']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+                <label for="">Correo</label>
+                <input type="email" class="form-control" formControlName="cli_correo">
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_correo']"></shared-mensaje-validador>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-4">
+                <label for="">Tipo Propiedad</label>
+                <ng-select [items]="selectTipoPropiedad" placeholder="Seleccionar Tipo Propiedad"
+                    bindValue="id_tipoPropiedad" bindLabel="nombre_tipoPropiedad"
+                    notFoundText="No se encontraron coincidencias" formControlName="id_tipoPropiedad">
+                </ng-select>
+                <shared-mensaje-validador
+                    [forControl]="formCliente.controls['id_tipoPropiedad']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-4">
+                <label for="">Valor Comercial (UF)</label>
+                <input type="text" class="form-control" formControlName="cli_deuda_estimada"
+                    (change)="formateadorMiles($event)">
+                <shared-mensaje-validador
+                    [forControl]="formCliente.controls['cli_deuda_estimada']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-4">
+                <label for="">Deuda Estimada (UF)</label>
+                <input type="text" class="form-control" formControlName="cli_valor_comercial"
+                    (change)="formateadorMiles($event)">
+                <shared-mensaje-validador
+                    [forControl]="formCliente.controls['cli_valor_comercial']"></shared-mensaje-validador>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-4">
+                <label for="">Región</label>
+                <ng-select [items]="selectRegiones" placeholder="Seleccionar Región" bindValue="id_region"
+                    bindLabel="nombre_region" notFoundText="No se encontraron coincidencias"
+                    (change)="obtenerComunasPorRegion($event)">
+                </ng-select>
+                <shared-mensaje-validador [forControl]="formCliente.controls['id_region']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-4">
+                <label for="">Comuna</label>
+                <ng-select [items]="selectComunas" placeholder="Seleccionar Comuna" bindValue="id_comuna"
+                    bindLabel="nombre_comuna" notFoundText="No se encontraron coincidencias"
+                    formControlName="id_comuna">
+                </ng-select>
+                <shared-mensaje-validador [forControl]="formCliente.controls['id_comuna']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-4">
+                <label for="">Dirección</label>
+                <input type="text" class="form-control" formControlName="cli_direccion">
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_direccion']"></shared-mensaje-validador>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <label for="">Como supo de nosotros</label>
+                <ng-select [items]="selectComoSupoNosotros" placeholder="Seleccionar Como Supo de Nosotros" bindValue="id_canal"
+                    bindLabel="nombre_canal" notFoundText="No se encontraron coincidencias"
+                    formControlName="id_canal">
+                </ng-select>
+                <shared-mensaje-validador [forControl]="formCliente.controls['id']"></shared-mensaje-validador>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <label for="">Breve descripción del inmueble (Antigüedad, Estado de conservación, etc.) *</label>
+                <textarea class="form-control" formControlName="cli_obs"></textarea>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-success" (click)="enviarFormulario()" [disabled]="formCliente.invalid">
+                    Enviar Formulario
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

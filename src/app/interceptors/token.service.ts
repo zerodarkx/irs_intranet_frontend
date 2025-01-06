@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class TokenInterceptorService implements HttpInterceptor {
 
   private isRefreshing = false; // Evita múltiples solicitudes de renovación simultáneamente
-  private excludedUrls: string[] = ['/auth']
+  private excludedUrls: string[] = ['/auth', '/formularios']
 
   constructor(
     private router: Router,

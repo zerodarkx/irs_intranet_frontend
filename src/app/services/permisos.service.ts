@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
 import { Payload } from '../interfaces/auth';
 import { PermisosCategoria, PermisosModulo, PermisosSubCategoria } from '../interfaces/usuario';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,21 @@ export class PermisosService {
   private permisosSubject = new BehaviorSubject<Record<string, any>>(this.cargaInicial());
   permisos$ = this.permisosSubject.asObservable();
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   cargaInicial(): Record<string, any> {
     const token = localStorage.getItem('token');
     if (!token) return []
     const decodedToken = jwtDecode<Payload>(token);
+
+    if (!decodedToken.id_usuario) {
+      localStorage.removeItem('token')
+      this.router.navigate(['/auth'])
+      return []
+    }
+
     const permisos: PermisosModulo[] = decodedToken.permisos;
     return this.generarPermisosJson(permisos);
   }
@@ -29,12 +39,12 @@ export class PermisosService {
     return this.permisosSubject.getValue();
   }
 
-  obtenerPermisosBrutos(): PermisosModulo[]{
+  obtenerPermisosBrutos(): PermisosModulo[] {
     const token = localStorage.getItem('token');
     if (!token) return []
     const decodedToken = jwtDecode<Payload>(token);
     return decodedToken.permisos;
-    
+
   }
 
   generarPermisosJson(arreglo: PermisosModulo[]): Record<string, any> {

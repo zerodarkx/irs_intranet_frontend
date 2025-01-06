@@ -93,8 +93,6 @@ export class BuscarClienteComponent implements OnInit {
   }
 
   obtenerEstados() {
-    console.log(this.sPermiso.obtenerPermisosBrutos());
-    
     let permisos = this.sPermiso.obtenerPermisosBrutos();
     const dataModulo = permisos.find(modulo => modulo.nombre == 'Cliente');
     const dataCategoria = dataModulo?.categorias?.find(categoria => categoria.nombre == 'Estados Cliente');
