@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { nombreApellidoEjecutivoId } from 'src/app/interfaces/cliente';
 import { Comuna } from 'src/app/interfaces/comuna';
 import {
-  DataContador, ObtenerTodosInversionesPorEstado, ResultadoAgregarCasoNuevoReserva, ResultadoObtenerDataInversionista,
+  DataContador, obtenerComentarioPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoAgregarCasoNuevoReserva, ResultadoObtenerDataInversionista,
   ResultadoObtenerTodosInversionesContador, ResultadoObtenerTodosInversionesPorEstado
 } from 'src/app/interfaces/inversionista';
 import { Iregiones } from 'src/app/interfaces/regiones';
@@ -44,7 +44,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   datosMostar: ObtenerTodosInversionesPorEstado[] = []
   detallePorCaso?: ObtenerTodosInversionesPorEstado;
-  comentarioCaso?: any = [];
+  comentarioCaso: obtenerComentarioPorInversionista[] = [];
   estadoMostrar: number = 0;
   tituloMostrar: string = 'Disponibles';
 
@@ -355,6 +355,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
           if (response.ok) {
             this.cargarComentario();
+            this.formComentario.reset();
           }
         },
         error: (error: HttpErrorResponse) => {

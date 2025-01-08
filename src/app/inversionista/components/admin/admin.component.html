@@ -630,10 +630,10 @@
                             <label for="">Comentario</label>
                             <textarea rows="3" class="form-control" formControlName="comentario"></textarea>
                             <shared-mensaje-validador
-                                [forControl]="formAsignarAComite.controls['comentario']">></shared-mensaje-validador>
+                                [forControl]="formComentario.controls['comentario']">></shared-mensaje-validador>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-success w-100" (click)="guardarComentario()">
+                            <button type="button" class="btn btn-success w-100" (click)="guardarComentario()" [disabled]="formComentario.invalid">
                                 Agregar Comentario
                             </button>
                         </div>

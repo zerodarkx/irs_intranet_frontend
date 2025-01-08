@@ -48,7 +48,6 @@ export class ChileComponent implements OnInit {
     ]],
     cli_nombre: [, [
       Validators.required
-
     ]],
     cli_telefono: [, [
       Validators.required
