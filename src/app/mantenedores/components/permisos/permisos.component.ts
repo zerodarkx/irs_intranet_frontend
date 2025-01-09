@@ -113,6 +113,11 @@ export class PermisosComponent implements OnChanges {
       nombre: 'Mantenedores',
       activo: false,
       permiso: 'VER_MODULO_MANTENEDORES'
+    },
+    {
+      nombre: 'Salidas',
+      activo: false,
+      permiso: 'VER_MODULO_SALIDAS'
     }
   ];
 

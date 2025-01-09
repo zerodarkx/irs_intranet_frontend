@@ -64,8 +64,6 @@ export class BaseAdminComponent {
           ]
 
           cantidades.forEach((d, i) => {
-            console.log(d);
-
             this.dataCliente.push({
               labels: leyendas[i].length > 0 ? leyendas[i] : ['No Hay Casos Aun'],
               datasets: [

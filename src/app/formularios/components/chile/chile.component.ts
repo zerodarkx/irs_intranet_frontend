@@ -174,7 +174,7 @@ export class ChileComponent implements OnInit {
         next: (response) => {
           mostrarMensaje({
             icono: IconoSweetAlert.Success,
-            titulo: 'Exito',
+            titulo: 'Formulario enviado',
             mensaje: response.data.mensaje
           })
 

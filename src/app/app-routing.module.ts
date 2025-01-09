@@ -25,6 +25,12 @@ const routes: Routes = [
   {
     path: 'inversionista',
     loadChildren: () => import('./inversionista/inversionista.module').then(m => m.InversionistaModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'salidas',
+    loadChildren: () => import('./salidas/salidas.module').then(m => m.SalidasModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'formularios',
