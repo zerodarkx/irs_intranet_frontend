@@ -25,6 +25,17 @@ export class NavbarComponent implements OnInit {
     this.permisos = this.sPermiso.obtenerPermisos();
   }
 
+  obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = '') {
+    try {
+      if (!modulo) return false;
+      if (!categoria) return this.permisos[modulo].activo
+      if (!subcategoria) return this.permisos[modulo].categorias[categoria].activo
+      return this.permisos[modulo].categorias[categoria].subcategorias[subcategoria].activo
+    } catch (error) {
+      return false;
+    }
+  }
+
   toggleDropdown(id: string) {
     const dropdownElement = document.getElementById(id);
     if (dropdownElement) {

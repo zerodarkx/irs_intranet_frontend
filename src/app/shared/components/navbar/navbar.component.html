@@ -15,7 +15,7 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item dropdown" *ngIf="permisos['VER_MODULO_CLIENTE'].activo">
+                    <li class="nav-item dropdown" *ngIf="obtenerPermiso('VER_MODULO_CLIENTE')">
                         <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
                             (click)="toggleDropdown('menuClientes')" aria-expanded="false">
                             Clientes
@@ -28,13 +28,13 @@
                             <li>
                                 <a class="dropdown-item fs-5" [routerLink]="['/cliente', 'nuevoCliente']"
                                     routerLinkActive="active"
-                                    *ngIf="permisos['VER_MODULO_CLIENTE'].categorias['VER_BUSCAR_CLIENTE'].subcategorias['BTN_AGREGAR_CLIENTE'].activo">
+                                    *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_BUSCAR_CLIENTE','BTN_AGREGAR_CLIENTE')">
                                     Agregar Cliente
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown" *ngIf="permisos['VER_MODULO_NEGOCIO'].activo">
+                    <li class="nav-item dropdown" *ngIf="obtenerPermiso('VER_MODULO_NEGOCIO')">
                         <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
                             (click)="toggleDropdown('menuInversionista')" aria-expanded="false">
                             Inversionista
@@ -46,7 +46,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown" *ngIf="permisos['VER_MODULO_MANTENEDORES'].activo">
+                    <li class="nav-item dropdown" *ngIf="obtenerPermiso('VER_MODULO_MANTENEDORES')">
                         <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
                             (click)="toggleDropdown('menuMantenedores')" aria-expanded="false">
                             Mantenedores
@@ -88,6 +88,18 @@
                             <li>
                                 <a class="dropdown-item fs-5" [routerLink]="['/mantenedores', 'estadoCliente']"
                                     routerLinkActive="active">Estados Cliente</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" *ngIf="obtenerPermiso('VER_MODULO_SALIDAS')">
+                        <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
+                            (click)="toggleDropdown('menuSalidas')" aria-expanded="false">
+                            Salidas
+                        </a>
+                        <ul id="menuSalidas" class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item fs-5" [routerLink]="['/salidas']"
+                                    routerLinkActive="active">Buscador</a>
                             </li>
                         </ul>
                     </li>
