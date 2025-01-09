@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class TokenInterceptorService implements HttpInterceptor {
 
   private isRefreshing = false; // Evita múltiples solicitudes de renovación simultáneamente
-  private excludedUrls: string[] = ['/auth', '/formularios']
+  private excludedUrls: string[] = ['/auth/login', '/auth/recuperarPassword', '/formularios']
 
   constructor(
     private router: Router,
@@ -24,6 +24,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     if (isExcluded) return next.handle(req);
 
     const token = localStorage.getItem('token');
+    if (!token) this.router.navigate(['/auth/login']);
 
     if (token && this.isTokenNearExpiry(token)) {
       if (!this.isRefreshing) {
@@ -35,11 +36,7 @@ export class TokenInterceptorService implements HttpInterceptor {
             this.isRefreshing = false;
 
             // Reintentar la solicitud original con el nuevo token
-            const clonedRequest = req.clone({
-              setHeaders: {
-                Authorization: `Bearer ${response.token}`,
-              },
-            });
+            const clonedRequest = this.addTokenHeader(req, token!);
             return next.handle(clonedRequest);
           }),
           catchError((error) => {
@@ -56,19 +53,29 @@ export class TokenInterceptorService implements HttpInterceptor {
     }
 
     // Si no es necesario renovar, continuar con la solicitud normal
-    const clonedRequest = req.clone({
+    const clonedRequest = this.addTokenHeader(req, token!);
+
+    return next.handle(clonedRequest);
+  }
+
+  private addTokenHeader(req: HttpRequest<any>, token: string): HttpRequest<any> {
+    return req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return next.handle(clonedRequest);
   }
 
   // Método para verificar si el token ha expirado y pedir uno nuevo
   private isTokenNearExpiry(token: string): boolean {
-    const decoded: any = jwtDecode(token);
-    const currentTime = Date.now() / 1000;
-    const timeLeft = decoded.exp - currentTime;
-    return timeLeft < 300; // Menos de 5 minutos
+    try {
+      const decoded: any = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      const timeLeft = decoded.exp - currentTime;
+      return timeLeft < 1800; // Menos de 30 minutos
+    } catch (error) {
+      console.log(error);
+      return true;
+    }
   }
 }
