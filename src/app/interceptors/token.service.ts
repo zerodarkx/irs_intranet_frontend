@@ -48,13 +48,8 @@ export class TokenInterceptorService implements HttpInterceptor {
       }
     }
 
-    if (!token) {
-      this.router.navigate(['/auth/login']);
-    }
-
     // Si no es necesario renovar, continuar con la solicitud normal
     const clonedRequest = this.addTokenHeader(req, token!);
-
     return next.handle(clonedRequest);
   }
 
