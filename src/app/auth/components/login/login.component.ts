@@ -7,7 +7,6 @@ import { Payload, ResultadoAuthLogin } from 'src/app/interfaces/auth';
 import { PermisosModulo } from 'src/app/interfaces/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { PermisosService } from 'src/app/services/permisos.service';
-import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
   selector: 'app-login',
@@ -40,11 +39,17 @@ export class LoginComponent {
       .subscribe({
         next: (response: ResultadoAuthLogin) => {
           if (response.ok) {
-            localStorage.setItem('token', response.token);
-            const decodedToken = jwtDecode<Payload>(response.token);
-            const permisos : PermisosModulo[] = decodedToken.permisos
-            this.sPermisos.guardarPermisos(permisos);
-            this.router.navigate(['/inicio']);
+            try {
+              localStorage.setItem('token', response.token);
+              const decodedToken = jwtDecode<Payload>(response.token);
+              const permisos: PermisosModulo[] = decodedToken.permisos
+              if (!permisos) throw new Error();
+              this.sPermisos.guardarPermisos(permisos);
+              this.router.navigate(['/inicio']);
+            } catch (error) {
+              localStorage.removeItem('token');
+              this.mensajeError = 'No tiene permisos asignados favor avisar a un administrador';
+            }
           }
         },
         error: (error: HttpErrorResponse) => {
