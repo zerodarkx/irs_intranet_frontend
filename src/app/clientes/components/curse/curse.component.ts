@@ -251,8 +251,6 @@ export class CurseComponent implements OnInit {
     this.sCliente.editarArchivoDocumentoCurse(formData)
       .subscribe({
         next: (response: ResultadoNuevoDocumentoCurse) => {
-          console.log(response);
-
           if (response.ok) {
             mostrarMensaje({
               icono: IconoSweetAlert.Success,
