@@ -41,7 +41,7 @@ export function errorConexionServidor(error: HttpErrorResponse) {
     Swal.fire({
         icon: IconoSweetAlert.Error,
         title: "Ups hubo un problema",
-        html: `Hubo un problema interno favor tomar pantallazo y enviar a soporte
+        html: `Hubo un problema interno favor tomar pantallazo y especificar ID del Caso y enviar a soporte
                 <table class="table table-bordered" width="100%">
                     <tr >
                         <td width="25%" class="align-middle">

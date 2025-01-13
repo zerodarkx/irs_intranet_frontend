@@ -12,7 +12,7 @@ import {
   ResultadoSubirDocumentoImagen
 } from '../interfaces/cliente';
 import { env } from 'src/environments/environment';
-import { ResultadoObtenerFichaComite } from '../interfaces/fichaComite';
+import { ResultadoGuardarFichaComite, ResultadoObtenerFichaComite } from '../interfaces/fichaComite';
 
 @Injectable({
   providedIn: 'root'
@@ -95,14 +95,14 @@ export class ClienteService {
     return this.http.post<ResultadoGestionCliente>(url, data);
   }
 
-  obtenerFichaComiteByCliente(): Observable<any> {
+  obtenerFichaComiteByCliente(): Observable<ResultadoObtenerFichaComite> {
     let url = `${this.url_base}/obtenerFichaComitePorIdCliente/${this.id_cliente}`;
-    return this.http.get<any>(url)
+    return this.http.get<ResultadoObtenerFichaComite>(url)
   }
 
-  guardarFichaComite(data: FormData): Observable<ResultadoObtenerFichaComite> {
+  guardarFichaComite(data: FormData): Observable<ResultadoGuardarFichaComite> {
     let url = `${this.url_base}/guardarFichaComite`;
-    return this.http.post<ResultadoObtenerFichaComite>(url, data)
+    return this.http.post<ResultadoGuardarFichaComite>(url, data)
   }
 
   obtenerClientesPorFiltro(data: any): Observable<ResultadoObtenerTodosClientes> {

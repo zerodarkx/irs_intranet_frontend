@@ -41,7 +41,7 @@ export class FichaComiteComponent {
   ]
 
   formFichaComite: FormGroup = this.fb.group({
-    id_fichaComite: [0, []],
+    id_fichaComite: [, []],
     id_cliente: ['', []],
     nom_cliente: ['', []],
     rut: ['', [
@@ -49,8 +49,8 @@ export class FichaComiteComponent {
     ]],
     profesion: ['', []],
     direccion: ['', []],
-    id_region: [[], []],
-    id_comuna: [[], []],
+    id_region: [, []],
+    id_comuna: [, []],
     id_codigo_telefono: ['', []],
     telefono: [, []],
     tel_empresa: [, []],
@@ -281,8 +281,8 @@ export class FichaComiteComponent {
 
       let tasa = parseFloat(dejarNumeroBrutos(this.formFichaComite.get('tasa')?.value || 0));
       let comision = parseFloat(dejarNumeroBrutos(this.formFichaComite.get('comision')?.value || 0));
-      
-      
+
+
       tasa = tasa / 100;
       comision = comision / 100;
       let valor_contrato = valor_propiedad * ltv;
@@ -311,7 +311,7 @@ export class FichaComiteComponent {
     let provicion_contribuciones = parseFloat(dejarNumeroBrutos(this.formFichaComite.get('provicion_contribuciones')?.value || 0));
 
     let liquido = compraventa - renta_anual - gastos_operacionales - alzamiento - administracion - contribuciones - provicion_contribuciones;
-    
+
     this.formFichaComite.patchValue({
       liquido_cliente: formateadorMilesDesdeBase(liquido)
     })
@@ -323,8 +323,6 @@ export class FichaComiteComponent {
       .subscribe({
         next: (response: ResultadoObtenerFichaComite) => {
           if (response.ok) {
-            // console.log(response.data.detprositlegpro_banco);
-
             this.formFichaComite.patchValue({
               id_fichaComite: response.data.id_fichaComite || '',
               id_cliente: response.data.id_cliente || '',
@@ -424,7 +422,6 @@ export class FichaComiteComponent {
             this.sSimulador.obtenerSimulacionPorIdCliente()
               .subscribe({
                 next: ({ data }: ResultadoObtenerSimulacionPorCliente) => {
-                  if (!data) return
 
                   this.formFichaComite.patchValue({
                     id_cliente: response.data.id_cliente,
@@ -435,6 +432,11 @@ export class FichaComiteComponent {
                     telefono: response.data.telefono,
                     email: response.data.email,
                     id_region: response.data.id_region,
+                  });
+
+                  if (!data) return
+
+                  this.formFichaComite.patchValue({
                     ltv: formateadorMilesDesdeBase(data.descuento),
                     compraventa: formateadorMilesDesdeBase(data.valor_contrato),
                     gastos_operacionales: formateadorMilesDesdeBase(data.gastos_operacionales),
@@ -451,7 +453,6 @@ export class FichaComiteComponent {
                 },
               })
           }
-
           this.selectComunaPorRegionById(response.data.id_region);
         },
         error: (error: HttpErrorResponse) => {
@@ -463,7 +464,9 @@ export class FichaComiteComponent {
   guardarFicha() {
     this.sCliente.guardarFichaComite(this.formFichaComite.value)
       .subscribe({
-        next: (response: any) => {
+        next: (response) => {
+          console.log(response);
+          
           if (response.ok) {
             this.formFichaComite.patchValue({
               id_fichaComite: response.data.id_fichaComite

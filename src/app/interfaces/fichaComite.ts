@@ -99,3 +99,15 @@ export interface FichaComite {
     id_region: number;
     comision: number;
 }
+
+export interface ResultadoGuardarFichaComite {
+    ok: boolean;
+    data: GuardarFichaComite
+}
+
+export interface GuardarFichaComite {
+    icono: string;
+    titulo: string;
+    mensaje: string;
+    id_fichaComite: number;
+}
