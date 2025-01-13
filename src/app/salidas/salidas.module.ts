@@ -9,13 +9,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { BuscadorComponent } from './pages/buscador/buscador.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { BitacoraComponent } from './components/bitacora/bitacora.component';
+import { ProrrogaComponent } from './components/prorroga/prorroga.component';
 
 
 @NgModule({
   declarations: [
     BaseComponent,
     BuscadorComponent,
-    DetalleComponent
+    DetalleComponent,
+    MenuComponent,
+    BitacoraComponent,
+    ProrrogaComponent
   ],
   imports: [
     CommonModule,
