@@ -135,7 +135,7 @@ export class InversorComponent {
 
   modalDocumentos() {
     if (!this.detallePorCaso) return
-    this.sInversionista.obtenerDocumentosPorInversionista(this.detallePorCaso.id_inversionista)
+    this.sInversionista.obtenerDocumentosPorInversionista(this.detallePorCaso.id_inversionista, this.detallePorCaso.id)
       .subscribe({
         next: (response) => {
           this.documentosPorInversionista = response.data

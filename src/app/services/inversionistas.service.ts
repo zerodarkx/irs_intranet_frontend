@@ -63,8 +63,8 @@ export class InversionistasService {
     let url = `${this.url_base}/agregarComentarioPorInversionista`;
     return this.http.post<ResultadoagregarComentarioPorInversionista>(url, data);
   }
-  obtenerDocumentosPorInversionista(id_inversionista: number): Observable<ResultadoObtenerDocumentosPorInversionista> {
-    let url = `${this.url_base}/obtenerDocumentosPorInversionista/${id_inversionista}`;
+  obtenerDocumentosPorInversionista(id_inversionista: number, id_cliente: number): Observable<ResultadoObtenerDocumentosPorInversionista> {
+    let url = `${this.url_base}/obtenerDocumentosPorInversionista/${id_inversionista}/${id_cliente}`;
     return this.http.get<ResultadoObtenerDocumentosPorInversionista>(url);
   }
 }
