@@ -69,8 +69,6 @@ export class BuscarClienteComponent implements OnInit {
     this.obtenerEstados();
     this.selectEjecutivoBroker();
 
-    localStorage.setItem('refrescarCache', '1')
-
     const formulario = localStorage.getItem('filtrosBusqueda')
     if (formulario) {
       this.formFiltroBusqueda.patchValue(JSON.parse(formulario))
