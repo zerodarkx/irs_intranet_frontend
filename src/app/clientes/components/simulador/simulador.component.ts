@@ -203,7 +203,7 @@ export class SimuladorComponent implements OnInit {
     // Obtener y formatear todos los valores
     const valor_comercial = parseFloat(dejarNumeroBrutos(this.formSimulacion.get('valorComercial')?.value || 0));
     const plazo_prepagado = parseFloat(this.formSimulacion.get('plazoPrepago')?.value || 0);
-    const descuento = parseFloat(this.formSimulacion.get('descuento')?.value || 0);
+    const descuento = parseFloat(dejarNumeroBrutos(this.formSimulacion.get('descuento')?.value || 0));
     const comision = parseFloat(dejarNumeroBrutos(this.formSimulacion.get('comision')?.value || 0));
     const deuda_hipotecaria = parseFloat(dejarNumeroBrutos(this.formSimulacion.get('deudaHipotecaria')?.value || 0));
     const contribuciones = parseFloat(dejarNumeroBrutos(this.formSimulacion.get('contribuciones')?.value || 0));
@@ -221,7 +221,7 @@ export class SimuladorComponent implements OnInit {
     let fCae = (administracion + costo_anual + gastos_operacionales) / (montoPreAprobado + deuda_hipotecaria + contribuciones) || 0;
     fCae = (fCae < 0) ? 0 : fCae;
     this.formSimulacion.patchValue({
-      valorContrato: formateadorMiles(valor_contrato.toString()),
+      valorContrato: formateadorMilesDesdeBase(valor_contrato.toString()),
       cae: formateadorMilesDesdeBase(fCae.toString()),
       liquidoCliente: formateadorMilesDesdeBase(montoPreAprobado.toString())
     }, { emitEvent: false })
