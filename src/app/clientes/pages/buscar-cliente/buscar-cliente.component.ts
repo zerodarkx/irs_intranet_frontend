@@ -26,7 +26,6 @@ export class BuscarClienteComponent implements OnInit {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
   ;
-  loading: boolean = true;
   clientes: TodosClientes[] = []
   selectEjecutivosBrokers: nombreApellidoEjecutivoId[] = [];
   estadosMostrar: Estados[] = [
@@ -69,6 +68,14 @@ export class BuscarClienteComponent implements OnInit {
     this.permisos = this.sPermiso.obtenerPermisos();
     this.obtenerEstados();
     this.selectEjecutivoBroker();
+
+    localStorage.setItem('refrescarCache', '1')
+
+    const formulario = localStorage.getItem('filtrosBusqueda')
+    if (formulario) {
+      this.formFiltroBusqueda.patchValue(JSON.parse(formulario))
+      this.obtenerClientePorFiltro()
+    }
   }
 
   obtenerPermiso(modulo: string = '', categoria: string = '', subcategoria: string = '') {
@@ -106,8 +113,8 @@ export class BuscarClienteComponent implements OnInit {
     this.sCliente.obtenerClientesPorFiltro(this.formFiltroBusqueda.value)
       .subscribe({
         next: (resultado: ResultadoObtenerTodosClientes) => {
+          localStorage.setItem('filtrosBusqueda', JSON.stringify(this.formFiltroBusqueda.value));
           this.clientes = resultado.data
-          this.loading = false;
         },
         error: (error: HttpErrorResponse) => {
           errorConexionServidor(error);

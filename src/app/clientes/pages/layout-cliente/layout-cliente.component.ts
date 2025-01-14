@@ -42,5 +42,9 @@ export class LayoutClienteComponent {
       });
   }
 
+  volverAtrasPagina(){
+    this.router.navigate(['/cliente'])
+  }
+
 
 }
