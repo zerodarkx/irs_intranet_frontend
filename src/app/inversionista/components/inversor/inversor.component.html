@@ -141,7 +141,7 @@
                 [showCurrentPageReport]="true"
                 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
                 [rowsPerPageOptions]="[10, 25, 50, 100, 250, 500]"
-                [globalFilterFields]="['id','nom_cli','propiedad','comuna','v_comercial','v_contrato','ltv']"
+                [globalFilterFields]="['id','nom_cli','propiedad','comuna','v_comercial','v_contrato','ltv', 'inversionista']"
                 selectionMode="single" dataKey="id" [scrollable]="true" scrollDirection="horizontal"
                 [style]="{ width: '100%' }">
                 <!-- FILTRO GENERAL -->
@@ -149,7 +149,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <button pButton class="btn btn-success" (click)="clear(tabla)">
-                                <i class="bi bi-filter"></i>Lipiar Filtros
+                                <i class="bi bi-filter"></i>Limpiar Filtros
                             </button>
                         </div>
                         <div class="col-md-6">

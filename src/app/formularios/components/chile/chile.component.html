@@ -35,17 +35,17 @@
             </div>
             <div class="col-md-4">
                 <label for="">Valor Comercial (UF)</label>
-                <input type="text" class="form-control" formControlName="cli_deuda_estimada"
-                    (change)="formateadorMiles($event)">
-                <shared-mensaje-validador
-                    [forControl]="formCliente.controls['cli_deuda_estimada']"></shared-mensaje-validador>
-            </div>
-            <div class="col-md-4">
-                <label for="">Deuda Estimada (UF)</label>
                 <input type="text" class="form-control" formControlName="cli_valor_comercial"
                     (change)="formateadorMiles($event)">
                 <shared-mensaje-validador
                     [forControl]="formCliente.controls['cli_valor_comercial']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-4">
+                <label for="">Deuda Estimada (UF)</label>
+                <input type="text" class="form-control" formControlName="cli_deuda_estimada"
+                    (change)="formateadorMiles($event)">
+                <shared-mensaje-validador
+                    [forControl]="formCliente.controls['cli_deuda_estimada']"></shared-mensaje-validador>
             </div>
         </div>
         <div class="row mt-2">
