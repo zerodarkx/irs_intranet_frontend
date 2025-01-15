@@ -45,8 +45,6 @@ export class BaseInversionistaComponent {
     this.sGrafico.obtenerGraficosInversionista()
       .subscribe({
         next: (response) => {
-          console.log(response);
-
           const cantidades = [
             response.data.casosPendientes.dataPendiente.map((item) => item.cant),
             response.data.casosSaldos.dataSaldos.map((item) => item.suma!),

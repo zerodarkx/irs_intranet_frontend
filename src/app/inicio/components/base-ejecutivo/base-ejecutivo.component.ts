@@ -62,8 +62,6 @@ export class BaseEjecutivoComponent {
           ]
 
           cantidades.forEach((d, i) => {
-            console.log(d);
-
             this.data.push({
               labels: leyendas[i].length > 0 ? leyendas[i] : ['No Hay Casos Aun'],
               datasets: [
