@@ -17,16 +17,6 @@ export class AppComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.primengConfig.setTranslation(dataLenguage);
-
-    const version = '1';
-    const verficarRefresco = localStorage.getItem('version')
-
-    if (!verficarRefresco) localStorage.setItem('version', version);
-    if (verficarRefresco !== version) {
-      alert('Favor borrar el cache del sitio web, debido a una modificacion, para hacer esto puedo presionar los botones CONTROL + F5 juntos.');
-      localStorage.setItem('version', version)
-    }
-
   }
 
 }
