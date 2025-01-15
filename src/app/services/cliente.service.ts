@@ -110,9 +110,9 @@ export class ClienteService {
     return this.http.post<ResultadoObtenerTodosClientes>(url, data)
   }
 
-  cambiarSiguienteEstado(): Observable<ResultadoCambiarEstado> {
+  cambiarSiguienteEstado(data: any): Observable<ResultadoCambiarEstado> {
     let url = `${this.url_base}/cambiarEstado/${this.id_cliente}`;
-    return this.http.post<ResultadoCambiarEstado>(url, null);
+    return this.http.post<ResultadoCambiarEstado>(url, data);
   }
 
   obtenerGastosCliente(): Observable<ResultadoObtenerGastoCliente> {

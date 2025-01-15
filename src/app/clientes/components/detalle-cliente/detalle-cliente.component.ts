@@ -358,8 +358,9 @@ export class DetalleClienteComponent implements OnInit {
         }
       });
   }
+
   pasarSiguienteEstado() {
-    this.sCliente.cambiarSiguienteEstado()
+    this.sCliente.cambiarSiguienteEstado(this.miFormulario.value)
       .subscribe({
         next: (response: ResultadoCambiarEstado) => {
           mostrarMensaje({
