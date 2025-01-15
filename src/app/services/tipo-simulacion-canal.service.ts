@@ -36,4 +36,9 @@ export class TipoSimulacionCanalService {
     return this.http.put<ResultadoAccionesCanalSimulacion>(url, data);
   }
 
+  obtenerTodosTipoCanalesPorPermiso(): Observable<ResultadoCanalesSimulacion> {
+    let url = `${this.url_base}/getTipoCanalesPorPermiso`;
+    return this.http.get<ResultadoCanalesSimulacion>(url);
+  }
+
 }

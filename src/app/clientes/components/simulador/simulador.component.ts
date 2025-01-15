@@ -81,7 +81,7 @@ export class SimuladorComponent implements OnInit {
   }
 
   cargarDatosService() {
-    this.sTipoCanal.obtenerTodosTipoCanales()
+    this.sTipoCanal.obtenerTodosTipoCanalesPorPermiso()
       .subscribe({
         next: ({ data }: ResultadoCanalesSimulacion) => {
           this.canales = data
