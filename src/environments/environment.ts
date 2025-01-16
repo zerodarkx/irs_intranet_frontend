@@ -1,4 +1,4 @@
 export const env = {
-    apiUrl: 'https://ellies.cl/api',
-    descargaUrl: 'https://ellies.cl/'
+    apiUrl: 'https://api.irsdsalp.cl/api',
+    descargaUrl: 'https://api.irsdsalp.cl/'
 };
