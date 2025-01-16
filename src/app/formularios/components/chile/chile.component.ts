@@ -92,6 +92,7 @@ export class ChileComponent implements OnInit {
   }
 
   async generarTokenTemporal() {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     const response = await firstValueFrom(this.sAuth.generarTokenTemporal());
     localStorage.setItem('token', response.token);
   }
