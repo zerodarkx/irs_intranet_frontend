@@ -2,12 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 import { Comuna } from 'src/app/interfaces/comuna';
 import { Iregiones } from 'src/app/interfaces/regiones';
 import { TipoCanalContacto } from 'src/app/interfaces/tipoContacto';
 import { TipoPropiedad } from 'src/app/interfaces/tipoPropiedad';
-import { AuthService } from 'src/app/services/auth.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ComunaService } from 'src/app/services/comuna.service';
 import { RegionService } from 'src/app/services/region.service';
@@ -74,7 +72,6 @@ export class ChileComponent implements OnInit {
     private sComuna: ComunaService,
     private sTipoPropiedad: TipoPropiedadService,
     private sCanaContacto: TipoContactoService,
-    private sAuth: AuthService,
     private activedRouter: ActivatedRoute,
     private sCliente: ClienteService
   ) { }
@@ -85,16 +82,10 @@ export class ChileComponent implements OnInit {
         this.plataforma = plataforma
         this.formCliente.get('id_plataforma')?.setValue(plataforma)
       })
-    await this.generarTokenTemporal()
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     this.obtenerRegiones()
     this.obtenerTipoPropiedad()
     this.obtenerCanalesComoSupo()
-  }
-
-  async generarTokenTemporal() {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    const response = await firstValueFrom(this.sAuth.generarTokenTemporal());
-    localStorage.setItem('token', response.token);
   }
 
   mayuscula(event: Event): void {
