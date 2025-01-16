@@ -66,7 +66,7 @@ export function soloNumerosFormulario(control: AbstractControl): ValidationError
     const valor = (control.value).toString().replaceAll('.', '');
 
     if (!valor) return null;
-    const numeroRegex = /^[0-9,]+$/;
+    const numeroRegex = /^-?[0-9,]+$/;
 
     // Si el valor contiene algo más que números, retornamos un error
     if (!numeroRegex.test(valor)) return { soloNumeros: true };
