@@ -179,4 +179,9 @@ export class ClienteService {
     return this.http.post<ResultadoCrearCliente>(url, data);
   }
 
+  rechazarMasivoCliente(data: FormData): Observable<ResultadoSubirDocumentoImagen> {
+    let url = `${this.url_base}/rechazarMasivoCliente`;
+    return this.http.post<ResultadoSubirDocumentoImagen>(url, data);
+  }
+
 }

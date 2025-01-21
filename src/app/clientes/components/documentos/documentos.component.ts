@@ -115,14 +115,8 @@ export class DocumentosComponent {
     if (file) {
       if (tipo === 'documento') {
         this.selectedDocuemento = file;
-        this.formularioDocumento.patchValue({
-          document: file
-        });
       } else {
         this.selectedImagen = file;
-        this.formularioImagen.patchValue({
-          document: file
-        });
       }
     } else {
       this.selectedDocuemento = null; // Reiniciar si no hay archivo

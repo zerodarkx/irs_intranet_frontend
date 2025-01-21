@@ -32,6 +32,13 @@
                                     Agregar Cliente
                                 </a>
                             </li>
+                            <li>
+                                <a class="dropdown-item fs-5" [routerLink]="['/cliente', 'rechazarMasivo']"
+                                    routerLinkActive="active"
+                                    *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_BUSCAR_CLIENTE','PER_RECHAZOMASIVO_CLIENTE')">
+                                    Rechazar Masivo Cliente
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown" *ngIf="obtenerPermiso('VER_MODULO_NEGOCIO')">
@@ -43,6 +50,18 @@
                             <li>
                                 <a class="dropdown-item fs-5" [routerLink]="['/inversionista']"
                                     routerLinkActive="active">Negocios</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" *ngIf="obtenerPermiso('VER_MODULO_SALIDAS')">
+                        <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
+                            (click)="toggleDropdown('menuSalidas')" aria-expanded="false">
+                            Salidas
+                        </a>
+                        <ul id="menuSalidas" class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item fs-5" [routerLink]="['/salidas']"
+                                    routerLinkActive="active">Buscador</a>
                             </li>
                         </ul>
                     </li>
@@ -91,18 +110,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown" *ngIf="obtenerPermiso('VER_MODULO_SALIDAS')">
-                        <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
-                            (click)="toggleDropdown('menuSalidas')" aria-expanded="false">
-                            Salidas
-                        </a>
-                        <ul id="menuSalidas" class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item fs-5" [routerLink]="['/salidas']"
-                                    routerLinkActive="active">Buscador</a>
-                            </li>
-                        </ul>
-                    </li>
+
                     <li>
                         <hr>
                     </li>

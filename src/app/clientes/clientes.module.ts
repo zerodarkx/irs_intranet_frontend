@@ -19,6 +19,7 @@ import { GestionComponent } from './components/gestion/gestion.component';
 import { CurseComponent } from './components/curse/curse.component';
 import { GastosClienteComponent } from './components/gastos-cliente/gastos-cliente.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { RechazarMasivoComponent } from './pages/rechazar-masivo/rechazar-masivo.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { MenuComponent } from './components/menu/menu.component';
     CurseComponent,
     GastosClienteComponent,
     MenuComponent,
+    RechazarMasivoComponent,
   ],
   imports: [
     ClientesRoutingModule,

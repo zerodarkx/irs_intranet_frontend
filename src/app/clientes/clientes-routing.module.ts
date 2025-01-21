@@ -12,6 +12,7 @@ import { BuscarClienteComponent } from './pages/buscar-cliente/buscar-cliente.co
 import { GestionComponent } from './components/gestion/gestion.component';
 import { GastosClienteComponent } from './components/gastos-cliente/gastos-cliente.component';
 import { CurseComponent } from './components/curse/curse.component';
+import { RechazarMasivoComponent } from './pages/rechazar-masivo/rechazar-masivo.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'nuevoCliente',
     component: NuevoClienteComponent
+  },
+  {
+    path: 'rechazarMasivo',
+    component: RechazarMasivoComponent
   },
   {
     path: ':idCliente',

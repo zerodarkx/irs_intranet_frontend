@@ -24,6 +24,7 @@ export class PermisosComponent implements OnChanges {
             { nombre: 'Agregar Cliente', activo: false, permiso: 'BTN_AGREGAR_CLIENTE' },
             { nombre: 'Exportar Excel', activo: false, permiso: 'BTN_EXPORTAREXCEL_CLIENTE' },
             { nombre: 'Filtrar Por Ejecutivo', activo: false, permiso: 'PER_FILTRAREJECUTIVO_CLIENTE' },
+            { nombre: 'Rechazar Masivo', activo: false, permiso: 'PER_RECHAZOMASIVO_CLIENTE' },
           ],
           activo: false,
           permiso: 'VER_BUSCAR_CLIENTE',
