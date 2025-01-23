@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+
+import { Payload } from '../interfaces';
+import { AuthService } from '../services';
 
 import { jwtDecode } from 'jwt-decode';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Payload } from '../interfaces/auth';
 
 @Injectable({
   providedIn: 'root'

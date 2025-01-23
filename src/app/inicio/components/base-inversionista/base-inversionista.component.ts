@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
-import { GraficosService } from 'src/app/services/graficos.service';
+
+import { GraficosService } from 'src/app/services';
+
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
 @Component({

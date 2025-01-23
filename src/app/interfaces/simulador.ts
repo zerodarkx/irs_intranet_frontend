@@ -36,10 +36,10 @@ export interface ResultadoObtenerSimulacionPorCliente {
 }
 export interface ResultadoCrearSimulacion {
     ok: boolean;
-    data: Data;
+    data: MensajeResultado;
 }
 
-export interface Data {
+export interface MensajeResultado {
     mensaje: string;
 }
 

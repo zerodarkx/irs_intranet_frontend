@@ -8,9 +8,6 @@ import { AbstractControl } from '@angular/forms';
 })
 export class MensajeValidadorComponent implements OnInit {
 
-  // @Input() formulario!: FormGroup;
-  // @Input() campo!: string;
-
   @Input('forControl') control!: AbstractControl | null;
 
   constructor() { }
@@ -28,28 +25,4 @@ export class MensajeValidadorComponent implements OnInit {
     if (error!['soloNumeros']) { return `Solo se pueden agregar numeros`; }
     return '';
   }
-
-  // validarCampo(): boolean | null {
-  //   return this.formulario.controls[this.campo].errors
-  //     && this.formulario.controls[this.campo].touched;
-  // }
-
-  // obtenerMensajeError(): string | null {
-  //   if (!this.formulario.controls[this.campo]) return null;
-
-  //   const errors = this.formulario.controls[this.campo].errors || {};
-
-  //   for (const key of Object.keys(errors)) {
-  //     switch (key) {
-  //       case 'required':
-  //         return 'Esta campo es requerido;'
-  //         break;
-
-  //     }
-  //   }
-
-  //   return ''
-
-  // }
-
 }

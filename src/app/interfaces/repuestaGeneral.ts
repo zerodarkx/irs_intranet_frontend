@@ -1,8 +1,8 @@
 export interface ResultadoGeneral {
     ok: boolean;
-    data: Data;
+    data: DataGeneral;
 }
 
-export interface Data {
+export interface DataGeneral {
     mensaje: string;
 }

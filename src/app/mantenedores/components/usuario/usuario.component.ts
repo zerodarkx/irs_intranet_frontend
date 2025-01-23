@@ -1,25 +1,18 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { Plataforma, ResultadoObtenerTodasPlataformas } from 'src/app/interfaces/plataforma';
-import { CodigoTelefono, ResultadoObtenerTodosCodigoTelefono } from 'src/app/interfaces/telefonoCodigo';
-import { PermisoConId, ResultadoAccionesUsuario, ResultadoObtenerTodosUsuario, ResultadoUsuario } from 'src/app/interfaces/usuario';
-import { ResultadoObtenerTodosPerfiles, TipoPerfilUsuario } from 'src/app/interfaces/usuarioPerfiles';
-import { CodigoTelefonoService } from 'src/app/services/codigo-telefono.service';
-import { PlataformaService } from 'src/app/services/plataforma.service';
-import { TipoPerfilService } from 'src/app/services/tipo-perfil.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
+import { lastValueFrom } from 'rxjs';
+
+import { Plataforma, ResultadoObtenerTodasPlataformas, CodigoTelefono, ResultadoObtenerTodosCodigoTelefono, PermisoConId, ResultadoAccionesUsuario, ResultadoObtenerTodosUsuario, ResultadoUsuario, ResultadoObtenerTodosPerfiles, TipoPerfilUsuario, ITipoDocumento, TipoPropiedad } from 'src/app/interfaces';
+import { CodigoTelefonoService, PlataformaService, TipoPerfilService, UsuarioService, TipoDocuentosService, TipoPropiedadService } from 'src/app/services';
+
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { agregarMayusculas, formateadorMiles, formateadorMilesDesdeBase, formatearRut } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 import { rutValidator, validarPassword } from 'src/app/shared/utils/validadores';
+
 import { PermisosComponent } from '../permisos/permisos.component';
-import { TipoDocuentosService } from 'src/app/services/tipo-documentos.service';
-import { ITipoDocumento } from 'src/app/interfaces/tipoDocumentos';
-import { lastValueFrom } from 'rxjs';
-import { TipoPropiedadService } from 'src/app/services/tipo-propiedad.service';
-import { TipoPropiedad } from 'src/app/interfaces/tipoPropiedad';
 
 @Component({
   selector: 'mantendor-usuario',
@@ -432,12 +425,12 @@ export class UsuarioComponent implements OnInit {
       .filter((id: number | null) => id !== null);
 
     const { verDocumentos, verPropiedades, ...data } = this.inversionistaForm.value;
-    
+
     data.documentos = documentoSeleccionados;
     data.propiedades = propiedadesseleccionados;
 
     console.log(data);
-    
+
 
     this.sUsuario.guardarDataInversionista(data)
       .subscribe({

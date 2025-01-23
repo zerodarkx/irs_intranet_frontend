@@ -2,22 +2,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import {
-  DataObtenerTodosDocumentosCliente,
-  DataObtenerTodosImagenCliente,
-  ResultadoObtenerTodosDocumentosCliente,
-  ResultadoObtenerTodosImagenCliente,
-  ResultadoSubirDocumentoImagen
-} from 'src/app/interfaces/cliente';
+import { DataObtenerTodosDocumentosCliente, DataObtenerTodosImagenCliente, ResultadoObtenerTodosDocumentosCliente, ResultadoObtenerTodosImagenCliente, ResultadoSubirDocumentoImagen, ITipoDocumento, ResultadoTipoDocumentos, ITipoImagen, ResultadoTipoImagenes } from 'src/app/interfaces';
+import { ClienteService, PermisosService, TipoDocuentosService, TipoImagenesService } from 'src/app/services';
 
-import { ITipoDocumento, ResultadoTipoDocumentos } from 'src/app/interfaces/tipoDocumentos';
-import { ITipoImagen, ResultadoTipoImagenes } from 'src/app/interfaces/tipoImagenes';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { PermisosService } from 'src/app/services/permisos.service';
-
-import { TipoDocuentosService } from 'src/app/services/tipo-documentos.service';
-import { TipoImagenesService } from 'src/app/services/tipo-imagenes.service';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+
 import { env } from 'src/environments/environment';
 
 @Component({

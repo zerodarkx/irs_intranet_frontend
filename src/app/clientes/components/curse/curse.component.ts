@@ -1,13 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DocumentosCurse, ResultadoNuevoDocumentoCurse, ResultadoObtenerDocumentosCurse } from 'src/app/interfaces/cliente';
-import { ResultadoTipoDocumentosCurse, TipoDocumentoCurse } from 'src/app/interfaces/tipoDocumentosCurse';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { TipoDocumentosCurseService } from 'src/app/services/tipo-documentos-curse.service';
+
+import { DocumentosCurse, ResultadoNuevoDocumentoCurse, ResultadoObtenerDocumentosCurse, ResultadoTipoDocumentosCurse, TipoDocumentoCurse } from 'src/app/interfaces';
+import { ClienteService, TipoDocumentosCurseService } from 'src/app/services';
+
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { formateadorMiles } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+
 import { env } from 'src/environments/environment';
 
 @Component({

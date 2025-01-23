@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClienteService } from 'src/app/services/cliente.service';
+
+import { ClienteService } from 'src/app/services';
 
 @Component({
   selector: 'cliente-layout',

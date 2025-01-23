@@ -2,11 +2,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { ClienteEstados, ResultadoClienteEstados } from 'src/app/interfaces/clienteEstados';
-import { ClienteEstadosService } from 'src/app/services/cliente-estados.service';
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
+
+import { ClienteEstados, ResultadoClienteEstados } from 'src/app/interfaces';
+import { ClienteEstadosService } from 'src/app/services';
+
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
-import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
   selector: 'mantendor-estado-cliente',

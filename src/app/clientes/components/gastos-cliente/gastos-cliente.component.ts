@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CategoriaGastoCliente, GastoClienteTipo, ResultadoObtenerGastoCliente } from 'src/app/interfaces/cliente';
-import { exportarPdf } from 'src/app/interfaces/exportar';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
+import { Component, OnInit } from '@angular/core';
+
+import { CategoriaGastoCliente, GastoClienteTipo, ResultadoObtenerGastoCliente, exportarPdf } from 'src/app/interfaces';
+import { ClienteService, ExportarPdfService } from 'src/app/services';
+
 import { formateadorMilesSinDecimal, formateadorMilesSinDecimalDesdeBase } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
@@ -57,7 +57,7 @@ export class GastosClienteComponent implements OnInit {
     }
     this.sCliente.agregarGastosCliente(data)
       .subscribe({
-        next: (response: any) => {          
+        next: (response: any) => {
           if (response.ok) {
             this.id_ficha = response.data.id_ficha;
             mostrarMensaje({

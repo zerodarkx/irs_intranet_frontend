@@ -2,23 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { ISimulador, ResultadoCrearSimulacion, ResultadoObtenerTodasSimulacionPorCliente } from '../../../interfaces/simulador';
-import { ITipoCanales, ResultadoComisionTasaByID, ResultadoCanalesSimulacion } from '../../../interfaces/tipoSimulacionCanales';
-import { IBancos, ResultadoTodosBancos } from 'src/app/interfaces/bancos';
+import { ISimulador, ResultadoCrearSimulacion, ResultadoObtenerTodasSimulacionPorCliente, ITipoCanales, ResultadoComisionTasaByID, ResultadoCanalesSimulacion, IBancos, ResultadoTodosBancos, exportarPdf, ResultadoObtenerClienteById } from 'src/app/interfaces';
+import { TipoSimulacionCanalService, BancoService, SimuladorService, ClienteService, ExportarPdfService, PermisosService } from 'src/app/services';
 
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase, soloNumeros } from 'src/app/shared/utils/formateadores';
-import { TipoSimulacionCanalService } from 'src/app/services/tipo-simulacion-canal.service';
-import { BancoService } from 'src/app/services/banco.service';
-import { SimuladorService } from 'src/app/services/simulador.service';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { ResultadoObtenerClienteById } from 'src/app/interfaces/cliente';
-import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
-import { exportarPdf } from 'src/app/interfaces/exportar';
-import { PermisosService } from 'src/app/services/permisos.service';
-
-
 
 @Component({
   selector: 'cliente-simulador',

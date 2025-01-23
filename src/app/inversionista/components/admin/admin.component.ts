@@ -2,21 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { nombreApellidoEjecutivoId } from 'src/app/interfaces/cliente';
-import { Comuna } from 'src/app/interfaces/comuna';
-import {
-  DataContador, obtenerComentarioPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoAgregarCasoNuevoReserva, ResultadoObtenerDataInversionista,
-  ResultadoObtenerTodosInversionesContador, ResultadoObtenerTodosInversionesPorEstado
-} from 'src/app/interfaces/inversionista';
-import { Iregiones } from 'src/app/interfaces/regiones';
-import { TipoPropiedad } from 'src/app/interfaces/tipoPropiedad';
-import { ResultadoObtenerSelectInversionistaDisponibles, SelectInversionistaDisponibles } from 'src/app/interfaces/usuario';
-import { ComunaService } from 'src/app/services/comuna.service';
-import { ExportarExcelService } from 'src/app/services/exportar-excel.service';
-import { InversionistasService } from 'src/app/services/inversionistas.service';
-import { RegionService } from 'src/app/services/region.service';
-import { TipoPropiedadService } from 'src/app/services/tipo-propiedad.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
+
+import { nombreApellidoEjecutivoId, Comuna, DataContador, obtenerComentarioPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoAgregarCasoNuevoReserva, ResultadoObtenerDataInversionista, ResultadoObtenerTodosInversionesContador, ResultadoObtenerTodosInversionesPorEstado, Iregiones, TipoPropiedad, ResultadoObtenerSelectInversionistaDisponibles, SelectInversionistaDisponibles } from 'src/app/interfaces';
+import { ComunaService, ExportarExcelService, InversionistasService, RegionService, TipoPropiedadService, UsuarioService } from 'src/app/services';
+
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';

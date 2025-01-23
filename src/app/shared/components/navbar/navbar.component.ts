@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Dropdown, Offcanvas } from 'bootstrap';
-import { PermisosModulo } from 'src/app/interfaces/usuario';
-import { AuthService } from 'src/app/services/auth.service';
-import { PermisosService } from 'src/app/services/permisos.service';
+
+import { AuthService, PermisosService } from 'src/app/services';
 
 @Component({
   selector: 'shared-navbar',

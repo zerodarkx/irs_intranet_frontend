@@ -2,15 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Comuna } from 'src/app/interfaces/comuna';
-import { Iregiones } from 'src/app/interfaces/regiones';
-import { TipoCanalContacto } from 'src/app/interfaces/tipoContacto';
-import { TipoPropiedad } from 'src/app/interfaces/tipoPropiedad';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { ComunaService } from 'src/app/services/comuna.service';
-import { RegionService } from 'src/app/services/region.service';
-import { TipoContactoService } from 'src/app/services/tipo-contacto.service';
-import { TipoPropiedadService } from 'src/app/services/tipo-propiedad.service';
+
+import { Comuna, Iregiones, TipoCanalContacto, TipoPropiedad } from 'src/app/interfaces';
+import { ClienteService, ComunaService, RegionService, TipoContactoService, TipoPropiedadService } from 'src/app/services';
+
 import { agregarMayusculas, formateadorMiles, formatearRut } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 import { rutValidator } from 'src/app/shared/utils/validadores';

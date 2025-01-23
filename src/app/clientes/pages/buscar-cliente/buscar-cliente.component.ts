@@ -4,13 +4,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
 
-import { nombreApellidoEjecutivoId, ResultadoObtenerEjecutivoYbroker, ResultadoObtenerTodosClientes, TodosClientes } from 'src/app/interfaces/cliente';
-import { Estados } from 'src/app/interfaces/estado';
-
-import { ClienteService } from 'src/app/services/cliente.service';
-import { ExportarExcelService } from 'src/app/services/exportar-excel.service';
-import { PermisosService } from 'src/app/services/permisos.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
+import { nombreApellidoEjecutivoId, ResultadoObtenerEjecutivoYbroker, ResultadoObtenerTodosClientes, TodosClientes, Estados } from 'src/app/interfaces';
+import { ClienteService, ExportarExcelService, PermisosService, UsuarioService } from 'src/app/services';
 
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 import { validarFechas } from 'src/app/shared/utils/validadores';

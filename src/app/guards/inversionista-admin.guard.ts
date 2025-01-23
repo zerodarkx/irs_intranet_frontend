@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { Payload } from '../interfaces/auth';
+
+import { AuthService } from '../services';
+import { Payload } from '../interfaces';
+
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
@@ -19,12 +21,12 @@ export class InversionistaAdminGuard implements CanActivate {
     const decoded = jwtDecode<Payload>(this.sAuth.getToken()!);
     const perfilPermitido = route.data.perfil;
 
-    if(perfilPermitido.includes(decoded.perfil)){
+    if (perfilPermitido.includes(decoded.perfil)) {
       this.router.navigate(['inversionista', 'admin'])
       return false;
     }
 
     return true;
   }
-  
+
 }

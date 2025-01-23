@@ -2,8 +2,10 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
+
+import { AuthService } from '../services';
+
 import { jwtDecode } from 'jwt-decode';
-import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'

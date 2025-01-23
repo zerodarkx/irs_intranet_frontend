@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import { Payload } from 'src/app/interfaces/auth';
-import { GraficosService } from 'src/app/services/graficos.service';
+import { Payload } from 'src/app/interfaces';
 
 @Component({
   selector: 'inicio-base',

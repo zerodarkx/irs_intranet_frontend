@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BaseMantenedorComponent } from './pages/base-mantenedor/base-mantenedor.component';
-import { InicioMantendorComponent } from './components/inicio-mantendor/inicio-mantendor.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { TipoPropiedadComponent } from './components/tipo-propiedad/tipo-propiedad.component';
@@ -17,10 +16,6 @@ const routes: Routes = [
     path: '',
     component: BaseMantenedorComponent,
     children: [
-      {
-        path: 'inicio',
-        component: InicioMantendorComponent
-      },
       {
         path: 'usuario',
         component: UsuarioComponent

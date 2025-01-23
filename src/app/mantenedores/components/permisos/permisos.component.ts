@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { PermisoConId, PermisosCategoria, PermisosModulo, PermisosSubCategoria } from 'src/app/interfaces/usuario';
-import { EstadoClientesService } from 'src/app/services/estado-clientes.service';
-import { TipoSimulacionCanalService } from 'src/app/services/tipo-simulacion-canal.service';
+
+import { PermisoConId, PermisosModulo } from 'src/app/interfaces';
+import { EstadoClientesService, TipoSimulacionCanalService } from 'src/app/services';
+
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
 @Component({

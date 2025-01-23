@@ -2,8 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { ResultadoAccionesTipoPropiedad, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad } from 'src/app/interfaces/tipoPropiedad';
-import { TipoPropiedadService } from 'src/app/services/tipo-propiedad.service';
+
+import { ResultadoAccionesTipoPropiedad, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad } from 'src/app/interfaces';
+import { TipoPropiedadService } from 'src/app/services';
+
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';

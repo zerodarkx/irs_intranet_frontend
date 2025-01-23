@@ -1,10 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GestionCliente, ResultadoAgregarGestionCliente, ResultadoGestionCliente } from 'src/app/interfaces/cliente';
-import { ResultadoTipoGestion, TipoGestion } from 'src/app/interfaces/tipoGestion';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { TipoGestionService } from 'src/app/services/tipo-gestion.service';
+
+import { GestionCliente, ResultadoAgregarGestionCliente, ResultadoGestionCliente, ResultadoTipoGestion, TipoGestion } from 'src/app/interfaces';
+import { ClienteService, TipoGestionService } from 'src/app/services';
+
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
 @Component({

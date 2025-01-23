@@ -16,7 +16,6 @@ import { TipoDocumentosComponent } from './components/tipo-documentos/tipo-docum
 import { TipoImagenesComponent } from './components/tipo-imagenes/tipo-imagenes.component';
 import { LineaNegocioComponent } from './components/linea-negocio/linea-negocio.component';
 import { CanalSimulacionComponent } from './components/canal-simulacion/canal-simulacion.component';
-import { InicioMantendorComponent } from './components/inicio-mantendor/inicio-mantendor.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { PermisosComponent } from './components/permisos/permisos.component';
 
@@ -31,7 +30,6 @@ import { PermisosComponent } from './components/permisos/permisos.component';
     TipoImagenesComponent,
     LineaNegocioComponent,
     CanalSimulacionComponent,
-    InicioMantendorComponent,
     PerfilUsuarioComponent,
     PermisosComponent
   ],

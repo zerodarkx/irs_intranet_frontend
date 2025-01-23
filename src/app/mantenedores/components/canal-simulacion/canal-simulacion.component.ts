@@ -2,8 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { ITipoCanales, ResultadoAccionesCanalSimulacion, ResultadoCanalesSimulacion } from 'src/app/interfaces/tipoSimulacionCanales';
-import { TipoSimulacionCanalService } from 'src/app/services/tipo-simulacion-canal.service';
+
+import { ITipoCanales, ResultadoAccionesCanalSimulacion, ResultadoCanalesSimulacion } from 'src/app/interfaces';
+import { TipoSimulacionCanalService } from 'src/app/services';
+
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { agregarMayusculas, formateadorMiles, formateadorMilesDesdeBase } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';

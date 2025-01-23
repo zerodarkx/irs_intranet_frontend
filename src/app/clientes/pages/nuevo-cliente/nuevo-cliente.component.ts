@@ -2,16 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ResultadoCrearCliente } from 'src/app/interfaces/cliente';
-import { Comuna, ResultadoObtenerComunas } from 'src/app/interfaces/comuna';
-import { Plataforma, ResultadoObtenerTodasPlataformas } from 'src/app/interfaces/plataforma';
-import { Iregiones, ResultadoObtenerTodasRegiones } from 'src/app/interfaces/regiones';
-import { ResultadoObtenerTodosTipoPropiedad, TipoPropiedad } from 'src/app/interfaces/tipoPropiedad';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { ComunaService } from 'src/app/services/comuna.service';
-import { PlataformaService } from 'src/app/services/plataforma.service';
-import { RegionService } from 'src/app/services/region.service';
-import { TipoPropiedadService } from 'src/app/services/tipo-propiedad.service';
+
+import { ResultadoCrearCliente, Comuna, ResultadoObtenerComunas, Plataforma, ResultadoObtenerTodasPlataformas, Iregiones, ResultadoObtenerTodasRegiones, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad } from 'src/app/interfaces';
+import { ClienteService, ComunaService, PlataformaService, RegionService, TipoPropiedadService } from 'src/app/services';
+
 import { agregarMayusculas, formateadorMiles, formatearRut, soloNumeros } from 'src/app/shared/utils/formateadores';
 import { mostrarMensaje, IconoSweetAlert, errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 import { rutValidator, soloNumerosFormulario, validarCorreoInstitucional } from 'src/app/shared/utils/validadores';
@@ -204,7 +198,7 @@ export class NuevoClienteComponent {
             titulo: 'Exito'
           })
 
-          if (resultado.ok){
+          if (resultado.ok) {
             this.router.navigate(["/cliente", resultado.data.id_cliente])
           }
         },

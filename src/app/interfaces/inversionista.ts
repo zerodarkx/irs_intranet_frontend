@@ -56,8 +56,8 @@ export interface DataInversionista {
     plazo_desde: number;
     plazo_hasta: number;
     tir: number;
-    propiedades: string[];
-    documentos: string[];
+    propiedades: number[];
+    documentos: number[];
 }
 
 export interface ResultadoAgregarCasoNuevoReserva {

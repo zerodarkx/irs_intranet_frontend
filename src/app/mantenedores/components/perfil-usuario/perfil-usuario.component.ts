@@ -2,12 +2,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { PermisoConId } from 'src/app/interfaces/usuario';
-import { ResultadoAccionesPerfil, ResultadoObtenerTodosPerfiles, TipoPerfilUsuario } from 'src/app/interfaces/usuarioPerfiles';
-import { TipoPerfilService } from 'src/app/services/tipo-perfil.service';
+
+import { PermisoConId ,ResultadoAccionesPerfil, ResultadoObtenerTodosPerfiles, TipoPerfilUsuario } from 'src/app/interfaces';
+import { TipoPerfilService } from 'src/app/services';
+
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+
 import { PermisosComponent } from '../permisos/permisos.component';
 
 @Component({

@@ -1,7 +1,8 @@
 import { HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { finalize, Observable } from 'rxjs';
-import { CargandoService } from '../services/cargando.service';
+
+import { CargandoService } from '../services';
 
 @Injectable({
   providedIn: 'root'

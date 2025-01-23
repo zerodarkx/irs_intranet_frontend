@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+
+import { AuthService } from 'src/app/services';
 
 @Component({
   selector: 'app-formulario',

@@ -67,23 +67,23 @@ export interface PermisoConId {
     permisos: PermisosModulo[];
 }
 
-export interface ResultadoObtenerDataInversionista {
-    ok: true;
-    data: obtenerDataInversionista
-}
+// export interface ResultadoObtenerDataInversionista {
+//     ok: true;
+//     data: obtenerDataInversionista
+// }
 
-export interface obtenerDataInversionista {
-    id_inversionista: number;
-    monto_invertir_desde: number;
-    monto_invertir_hasta: number;
-    ltv_desde: number;
-    ltv_hasta: number;
-    plazo_desde: number;
-    plazo_hasta: number;
-    tir: number;
-    propiedades: any;
-    documentos: number[]
-}
+// export interface obtenerDataInversionista {
+//     id_inversionista: number;
+//     monto_invertir_desde: number;
+//     monto_invertir_hasta: number;
+//     ltv_desde: number;
+//     ltv_hasta: number;
+//     plazo_desde: number;
+//     plazo_hasta: number;
+//     tir: number;
+//     propiedades: any;
+//     documentos: number[]
+// }
 
 export interface ResultadoGuardarDataInversionista {
     ok: true;

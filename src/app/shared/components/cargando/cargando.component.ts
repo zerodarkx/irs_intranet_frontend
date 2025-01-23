@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { CargandoService } from 'src/app/services/cargando.service';
 
 @Component({

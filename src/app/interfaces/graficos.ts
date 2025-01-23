@@ -32,10 +32,10 @@ export interface ContadorPor {
 
 export interface ResultadoObtenerGraficosInversionista {
     ok: boolean;
-    data: Data;
+    data: DataResultado;
 }
 
-export interface Data {
+export interface DataResultado {
     casosPendientes: CasosPendientes;
     casosSaldos: DataSalDos;
 }

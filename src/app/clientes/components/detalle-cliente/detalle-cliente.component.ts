@@ -2,24 +2,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { Comuna, ResultadoObtenerComunas } from 'src/app/interfaces/comuna';
-import { ComunaService } from 'src/app/services/comuna.service';
-import { Iregiones, ResultadoObtenerTodasRegiones } from 'src/app/interfaces/regiones';
-import { LineaNegocio, ResultadoObtenerTodasLineasNegocio } from 'src/app/interfaces/lineaNegocio';
-import { LineaNegocioService } from 'src/app/services/linea-negocio.service';
-import { Plataforma, ResultadoObtenerTodasPlataformas } from 'src/app/interfaces/plataforma';
-import { PlataformaService } from 'src/app/services/plataforma.service';
-import { RegionService } from 'src/app/services/region.service';
+import { Comuna, ResultadoObtenerComunas, Iregiones, ResultadoObtenerTodasRegiones, LineaNegocio, ResultadoObtenerTodasLineasNegocio, Plataforma, ResultadoObtenerTodasPlataformas, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad, nombreApellidoEjecutivoId, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoObtenerClienteById, ResultadoObtenerEjecutivoYbroker } from 'src/app/interfaces';
+import { ComunaService, LineaNegocioService, PlataformaService, RegionService, TipoPropiedadService, UsuarioService, ClienteService, PermisosService } from 'src/app/services';
 
 import { agregarMayusculas, formatearRut, formateadorMiles, soloNumeros } from 'src/app/shared/utils/formateadores';
 import { rutValidator, validarCorreoInstitucional, soloNumerosFormulario } from 'src/app/shared/utils/validadores';
-import { TipoPropiedadService } from 'src/app/services/tipo-propiedad.service';
-import { ResultadoObtenerTodosTipoPropiedad, TipoPropiedad } from 'src/app/interfaces/tipoPropiedad';
-import { nombreApellidoEjecutivoId, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoObtenerClienteById, ResultadoObtenerEjecutivoYbroker } from 'src/app/interfaces/cliente';
-import { UsuarioService } from 'src/app/services/usuario.service';
-import { ClienteService } from 'src/app/services/cliente.service';
 import { IconoSweetAlert, mostrarMensaje, errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
-import { PermisosService } from 'src/app/services/permisos.service';
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 
 @Component({

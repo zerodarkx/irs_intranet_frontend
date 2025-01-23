@@ -6,10 +6,10 @@ import { ResultadoObtenerEjecutivoYbroker } from '../interfaces/cliente';
 import {
   ResultadoAccionesUsuario,
   ResultadoGuardarDataInversionista,
-  ResultadoObtenerDataInversionista,
   ResultadoObtenerSelectInversionistaDisponibles,
   ResultadoObtenerTodosUsuario
 } from '../interfaces/usuario';
+import { ResultadoObtenerDataInversionista } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'

@@ -2,20 +2,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Table } from 'primeng/table';
-import { Payload } from 'src/app/interfaces/auth';
-import {
-  DataContador,
-  DocumentosPorInversionista,
-  ObtenerTodosInversionesPorEstado,
-  ResultadoObtenerTodosInversionesContador,
-  ResultadoObtenerTodosInversionesPorEstado
-} from 'src/app/interfaces/inversionista';
-import { SelectInversionistaDisponibles } from 'src/app/interfaces/usuario';
-import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
-import { InversionistasService } from 'src/app/services/inversionistas.service';
+
+import { Payload, DataContador, DocumentosPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoObtenerTodosInversionesContador, ResultadoObtenerTodosInversionesPorEstado, SelectInversionistaDisponibles } from 'src/app/interfaces';
+import { ExportarPdfService, InversionistasService } from 'src/app/services';
+
 import { abrirModal } from 'src/app/shared/utils/bootstrap';
 import { formateadorMilesDesdeBase } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
+
 import { env } from 'src/environments/environment';
 
 @Component({

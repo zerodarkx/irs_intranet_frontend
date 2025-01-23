@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SubModuloCliente } from 'src/app/interfaces/menu';
-import { PermisosService } from 'src/app/services/permisos.service';
-import { PermisosModulo } from 'src/app/interfaces/usuario';
+
+import { PermisosService } from 'src/app/services';
+
 
 @Component({
   selector: 'cliente-menu',

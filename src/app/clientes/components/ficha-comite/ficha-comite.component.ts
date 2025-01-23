@@ -1,26 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IBancos, ResultadoTodosBancos } from 'src/app/interfaces/bancos';
-import { Comuna, ResultadoObtenerComunas } from 'src/app/interfaces/comuna';
-import { exportarPdf } from 'src/app/interfaces/exportar';
-import { ResultadoObtenerFichaComite } from 'src/app/interfaces/fichaComite';
-import { Iregiones, ResultadoObtenerTodasRegiones } from 'src/app/interfaces/regiones';
-import { ResultadoObtenerSimulacionPorCliente } from 'src/app/interfaces/simulador';
-import { BancoService } from 'src/app/services/banco.service';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { ComunaService } from 'src/app/services/comuna.service';
-import { ExportarPdfService } from 'src/app/services/exportar-pdf.service';
-import { RegionService } from 'src/app/services/region.service';
-import { SimuladorService } from 'src/app/services/simulador.service';
-import {
-  agregarMayusculas,
-  formateadorMilesDesdeBase,
-  formateadorMiles,
-  formatearRut,
-  soloNumeros,
-  dejarNumeroBrutos
-} from 'src/app/shared/utils/formateadores';
+
+import { IBancos, ResultadoTodosBancos, Comuna, ResultadoObtenerComunas, exportarPdf, ResultadoObtenerFichaComite, Iregiones, ResultadoObtenerTodasRegiones, ResultadoObtenerSimulacionPorCliente } from 'src/app/interfaces';
+import { BancoService, ClienteService, ComunaService, ExportarPdfService, RegionService, SimuladorService } from 'src/app/services';
+
+import { agregarMayusculas, formateadorMilesDesdeBase, formateadorMiles, formatearRut, soloNumeros, dejarNumeroBrutos } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 import { rutValidator, soloNumerosFormulario } from 'src/app/shared/utils/validadores';
 
@@ -466,7 +451,7 @@ export class FichaComiteComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          
+
           if (response.ok) {
             this.formFichaComite.patchValue({
               id_fichaComite: response.data.id_fichaComite

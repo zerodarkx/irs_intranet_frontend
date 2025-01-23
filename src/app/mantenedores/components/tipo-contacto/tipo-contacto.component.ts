@@ -2,8 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { ResultadoAccionTipoCanalContacto, ResultadoTipoCanalContacto, TipoCanalContacto } from 'src/app/interfaces/tipoContacto';
-import { TipoContactoService } from 'src/app/services/tipo-contacto.service';
+
+import { ResultadoAccionTipoCanalContacto, ResultadoTipoCanalContacto, TipoCanalContacto } from 'src/app/interfaces';
+import { TipoContactoService } from 'src/app/services';
+
 import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';

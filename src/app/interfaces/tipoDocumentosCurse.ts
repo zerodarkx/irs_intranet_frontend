@@ -8,12 +8,12 @@ export interface ResultadoTipoDocumentosCurse {
     data: TipoDocumentoCurse[];
 }
 
-export interface ResultadoAccionesTipoDocumento{
+export interface ResultadoAccionesTipoDocumentoCurse{
     ok: boolean;
-    data: AccionesTipoTipoDocumento
+    data: AccionesTipoTipoDocumentoCurse
 }
 
-export interface AccionesTipoTipoDocumento {
+export interface AccionesTipoTipoDocumentoCurse {
     mensaje: string;
     titulo: string;
     icono: string;
