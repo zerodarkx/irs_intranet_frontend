@@ -20,8 +20,8 @@ export class BuscarClienteComponent implements OnInit {
 
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
-  ;
-  clientes: TodosClientes[] = []
+  
+  clientes: TodosClientes[] = [];
   selectEjecutivosBrokers: nombreApellidoEjecutivoId[] = [];
   estadosMostrar: Estados[] = [
     { id_estado: 1, nombre_estado: 'Rechazado', det_estado: 'EST_RECHAZADO' },
@@ -64,9 +64,9 @@ export class BuscarClienteComponent implements OnInit {
     this.obtenerEstados();
     this.selectEjecutivoBroker();
 
-    const formulario = localStorage.getItem('filtrosBusqueda')
-    if (formulario) {
-      this.formFiltroBusqueda.patchValue(JSON.parse(formulario))
+    const formularioCache = localStorage.getItem('filtrosBusquedaCliente')
+    if (formularioCache) {
+      this.formFiltroBusqueda.patchValue(JSON.parse(formularioCache))
       this.obtenerClientePorFiltro()
     }
   }
@@ -106,7 +106,6 @@ export class BuscarClienteComponent implements OnInit {
     this.sCliente.obtenerClientesPorFiltro(this.formFiltroBusqueda.value)
       .subscribe({
         next: (resultado: ResultadoObtenerTodosClientes) => {
-          localStorage.setItem('filtrosBusqueda', JSON.stringify(this.formFiltroBusqueda.value));
           this.clientes = resultado.data
         },
         error: (error: HttpErrorResponse) => {
@@ -122,7 +121,8 @@ export class BuscarClienteComponent implements OnInit {
 
     this.formFiltroBusqueda.reset();
 
-    this.obtenerClientePorFiltro()
+    this.obtenerClientePorFiltro();
+    localStorage.removeItem('filtrosBusquedaCliente')
     return
   }
 
@@ -139,6 +139,7 @@ export class BuscarClienteComponent implements OnInit {
   }
 
   irDetalleCliente(id_cliente: string): void {
+    localStorage.setItem('filtrosBusquedaCliente', JSON.stringify(this.formFiltroBusqueda.value));
     this.router.navigate(['/cliente', id_cliente])
   }
 

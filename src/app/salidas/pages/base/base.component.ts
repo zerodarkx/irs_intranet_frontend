@@ -40,4 +40,8 @@ export class BaseComponent {
         }
       });
   }
+
+  volverAtrasPagina(){
+    this.router.navigate(['/salidas'])
+  }
 }

@@ -1,10 +1,10 @@
-<div class="row mt-2">
+<div class="row mt-2" [formGroup]="formBitacora">
     <div class="col-md-12 mt-2">
         <h3>Agregar Bitacora</h3>
-        <textarea rows="4" class="form-control"></textarea>
+        <textarea rows="4" class="form-control" formControlName="comentario"></textarea>
     </div>
     <div class="col-md-12 mt-2">
-        <button type="button" class="btn btn-success w-100">
+        <button type="button" class="btn btn-success w-100" (click)="guardarBitacora()">
             Guardar Bitacora
         </button>
     </div>
@@ -26,30 +26,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>COMENTARIO</td>
-                    <td>FECHA DEL COMENTARIO</td>
-                    <td>USUARIO QUIEN HIZO EL COMENTARIO</td>
-                </tr>
-                <tr>
-                    <td>COMENTARIO</td>
-                    <td>FECHA DEL COMENTARIO</td>
-                    <td>USUARIO QUIEN HIZO EL COMENTARIO</td>
-                </tr>
-                <tr>
-                    <td>COMENTARIO</td>
-                    <td>FECHA DEL COMENTARIO</td>
-                    <td>USUARIO QUIEN HIZO EL COMENTARIO</td>
-                </tr>
-                <tr>
-                    <td>COMENTARIO</td>
-                    <td>FECHA DEL COMENTARIO</td>
-                    <td>USUARIO QUIEN HIZO EL COMENTARIO</td>
-                </tr>
-                <tr>
-                    <td>COMENTARIO</td>
-                    <td>FECHA DEL COMENTARIO</td>
-                    <td>USUARIO QUIEN HIZO EL COMENTARIO</td>
+                <tr *ngFor="let bitacora of comentariosBitacora">
+                    <td>{{bitacora.comentario}}</td>
+                    <td>{{bitacora.fecha_ingreso}}</td>
+                    <td>{{bitacora.usuario}}</td>
                 </tr>
             </tbody>
         </table>

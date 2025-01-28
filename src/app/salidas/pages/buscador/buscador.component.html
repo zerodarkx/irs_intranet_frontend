@@ -1,1 +1,266 @@
-<p>buscador works!</p>
+<shared-navbar></shared-navbar>
+<div class="container-fluid pt-3 pb-3 fondoTodo">
+  <div class="row pt3">
+    <div class="col-md-6">
+      <h2>Buscador de clientes</h2>
+    </div>
+    <div class="col-md-6"></div>
+  </div>
+  <div class="card">
+    <div class="card-body mb-4">
+      <!-- FILTROS PARA LA BUSQUEDA -->
+      <div class="row mt-2">
+        <!-- FILTROS PARA BUSQUEDAS -->
+        <div class="col-md-9">
+          <form [formGroup]="formFiltroBusqueda">
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">Buscar por ID</label>
+                <input type="text" class="form-control" formControlName="id_cliente" />
+              </div>
+              <div class="col-md-4" formGroupName="fechasCursado">
+                <label for="">Fecha desde Cursado</label>
+                <input type="date" class="form-control text-center" formControlName="fechaDesde" />
+              </div>
+              <div class="col-md-4" formGroupName="fechasCursado">
+                <label for="">Fecha Hasta Cursado</label>
+                <input type="date" class="form-control text-center" formControlName="fechaHasta" />
+                <div *ngIf="formFiltroBusqueda.get('fechasCursado')?.hasError('fechaRangoInvalido')">
+                  <small class="text-danger">La fecha inicial debe ser menor o igual a la fecha final en
+                    búsqueda.</small>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">Buscar por estado</label>
+                <ng-select [items]="tipoSalida" bindValue="id_tipoSalida" bindLabel="nombre_salida"
+                  placeholder="Seleccionar Tipo Salida" notFoundText="No se encontraron coincidencias"
+                  formControlName="estado">
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <label for="">Buscar por sub estado</label>
+                <ng-select [items]="tipoSubSalida" bindValue="id_tipoSubSalida" bindLabel="nombre_subSalida"
+                  placeholder="Seleccionar Tipo Sub-Salida" notFoundText="No se encontraron coincidencias"
+                  formControlName="subEstado">
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <label for="">Buscar por ejecutivo</label>
+                <ng-select [items]="selectEjecutivosBrokers" placeholder="Seleccionar Ejecutivo" bindValue="id_usuario"
+                  bindLabel="nombre_ejecutivo" notFoundText="No se encontraron coincidencias"
+                  formControlName="ejecutivo">
+                </ng-select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-success w-100 mt-2" (click)="obtenerClientePorFiltro()"
+                [disabled]="formFiltroBusqueda.invalid">
+                Buscar
+              </button>
+              <button type="button" class="btn btn-warning w-100 mt-2" (click)="borrarFiltrosTabla()">
+                Borrar Filtro
+              </button>
+              <button type="button" class="btn btn-secondary w-100 mt-2" (click)="exportarExcel()"
+                *ngIf="obtenerPermiso('VER_MODULO_SALIDAS', 'VER_BUSCAR_SALIDAS','BTN_EXPORTAREXCEL_SALIDAS')">
+                Exportar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- TABLA PARA MOSTRAR -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <p-table #tabla [value]="clientes" styleClass="p-datatable-striped" [paginator]="true" [rows]="10"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
+            [rowsPerPageOptions]="[10, 25, 50, 100]"
+            [globalFilterFields]="['id_cliente','nombre','fecha_cursado','fecha_termino','direccion','telefono','ejecutivo','inversionista','comuna','region','valor_comercial','valor_contrato']"
+            selectionMode="single" dataKey="id_cliente" [scrollable]="true" scrollDirection="horizontal"
+            [style]="{ width: '100%' }">
+            <!-- FILTRO GENERAL -->
+            <ng-template pTemplate="caption">
+              <div class="row">
+                <div class="col-md-6">
+                  <button pButton class="btn btn-success" (click)="clear(tabla)">
+                    <i class="bi bi-filter"></i>Limpiar Filtros
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <input #iBuscarTodo type="text" class="form-control" (input)="handleFilter($event)"
+                    placeholder="Buscar en toda la tabla" />
+                </div>
+              </div>
+            </ng-template>
+            <!-- FILTROS POR COLUMNAS -->
+            <ng-template pTemplate="header">
+              <tr>
+                <th pFrozenColumn pSortableColumn="id_cliente" [style]="{ 'min-width': '150px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">ID Cliente</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="id_cliente" display="menu"></p-columnFilter>
+                      <p-sortIcon field="id_cliente"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="tipo_salida" [style]="{ 'min-width': '250px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Tipo Salida</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="tipo_salida" display="menu"></p-columnFilter>
+                      <p-sortIcon field="tipo_salida"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="tipo_subSalida" [style]="{ 'min-width': '250px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Tipo Sub Salida</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="tipo_subSalida" display="menu"></p-columnFilter>
+                      <p-sortIcon field="tipo_subSalida"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="nombre" [style]="{ 'min-width': '250px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Nombre Cliente</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="nombre" display="menu"></p-columnFilter>
+                      <p-sortIcon field="nombre"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="fecha_cursado" [style]="{ 'min-width': '150px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Fecha Cursado</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="fecha_cursado" display="menu"></p-columnFilter>
+                      <p-sortIcon field="fecha_cursado"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="Fecha Vencimiento" [style]="{ 'min-width': '150px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">fecha_termino</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="fecha_termino" display="menu"></p-columnFilter>
+                      <p-sortIcon field="fecha_termino"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="direccion" [style]="{ 'min-width': '300px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Direccion</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="direccion" display="menu"></p-columnFilter>
+                      <p-sortIcon field="direccion"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="telefono" [style]="{ 'min-width': '150px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Telefono</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="telefono" display="menu"></p-columnFilter>
+                      <p-sortIcon field="telefono"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="ejecutivo" [style]="{ 'min-width': '250px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Ejecutivo</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="ejecutivo" display="menu"></p-columnFilter>
+                      <p-sortIcon field="ejecutivo"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="inversionista" [style]="{ 'min-width': '250px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Inversionista</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="inversionista" display="menu"></p-columnFilter>
+                      <p-sortIcon field="inversionista"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="comuna" [style]="{ 'min-width': '250px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Comuna</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="comuna" display="menu"></p-columnFilter>
+                      <p-sortIcon field="comuna"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="region" [style]="{ 'min-width': '250px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Region</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="region" display="menu"></p-columnFilter>
+                      <p-sortIcon field="region"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="valor_comercial" [style]="{ 'min-width': '150px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Valor Tasacion</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="valor_comercial" display="menu"></p-columnFilter>
+                      <p-sortIcon field="valor_comercial"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="valor_contrato" [style]="{ 'min-width': '150px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Valor Contrato</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="valor_contrato" display="menu"></p-columnFilter>
+                      <p-sortIcon field="valor_contrato"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </ng-template>
+            <!-- CUERPO DE LA TABLA -->
+            <ng-template pTemplate="body" let-cliente>
+              <tr (click)="irDetalleCliente(cliente.id_cliente)" style="cursor: pointer">
+                <td pFrozenColumn class="text-center">{{ cliente.id_cliente }}</td>
+                <td>{{ cliente.tipo_salida }}</td>
+                <td>{{ cliente.tipo_subSalida }}</td>
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.fecha_cursado | date: 'dd-MM-yyyy'}}</td>
+                <td>{{ cliente.fecha_termino | date: 'dd-MM-yyyy'}}</td>
+                <td>{{ cliente.direccion }}</td>
+                <td>{{ cliente.telefono }}</td>
+                <td>{{ cliente.ejecutivo }}</td>
+                <td>{{ cliente.inversionista }}</td>
+                <td>{{ cliente.comuna }}</td>
+                <td>{{ cliente.region }}</td>
+                <td class="text-end">{{ cliente.valor_comercial | currencyPesoChileno}}</td>
+                <td class="text-end">{{ cliente.valor_contrato | currencyPesoChileno}}</td>
+              </tr>
+            </ng-template>
+            <!-- MENSAJE DE QUE NO HAY DATOS -->
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="99" class="text-center">
+                  No hay datos disponibles
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<shared-footer></shared-footer>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { env } from 'src/environments/environment';
+import { ResultadoObtenerClienteDetalle, ResultadoObtenerClientesSalida } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,14 @@ export class SalidasService {
     return this.http.get<{ ok: boolean }>(url);
   }
 
+  obtenerClienteSalidaDetalle(): Observable<ResultadoObtenerClienteDetalle> {
+    let url = `${this.url_base}/obtenerClienteSalidaDetalle/${this.id_cliente}`;
+    return this.http.get<ResultadoObtenerClienteDetalle>(url);
+  }
+
+  obtenerTodosClienteSalida(filtro: any): Observable<ResultadoObtenerClientesSalida> {
+    let url = `${this.url_base}/obtenerTodosClienteSalida`;
+    return this.http.post<ResultadoObtenerClientesSalida>(url, filtro);
+  }
 }
 

@@ -4,73 +4,100 @@
             <h3>Informacion del Cliente</h3>
         </div>
     </div>
-    <div class="row mt-2">
-        <div class="col-md-4">
-            <label for="">Rut</label>
-            <input type="text" class="form-control" disabled>
+    <form [formGroup]="formSalida">
+        <div class="row mt-2">
+            <div class="col-md-3">
+                <label for="">Rut</label>
+                <input type="text" class="form-control" readonly formControlName="rut">
+            </div>
+            <div class="col-md-3">
+                <label for="">Nombre</label>
+                <input type="text" class="form-control" readonly formControlName="nombre">
+            </div>
+            <div class="col-md-3">
+                <label for="">Correo</label>
+                <input type="text" class="form-control" readonly formControlName="correo">
+            </div>
+            <div class="col-md-3">
+                <label for="">Telefono</label>
+                <input type="text" class="form-control" readonly formControlName="telefono">
+            </div>
         </div>
-        <div class="col-md-4">
-            <label for="">Nombre</label>
-            <input type="text" class="form-control" disabled>
+        <div class="row mt-2">
+            <div class="col-md-2">
+                <label for="">Region</label>
+                <input type="text" class="form-control" readonly formControlName="region">
+            </div>
+            <div class="col-md-2">
+                <label for="">Comuna</label>
+                <input type="text" class="form-control" readonly formControlName="comuna">
+            </div>
+            <div class="col-md-2">
+                <label for="">Direccion</label>
+                <input type="text" class="form-control" readonly formControlName="direccion">
+            </div>
+            <div class="col-md-2">
+                <label for="">Valor Tasacion</label>
+                <input type="text" class="form-control" readonly formControlName="valor_comercial">
+            </div>
+            <div class="col-md-2">
+                <label for="">Valor Contrato</label>
+                <input type="text" class="form-control" readonly formControlName="valor_contrato">
+            </div>
+            <div class="col-md-2">
+                <label for="">LTV</label>
+                <input type="text" class="form-control" readonly formControlName="ltv">
+            </div>
         </div>
-        <div class="col-md-4">
-            <label for="">Correo</label>
-            <input type="text" class="form-control" disabled>
+        <div class="row mt-2">
+            <div class="col-md-3">
+                <label for="">Ejecutivo</label>
+                <input type="text" class="form-control" readonly formControlName="ejecutivo">
+            </div>
+            <div class="col-md-3">
+                <label for="">Inversionista</label>
+                <input type="text" class="form-control" readonly formControlName="inversionista">
+            </div>
+            <div class="col-md-3">
+                <label for="">Fecha Cursado</label>
+                <input type="date" class="form-control text-center" readonly formControlName="fecha_cursado">
+            </div>
+            <div class="col-md-3">
+                <label for="">Fecha Vencimiento</label>
+                <input type="date" class="form-control text-center" readonly formControlName="fecha_termino">
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-4">
-            <label for="">Region</label>
-            <input type="text" class="form-control" disabled>
+        <div class="row mt-2">
+            <div class="col-md-4">
+                <label for="">Tipo de Salida</label>
+                <ng-select placeholder="Seleccionar Tipo Salida" notFoundText="No se encontraron coincidencias"
+                    formControlName="tipo_salida">
+                    <ng-option value="ven">Venta</ng-option>
+                    <ng-option value="ref">Refinanciamiento</ng-option>
+                </ng-select>
+            </div>
+            <div class="col-md-4">
+                <label for="">Tipo de Salida sub estado</label>
+                <ng-select placeholder="Seleccionar Tipo Sub-Salida" notFoundText="No se encontraron coincidencias"
+                    formControlName="tipo_subSalida">
+                    <ng-option value="1">En Revision</ng-option>
+                    <ng-option value="2">Juicio de Lanzamiento</ng-option>
+                    <ng-option value="3">Saliendo</ng-option>
+                    <ng-option value="4">Vencido</ng-option>
+                    <ng-option value="5">Venta Directa</ng-option>
+                    <ng-option value="6">Vigente</ng-option>
+                </ng-select>
+            </div>
+            <div class="col-md-4">
+                ver que podemos agregar mas
+            </div>
         </div>
-        <div class="col-md-4">
-            <label for="">Comuna</label>
-            <input type="text" class="form-control" disabled>
-        </div>
-        <div class="col-md-4">
-            <label for="">Direccion</label>
-            <input type="text" class="form-control" disabled>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-4">
-            <label for="">Valor Tasacion</label>
-            <input type="text" class="form-control" disabled>
-        </div>
-        <div class="col-md-4">
-            <label for="">Valor Contrato</label>
-            <input type="text" class="form-control" disabled>
-        </div>
-        <div class="col-md-4">
-            <label for="">LTV</label>
-            <input type="text" class="form-control" disabled>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-4">
-            <label for="">Inversionista</label>
-            <input type="text" class="form-control" disabled>
-        </div>
-        <div class="col-md-4">
-            <label for="">Fecha Cursado</label>
-            <input type="text" class="form-control" disabled>
-        </div>
-        <div class="col-md-4">
-            <label for="">Fecha Vencimiento</label>
-            <input type="text" class="form-control" disabled>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-4">
-            <label for="">Tipo de Salida</label>
-            <input type="text" name="" id="" class="form-control">
-        </div>
-        <div class="col-md-4">
-            <label for="">Tipo de Salida sub estado</label>
-            <input type="text" name="" id="" class="form-control">
-        </div>
-        <div class="col-md-4">
-            ver que podemos agregar mas
+    </form>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success w-100">
+                <i class="bi bi-floppy-fill"></i> Guardar
+            </button>
         </div>
     </div>
 </div>

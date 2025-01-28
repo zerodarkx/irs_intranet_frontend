@@ -24,4 +24,5 @@ export * from "./tipoPropiedad";
 export * from "./tipoSimulacionCanales";
 export * from "./usuario";
 export * from "./usuarioPerfiles";
-
+export * from "./salidas";
+export * from "./tipoSalidas"

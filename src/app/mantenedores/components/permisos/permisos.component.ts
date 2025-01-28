@@ -118,6 +118,13 @@ export class PermisosComponent implements OnChanges {
     },
     {
       nombre: 'Salidas',
+      categorias: [
+        {
+          nombre: 'Buscar Salida',
+          activo: false,
+          permiso: 'VER_BUSCAR_SALIDA'
+        }
+      ],
       activo: false,
       permiso: 'VER_MODULO_SALIDAS'
     }

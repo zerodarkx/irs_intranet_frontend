@@ -5,7 +5,7 @@ import { SalidasRoutingModule } from './salidas-routing.module';
 import { BaseComponent } from './pages/base/base.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { BuscadorComponent } from './pages/buscador/buscador.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
@@ -29,7 +29,8 @@ import { ProrrogaComponent } from './components/prorroga/prorroga.component';
     SharedModule,
     NgSelectModule,
     ReactiveFormsModule,
-    TableModule
+    TableModule,
+    FormsModule
   ]
 })
 export class SalidasModule { }
