@@ -1,11 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { DocumentosCurse, ResultadoNuevoDocumentoCurse, ResultadoObtenerDocumentosCurse, ResultadoTipoDocumentosCurse, TipoDocumentoCurse } from 'src/app/interfaces';
 import { ClienteService, TipoDocumentosCurseService } from 'src/app/services';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { formateadorMiles } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
@@ -17,6 +17,9 @@ import { env } from 'src/environments/environment';
   styleUrls: ['./curse.component.css']
 })
 export class CurseComponent implements OnInit {
+
+  @ViewChild('modalEditarDocumentoCurse') modalEditarDocumentoCurse!: ModalComponent;
+  @ViewChild('modalEditarArchivoDocumentoCurse') modalEditarArchivoDocumentoCurse!: ModalComponent;
 
   url: string = env.descargaUrl;
   fechaNueva: string = new Date().getTime().toString();
@@ -236,7 +239,7 @@ export class CurseComponent implements OnInit {
       id_documentoCurse: id_documentoCurse,
       documento: ''
     });
-    abrirModal('editarArchivoDocumentoCurse');
+    this.modalEditarArchivoDocumentoCurse.abrirModal();
   }
 
   editarArchivoDocumentoCurse() {
@@ -260,7 +263,7 @@ export class CurseComponent implements OnInit {
             });
 
             this.cargarData();
-            cerrarModal();
+            this.modalEditarArchivoDocumentoCurse.cerrarModal();
             return
           }
 
@@ -277,17 +280,8 @@ export class CurseComponent implements OnInit {
   }
 
   abrirEditarDocumentoCurse(curse: DocumentosCurse) {
-    this.formEditarDocumentoCurse.patchValue({
-      id_documentoCurse: curse.id_documentoCurse,
-      moneda: curse.moneda,
-      monto: curse.monto,
-      tipo_cuota: curse.tipo_cuota,
-      cuotas: curse.cuotas,
-      fecha_contrato: curse.fecha_contrato,
-      fecha_termino: curse.fecha_termino,
-      fecha_vencimiento: curse.fecha_vencimiento,
-    })
-    abrirModal('editarDocumentoCurse');
+    this.formEditarDocumentoCurse.patchValue(curse)
+    this.modalEditarDocumentoCurse.abrirModal();
   }
 
   editarDocumentoCurse() {
@@ -302,7 +296,7 @@ export class CurseComponent implements OnInit {
             });
 
             this.cargarData();
-            cerrarModal();
+            this.modalEditarDocumentoCurse.cerrarModal();
             return
           }
 

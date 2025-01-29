@@ -27,7 +27,6 @@ export function formatearRut(value: string): string {
     return rut;
 }
 
-
 export function soloNumeros(valor: string): string {
     return valor.replace(/[^0-9]/g, '');
 }

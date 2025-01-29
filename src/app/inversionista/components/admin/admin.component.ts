@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { nombreApellidoEjecutivoId, Comuna, DataContador, obtenerComentarioPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoAgregarCasoNuevoReserva, ResultadoObtenerDataInversionista, ResultadoObtenerTodosInversionesContador, ResultadoObtenerTodosInversionesPorEstado, Iregiones, TipoPropiedad, ResultadoObtenerSelectInversionistaDisponibles, SelectInversionistaDisponibles } from 'src/app/interfaces';
 import { ComunaService, ExportarExcelService, InversionistasService, RegionService, TipoPropiedadService, UsuarioService } from 'src/app/services';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 import { validarFechas } from 'src/app/shared/utils/validadores';
@@ -20,6 +21,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+  @ViewChild('modalDetalleCaso') modalDetalleCaso!: ModalComponent;
+  @ViewChild('modalDetalleCasoDisponible') modalDetalleCasoDisponible!: ModalComponent;
+  @ViewChild('modalComentarios') modalComentarios!: ModalComponent;
 
   contadorTemporal: DataContador = { cantidad: 0, estado: 0, titulo: '', montoTotal: 0 };
   contadorDatosDisponibles: DataContador = { cantidad: 0, estado: 0, titulo: 'Disponibles', montoTotal: 0 };
@@ -213,7 +217,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
       this.total_inversion = this.detallePorCaso.v_contrato / ((100 + this.detallePorCaso.tir) / 100);
       this.rentabilidad = this.detallePorCaso.v_contrato - this.total_inversion;
     }
-    abrirModal('modalDetalleCaso');
+    this.modalDetalleCaso.abrirModal();
   }
 
   abrirModalCasoDisponible(detalle: ObtenerTodosInversionesPorEstado) {
@@ -231,7 +235,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         }
       });
 
-    abrirModal('modalDetalleCasoDisponible');
+    this.modalDetalleCasoDisponible.abrirModal();
   }
 
   mostrarDataInversionistaOnChangeSelect(event: SelectInversionistaDisponibles | undefined) {
@@ -278,7 +282,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
               titulo: "Exito",
               mensaje: response.mensaje
             });
-            cerrarModal();
+            this.modalDetalleCasoDisponible.cerrarModal();
           }
         },
         error: (error: HttpErrorResponse) => {
@@ -300,7 +304,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
               titulo: "Exito",
               mensaje: response.mensaje
             });
-            cerrarModal();
+            this.modalDetalleCaso.cerrarModal();
           }
         },
         error: (error: HttpErrorResponse) => {
@@ -327,9 +331,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
     })
   }
 
-  modalComentario() {
+  abrirModalComentario() {
     this.cargarComentario()
-    abrirModal('modalComentarios')
+    this.modalComentarios.abrirModal();
   }
 
   guardarComentario() {

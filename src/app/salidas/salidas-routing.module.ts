@@ -5,6 +5,8 @@ import { BuscadorComponent } from './pages/buscador/buscador.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
 import { BitacoraComponent } from './components/bitacora/bitacora.component';
 import { ProrrogaComponent } from './components/prorroga/prorroga.component';
+import { DocumentosComponent } from './components/documentos/documentos.component';
+import { CurseComponent } from './components/curse/curse.component';
 
 const routes: Routes = [
   {
@@ -18,6 +20,8 @@ const routes: Routes = [
       { path: 'detalle', component: DetalleComponent },
       { path: 'bitacora', component: BitacoraComponent },
       { path: 'prorroga', component: ProrrogaComponent },
+      { path: 'documentos', component: DocumentosComponent },
+      { path: 'curse', component: CurseComponent },
       { path: '**', redirectTo: 'detalle', pathMatch: 'full' }
     ]
   },

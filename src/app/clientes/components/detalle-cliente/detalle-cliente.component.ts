@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { Comuna, ResultadoObtenerComunas, Iregiones, ResultadoObtenerTodasRegiones, LineaNegocio, ResultadoObtenerTodasLineasNegocio, Plataforma, ResultadoObtenerTodasPlataformas, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad, nombreApellidoEjecutivoId, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoObtenerClienteById, ResultadoObtenerEjecutivoYbroker } from 'src/app/interfaces';
@@ -8,7 +8,7 @@ import { ComunaService, LineaNegocioService, PlataformaService, RegionService, T
 import { agregarMayusculas, formatearRut, formateadorMiles, soloNumeros } from 'src/app/shared/utils/formateadores';
 import { rutValidator, validarCorreoInstitucional, soloNumerosFormulario } from 'src/app/shared/utils/validadores';
 import { IconoSweetAlert, mostrarMensaje, errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
 @Component({
   selector: 'cliente-detalle',
@@ -16,6 +16,8 @@ import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
   styles: []
 })
 export class DetalleClienteComponent implements OnInit {
+
+  @ViewChild('modalRechazarCliente') modalRechazarCliente!: ModalComponent;
 
   //variables para datos que son solo visuales
   estado_cliente: number = 0;
@@ -263,6 +265,8 @@ export class DetalleClienteComponent implements OnInit {
     this.sCliente.obtenerClientePorId()
       .subscribe({
         next: (response: ResultadoObtenerClienteById) => {
+          console.log(response);
+          
           if (response.ok) {
             this.miFormulario.patchValue({
               rut_cli: response.data.cli_rut,
@@ -368,8 +372,8 @@ export class DetalleClienteComponent implements OnInit {
       });
   }
 
-  modalRechazarCliente() {
-    abrirModal('modalRechazarCliente')
+  abrirRechazarCliente() {
+    this.modalRechazarCliente.abrirModal();
   }
 
   rechazarCliente() {
@@ -388,7 +392,7 @@ export class DetalleClienteComponent implements OnInit {
             this.miFormulario.patchValue({
               motivo_rechazo: this.formRechazo.value.rechazo
             })
-            cerrarModal()
+            this.modalRechazarCliente.cerrarModal();
           }
         },
         error: (error: HttpErrorResponse) => {

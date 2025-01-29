@@ -6,11 +6,11 @@ import { Table } from 'primeng/table';
 import { PermisoConId ,ResultadoAccionesPerfil, ResultadoObtenerTodosPerfiles, TipoPerfilUsuario } from 'src/app/interfaces';
 import { TipoPerfilService } from 'src/app/services';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
 import { PermisosComponent } from '../permisos/permisos.component';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
 @Component({
   selector: 'mantendor-perfil-usuario',
@@ -21,6 +21,8 @@ export class PerfilUsuarioComponent implements OnInit {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
   @ViewChild(PermisosComponent) permisoComponente!: PermisosComponent;
+  @ViewChild('modalTipoPerfil') modalTipoPerfil!: ModalComponent;
+  @ViewChild('modalPermisos') modalPermisos!: ModalComponent;
 
   titulo_cabecera: string = '';
 
@@ -58,7 +60,7 @@ export class PerfilUsuarioComponent implements OnInit {
     this.tabla.filterGlobal(inputElement.value, 'contains');
   }
 
-  modalTipoPerfil(tipoPerfil: TipoPerfilUsuario | null) {
+  abrirModalTipoPerfil(tipoPerfil: TipoPerfilUsuario | null) {
     this.formTipoPerfil.reset();
     this.titulo_cabecera = (!tipoPerfil) ? 'Nuevo' : 'Editar';
     if (tipoPerfil) {
@@ -67,7 +69,7 @@ export class PerfilUsuarioComponent implements OnInit {
         nombre_tipoUsuario: tipoPerfil.nombre_tipoUsuario,
       });
     }
-    abrirModal('modalTipoPerfil')
+    this.modalTipoPerfil.abrirModal();
   }
 
   obtenerTodosPerfil() {
@@ -94,7 +96,7 @@ export class PerfilUsuarioComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalTipoPerfil.cerrarModal();
               this.obtenerTodosPerfil();
             }
           },
@@ -113,7 +115,7 @@ export class PerfilUsuarioComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalTipoPerfil.cerrarModal();
               this.obtenerTodosPerfil();
             }
           },
@@ -124,12 +126,12 @@ export class PerfilUsuarioComponent implements OnInit {
     }
   }
 
-  modalPermisos(tipoPerfil: TipoPerfilUsuario) {
+  abrirModalPermisos(tipoPerfil: TipoPerfilUsuario) {
     this.permisosPorPerfil = {
       id: tipoPerfil.id_tipoUsuario,
       permisos: tipoPerfil.permisos
     };
-    abrirModal('modalPermisos')
+    this.modalPermisos.abrirModal();
   }
 
   guardarPermisos() {
@@ -142,7 +144,7 @@ export class PerfilUsuarioComponent implements OnInit {
             mensaje: response.data.mensaje
           });
           if (response.ok) {
-            cerrarModal();
+            this.modalPermisos.cerrarModal();
           }
         },
         error: (error: HttpErrorResponse) => {

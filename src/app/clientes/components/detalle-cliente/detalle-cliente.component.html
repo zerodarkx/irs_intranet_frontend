@@ -234,7 +234,7 @@
           <div class="row mt-3">
             <div class="col"
               *ngIf="![1,6,7,8].includes(estado_cliente) && obtenerPermiso('VER_MODULO_CLIENTE','VER_DETALLE_CLIENTE','BTN_RECHAZAR_CLIENTE')">
-              <button class="btn btn-danger w-100" type="button" (click)="modalRechazarCliente()">
+              <button class="btn btn-danger w-100" type="button" (click)="abrirRechazarCliente()">
                 Rechazar
               </button>
             </div>
@@ -262,35 +262,19 @@
   </div>
 </div>
 
-<div class="modal fade" id="modalRechazarCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Motivo del Rachazo Cliente</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="formRechazo">
-          <div class="modal-body">
-            <div class="row mt-2">
-              <div class="col-md-12">
-                <label for="">Motivo Rechazo</label>
-                <textarea class="form-control" formControlName="rechazo" rows="4"></textarea>
-                <shared-mensaje-validador [forControl]="formRechazo.controls['rechazo']"></shared-mensaje-validador>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Cerrar
-        </button>
-        <button type="button" class="btn btn-primary" [disabled]="formRechazo.invalid" (click)="rechazarCliente()">
-          Rechazar
-        </button>
+<shared-modal #modalRechazarCliente modalId="modalRechazarCliente" titulo="Rechazar Cliente">
+  <div modal-cuerpo>
+    <div class="row mt-2" [formGroup]="formRechazo">
+      <div class="col-md-12">
+        <label for="">Motivo Rechazo</label>
+        <textarea class="form-control" formControlName="rechazo" rows="4"></textarea>
+        <shared-mensaje-validador [forControl]="formRechazo.controls['rechazo']"></shared-mensaje-validador>
       </div>
     </div>
   </div>
-</div>
+  <div modal-footer>
+    <button type="button" class="btn btn-primary" [disabled]="formRechazo.invalid" (click)="rechazarCliente()">
+      Rechazar
+    </button>
+  </div>
+</shared-modal>

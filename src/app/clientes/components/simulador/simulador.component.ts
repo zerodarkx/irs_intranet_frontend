@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { ISimulador, ResultadoCrearSimulacion, ResultadoObtenerTodasSimulacionPorCliente, ITipoCanales, ResultadoComisionTasaByID, ResultadoCanalesSimulacion, IBancos, ResultadoTodosBancos, exportarPdf, ResultadoObtenerClienteById } from 'src/app/interfaces';
 import { TipoSimulacionCanalService, BancoService, SimuladorService, ClienteService, ExportarPdfService, PermisosService } from 'src/app/services';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase, soloNumeros } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
+
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
 @Component({
   selector: 'cliente-simulador',
@@ -15,6 +16,9 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
   styleUrls: ['./simulador.component.css']
 })
 export class SimuladorComponent implements OnInit {
+
+  @ViewChild('modaldetalleSimulacion') modaldetalleSimulacion!: ModalComponent;
+  @ViewChild('modalnuevaSimulacion') modalnuevaSimulacion!: ModalComponent;
 
   simulacionDetalle?: ISimulador;
   simulacionesCliente: ISimulador[] = []
@@ -106,8 +110,7 @@ export class SimuladorComponent implements OnInit {
       })
   }
 
-  abrirNuevaSimulacion(formulario: string) {
-
+  abrirNuevaSimulacion() {
     this.sCliente.obtenerClientePorId()
       .subscribe({
         next: (response: ResultadoObtenerClienteById) => {
@@ -119,7 +122,7 @@ export class SimuladorComponent implements OnInit {
             gastosOperacionales: 100
           })
 
-          abrirModal(formulario);
+          this.modalnuevaSimulacion.abrirModal();
         },
         error: (error: HttpErrorResponse) => {
           errorConexionServidor(error)
@@ -127,7 +130,7 @@ export class SimuladorComponent implements OnInit {
       })
   }
 
-  detalleSimulacion(formulario: string, simulacion: ISimulador) {
+  detalleSimulacion(simulacion: ISimulador) {
     this.simulacionDetalle = {
       id_simulacion: simulacion.id_simulacion,
       id_cliente: simulacion.id_cliente,
@@ -150,7 +153,7 @@ export class SimuladorComponent implements OnInit {
       obs: simulacion.obs,
       fecha_simulacion: simulacion.fecha_simulacion,
     }
-    abrirModal(formulario);
+    this.modaldetalleSimulacion.abrirModal();
   }
 
   formateadorMiles(event: Event) {
@@ -227,10 +230,9 @@ export class SimuladorComponent implements OnInit {
             mensaje: response.data.mensaje
           })
           if (response.ok) {
-            cerrarModal()
+            this.modalnuevaSimulacion.cerrarModal();
             this.obtenerSimulaciones();
           }
-
         },
         error: (error: HttpErrorResponse) => {
           errorConexionServidor(error)

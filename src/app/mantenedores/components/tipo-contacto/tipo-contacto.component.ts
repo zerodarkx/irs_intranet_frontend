@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { ResultadoAccionTipoCanalContacto, ResultadoTipoCanalContacto, TipoCanalContacto } from 'src/app/interfaces';
 import { TipoContactoService } from 'src/app/services';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
@@ -18,6 +19,7 @@ import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMen
 export class TipoContactoComponent implements OnInit {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+  @ViewChild('modalTipoCanalContacto') modalTipoCanalContacto!: ModalComponent;
 
   titulo_cabecera: string = '';
   tipoCanalContacto: TipoCanalContacto[] = []
@@ -53,7 +55,7 @@ export class TipoContactoComponent implements OnInit {
     this.tabla.filterGlobal(inputElement.value, 'contains');
   }
 
-  modalTipoCanalContacto(tipoCanalContacto: TipoCanalContacto | null) {
+  abrirModalTipoCanalContacto(tipoCanalContacto: TipoCanalContacto | null) {
     this.formTipoCanalContacto.reset();
     this.titulo_cabecera = (!tipoCanalContacto) ? 'Nuevo' : 'Editar';
     if (tipoCanalContacto) {
@@ -62,7 +64,7 @@ export class TipoContactoComponent implements OnInit {
         nombre_canal: tipoCanalContacto.nombre_canal
       })
     }
-    abrirModal('modalTipoCanalContacto')
+    this.modalTipoCanalContacto.abrirModal();
   }
 
   async toggleEstadoTipoCanal(canalContacto: TipoCanalContacto) {
@@ -112,7 +114,7 @@ export class TipoContactoComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalTipoCanalContacto.cerrarModal();
               this.obtenerTodoTipoCanalContacto();
             }
           },
@@ -131,7 +133,7 @@ export class TipoContactoComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalTipoCanalContacto.cerrarModal();
               this.obtenerTodoTipoCanalContacto();
             }
           },

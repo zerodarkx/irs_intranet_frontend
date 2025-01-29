@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { ITipoDocumento, ResultadoAccionesTipoDocumento, ResultadoTipoDocumentos } from 'src/app/interfaces';
 import { TipoDocuentosService } from 'src/app/services';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
@@ -18,6 +19,7 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 export class TipoDocumentosComponent implements OnInit {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+  @ViewChild('modalTipoDocumento') modalTipoDocumento!: ModalComponent;
 
   titulo_cabecera: string = '';
   tipoDocumento: ITipoDocumento[] = []
@@ -53,7 +55,7 @@ export class TipoDocumentosComponent implements OnInit {
     this.tabla.filterGlobal(inputElement.value, 'contains');
   }
 
-  modalTipoDocumento(tipoDocumento: ITipoDocumento | null) {
+  abrirModalTipoDocumento(tipoDocumento: ITipoDocumento | null) {
     this.formTipoDocumento.reset();
     this.titulo_cabecera = (!tipoDocumento) ? 'Nuevo' : 'Editar';
     if (tipoDocumento) {
@@ -62,7 +64,7 @@ export class TipoDocumentosComponent implements OnInit {
         nombre_tipoDocumento: tipoDocumento.nombre_tipoDocumento
       })
     }
-    abrirModal('modalTipoDocumento')
+    this.modalTipoDocumento.abrirModal();
   }
 
   obtenerTodosTipoPropiedad() {
@@ -89,7 +91,7 @@ export class TipoDocumentosComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalTipoDocumento.cerrarModal();
               this.obtenerTodosTipoPropiedad();
             }
           },
@@ -108,7 +110,7 @@ export class TipoDocumentosComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalTipoDocumento.cerrarModal();
               this.obtenerTodosTipoPropiedad();
             }
           },

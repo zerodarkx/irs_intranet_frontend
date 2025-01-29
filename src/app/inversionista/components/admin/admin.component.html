@@ -175,17 +175,16 @@
                     </div>
                     <div class="col-md-3">
                         <label for="">Region</label>
-                        <ng-select [items]="selectRegiones" bindValue="id_region"
-                            bindLabel="nombre_region" placeholder="Seleccione Region"
-                            notFoundText="No se encontraron coincidencias" formControlName="region"
-                            (change)="changeComuna($event)">
+                        <ng-select [items]="selectRegiones" bindValue="id_region" bindLabel="nombre_region"
+                            placeholder="Seleccione Region" notFoundText="No se encontraron coincidencias"
+                            formControlName="region" (change)="changeComuna($event)">
                         </ng-select>
                     </div>
                     <div class="col-md-3">
                         <label for="">Comuna</label>
-                        <ng-select [items]="selectComunas" bindValue="id_comuna"
-                            bindLabel="nombre_comuna" placeholder="Seleccione Comuna"
-                            notFoundText="No se encontraron coincidencias" formControlName="comuna">
+                        <ng-select [items]="selectComunas" bindValue="id_comuna" bindLabel="nombre_comuna"
+                            placeholder="Seleccione Comuna" notFoundText="No se encontraron coincidencias"
+                            formControlName="comuna">
                         </ng-select>
                     </div>
                 </div>
@@ -196,7 +195,8 @@
                         </button>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-secondary w-100 mt-2" [disabled]="formExportar.invalid" (click)="exportarCasosExcel()">
+                        <button type="button" class="btn btn-secondary w-100 mt-2" [disabled]="formExportar.invalid"
+                            (click)="exportarCasosExcel()">
                             Exportar Casos
                         </button>
                     </div>
@@ -383,307 +383,265 @@
 </div>
 
 <!-- MODAL PARA MOSTRAR DISPONIBELS -->
-<div class="modal fade" id="modalDetalleCasoDisponible" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Detalle caso {{detallePorCaso?.id}}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>Datos del Cliente</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table" width="100%">
-                            <tbody>
-                                <tr>
-                                    <td width="30%">Nombre Cliente</td>
-                                    <td width="70%">{{detallePorCaso?.nom_cli}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Propiedad</td>
-                                    <td>{{detallePorCaso?.propiedad}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Comuna</td>
-                                    <td>{{detallePorCaso?.comuna}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Valor Propiedad</td>
-                                    <td>{{detallePorCaso?.v_comercial | currencyPesoChileno}} UF</td>
-                                </tr>
-                                <tr>
-                                    <td>Valor Contrato</td>
-                                    <td>{{detallePorCaso?.v_contrato | currencyPesoChileno}} UF</td>
-                                </tr>
-                                <tr>
-                                    <td>LTV</td>
-                                    <td>{{detallePorCaso?.ltv}}%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>Datos Inversionista</h3>
-                    </div>
-                </div>
-                <form [formGroup]="formAsignarAComite">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="">Seleccione invsersionista</label>
-                            <ng-select [items]="selectInversionistaDisponibles" placeholder="Seleccionar Inversionista"
-                                bindValue="id_inv" bindLabel="inv" notFoundText="No se encontraron coincidencias"
-                                (change)="mostrarDataInversionistaOnChangeSelect($event)" formControlName="id_inv">
-                            </ng-select>
-                            <shared-mensaje-validador
-                                [forControl]="formAsignarAComite.controls['id_inv']"></shared-mensaje-validador>
-                        </div>
-                    </div>
-                    <div class="row" *ngIf="dataInversor">
-                        <div class="col-md-12">
-                            <table width="100%" class="table">
-                                <tbody>
-                                    <tr>
-                                        <td width="25%">Total Inversion</td>
-                                        <td width="75%">{{total_inversion | currencyPesoChileno}} UF</td>
-                                    </tr>
-                                    <tr>
-                                        <td width="25%">TIR</td>
-                                        <td width="75%">
-                                            <input type="text" class="form-control" formControlName="tir"
-                                                (change)="formatearMiles($event)" (change)="cambiarTirInput($event)">
-                                            <shared-mensaje-validador
-                                                [forControl]="formAsignarAComite.controls['tir']"></shared-mensaje-validador>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rentabilidad</td>
-                                        <td>{{rentabilidad | currencyPesoChileno}} UF</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" (click)="aceptarCasoAComite()"
-                    [disabled]="formAsignarAComite.invalid">
-                    Pasar a Comité
-                </button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
+<shared-modal #modalDetalleCasoDisponible modalId="modalDetalleCasoDisponible"
+    [titulo]="'Detalle caso ' + detallePorCaso?.id">
+    <div modal-cuerpo>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Datos del Cliente</h3>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table" width="100%">
+                    <tbody>
+                        <tr>
+                            <td width="30%">Nombre Cliente</td>
+                            <td width="70%">{{detallePorCaso?.nom_cli}}</td>
+                        </tr>
+                        <tr>
+                            <td>Propiedad</td>
+                            <td>{{detallePorCaso?.propiedad}}</td>
+                        </tr>
+                        <tr>
+                            <td>Comuna</td>
+                            <td>{{detallePorCaso?.comuna}}</td>
+                        </tr>
+                        <tr>
+                            <td>Valor Propiedad</td>
+                            <td>{{detallePorCaso?.v_comercial | currencyPesoChileno}} UF</td>
+                        </tr>
+                        <tr>
+                            <td>Valor Contrato</td>
+                            <td>{{detallePorCaso?.v_contrato | currencyPesoChileno}} UF</td>
+                        </tr>
+                        <tr>
+                            <td>LTV</td>
+                            <td>{{detallePorCaso?.ltv}}%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Datos Inversionista</h3>
+            </div>
+        </div>
+        <form [formGroup]="formAsignarAComite">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="">Seleccione invsersionista</label>
+                    <ng-select [items]="selectInversionistaDisponibles" placeholder="Seleccionar Inversionista"
+                        bindValue="id_inv" bindLabel="inv" notFoundText="No se encontraron coincidencias"
+                        (change)="mostrarDataInversionistaOnChangeSelect($event)" formControlName="id_inv">
+                    </ng-select>
+                    <shared-mensaje-validador
+                        [forControl]="formAsignarAComite.controls['id_inv']"></shared-mensaje-validador>
+                </div>
+            </div>
+            <div class="row" *ngIf="dataInversor">
+                <div class="col-md-12">
+                    <table width="100%" class="table">
+                        <tbody>
+                            <tr>
+                                <td width="25%">Total Inversion</td>
+                                <td width="75%">{{total_inversion | currencyPesoChileno}} UF</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">TIR</td>
+                                <td width="75%">
+                                    <input type="text" class="form-control" formControlName="tir"
+                                        (change)="formatearMiles($event)" (change)="cambiarTirInput($event)">
+                                    <shared-mensaje-validador
+                                        [forControl]="formAsignarAComite.controls['tir']"></shared-mensaje-validador>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rentabilidad</td>
+                                <td>{{rentabilidad | currencyPesoChileno}} UF</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
     </div>
-</div>
+    <div modal-footer>
+        <button type="button" class="btn btn-success" (click)="aceptarCasoAComite()"
+            [disabled]="formAsignarAComite.invalid">
+            Pasar a Comité
+        </button>
+    </div>
+</shared-modal>
 
 <!-- MODAL PARA MOSTRAR OTROS-->
-<div class="modal fade" id="modalDetalleCaso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Detalle caso {{detallePorCaso?.id}}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="formCamioEstado">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Datos del Cliente</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table" width="100%">
-                                <tbody>
-                                    <tr>
-                                        <td width="30%">Nombre Cliente</td>
-                                        <td width="70%">{{detallePorCaso?.nom_cli}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Propiedad</td>
-                                        <td>{{detallePorCaso?.propiedad}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Comuna</td>
-                                        <td>{{detallePorCaso?.comuna}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Valor Propiedad</td>
-                                        <td>{{detallePorCaso?.v_comercial}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Valor Contrato</td>
-                                        <td>{{detallePorCaso?.v_contrato}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>LTV</td>
-                                        <td>{{detallePorCaso?.ltv}}%</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Datos Inversionista</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="">Seleccione invsersionista</label>
-                            <input type="text" class="form-control" disabled [value]="detallePorCaso?.inversionista">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">Estado a Cambiar</label>
-                            <ng-select placeholder="Seleccionar Inversionista"
-                                notFoundText="No se encontraron coincidencias" formControlName="estado_reserva">
-                                <ng-option [value]="1">Comité</ng-option>
-                                <ng-option [value]="2">Pendiente</ng-option>
-                                <ng-option [value]="3">Rechazado</ng-option>
-                                <ng-option [value]="4">Desistido</ng-option>
-                                <ng-option [value]="5">Pre-Aprobado</ng-option>
-                                <ng-option [value]="6" *ngIf="contadorTemporal!.estado >= 5">Aprobado</ng-option>
-                                <ng-option [value]="7" *ngIf="contadorTemporal!.estado >= 6">Cursado</ng-option>
-                            </ng-select>
-                            <shared-mensaje-validador
-                                [forControl]="formAsignarAComite.controls['estado_reserva']"></shared-mensaje-validador>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table width="100%" class="table">
-                                <tbody>
-                                    <tr>
-                                        <td width="25%">Total Inversion</td>
-                                        <td width="75%">{{total_inversion | currencyPesoChileno}} UF</td>
-                                    </tr>
-                                    <tr>
-                                        <td width="25%">TIR</td>
-                                        <td width="75%">
-                                            <input type="text" class="form-control" formControlName="tir"
-                                                (change)="formatearMiles($event)" (change)="cambiarTirInput($event)">
-                                            <shared-mensaje-validador
-                                                [forControl]="formAsignarAComite.controls['tir']"></shared-mensaje-validador>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rentabilidad</td>
-                                        <td>{{rentabilidad | currencyPesoChileno}} UF</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-warning" (click)="modalComentario()">
-                    Comentarios
-                </button>
-                <button type="button" class="btn btn-success" (click)="cambiarDeEstadoDeReserva()"
-                    [disabled]="formCamioEstado.invalid">
-                    Modificar
-                </button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL PARA COMENTARIOS-->
-<div class="modal fade" id="modalComentarios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Comentarios Cliente {{detallePorCaso?.id}}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="formComentario">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Nuevo Comentarios</h3>
-                        </div>
-                    </div>
-                    <div class="row gap-2">
-                        <div class="col-md-12">
-                            <label for="">Comentario</label>
-                            <textarea rows="3" class="form-control" formControlName="comentario"></textarea>
-                            <shared-mensaje-validador
-                                [forControl]="formComentario.controls['comentario']">></shared-mensaje-validador>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-success w-100" (click)="guardarComentario()" [disabled]="formComentario.invalid">
-                                Agregar Comentario
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <div class="row mt-4">
-                    <p-table [value]="comentarioCaso" styleClass="p-datatable-striped" [paginator]="true" [rows]="10"
-                        [showCurrentPageReport]="true"
-                        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
-                        [rowsPerPageOptions]="[10, 25]" selectionMode="single" dataKey="id" [scrollable]="true"
-                        scrollDirection="horizontal" [style]="{ width: '100%' }">
-                        <!-- FILTROS POR COLUMNAS -->
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <label for="">Comentario</label>
-                                    </div>
-                                </th>
-                                <th pSortableColumn="fecha" width="20%">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <label for="">Fecha</label>
-                                        <div class="d-flex flex-column">
-                                            <p-columnFilter type="text" field="fecha" display="menu"></p-columnFilter>
-                                        </div>
-                                    </div>
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <!-- CUERPO DE LA TABLA -->
-                        <ng-template pTemplate="body" let-data let-i="rowIndex">
-                            <tr>
-                                <td>{{ data.comentario }}</td>
-                                <td>{{ data.fecha }}</td>
-                            </tr>
-                        </ng-template>
-                        <!-- MENSAJE DE QUE NO HAY DATOS -->
-                        <ng-template pTemplate="emptymessage">
-                            <tr>
-                                <td colspan="20" class="text-center">No hay datos disponibles</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
+<shared-modal #modalDetalleCaso modalId="modalDetalleCaso" [titulo]="'Detalle caso ' + detallePorCaso?.id">
+    <div modal-cuerpo>
+        <form [formGroup]="formCamioEstado">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Datos del Cliente</h3>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table" width="100%">
+                        <tbody>
+                            <tr>
+                                <td width="30%">Nombre Cliente</td>
+                                <td width="70%">{{detallePorCaso?.nom_cli}}</td>
+                            </tr>
+                            <tr>
+                                <td>Propiedad</td>
+                                <td>{{detallePorCaso?.propiedad}}</td>
+                            </tr>
+                            <tr>
+                                <td>Comuna</td>
+                                <td>{{detallePorCaso?.comuna}}</td>
+                            </tr>
+                            <tr>
+                                <td>Valor Propiedad</td>
+                                <td>{{detallePorCaso?.v_comercial}}</td>
+                            </tr>
+                            <tr>
+                                <td>Valor Contrato</td>
+                                <td>{{detallePorCaso?.v_contrato}}</td>
+                            </tr>
+                            <tr>
+                                <td>LTV</td>
+                                <td>{{detallePorCaso?.ltv}}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Datos Inversionista</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="">Seleccione invsersionista</label>
+                    <input type="text" class="form-control" disabled [value]="detallePorCaso?.inversionista">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Estado a Cambiar</label>
+                    <ng-select placeholder="Seleccionar Inversionista" notFoundText="No se encontraron coincidencias"
+                        formControlName="estado_reserva">
+                        <ng-option [value]="1">Comité</ng-option>
+                        <ng-option [value]="2">Pendiente</ng-option>
+                        <ng-option [value]="3">Rechazado</ng-option>
+                        <ng-option [value]="4">Desistido</ng-option>
+                        <ng-option [value]="5">Pre-Aprobado</ng-option>
+                        <ng-option [value]="6" *ngIf="contadorTemporal!.estado >= 5">Aprobado</ng-option>
+                        <ng-option [value]="7" *ngIf="contadorTemporal!.estado >= 6">Cursado</ng-option>
+                    </ng-select>
+                    <shared-mensaje-validador
+                        [forControl]="formAsignarAComite.controls['estado_reserva']"></shared-mensaje-validador>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table width="100%" class="table">
+                        <tbody>
+                            <tr>
+                                <td width="25%">Total Inversion</td>
+                                <td width="75%">{{total_inversion | currencyPesoChileno}} UF</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">TIR</td>
+                                <td width="75%">
+                                    <input type="text" class="form-control" formControlName="tir"
+                                        (change)="formatearMiles($event)" (change)="cambiarTirInput($event)">
+                                    <shared-mensaje-validador
+                                        [forControl]="formAsignarAComite.controls['tir']"></shared-mensaje-validador>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rentabilidad</td>
+                                <td>{{rentabilidad | currencyPesoChileno}} UF</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div modal-footer class="d-flex gap-2">
+        <button type="button" class="btn btn-warning" (click)="abrirModalComentario()">
+            Comentarios
+        </button>
+        <button type="button" class="btn btn-success" (click)="cambiarDeEstadoDeReserva()"
+            [disabled]="formCamioEstado.invalid">
+            Modificar
+        </button>
+    </div>
+</shared-modal>
+
+<!-- MODAL PARA COMENTARIOS-->
+<shared-modal #modalComentarios modalId="modalComentarios" [titulo]="'Comentarios Cliente' + detallePorCaso?.id">
+    <div modal-cuerpo>
+        <form [formGroup]="formComentario">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Nuevo Comentarios</h3>
+                </div>
+            </div>
+            <div class="row gap-2">
+                <div class="col-md-12">
+                    <label for="">Comentario</label>
+                    <textarea rows="3" class="form-control" formControlName="comentario"></textarea>
+                    <shared-mensaje-validador
+                        [forControl]="formComentario.controls['comentario']">></shared-mensaje-validador>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-success w-100" (click)="guardarComentario()"
+                        [disabled]="formComentario.invalid">
+                        Agregar Comentario
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="row mt-4">
+            <p-table [value]="comentarioCaso" styleClass="p-datatable-striped" [paginator]="true" [rows]="10"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
+                [rowsPerPageOptions]="[10, 25]" selectionMode="single" dataKey="id" [scrollable]="true"
+                scrollDirection="horizontal" [style]="{ width: '100%' }">
+                <!-- FILTROS POR COLUMNAS -->
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">Comentario</label>
+                            </div>
+                        </th>
+                        <th pSortableColumn="fecha" width="20%">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="">Fecha</label>
+                                <div class="d-flex flex-column">
+                                    <p-columnFilter type="text" field="fecha" display="menu"></p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <!-- CUERPO DE LA TABLA -->
+                <ng-template pTemplate="body" let-data let-i="rowIndex">
+                    <tr>
+                        <td>{{ data.comentario }}</td>
+                        <td>{{ data.fecha }}</td>
+                    </tr>
+                </ng-template>
+                <!-- MENSAJE DE QUE NO HAY DATOS -->
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="20" class="text-center">No hay datos disponibles</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
     </div>
-</div>
+</shared-modal>

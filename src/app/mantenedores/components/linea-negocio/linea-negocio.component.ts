@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { LineaNegocio, ResultadoAccionesLineaNegocio, ResultadoObtenerTodasLineasNegocio } from 'src/app/interfaces';
 import { LineaNegocioService } from 'src/app/services';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
@@ -18,6 +19,7 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 export class LineaNegocioComponent implements OnInit {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+  @ViewChild('modalLineaNegocio') modalLineaNegocio!: ModalComponent;
 
   titulo_cabecera: string = '';
   lineaNegocios: LineaNegocio[] = []
@@ -53,7 +55,7 @@ export class LineaNegocioComponent implements OnInit {
     this.tabla.filterGlobal(inputElement.value, 'contains');
   }
 
-  modalLineaNegocio(lineaNegocio: LineaNegocio | null) {
+  abrirModalLineaNegocio(lineaNegocio: LineaNegocio | null) {
     this.formLineaNegocio.reset();
     this.titulo_cabecera = (!lineaNegocio) ? 'Nuevo' : 'Editar';
     if (lineaNegocio) {
@@ -62,7 +64,7 @@ export class LineaNegocioComponent implements OnInit {
         nombre_lineaNegocio: lineaNegocio.nombre_lineaNegocio
       })
     }
-    abrirModal('modalLineaNegocio')
+    this.modalLineaNegocio.abrirModal();
   }
 
   obtenerLineaNegocio() {
@@ -89,7 +91,7 @@ export class LineaNegocioComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalLineaNegocio.cerrarModal();
               this.obtenerLineaNegocio();
             }
           },
@@ -108,7 +110,7 @@ export class LineaNegocioComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalLineaNegocio.cerrarModal();
               this.obtenerLineaNegocio();
             }
           },

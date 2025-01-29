@@ -1,37 +1,71 @@
-<div class="row mt-2" [formGroup]="formBitacora">
-    <div class="col-md-12 mt-2">
-        <h3>Agregar Bitacora</h3>
-        <textarea rows="4" class="form-control" formControlName="comentario"></textarea>
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Detalles Bitacoras</h3>
+        </div>
     </div>
-    <div class="col-md-12 mt-2">
-        <button type="button" class="btn btn-success w-100" (click)="guardarBitacora()">
+    <div class="row mt-2" [formGroup]="formBitacora">
+        <div class="col-md-12 mt-2">
+            <h3>Contenido Bitacora</h3>
+            <textarea rows="4" class="form-control" formControlName="comentario"></textarea>
+            <shared-mensaje-validador [forControl]="formBitacora.controls['comentario']" />
+        </div>
+        <div class="col-md-12 mt-2">
+            <button type="button" class="btn btn-success w-100" (click)="guardarBitacora()"
+                [disabled]="formBitacora.invalid">
+                Guardar Bitacora
+            </button>
+        </div>
+    </div>
+    <hr>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Historial de Bitacoras</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <table class="table" width="100%">
+                <thead>
+                    <tr>
+                        <th width="60%">Comentario</th>
+                        <th width="15%">Fecha Ingresado</th>
+                        <th width="15%">Usuario</th>
+                        <th width="10%">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let bitacora of comentariosBitacora">
+                        <td>{{bitacora.comentario}}</td>
+                        <td>{{bitacora.fecha_ingresado | date: 'dd-MM-yyyy h:mm:ss a' : 'UTC'}}</td>
+                        <td>{{bitacora.usuario.nombre_ejecutivo}}</td>
+                        <td>
+                            <div class="d-flex gap-3">
+                                <i class="bi bi-pencil-square fs-5" (click)="editarModalBitacora(bitacora)"></i>
+                                <i class="bi bi-trash fs-5" (click)="eliminarBitacora(bitacora.id_bitacora)"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<shared-modal #modalBitacoraEditar modalId="modalBitacoraEditar" titulo="Modificar Bitacora">
+    <div modal-cuerpo>
+        <div class="row" [formGroup]="formBitacoraEditar">
+            <div class="col-md-12 mt-2">
+                <h3>Contenido Bitacora</h3>
+                <textarea rows="4" class="form-control" formControlName="comentario"></textarea>
+                <shared-mensaje-validador [forControl]="formBitacoraEditar.controls['comentario']" />
+            </div>
+        </div>
+    </div>
+    <div modal-footer>
+        <button type="button" class="btn btn-success w-100" (click)="editarBitacora()"
+            [disabled]="formBitacoraEditar.invalid">
             Guardar Bitacora
         </button>
     </div>
-</div>
-<hr>
-<div class="row mt-2">
-    <div class="col-md-12">
-        <h3>Historial de Bitacoras</h3>
-    </div>
-</div>
-<div class="row mt-2">
-    <div class="col-md-12">
-        <table class="table" width="100%">
-            <thead>
-                <tr>
-                    <th width="60%">Comentario</th>
-                    <th width="20%">Fecha Ingresado</th>
-                    <th width="20%">Usuario</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let bitacora of comentariosBitacora">
-                    <td>{{bitacora.comentario}}</td>
-                    <td>{{bitacora.fecha_ingreso}}</td>
-                    <td>{{bitacora.usuario}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+</shared-modal>

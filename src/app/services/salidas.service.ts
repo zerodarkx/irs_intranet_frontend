@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { env } from 'src/environments/environment';
-import { ResultadoObtenerClienteDetalle, ResultadoObtenerClientesSalida } from '../interfaces';
+import { ResultadoCrearEditarEliminarBitacora, ResultadoObtenerClienteDetalle, ResultadoObtenerClientesSalida, ResultadoObtenerTodasBitacoras } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,27 @@ export class SalidasService {
   obtenerTodosClienteSalida(filtro: any): Observable<ResultadoObtenerClientesSalida> {
     let url = `${this.url_base}/obtenerTodosClienteSalida`;
     return this.http.post<ResultadoObtenerClientesSalida>(url, filtro);
+  }
+
+  obtenerBitacorasPorCliente(): Observable<ResultadoObtenerTodasBitacoras> {
+    let url = `${this.url_base}/obtenerBitacorasSalidasPorCliente/${this.id_cliente}`;
+    return this.http.get<ResultadoObtenerTodasBitacoras>(url);
+  }
+
+  crearBitacoraPorCliente(data: any): Observable<ResultadoCrearEditarEliminarBitacora> {
+    let url = `${this.url_base}/crearBitacorasSalidasPorCliente/${this.id_cliente}`;
+    return this.http.post<ResultadoCrearEditarEliminarBitacora>(url, data);
+  }
+
+  editarBitacoraPorCliente(data: any): Observable<ResultadoCrearEditarEliminarBitacora> {
+    let url = `${this.url_base}/modificarBitacorasSalidasPorCliente`;
+    return this.http.put<ResultadoCrearEditarEliminarBitacora>(url, data);
+  }
+
+  eliminarBitacoraPorCliente(id_bitacora: number): Observable<ResultadoCrearEditarEliminarBitacora> {
+    let url = `${this.url_base}/eliminarBitacorasSalidasPorCliente/${id_bitacora}`;
+    return this.http.delete<ResultadoCrearEditarEliminarBitacora>(url);
+
   }
 }
 

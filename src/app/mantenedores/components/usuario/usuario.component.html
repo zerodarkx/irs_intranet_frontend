@@ -1,450 +1,375 @@
-<div class="row pt-3">
-  <div class="col-md-6">
-    <h3>Mantenedor Usuario</h3>
+<div class="container-fluid">
+  <div class="row pt-3">
+    <div class="col-md-6">
+      <h3>Mantenedor Usuario</h3>
+    </div>
+    <div class="col-md-6"></div>
   </div>
-  <div class="col-md-6"></div>
-</div>
-<div class="row mt-3">
-  <div class="col-md-12">
-    <button class="btn btn-success w-100" (click)="modalUsuario(null)">
-      Agregar Usuario
-    </button>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <button class="btn btn-success w-100" (click)="modalUsuario(null)">
+        Agregar Usuario
+      </button>
+    </div>
   </div>
-</div>
-<!-- INICIO DE TABLA -->
-<div class="row mt-3">
-  <div class="col-md-12">
-    <p-table #tabla [value]="usuarios" styleClass="p-datatable-striped" [paginator]="true" [rows]="10"
-      [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
-      [rowsPerPageOptions]="[10, 25, 50, 100, 250, 500]" [globalFilterFields]="[
-        'rut',
-        'email',
-        'telefono',
-        'activo',
-        'nombreCompleto',
-        'perfil',
-        'nombre_plataforma'
-      ]" selectionMode="single" dataKey="id" [scrollable]="true" scrollDirection="horizontal"
-      [style]="{ width: '100%' }">
-      <!-- FILTRO GENERAL -->
-      <ng-template pTemplate="caption">
-        <div class="row">
-          <div class="col-md-6">
-            <button pButton class="btn btn-success" (click)="clear(tabla)">
-              <i class="bi bi-filter"></i>Lipiar Filtros
-            </button>
+  <!-- INICIO DE TABLA -->
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <p-table #tabla [value]="usuarios" styleClass="p-datatable-striped" [paginator]="true" [rows]="10"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
+        [rowsPerPageOptions]="[10, 25, 50, 100, 250, 500]" [globalFilterFields]="[
+          'rut',
+          'email',
+          'telefono',
+          'activo',
+          'nombreCompleto',
+          'perfil',
+          'nombre_plataforma'
+        ]" selectionMode="single" dataKey="id" [scrollable]="true" scrollDirection="horizontal"
+        [style]="{ width: '100%' }">
+        <!-- FILTRO GENERAL -->
+        <ng-template pTemplate="caption">
+          <div class="row">
+            <div class="col-md-6">
+              <button pButton class="btn btn-success" (click)="clear(tabla)">
+                <i class="bi bi-filter"></i>Lipiar Filtros
+              </button>
+            </div>
+            <div class="col-md-6">
+              <input #iBuscarTodo type="text" class="form-control" (input)="handleFilter($event)"
+                placeholder="Buscar en toda la tabla" />
+            </div>
           </div>
-          <div class="col-md-6">
-            <input #iBuscarTodo type="text" class="form-control" (input)="handleFilter($event)"
-              placeholder="Buscar en toda la tabla" />
-          </div>
-        </div>
-      </ng-template>
-      <!-- FILTROS POR COLUMNAS -->
-      <ng-template pTemplate="header">
-        <tr>
-          <th>
-            <div class="d-flex justify-content-between align-items-center">
-              <label for="">N°</label>
-              <div class="d-flex flex-column">
+        </ng-template>
+        <!-- FILTROS POR COLUMNAS -->
+        <ng-template pTemplate="header">
+          <tr>
+            <th>
+              <div class="d-flex justify-content-between align-items-center">
+                <label for="">N°</label>
+                <div class="d-flex flex-column">
+                </div>
               </div>
-            </div>
-          </th>
-          <th pSortableColumn="rut">
-            <div class="d-flex justify-content-between align-items-center">
-              <label for="">RUT</label>
-              <div class="d-flex flex-column">
-                <p-columnFilter type="text" field="rut" display="menu"></p-columnFilter>
-                <p-sortIcon field="rut"></p-sortIcon>
+            </th>
+            <th pSortableColumn="rut">
+              <div class="d-flex justify-content-between align-items-center">
+                <label for="">RUT</label>
+                <div class="d-flex flex-column">
+                  <p-columnFilter type="text" field="rut" display="menu"></p-columnFilter>
+                  <p-sortIcon field="rut"></p-sortIcon>
+                </div>
               </div>
-            </div>
-          </th>
-          <th pSortableColumn="nombreCompleto">
-            <div class="d-flex justify-content-between align-items-center">
-              <label for="">Nombre</label>
-              <div class="d-flex flex-column">
-                <p-columnFilter type="text" field="nombreCompleto" display="menu"></p-columnFilter>
-                <p-sortIcon field="nombreCompleto"></p-sortIcon>
+            </th>
+            <th pSortableColumn="nombreCompleto">
+              <div class="d-flex justify-content-between align-items-center">
+                <label for="">Nombre</label>
+                <div class="d-flex flex-column">
+                  <p-columnFilter type="text" field="nombreCompleto" display="menu"></p-columnFilter>
+                  <p-sortIcon field="nombreCompleto"></p-sortIcon>
+                </div>
               </div>
-            </div>
-          </th>
-          <th pSortableColumn="email">
-            <div class="d-flex justify-content-between align-items-center">
-              <label for="">Correo</label>
-              <div class="d-flex flex-column">
-                <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
-                <p-sortIcon field="email"></p-sortIcon>
+            </th>
+            <th pSortableColumn="email">
+              <div class="d-flex justify-content-between align-items-center">
+                <label for="">Correo</label>
+                <div class="d-flex flex-column">
+                  <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
+                  <p-sortIcon field="email"></p-sortIcon>
+                </div>
               </div>
-            </div>
-          </th>
-          <th pSortableColumn="telefono">
-            <div class="d-flex justify-content-between align-items-center">
-              <label for="">Teléfono</label>
-              <div class="d-flex flex-column">
-                <p-columnFilter type="text" field="telefono" display="menu"></p-columnFilter>
-                <p-sortIcon field="telefono"></p-sortIcon>
+            </th>
+            <th pSortableColumn="telefono">
+              <div class="d-flex justify-content-between align-items-center">
+                <label for="">Teléfono</label>
+                <div class="d-flex flex-column">
+                  <p-columnFilter type="text" field="telefono" display="menu"></p-columnFilter>
+                  <p-sortIcon field="telefono"></p-sortIcon>
+                </div>
               </div>
-            </div>
-          </th>
-          <th pSortableColumn="nombre_plataforma">
-            <div class="d-flex justify-content-between align-items-center">
-              <label for="">Plataforma</label>
-              <div class="d-flex flex-column">
-                <p-columnFilter type="text" field="nombre_plataforma" display="menu"></p-columnFilter>
-                <p-sortIcon field="nombre_plataforma"></p-sortIcon>
+            </th>
+            <th pSortableColumn="nombre_plataforma">
+              <div class="d-flex justify-content-between align-items-center">
+                <label for="">Plataforma</label>
+                <div class="d-flex flex-column">
+                  <p-columnFilter type="text" field="nombre_plataforma" display="menu"></p-columnFilter>
+                  <p-sortIcon field="nombre_plataforma"></p-sortIcon>
+                </div>
               </div>
-            </div>
-          </th>
-          <th pSortableColumn="perfil">
-            <div class="d-flex justify-content-between align-items-center">
-              <label for="">Perfil</label>
-              <div class="d-flex flex-column">
-                <p-columnFilter type="text" field="perfil" display="menu"></p-columnFilter>
-                <p-sortIcon field="perfil"></p-sortIcon>
+            </th>
+            <th pSortableColumn="perfil">
+              <div class="d-flex justify-content-between align-items-center">
+                <label for="">Perfil</label>
+                <div class="d-flex flex-column">
+                  <p-columnFilter type="text" field="perfil" display="menu"></p-columnFilter>
+                  <p-sortIcon field="perfil"></p-sortIcon>
+                </div>
               </div>
-            </div>
-          </th>
-          <th [style]="{ width: '150px' }">
-            <div class="text-center">
-              <label for="">Opciones</label>
-            </div>
-          </th>
-        </tr>
-      </ng-template>
-      <!-- CUERPO DE LA TABLA -->
-      <ng-template pTemplate="body" let-usuario let-i="rowIndex">
-        <tr (click)="(false)" style="cursor: pointer" [ngClass]="!usuario.activo ? 'estadoUsuario' : ''">
-          <td>{{ i + 1 }}</td>
-          <td>{{ usuario.rut }}</td>
-          <td>{{ usuario.nombreCompleto }}</td>
-          <td>{{ usuario.email }}</td>
-          <td>{{ usuario.telefono }}</td>
-          <td>{{ usuario.nombre_plataforma }}</td>
-          <td (click)="modalPermisos(usuario)">{{ usuario.perfil }}</td>
-          <td>
-            <div class="d-flex justify-content-between align-items-center">
-              <i class="bi bi-pencil-square" (click)="modalUsuario(usuario)"></i>
-              <i class="bi bi-key-fill" (click)="modalPassword(usuario)"></i>
-              <i class="bi bi-currency-dollar" (click)="modalInversionista(usuario)"
-                *ngIf="[8,9].includes(usuario.id_perfil)"></i>
-              <i (click)="toggleEstadoUsuario(usuario)" [ngClass]="
-                  usuario.activo ? 'bi bi-check-circle' : 'bi bi-dash-circle'
-                "></i>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
-      <!-- MENSAJE DE QUE NO HAY DATOS -->
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="20" class="text-center">No hay datos disponibles</td>
-        </tr>
-      </ng-template>
-    </p-table>
+            </th>
+            <th [style]="{ width: '150px' }">
+              <div class="text-center">
+                <label for="">Opciones</label>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <!-- CUERPO DE LA TABLA -->
+        <ng-template pTemplate="body" let-usuario let-i="rowIndex">
+          <tr (click)="(false)" style="cursor: pointer" [ngClass]="!usuario.activo ? 'estadoUsuario' : ''">
+            <td>{{ i + 1 }}</td>
+            <td>{{ usuario.rut }}</td>
+            <td>{{ usuario.nombreCompleto }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.telefono }}</td>
+            <td>{{ usuario.nombre_plataforma }}</td>
+            <td (click)="abrirmodalPermisos(usuario)">{{ usuario.perfil }}</td>
+            <td>
+              <div class="d-flex justify-content-between align-items-center">
+                <i class="bi bi-pencil-square" (click)="modalUsuario(usuario)"></i>
+                <i class="bi bi-key-fill" (click)="modalPassword(usuario)"></i>
+                <i class="bi bi-currency-dollar" (click)="abrirInversionista(usuario)"
+                  *ngIf="[8,9].includes(usuario.id_perfil)"></i>
+                <i (click)="toggleEstadoUsuario(usuario)" [ngClass]="
+                    usuario.activo ? 'bi bi-check-circle' : 'bi bi-dash-circle'
+                  "></i>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <!-- MENSAJE DE QUE NO HAY DATOS -->
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="20" class="text-center">No hay datos disponibles</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
 </div>
 
 <!-- Modal agregar usuario-->
-<div class="modal fade" id="modalUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          {{ titulo_cabecera }} Usuario
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<shared-modal #modalAgregarUsuario modalId="modalAgregarUsuario"
+  [titulo]="'Cambiar Password - Usuario :' + nombre_usuario">
+  <div modal-cuerpo [formGroup]="formUsuario">
+    <div class="row mt-3">
+      <div class="col-md-3">
+        <label for="">RUT</label>
+        <input type="text" class="form-control" formControlName="usu_rut" (keyup)="formatearRut($event)" />
+        <shared-mensaje-validador [forControl]="formUsuario.controls['usu_rut']"></shared-mensaje-validador>
       </div>
-      <div class="modal-body">
-        <form [formGroup]="formUsuario">
-          <div class="modal-body">
-            <div class="row mt-3">
-              <div class="col-md-3">
-                <label for="">RUT</label>
-                <input type="text" class="form-control" formControlName="usu_rut" (keyup)="formatearRut($event)" />
-                <shared-mensaje-validador [forControl]="formUsuario.controls['usu_rut']"></shared-mensaje-validador>
-              </div>
-              <div class="col-md-3">
-                <label for="">Nombre</label>
-                <input type="text" class="form-control" formControlName="usu_nombre" (change)="mayuscula($event)" />
-                <shared-mensaje-validador [forControl]="formUsuario.controls['usu_nombre']"></shared-mensaje-validador>
-              </div>
-              <div class="col-md-3">
-                <label for="">Apellido Paterno</label>
-                <input type="text" class="form-control" formControlName="usu_apep" (change)="mayuscula($event)" />
-                <shared-mensaje-validador [forControl]="formUsuario.controls['usu_apep']"></shared-mensaje-validador>
-              </div>
-              <div class="col-md-3">
-                <label for="">Apellido Materna</label>
-                <input type="text" class="form-control" formControlName="usu_apem" (change)="mayuscula($event)" />
-                <shared-mensaje-validador [forControl]="formUsuario.controls['usu_apem']"></shared-mensaje-validador>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-md-4">
-                <label for="">Jefatura</label>
-                <input type="text" class="form-control" formControlName="id_jefatura" />
-                <shared-mensaje-validador [forControl]="formUsuario.controls['id_jefatura']"></shared-mensaje-validador>
-              </div>
-              <div class="col-md-4">
-                <label for="">Tipo Usuario</label>
-                <ng-select [items]="selectTipoPerfil" bindValue="id_tipoUsuario" bindLabel="nombre_tipoUsuario"
-                  placeholder="Seleccione estado" notFoundText="No se encontraron coincidencias"
-                  formControlName="id_tipoUsuario">
-                </ng-select>
-                <shared-mensaje-validador
-                  [forControl]="formUsuario.controls['id_tipoUsuario']"></shared-mensaje-validador>
-              </div>
-              <div class="col-md-4">
-                <label for="">Plataforma</label>
-                <ng-select [items]="selectPlataforma" bindValue="id_plataforma" bindLabel="nombre_plataforma"
-                  placeholder="Seleccione estado" notFoundText="No se encontraron coincidencias"
-                  formControlName="id_plataforma">
-                </ng-select>
-                <shared-mensaje-validador
-                  [forControl]="formUsuario.controls['id_plataforma']"></shared-mensaje-validador>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-md-6">
-                <label for="">Correo</label>
-                <input type="text" class="form-control" formControlName="usu_correo" />
-                <shared-mensaje-validador [forControl]="formUsuario.controls['usu_correo']"></shared-mensaje-validador>
-              </div>
-              <div class="col-md-2">
-                <label for="">Codigo Telefono</label>
-                <ng-select [items]="selectCodigoTelefono" bindValue="id_codigoTelefonico" bindLabel="codigo_telefono"
-                  placeholder="Seleccione estado" notFoundText="No se encontraron coincidencias"
-                  formControlName="id_codigoTelefonico">
-                </ng-select>
-                <shared-mensaje-validador
-                  [forControl]="formUsuario.controls['id_codigoTelefonico']"></shared-mensaje-validador>
-              </div>
-              <div class="col-md-4">
-                <label for="">Telefono</label>
-                <input type="text" class="form-control" formControlName="usu_tel" />
-                <shared-mensaje-validador [forControl]="formUsuario.controls['usu_tel']"></shared-mensaje-validador>
-              </div>
-            </div>
-            <div *ngIf="!formUsuario.get('id_usuario')?.value" class="row mt-3">
-              <div class="col-md-6">
-                <label for="">Password</label>
-                <input type="text" class="form-control" formControlName="usu_password" />
-                <shared-mensaje-validador
-                  [forControl]="formUsuario.controls['usu_password']"></shared-mensaje-validador>
-              </div>
-              <div class="col-md-6">
-                <label for="">Confirmar Password</label>
-                <input type="text" class="form-control" formControlName="usu_password2" />
-                <shared-mensaje-validador
-                  [forControl]="formUsuario.controls['usu_password2']"></shared-mensaje-validador>
-                <ng-container *ngIf="
-                    formUsuario.hasError('passwordNotMach') &&
-                    formUsuario.get('usu_password2')?.touched
-                  ">
-                  <small style="color: red">Las password no son iguales desde</small>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-        </form>
+      <div class="col-md-3">
+        <label for="">Nombre</label>
+        <input type="text" class="form-control" formControlName="usu_nombre" (change)="mayuscula($event)" />
+        <shared-mensaje-validador [forControl]="formUsuario.controls['usu_nombre']"></shared-mensaje-validador>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Cerrar
-        </button>
-        <button type="submit" class="btn btn-success" (click)="agregarUsuario()" [disabled]="formUsuario.invalid">
-          {{ titulo_cabecera }} Usuario
-        </button>
+      <div class="col-md-3">
+        <label for="">Apellido Paterno</label>
+        <input type="text" class="form-control" formControlName="usu_apep" (change)="mayuscula($event)" />
+        <shared-mensaje-validador [forControl]="formUsuario.controls['usu_apep']"></shared-mensaje-validador>
+      </div>
+      <div class="col-md-3">
+        <label for="">Apellido Materna</label>
+        <input type="text" class="form-control" formControlName="usu_apem" (change)="mayuscula($event)" />
+        <shared-mensaje-validador [forControl]="formUsuario.controls['usu_apem']"></shared-mensaje-validador>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-4">
+        <label for="">Jefatura</label>
+        <input type="text" class="form-control" formControlName="id_jefatura" />
+        <shared-mensaje-validador [forControl]="formUsuario.controls['id_jefatura']"></shared-mensaje-validador>
+      </div>
+      <div class="col-md-4">
+        <label for="">Tipo Usuario</label>
+        <ng-select [items]="selectTipoPerfil" bindValue="id_tipoUsuario" bindLabel="nombre_tipoUsuario"
+          placeholder="Seleccione estado" notFoundText="No se encontraron coincidencias"
+          formControlName="id_tipoUsuario">
+        </ng-select>
+        <shared-mensaje-validador [forControl]="formUsuario.controls['id_tipoUsuario']"></shared-mensaje-validador>
+      </div>
+      <div class="col-md-4">
+        <label for="">Plataforma</label>
+        <ng-select [items]="selectPlataforma" bindValue="id_plataforma" bindLabel="nombre_plataforma"
+          placeholder="Seleccione estado" notFoundText="No se encontraron coincidencias"
+          formControlName="id_plataforma">
+        </ng-select>
+        <shared-mensaje-validador [forControl]="formUsuario.controls['id_plataforma']"></shared-mensaje-validador>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <label for="">Correo</label>
+        <input type="text" class="form-control" formControlName="usu_correo" />
+        <shared-mensaje-validador [forControl]="formUsuario.controls['usu_correo']"></shared-mensaje-validador>
+      </div>
+      <div class="col-md-2">
+        <label for="">Codigo Telefono</label>
+        <ng-select [items]="selectCodigoTelefono" bindValue="id_codigoTelefonico" bindLabel="codigo_telefono"
+          placeholder="Seleccione estado" notFoundText="No se encontraron coincidencias"
+          formControlName="id_codigoTelefonico">
+        </ng-select>
+        <shared-mensaje-validador [forControl]="formUsuario.controls['id_codigoTelefonico']"></shared-mensaje-validador>
+      </div>
+      <div class="col-md-4">
+        <label for="">Telefono</label>
+        <input type="text" class="form-control" formControlName="usu_tel" />
+        <shared-mensaje-validador [forControl]="formUsuario.controls['usu_tel']"></shared-mensaje-validador>
+      </div>
+    </div>
+    <div *ngIf="!formUsuario.get('id_usuario')?.value" class="row mt-3">
+      <div class="col-md-6">
+        <label for="">Password</label>
+        <input type="text" class="form-control" formControlName="usu_password" />
+        <shared-mensaje-validador [forControl]="formUsuario.controls['usu_password']"></shared-mensaje-validador>
+      </div>
+      <div class="col-md-6">
+        <label for="">Confirmar Password</label>
+        <input type="text" class="form-control" formControlName="usu_password2" />
+        <shared-mensaje-validador [forControl]="formUsuario.controls['usu_password2']"></shared-mensaje-validador>
+        <ng-container *ngIf="
+                formUsuario.hasError('passwordNotMach') &&
+                formUsuario.get('usu_password2')?.touched
+              ">
+          <small style="color: red">Las password no son iguales desde</small>
+        </ng-container>
       </div>
     </div>
   </div>
-</div>
+  <div modal-footer>
+    <button type="submit" class="btn btn-success" (click)="agregarUsuario()" [disabled]="formUsuario.invalid">
+      {{ titulo_cabecera }} Usuario
+    </button>
+  </div>
+</shared-modal>
 
 <!-- Modal Cambiar Contraseña-->
-<div class="modal fade" id="modalPassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  >
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Cambiar Password - Usuario : {{nombre_usuario}}
-        </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<shared-modal #modalCambiarPassword modalId="modalCambiarPassword"
+  [titulo]="'Cambiar Password - Usuario :' + nombre_usuario">
+  <div modal-cuerpo [formGroup]="formPassword">
+    <div class="row">
+      <div class="col-md-6">
+        <label for="">Nueva Contraseña</label>
+        <input type="text" class="form-control" formControlName="password" />
+        <shared-mensaje-validador [forControl]="formPassword.controls['password']"></shared-mensaje-validador>
       </div>
-      <div class="modal-body">
-        <form [formGroup]="formPassword">
-          <div class="row">
-            <div class="col-md-6">
-              <label for="">Nueva Contraseña</label>
-              <input type="text" class="form-control" formControlName="password" />
-              <shared-mensaje-validador [forControl]="formPassword.controls['password']"></shared-mensaje-validador>
-            </div>
-            <div class="col-md-6">
-              <label for="">Confirmar Nueva Contraseña</label>
-              <input type="text" class="form-control" formControlName="password2" />
-              <shared-mensaje-validador [forControl]="formPassword.controls['password2']"></shared-mensaje-validador>
-              <ng-container *ngIf="
-                  formPassword.hasError('passwordNotMach') &&
-                  formPassword.get('password2')?.touched
-                ">
-                <small style="color: red">Las password no son iguales desde</small>
-              </ng-container>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary" (click)="cambiarPassword()">
-          Cambiar Password
-        </button>
+      <div class="col-md-6">
+        <label for="">Confirmar Nueva Contraseña</label>
+        <input type="text" class="form-control" formControlName="password2" />
+        <shared-mensaje-validador [forControl]="formPassword.controls['password2']"></shared-mensaje-validador>
+        <ng-container *ngIf="
+            formPassword.hasError('passwordNotMach') &&
+            formPassword.get('password2')?.touched
+          ">
+          <small style="color: red">Las password no son iguales desde</small>
+        </ng-container>
       </div>
     </div>
   </div>
-</div>
+  <div modal-footer>
+    <button type="button" class="btn btn-primary" (click)="cambiarPassword()">
+      Cambiar Password
+    </button>
+  </div>
+</shared-modal>
+
 
 <!-- Modal para agregar permisos -->
-<div class="modal fade" id="modalPermisos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  >
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Modificar Permisos - Usuario : {{nombre_usuario}}
-        </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <mantenedores-permisos [permisos]="permisosPorUsuario"></mantenedores-permisos>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary" (click)="guardarPermisos()">
-          Cambiar Permisos
-        </button>
-      </div>
-    </div>
+<shared-modal #modalPermisos modalId="modalPermisos" [titulo]="'Modificar Permisos - Usuario :'+ nombre_usuario">
+  <div modal-cuerpo>
+    <mantenedores-permisos [permisos]="permisosPorUsuario"></mantenedores-permisos>
   </div>
-</div>
+  <div modal-footer>
+    <button type="button" class="btn btn-primary" (click)="guardarPermisos()">
+      Cambiar Permisos
+    </button>
+  </div>
+</shared-modal>
 
 <!-- Modal para agregar data inversionista -->
-<div class="modal fade" id="modalInversionista" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  >
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Informacion Inversionista : {{nombre_usuario}}
-        </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<shared-modal #modalInversionista modalId="modalInversionista"
+  [titulo]="'Informacion Inversionista :' + nombre_usuario">
+  <div modal-cuerpo [formGroup]="inversionistaForm" *ngIf="cargaDeFormulario">
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <h3>Personal de Interes</h3>
       </div>
-      <div class="modal-body" *ngIf="cargaDeFormulario">
-        <form [formGroup]="inversionistaForm">
-          <div class="row mt-2">
-            <div class="col-md-12">
-              <h3>Personal de Interes</h3>
-            </div>
-            <div class="col-md-12">
-              <div class="row p-1">
-                <div class="col-md-3 mt-2">
-                  <label for="">Invertir UF Desde</label>
-                  <input type="text" class="form-control" formControlName="uf_desde"
-                    (change)="formateadorMiles($event)">
-                  <shared-mensaje-validador
-                    [forControl]="inversionistaForm.controls['uf_desde']"></shared-mensaje-validador>
-                </div>
-                <div class="col-md-3 mt-2">
-                  <label for="">Invertir UF Hasta</label>
-                  <input type="text" class="form-control" formControlName="uf_hasta"
-                    (change)="formateadorMiles($event)">
-                  <shared-mensaje-validador
-                    [forControl]="inversionistaForm.controls['uf_hasta']"></shared-mensaje-validador>
-                </div>
-                <div class="col-md-3 mt-2">
-                  <label for="">LTV Desde</label>
-                  <input type="text" class="form-control" formControlName="ltv_desde"
-                    (change)="formateadorMiles($event)">
-                  <shared-mensaje-validador
-                    [forControl]="inversionistaForm.controls['ltv_desde']"></shared-mensaje-validador>
-                </div>
-                <div class="col-md-3 mt-2">
-                  <label for="">LTV Hasta</label>
-                  <input type="text" class="form-control" formControlName="ltv_hasta"
-                    (change)="formateadorMiles($event)">
-                  <shared-mensaje-validador
-                    [forControl]="inversionistaForm.controls['ltv_hasta']"></shared-mensaje-validador>
-                </div>
-                <div class="col-md-3 mt-2">
-                  <label for="">Plazo Desde (meses)</label>
-                  <input type="text" class="form-control" formControlName="plazo_desde"
-                    (change)="formateadorMiles($event)">
-                  <shared-mensaje-validador
-                    [forControl]="inversionistaForm.controls['plazo_desde']"></shared-mensaje-validador>
-                </div>
-                <div class="col-md-3 mt-2">
-                  <label for="">Plazo Hasta (meses)</label>
-                  <input type="text" class="form-control" formControlName="plazo_hasta"
-                    (change)="formateadorMiles($event)">
-                  <shared-mensaje-validador
-                    [forControl]="inversionistaForm.controls['plazo_hasta']"></shared-mensaje-validador>
-                </div>
-                <div class="col-md-3 mt-2">
-                  <label for="">TIR</label>
-                  <input type="text" class="form-control" formControlName="tir" onchange="formateadorMiles($event)">
-                  <shared-mensaje-validador [forControl]="inversionistaForm.controls['tir']"></shared-mensaje-validador>
-                </div>
-              </div>
-            </div>
+      <div class="col-md-12">
+        <div class="row p-1">
+          <div class="col-md-3 mt-2">
+            <label for="">Invertir UF Desde</label>
+            <input type="text" class="form-control" formControlName="uf_desde" (change)="formateadorMiles($event)">
+            <shared-mensaje-validador [forControl]="inversionistaForm.controls['uf_desde']"></shared-mensaje-validador>
           </div>
-          <div class="row mt-2">
-            <div class="col-md-12">
-              <h3>Documentos a Ver</h3>
-            </div>
-            <div class="col-md-12">
-              <div class="row p-1" *ngIf="cargaDeDocumento">
-                <div class="col-md-4" *ngFor="let documento of documentosParaVer; let i = index"
-                  formGroupName="verDocumentos">
-                  <input type="checkbox" [formControlName]="i" class="form-check-input documento_ver"
-                    id="{{ documento.nombre_tipoDocumento }}" />
-                  <label for="{{ documento.nombre_tipoDocumento }}" class="form-check-label ms-2">{{
-                    documento.nombre_tipoDocumento }}</label>
-                </div>
-              </div>
-            </div>
+          <div class="col-md-3 mt-2">
+            <label for="">Invertir UF Hasta</label>
+            <input type="text" class="form-control" formControlName="uf_hasta" (change)="formateadorMiles($event)">
+            <shared-mensaje-validador [forControl]="inversionistaForm.controls['uf_hasta']"></shared-mensaje-validador>
           </div>
-          <div class="row mt-2">
-            <div class="col-md-12">
-              <h3>Propiedades</h3>
-            </div>
-            <div class="col-md-12">
-              <div class="row p-1" *ngIf="cargaDeDocumento">
-                <div class="col-md-4" *ngFor="let documento of propiedadesParaVer; let i = index"
-                  formGroupName="verPropiedades">
-                  <input type="checkbox" [formControlName]="i" class="form-check-input documento_ver"
-                    id="{{ documento.nombre_tipoPropiedad }}" />
-                  <label for="{{ documento.nombre_tipoPropiedad }}" class="form-check-label ms-2">{{
-                    documento.nombre_tipoPropiedad }}</label>
-                </div>
-              </div>
-            </div>
+          <div class="col-md-3 mt-2">
+            <label for="">LTV Desde</label>
+            <input type="text" class="form-control" formControlName="ltv_desde" (change)="formateadorMiles($event)">
+            <shared-mensaje-validador [forControl]="inversionistaForm.controls['ltv_desde']"></shared-mensaje-validador>
           </div>
-        </form>
+          <div class="col-md-3 mt-2">
+            <label for="">LTV Hasta</label>
+            <input type="text" class="form-control" formControlName="ltv_hasta" (change)="formateadorMiles($event)">
+            <shared-mensaje-validador [forControl]="inversionistaForm.controls['ltv_hasta']"></shared-mensaje-validador>
+          </div>
+          <div class="col-md-3 mt-2">
+            <label for="">Plazo Desde (meses)</label>
+            <input type="text" class="form-control" formControlName="plazo_desde" (change)="formateadorMiles($event)">
+            <shared-mensaje-validador
+              [forControl]="inversionistaForm.controls['plazo_desde']"></shared-mensaje-validador>
+          </div>
+          <div class="col-md-3 mt-2">
+            <label for="">Plazo Hasta (meses)</label>
+            <input type="text" class="form-control" formControlName="plazo_hasta" (change)="formateadorMiles($event)">
+            <shared-mensaje-validador
+              [forControl]="inversionistaForm.controls['plazo_hasta']"></shared-mensaje-validador>
+          </div>
+          <div class="col-md-3 mt-2">
+            <label for="">TIR</label>
+            <input type="text" class="form-control" formControlName="tir" onchange="formateadorMiles($event)">
+            <shared-mensaje-validador [forControl]="inversionistaForm.controls['tir']"></shared-mensaje-validador>
+          </div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="guardarDocumentos()"
-          [disabled]="inversionistaForm.invalid">Guardar Documentos</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <h3>Documentos a Ver</h3>
+      </div>
+      <div class="col-md-12">
+        <div class="row p-1" *ngIf="cargaDeDocumento">
+          <div class="col-md-4" *ngFor="let documento of documentosParaVer; let i = index"
+            formGroupName="verDocumentos">
+            <input type="checkbox" [formControlName]="i" class="form-check-input documento_ver"
+              id="{{ documento.nombre_tipoDocumento }}" />
+            <label for="{{ documento.nombre_tipoDocumento }}" class="form-check-label ms-2">{{
+              documento.nombre_tipoDocumento }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <h3>Propiedades</h3>
+      </div>
+      <div class="col-md-12">
+        <div class="row p-1" *ngIf="cargaDeDocumento">
+          <div class="col-md-4" *ngFor="let documento of propiedadesParaVer; let i = index"
+            formGroupName="verPropiedades">
+            <input type="checkbox" [formControlName]="i" class="form-check-input documento_ver"
+              id="{{ documento.nombre_tipoPropiedad }}" />
+            <label for="{{ documento.nombre_tipoPropiedad }}" class="form-check-label ms-2">{{
+              documento.nombre_tipoPropiedad }}</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <div modal-footer>
+    <button type="button" class="btn btn-success" (click)="guardarDocumentos()"
+      [disabled]="inversionistaForm.invalid">Guardar Documentos</button>
+  </div>
+</shared-modal>

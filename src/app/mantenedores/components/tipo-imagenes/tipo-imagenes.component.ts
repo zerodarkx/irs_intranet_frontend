@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { ITipoImagen, ResultadoAccionesTipoImagenes, ResultadoTipoImagenes } from 'src/app/interfaces';
 import { TipoImagenesService } from 'src/app/services';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
@@ -18,6 +19,7 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 export class TipoImagenesComponent implements OnInit {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+  @ViewChild('modalTipoImagen') modalTipoImagen!: ModalComponent;
 
   titulo_cabecera: string = '';
   tipoImagen: ITipoImagen[] = []
@@ -53,7 +55,7 @@ export class TipoImagenesComponent implements OnInit {
     this.tabla.filterGlobal(inputElement.value, 'contains');
   }
 
-  modalTipoImagen(tipoImagen: ITipoImagen | null) {
+  AbrirModalTipoImagen(tipoImagen: ITipoImagen | null) {
     this.formTipoImagen.reset();
     this.titulo_cabecera = (!tipoImagen) ? 'Nuevo' : 'Editar';
     if (tipoImagen) {
@@ -62,7 +64,7 @@ export class TipoImagenesComponent implements OnInit {
         nombre_tipoImagen: tipoImagen.nombre_tipoImagen
       })
     }
-    abrirModal('modalTipoImagen')
+    this.modalTipoImagen.abrirModal();
   }
 
   obtenerTodosTipoPropiedad() {
@@ -89,7 +91,7 @@ export class TipoImagenesComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalTipoImagen.cerrarModal();
               this.obtenerTodosTipoPropiedad();
             }
           },
@@ -108,7 +110,7 @@ export class TipoImagenesComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalTipoImagen.cerrarModal();
               this.obtenerTodosTipoPropiedad();
             }
           },

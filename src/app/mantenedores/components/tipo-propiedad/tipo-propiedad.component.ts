@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { ResultadoAccionesTipoPropiedad, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad } from 'src/app/interfaces';
 import { TipoPropiedadService } from 'src/app/services';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
@@ -18,6 +19,7 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 export class TipoPropiedadComponent implements OnInit {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+  @ViewChild('modalTipoPropiedad') modalTipoPropiedad!: ModalComponent;
 
   titulo_cabecera: string = '';
   tipoPropiedad: TipoPropiedad[] = []
@@ -53,7 +55,7 @@ export class TipoPropiedadComponent implements OnInit {
     this.tabla.filterGlobal(inputElement.value, 'contains');
   }
 
-  modalTipoPropiedad(tipoPropiedad: TipoPropiedad | null) {
+  abrirTipoPropiedad(tipoPropiedad: TipoPropiedad | null) {
     this.formTipoPropiedad.reset();
     this.titulo_cabecera = (!tipoPropiedad) ? 'Nuevo' : 'Editar';
     if (tipoPropiedad) {
@@ -62,7 +64,7 @@ export class TipoPropiedadComponent implements OnInit {
         nombre_tipoPropiedad: tipoPropiedad.nombre_tipoPropiedad
       })
     }
-    abrirModal('modalTipoPropiedad')
+    this.modalTipoPropiedad.abrirModal();
   }
 
   obtenerTodosTipoPropiedad() {
@@ -89,7 +91,7 @@ export class TipoPropiedadComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalTipoPropiedad.cerrarModal();
               this.obtenerTodosTipoPropiedad();
             }
           },
@@ -108,7 +110,7 @@ export class TipoPropiedadComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalTipoPropiedad.cerrarModal();
               this.obtenerTodosTipoPropiedad();
             }
           },

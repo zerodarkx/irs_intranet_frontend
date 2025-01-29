@@ -7,12 +7,12 @@ import { lastValueFrom } from 'rxjs';
 import { Plataforma, ResultadoObtenerTodasPlataformas, CodigoTelefono, ResultadoObtenerTodosCodigoTelefono, PermisoConId, ResultadoAccionesUsuario, ResultadoObtenerTodosUsuario, ResultadoUsuario, ResultadoObtenerTodosPerfiles, TipoPerfilUsuario, ITipoDocumento, TipoPropiedad } from 'src/app/interfaces';
 import { CodigoTelefonoService, PlataformaService, TipoPerfilService, UsuarioService, TipoDocuentosService, TipoPropiedadService } from 'src/app/services';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
 import { agregarMayusculas, formateadorMiles, formateadorMilesDesdeBase, formatearRut } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 import { rutValidator, validarPassword } from 'src/app/shared/utils/validadores';
 
 import { PermisosComponent } from '../permisos/permisos.component';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
 @Component({
   selector: 'mantendor-usuario',
@@ -20,6 +20,11 @@ import { PermisosComponent } from '../permisos/permisos.component';
   styleUrls: ['./usuario.component.css']
 })
 export class UsuarioComponent implements OnInit {
+
+  @ViewChild('modalAgregarUsuario') modalAgregarUsuario!: ModalComponent;
+  @ViewChild('modalCambiarPassword') modalCambiarPassword!: ModalComponent;
+  @ViewChild('modalPermisos') modalPermisos!: ModalComponent;
+  @ViewChild('modalInversionista') modalInversionista!: ModalComponent;
 
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
@@ -223,6 +228,7 @@ export class UsuarioComponent implements OnInit {
   }
 
   modalUsuario(usuario: ResultadoUsuario | null) {
+    
     this.formUsuario.reset();
     this.titulo_cabecera = (!usuario) ? 'Nuevo' : 'Editar';
     const camposRemover = ['usu_password', 'usu_password2']
@@ -254,14 +260,15 @@ export class UsuarioComponent implements OnInit {
         control?.updateValueAndValidity();
       })
     }
-    abrirModal('modalUsuario')
+    this.modalAgregarUsuario.abrirModal()
+    // abrirModal('modalUsuario')
   }
 
   modalPassword(usuario: ResultadoUsuario) {
     this.nombre_usuario = usuario.nombreCompleto
     this.id_usuario = usuario.id_usuario;
     this.formPassword.reset();
-    abrirModal('modalPassword')
+    this.modalCambiarPassword.abrirModal();
   }
 
   async toggleEstadoUsuario(usuario: ResultadoUsuario) {
@@ -309,7 +316,7 @@ export class UsuarioComponent implements OnInit {
           })
 
           if (response.ok) {
-            cerrarModal();
+            this.modalCambiarPassword.cerrarModal();
             this.formPassword.reset();
           }
         },
@@ -331,7 +338,7 @@ export class UsuarioComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalAgregarUsuario.cerrarModal()
               this.obtenerUsuario();
             }
           },
@@ -350,7 +357,7 @@ export class UsuarioComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalAgregarUsuario.cerrarModal()
               this.obtenerUsuario();
             }
           },
@@ -361,13 +368,13 @@ export class UsuarioComponent implements OnInit {
     }
   }
 
-  modalPermisos(usuario: ResultadoUsuario) {
+  abrirmodalPermisos(usuario: ResultadoUsuario) {
     this.nombre_usuario = usuario.nombreCompleto
     this.permisosPorUsuario = {
       id: usuario.id_usuario,
       permisos: usuario.permisos
     };
-    abrirModal('modalPermisos')
+    this.modalPermisos.abrirModal();
   }
 
   guardarPermisos() {
@@ -386,10 +393,10 @@ export class UsuarioComponent implements OnInit {
       })
     const usuario = this.usuarios.find((u) => u.id_usuario === this.permisoComponente.permisosForm.get('id')?.value);
     usuario!.permisos = this.permisoComponente.permisosForm.get('modulos')?.value;
-    cerrarModal();
+    this.modalPermisos.cerrarModal();
   }
 
-  async modalInversionista(usuario: ResultadoUsuario): Promise<void> {
+  async abrirInversionista(usuario: ResultadoUsuario): Promise<void> {
     this.nombre_usuario = usuario.nombreCompleto
     const response = await lastValueFrom(this.sUsuario.obtenerDataInversionista(usuario.id_usuario));
     this.inversionistaForm = this.fb.group({
@@ -411,7 +418,7 @@ export class UsuarioComponent implements OnInit {
 
     this.cargaDeFormulario = true;
     this.cargaDeDocumento = true;
-    abrirModal('modalInversionista');
+    this.modalInversionista.abrirModal();
 
   }
 
@@ -428,9 +435,6 @@ export class UsuarioComponent implements OnInit {
 
     data.documentos = documentoSeleccionados;
     data.propiedades = propiedadesseleccionados;
-
-    console.log(data);
-
 
     this.sUsuario.guardarDataInversionista(data)
       .subscribe({

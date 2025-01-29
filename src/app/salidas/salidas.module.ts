@@ -12,6 +12,8 @@ import { DetalleComponent } from './components/detalle/detalle.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { BitacoraComponent } from './components/bitacora/bitacora.component';
 import { ProrrogaComponent } from './components/prorroga/prorroga.component';
+import { DocumentosComponent } from './components/documentos/documentos.component';
+import { CurseComponent } from './components/curse/curse.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { ProrrogaComponent } from './components/prorroga/prorroga.component';
     DetalleComponent,
     MenuComponent,
     BitacoraComponent,
-    ProrrogaComponent
+    ProrrogaComponent,
+    DocumentosComponent,
+    CurseComponent
   ],
   imports: [
     CommonModule,

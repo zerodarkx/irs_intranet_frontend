@@ -70,22 +70,16 @@
         <div class="row mt-2">
             <div class="col-md-4">
                 <label for="">Tipo de Salida</label>
-                <ng-select placeholder="Seleccionar Tipo Salida" notFoundText="No se encontraron coincidencias"
-                    formControlName="tipo_salida">
-                    <ng-option value="ven">Venta</ng-option>
-                    <ng-option value="ref">Refinanciamiento</ng-option>
+                <ng-select [items]="tipoSalida" bindValue="id_tipoSalida" bindLabel="nombre_salida"
+                  placeholder="Seleccionar Tipo Salida" notFoundText="No se encontraron coincidencias"
+                  formControlName="tipo_salida">
                 </ng-select>
             </div>
             <div class="col-md-4">
                 <label for="">Tipo de Salida sub estado</label>
-                <ng-select placeholder="Seleccionar Tipo Sub-Salida" notFoundText="No se encontraron coincidencias"
-                    formControlName="tipo_subSalida">
-                    <ng-option value="1">En Revision</ng-option>
-                    <ng-option value="2">Juicio de Lanzamiento</ng-option>
-                    <ng-option value="3">Saliendo</ng-option>
-                    <ng-option value="4">Vencido</ng-option>
-                    <ng-option value="5">Venta Directa</ng-option>
-                    <ng-option value="6">Vigente</ng-option>
+                <ng-select [items]="tipoSubSalida" bindValue="id_tipoSubSalida" bindLabel="nombre_subSalida"
+                  placeholder="Seleccionar Tipo Sub-Salida" notFoundText="No se encontraron coincidencias"
+                  formControlName="tipo_subSalida">
                 </ng-select>
             </div>
             <div class="col-md-4">

@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { ITipoCanales, ResultadoAccionesCanalSimulacion, ResultadoCanalesSimulacion } from 'src/app/interfaces';
 import { TipoSimulacionCanalService } from 'src/app/services';
 
-import { abrirModal, cerrarModal } from 'src/app/shared/utils/bootstrap';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+
 import { agregarMayusculas, formateadorMiles, formateadorMilesDesdeBase } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
@@ -18,6 +19,7 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 export class CanalSimulacionComponent implements OnInit {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+  @ViewChild('modalCanalSimulacion') modalCanalSimulacion!: ModalComponent;
 
   titulo_cabecera: string = '';
   canalSimulaciones: ITipoCanales[] = []
@@ -66,7 +68,7 @@ export class CanalSimulacionComponent implements OnInit {
     this.tabla.filterGlobal(inputElement.value, 'contains');
   }
 
-  modalCanalSimulacion(lineaNegocio: ITipoCanales | null) {
+  abrirModalCanalSimulacion(lineaNegocio: ITipoCanales | null) {
     this.formCanalSimulacion.reset();
     this.titulo_cabecera = (!lineaNegocio) ? 'Nuevo' : 'Editar';
     if (lineaNegocio) {
@@ -78,7 +80,7 @@ export class CanalSimulacionComponent implements OnInit {
         det_canalSimulacion: lineaNegocio.det_canalSimulacion,
       })
     }
-    abrirModal('modalCanalSimulacion')
+    this.modalCanalSimulacion.abrirModal();
   }
 
   obtenerLineaNegocio() {
@@ -105,7 +107,7 @@ export class CanalSimulacionComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalCanalSimulacion.cerrarModal();
               this.obtenerLineaNegocio();
             }
           },
@@ -124,7 +126,7 @@ export class CanalSimulacionComponent implements OnInit {
             })
 
             if (response.ok) {
-              cerrarModal();
+              this.modalCanalSimulacion.cerrarModal();
               this.obtenerLineaNegocio();
             }
           },

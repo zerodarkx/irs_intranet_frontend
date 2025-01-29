@@ -26,3 +26,4 @@ export * from "./usuario";
 export * from "./usuarioPerfiles";
 export * from "./salidas";
 export * from "./tipoSalidas"
+export * from "./bitacorasSalidas"

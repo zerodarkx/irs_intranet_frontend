@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { Payload, DataContador, DocumentosPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoObtenerTodosInversionesContador, ResultadoObtenerTodosInversionesPorEstado, SelectInversionistaDisponibles } from 'src/app/interfaces';
 import { ExportarPdfService, InversionistasService } from 'src/app/services';
 
-import { abrirModal } from 'src/app/shared/utils/bootstrap';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+
 import { formateadorMilesDesdeBase } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
@@ -20,6 +21,8 @@ import { env } from 'src/environments/environment';
 export class InversorComponent {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+  @ViewChild('modalDetalleCaso') modalDetalleCaso!: ModalComponent;
+  @ViewChild('modalDocumentos') modalDocumentos!: ModalComponent;
 
   url: string = env.descargaUrl;
 
@@ -119,15 +122,16 @@ export class InversorComponent {
       })
   }
 
-  abrirModal(detalle: ObtenerTodosInversionesPorEstado) {
+  abrirModalDetalle(detalle: ObtenerTodosInversionesPorEstado) {
     this.detallePorCaso = detalle;
     this.tir = formateadorMilesDesdeBase(this.detallePorCaso.tir);
     this.total_inversion = this.detallePorCaso.v_contrato / ((100 + this.detallePorCaso.tir) / 100);
     this.rentabilidad = this.detallePorCaso.v_contrato - this.total_inversion;
-    abrirModal('modalDetalleCaso');
+    this.modalDetalleCaso.abrirModal()
+    
   }
 
-  modalDocumentos() {
+  abrirmodalDocumentos() {
     if (!this.detallePorCaso) return
     this.sInversionista.obtenerDocumentosPorInversionista(this.detallePorCaso.id_inversionista, this.detallePorCaso.id)
       .subscribe({
@@ -138,7 +142,7 @@ export class InversorComponent {
           errorConexionServidor(error)
         }
       })
-    abrirModal('modalDocumentos')
+      this.modalDocumentos.abrirModal()
   }
 
   exportarFichaPdf() {

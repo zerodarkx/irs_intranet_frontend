@@ -19,8 +19,8 @@ export interface ClienteSalidaDetalle {
     ltv: string;
     region: string;
     comuna: string;
-    id_tipoSalida: number;
-    id_tipoSubSalida: number;
+    tipo_salida: number;
+    tipo_subSalida: number;
 }
 
 export interface ResultadoObtenerClientesSalida {
