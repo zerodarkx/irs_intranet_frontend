@@ -30,4 +30,9 @@ export class TipoDocuentosService {
     let url = `${this.url_base}/editarTiposImagen`;
     return this.http.put<ResultadoAccionesTipoDocumento>(url, data);
   }
+
+  obtenerTodosTipoDocumentosPorLineaNegocio(id_cliente: string): Observable<ResultadoTipoDocumentos> {
+    let url = `${this.url_base}/obtenerTodosTipoDocumentosPorLineaNegocio/${id_cliente}`;
+    return this.http.get<ResultadoTipoDocumentos>(url);
+  }
 }

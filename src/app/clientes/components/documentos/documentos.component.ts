@@ -77,7 +77,9 @@ export class DocumentosComponent {
   }
 
   cargarSelect() {
-    this.sTipoDocumento.obtenerTodosTipoDocumentos()
+    const id_cliente = this.sCliente.id_cliente;
+    
+    this.sTipoDocumento.obtenerTodosTipoDocumentosPorLineaNegocio(id_cliente!)
       .subscribe({
         next: ({ data }: ResultadoTipoDocumentos) => {
           this.documentos = data
