@@ -105,6 +105,23 @@
                 [forControl]="miFormulario.controls['l_negocio_cli']"></shared-mensaje-validador>
             </div>
           </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label class="form-label d-block">Tipo de Salida</label>
+              <div class="d-flex gap-3">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="id_ven" formControlName="id_tipoSalida" [value]="1">
+                  <label class="form-check-label" for="id_ven">Venta</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="id_ref" formControlName="id_tipoSalida" [value]="2">
+                  <label class="form-check-label" for="id_ref">Refinanciamiento</label>
+                </div>
+              </div>
+              <shared-mensaje-validador [forControl]="miFormulario.controls['id_tipoSalida']" />
+            </div>
+          </div>
           <hr class="my-5" />
           <h3>Datos de Propiedad</h3>
           <div class="row mt-3">

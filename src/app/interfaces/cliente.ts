@@ -85,6 +85,7 @@ export interface ClienteById {
     id_region: number;
     nombre_estado: string;
     inversionista: string;
+    id_tipoSalida: number;
 }
 
 export interface ResultadoGestionCliente {
@@ -237,11 +238,11 @@ export interface ObtenerFechaCursado {
     fecha_cursado_termino: Date;
 }
 
-export interface ResultadoRechazarCliente{
+export interface ResultadoRechazarCliente {
     ok: boolean;
     data: MensajeRechazado
 }
 
-export interface MensajeRechazado{
+export interface MensajeRechazado {
     mensaje: string;
 }

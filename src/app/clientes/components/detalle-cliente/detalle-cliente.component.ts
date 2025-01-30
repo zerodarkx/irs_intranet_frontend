@@ -99,7 +99,8 @@ export class DetalleClienteComponent implements OnInit {
     ]],
     obs_cli: [''],
     selectEjecutivo: [[]],
-    motivo_rechazo: []
+    motivo_rechazo: [],
+    id_tipoSalida: [, Validators.required]
   })
 
   formRechazo: FormGroup = this.fb.group({
@@ -266,7 +267,7 @@ export class DetalleClienteComponent implements OnInit {
       .subscribe({
         next: (response: ResultadoObtenerClienteById) => {
           console.log(response);
-          
+
           if (response.ok) {
             this.miFormulario.patchValue({
               rut_cli: response.data.cli_rut,
@@ -289,7 +290,8 @@ export class DetalleClienteComponent implements OnInit {
               mConstruidos: formateadorMiles(response.data.mConstruidos),
               obs_cli: response.data.cli_obs,
               selectEjecutivo: response.data.id_ejecutivo,
-              motivo_rechazo: response.data.motivo_rechazo
+              motivo_rechazo: response.data.motivo_rechazo,
+              id_tipoSalida: response.data.id_tipoSalida
             })
 
             this.estado_cliente = response.data.id_estado;
