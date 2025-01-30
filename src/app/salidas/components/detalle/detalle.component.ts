@@ -2,10 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ClienteSalidaDetalle, TipoSalidas, TipoSubSalidas } from 'src/app/interfaces';
+import { TipoSalidas, TipoSubSalidas } from 'src/app/interfaces';
 import { SalidasService, TipoSalidasService } from 'src/app/services';
 import { formateadorMiles } from 'src/app/shared/utils/formateadores';
-import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
+import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
   selector: 'salidas-detalle',
@@ -48,17 +48,10 @@ export class DetalleComponent implements OnInit {
     this.obtenerTipoSalidas();
   }
 
-  formateadorMiles(valor: number | undefined): string {
-    return formateadorMiles(valor || 0);
-  }
-
   obtenerDatosCliente() {
     this.sSalidas.obtenerClienteSalidaDetalle()
       .subscribe({
         next: (response) => {
-          console.log(response);
-
-
           this.formSalida.patchValue({
             ...response.data,
             valor_comercial: formateadorMiles(response.data.valor_comercial),
@@ -69,7 +62,6 @@ export class DetalleComponent implements OnInit {
           });
         },
         error: (error: HttpErrorResponse) => {
-          console.log(error);
           errorConexionServidor(error);
         }
       });
@@ -94,5 +86,24 @@ export class DetalleComponent implements OnInit {
           errorConexionServidor(error);
         }
       });
+  }
+
+  modificarClienteSalidaDetalle() {
+    const { tipo_salida, tipo_subSalida } = this.formSalida.value;
+    const data = { id_tipoSalida: tipo_salida, id_tipoSubSalida: tipo_subSalida };
+
+    this.sSalidas.modificarClienteSalidaDetalle(data)
+      .subscribe({
+        next: (response) => {
+          mostrarMensaje({
+            icono: IconoSweetAlert.Success,
+            titulo: "Exito",
+            mensaje: response.mensaje
+          })
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      })
   }
 }

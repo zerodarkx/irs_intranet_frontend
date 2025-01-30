@@ -56,7 +56,11 @@ export class SalidasService {
   eliminarBitacoraPorCliente(id_bitacora: number): Observable<ResultadoCrearEditarEliminarBitacora> {
     let url = `${this.url_base}/eliminarBitacorasSalidasPorCliente/${id_bitacora}`;
     return this.http.delete<ResultadoCrearEditarEliminarBitacora>(url);
+  }
 
+  modificarClienteSalidaDetalle(data: any): Observable<{ ok: boolean, mensaje: string }> {
+    let url = `${this.url_base}/modificarClienteSalidaDetalle/${this.id_cliente}`;
+    return this.http.put<{ ok: boolean, mensaje: string }>(url, data);
   }
 }
 
