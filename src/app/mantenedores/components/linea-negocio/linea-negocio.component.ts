@@ -68,9 +68,9 @@ export class LineaNegocioComponent implements OnInit {
         documentos: this.fb.array(
           this.documentos.map((ele) => this.fb.control(lineaNegocio.documentos.includes(ele.id_tipoDocumento)))
         )
-      });
-      this.cargaDeDocumento = true;
+      });      
     }
+    this.cargaDeDocumento = true;
     this.modalLineaNegocio.abrirModal();
   }
 
