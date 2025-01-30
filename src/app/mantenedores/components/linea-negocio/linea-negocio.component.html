@@ -1,14 +1,14 @@
 <div class="container-fluid">
   <div class="row pt-3">
     <div class="col-md-6">
-      <h3>Mantenedor Tipo Canal Contacto</h3>
+      <h3>Mantenedor Linea de Negocio</h3>
     </div>
     <div class="col-md-6"></div>
   </div>
   <div class="row mt-3">
     <div class="col-md-12">
       <button class="btn btn-success w-100" (click)="abrirModalLineaNegocio(null)">
-        Agregar Tipo Contacto
+        Agregar Linea de Negocio
       </button>
     </div>
   </div>
@@ -82,8 +82,9 @@
 </div>
 
 <!-- MODAL PARA AGREGAR O EDITAR -->
-<shared-modal #modalLineaNegocio modalId="modalLineaNegocio" [titulo]="titulo_cabecera + ' Linea de Negocio'">
-  <div modal-cuerpo>
+<shared-modal #modalLineaNegocio modalId="modalLineaNegocio" [titulo]="titulo_cabecera + ' Linea de Negocio'"
+  tamanoModal="modal-xl">
+  <div modal-cuerpo *ngIf="cargaDeDocumento">
     <div class="row mt-2" [formGroup]="formLineaNegocio">
       <div class="row">
         <div class="col-md-6">
@@ -94,8 +95,22 @@
         </div>
       </div>
       <div class="row mt-2">
-        <hr>
-        documentos para agregar despues
+        <div class="col-md-12">
+          <h3>Documentos a Ver</h3>
+        </div>
+        <div class="col-md-12">
+          <div class="row p-1">
+            <div class="col-md-4" *ngFor="let documento of documentos; let i = index" formGroupName="documentos">
+              <input type="checkbox" [formControlName]="i" class="form-check-input documento_ver"
+                id="{{ documento.nombre_tipoDocumento }}" />
+              <label for="{{ documento.nombre_tipoDocumento }}" class="form-check-label ms-2 truncar-texto"
+                [title]="documento.nombre_tipoDocumento"
+                [class.ocultar-ellipsis]="documento.nombre_tipoDocumento.length <= 25">
+                {{documento.nombre_tipoDocumento| slice:0:25 }}
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

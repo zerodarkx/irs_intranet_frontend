@@ -9,6 +9,7 @@ import { Modal } from 'bootstrap';
 export class ModalComponent {
   @Input() titulo: string = 'Modal';
   @Input() modalId: string = 'myModal';
+  @Input() tamanoModal: string = 'modal-lg';
   @ViewChild('modal', { static: true }) modalElement!: ElementRef;
 
   private modalInstance!: Modal;

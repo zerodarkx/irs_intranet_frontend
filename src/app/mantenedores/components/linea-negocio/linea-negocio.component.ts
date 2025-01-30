@@ -3,8 +3,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { LineaNegocio, ResultadoAccionesLineaNegocio, ResultadoObtenerTodasLineasNegocio } from 'src/app/interfaces';
-import { LineaNegocioService } from 'src/app/services';
+import { ITipoDocumento, LineaNegocio, ResultadoAccionesLineaNegocio, ResultadoObtenerTodasLineasNegocio } from 'src/app/interfaces';
+import { LineaNegocioService, TipoDocuentosService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
@@ -22,21 +22,20 @@ export class LineaNegocioComponent implements OnInit {
   @ViewChild('modalLineaNegocio') modalLineaNegocio!: ModalComponent;
 
   titulo_cabecera: string = '';
-  lineaNegocios: LineaNegocio[] = []
+  lineaNegocios: LineaNegocio[] = [];
+  documentos: ITipoDocumento[] = [];
+  cargaDeDocumento: boolean = false;
 
-  formLineaNegocio: FormGroup = this.fb.group({
-    id_lineaNegocio: [0],
-    nombre_lineaNegocio: ['', [
-      Validators.required
-    ]]
-  })
+  formLineaNegocio: FormGroup = this.fb.group({});
 
   constructor(
     private fb: FormBuilder,
-    private sLineaNegocio: LineaNegocioService
+    private sLineaNegocio: LineaNegocioService,
+    private sDocumetos: TipoDocuentosService
   ) { }
   ngOnInit(): void {
     this.obtenerLineaNegocio();
+    this.obtenerTodosLosDocuentos();
   }
 
   mayuscula(event: Event): void {
@@ -55,14 +54,22 @@ export class LineaNegocioComponent implements OnInit {
     this.tabla.filterGlobal(inputElement.value, 'contains');
   }
 
-  abrirModalLineaNegocio(lineaNegocio: LineaNegocio | null) {
+  async abrirModalLineaNegocio(lineaNegocio: LineaNegocio | null) {
     this.formLineaNegocio.reset();
     this.titulo_cabecera = (!lineaNegocio) ? 'Nuevo' : 'Editar';
     if (lineaNegocio) {
-      this.formLineaNegocio.patchValue({
-        id_lineaNegocio: lineaNegocio.id_lineaNegocio,
-        nombre_lineaNegocio: lineaNegocio.nombre_lineaNegocio
-      })
+      console.log(lineaNegocio.documentos);
+
+      this.formLineaNegocio = this.fb.group({
+        id_lineaNegocio: [lineaNegocio.id_lineaNegocio],
+        nombre_lineaNegocio: [lineaNegocio.nombre_lineaNegocio, [
+          Validators.required
+        ]],
+        documentos: this.fb.array(
+          this.documentos.map((ele) => this.fb.control(lineaNegocio.documentos.includes(ele.id_tipoDocumento)))
+        )
+      });
+      this.cargaDeDocumento = true;
     }
     this.modalLineaNegocio.abrirModal();
   }
@@ -79,8 +86,33 @@ export class LineaNegocioComponent implements OnInit {
       })
   }
 
+  obtenerTodosLosDocuentos() {
+    this.sDocumetos.obtenerTodosTipoDocumentos()
+      .subscribe({
+        next: (response) => {
+          this.documentos = response.data;
+          this.formLineaNegocio = this.fb.group({
+            id_lineaNegocio: [0],
+            nombre_lineaNegocio: ['', [
+              Validators.required
+            ]],
+            documentos: this.fb.array(
+              this.documentos.map((ele) => { return this.fb.control(ele.id_tipoDocumento) })
+            )
+          });
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      })
+  }
+
   accionLineaNegocio() {
     if (this.formLineaNegocio.get('id_lineaNegocio')?.value) {
+      this.formLineaNegocio.value.documentos = this.formLineaNegocio.value.documentos
+        .map((checked: boolean, i: number) => (checked ? this.documentos[i].id_tipoDocumento : null))
+        .filter((id: number | null) => id !== null);
+
       this.sLineaNegocio.editarLineaNegocio(this.formLineaNegocio.value)
         .subscribe({
           next: (response: ResultadoAccionesLineaNegocio) => {

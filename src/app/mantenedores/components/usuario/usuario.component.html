@@ -148,8 +148,7 @@
 </div>
 
 <!-- Modal agregar usuario-->
-<shared-modal #modalAgregarUsuario modalId="modalAgregarUsuario"
-  [titulo]="titulo_cabecera + ' - Usuario'">
+<shared-modal #modalAgregarUsuario modalId="modalAgregarUsuario" [titulo]="titulo_cabecera + ' - Usuario'">
   <div modal-cuerpo [formGroup]="formUsuario">
     <div class="row mt-3">
       <div class="col-md-3">
@@ -287,7 +286,7 @@
 
 <!-- Modal para agregar data inversionista -->
 <shared-modal #modalInversionista modalId="modalInversionista"
-  [titulo]="'Informacion Inversionista :' + nombre_usuario">
+  [titulo]="'Informacion Inversionista :' + nombre_usuario" tamanoModal="modal-xl">
   <div modal-cuerpo [formGroup]="inversionistaForm" *ngIf="cargaDeFormulario">
     <div class="row mt-2">
       <div class="col-md-12">
@@ -343,10 +342,13 @@
         <div class="row p-1" *ngIf="cargaDeDocumento">
           <div class="col-md-4" *ngFor="let documento of documentosParaVer; let i = index"
             formGroupName="verDocumentos">
-            <input type="checkbox" [formControlName]="i" class="form-check-input documento_ver"
+            <input type="checkbox" [formControlName]="i" class="form-check-input"
               id="{{ documento.nombre_tipoDocumento }}" />
-            <label for="{{ documento.nombre_tipoDocumento }}" class="form-check-label ms-2">{{
-              documento.nombre_tipoDocumento }}</label>
+            <label for="{{ documento.nombre_tipoDocumento }}" class="form-check-label ms-2 truncar-texto"
+              [title]="documento.nombre_tipoDocumento"
+              [class.ocultar-ellipsis]="documento.nombre_tipoDocumento.length <= 25">
+              {{documento.nombre_tipoDocumento| slice:0:25 }}
+            </label>
           </div>
         </div>
       </div>
@@ -359,10 +361,13 @@
         <div class="row p-1" *ngIf="cargaDeDocumento">
           <div class="col-md-4" *ngFor="let documento of propiedadesParaVer; let i = index"
             formGroupName="verPropiedades">
-            <input type="checkbox" [formControlName]="i" class="form-check-input documento_ver"
+            <input type="checkbox" [formControlName]="i" class="form-check-input"
               id="{{ documento.nombre_tipoPropiedad }}" />
-            <label for="{{ documento.nombre_tipoPropiedad }}" class="form-check-label ms-2">{{
-              documento.nombre_tipoPropiedad }}</label>
+            <label for="{{ documento.nombre_tipoPropiedad }}" class="form-check-label ms-2 truncar-texto"
+              [title]="documento.nombre_tipoPropiedad"
+              [class.ocultar-ellipsis]="documento.nombre_tipoPropiedad.length <= 25">
+              {{documento.nombre_tipoPropiedad| slice:0:25 }}
+            </label>
           </div>
         </div>
       </div>
