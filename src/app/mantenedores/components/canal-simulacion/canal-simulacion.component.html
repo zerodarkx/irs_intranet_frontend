@@ -1,14 +1,14 @@
 <div class="container-fluid">
   <div class="row pt-3">
     <div class="col-md-6">
-      <h3>Mantenedor Tipo Canal Contacto</h3>
+      <h3>Mantenedor Tipo Canal Simulacion</h3>
     </div>
     <div class="col-md-6"></div>
   </div>
   <div class="row mt-3">
     <div class="col-md-12">
       <button class="btn btn-success w-100" (click)="abrirModalCanalSimulacion(null)">
-        Agregar Tipo Contacto
+        Agregar Tipo Canal Simulacion
       </button>
     </div>
   </div>
@@ -102,7 +102,7 @@
 </div>
 
 <!-- MODAL PARA AGREGAR O EDITAR -->
-<shared-modal #modalCanalSimulacion modalId="modalCanalSimulacion" [titulo]="titulo_cabecera + 'Tipo Documento'">
+<shared-modal #modalCanalSimulacion modalId="modalCanalSimulacion" [titulo]="titulo_cabecera + ' Tipo Canal Simulacion'">
   <div modal-cuerpo [formGroup]="formCanalSimulacion">
     <div class="row">
       <div class="col-md-6">

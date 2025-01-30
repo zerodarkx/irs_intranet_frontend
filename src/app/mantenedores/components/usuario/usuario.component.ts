@@ -228,10 +228,11 @@ export class UsuarioComponent implements OnInit {
   }
 
   modalUsuario(usuario: ResultadoUsuario | null) {
-    
+
     this.formUsuario.reset();
     this.titulo_cabecera = (!usuario) ? 'Nuevo' : 'Editar';
-    const camposRemover = ['usu_password', 'usu_password2']
+    const camposRemover = ['usu_password', 'usu_password2'];
+
     if (usuario) {
       this.formUsuario.patchValue({
         id_usuario: usuario.id_usuario,
