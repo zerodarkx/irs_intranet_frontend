@@ -34,21 +34,22 @@
             <div class="row mt-2">
               <div class="col-md-4">
                 <label for="">Buscar por estado</label>
-                <ng-select [items]="tipoSalida" bindValue="id_tipoSalida" bindLabel="nombre_salida"
-                  placeholder="Seleccionar Tipo Salida" notFoundText="No se encontraron coincidencias"
-                  formControlName="estado">
+                <ng-select [items]="tipoSalida" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
+                  bindValue="id_tipoSalida" bindLabel="nombre_salida" placeholder="Seleccionar Tipo Salida"
+                  notFoundText="No se encontraron coincidencias" formControlName="estado">
                 </ng-select>
               </div>
               <div class="col-md-4">
                 <label for="">Buscar por sub estado</label>
-                <ng-select [items]="tipoSubSalida" bindValue="id_tipoSubSalida" bindLabel="nombre_subSalida"
-                  placeholder="Seleccionar Tipo Sub-Salida" notFoundText="No se encontraron coincidencias"
-                  formControlName="subEstado">
+                <ng-select [items]="tipoSubSalida" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
+                  bindValue="id_tipoSubSalida" bindLabel="nombre_subSalida" placeholder="Seleccionar Tipo Sub-Salida"
+                  notFoundText="No se encontraron coincidencias" formControlName="subEstado">
                 </ng-select>
               </div>
               <div class="col-md-4">
                 <label for="">Buscar por ejecutivo</label>
-                <ng-select [items]="selectEjecutivosBrokers" placeholder="Seleccionar Ejecutivo" bindValue="id_usuario"
+                <ng-select [items]="selectEjecutivosBrokers" [multiple]="true" [closeOnSelect]="false"
+                  [hideSelected]="true" placeholder="Seleccionar Ejecutivo" bindValue="id_usuario"
                   bindLabel="nombre_ejecutivo" notFoundText="No se encontraron coincidencias"
                   formControlName="ejecutivo">
                 </ng-select>
