@@ -14,9 +14,9 @@ export interface ClienteSalidaDetalle {
     telefono: string;
     ejecutivo: string;
     inversionista: string;
-    valor_comercial: string;
-    valor_contrato: string;
-    ltv: string;
+    valor_comercial: number;
+    valor_contrato: number;
+    ltv: number;
     region: string;
     comuna: string;
     tipo_salida: number;

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { env } from 'src/environments/environment';
-import { ResultadoCrearEditarEliminarBitacora, ResultadoObtenerClienteDetalle, ResultadoObtenerClientesSalida, ResultadoObtenerTodasBitacoras } from '../interfaces';
+import { ResultadoAgregarProrroga, ResultadoCrearEditarEliminarBitacora, ResultadoObtenerClienteDetalle, ResultadoObtenerClientesSalida, ResultadoObtenerProrroga, ResultadoObtenerTodasBitacoras } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +61,26 @@ export class SalidasService {
   modificarClienteSalidaDetalle(data: any): Observable<{ ok: boolean, mensaje: string }> {
     let url = `${this.url_base}/modificarClienteSalidaDetalle/${this.id_cliente}`;
     return this.http.put<{ ok: boolean, mensaje: string }>(url, data);
+  }
+
+  obtenerProrrogaPorCliente(): Observable<ResultadoObtenerProrroga> {
+    let url = `${this.url_base}/obtenerProrrogaPorCliente/${this.id_cliente}`;
+    return this.http.get<ResultadoObtenerProrroga>(url);
+  }
+
+  agregarProrrogaPorCliente(data: any): Observable<ResultadoAgregarProrroga> {
+    let url = `${this.url_base}/agregarProrrogaPorCliente/${this.id_cliente}`;
+    return this.http.post<ResultadoAgregarProrroga>(url, data);
+  }
+
+  modificarProrrogaPorCliente(data: any): Observable<{ ok: boolean, mensaje: string }> {
+    let url = `${this.url_base}/modificarProrrogaPorCliente`;
+    return this.http.put<{ ok: boolean, mensaje: string }>(url, data);
+  }
+
+  eliminarProrrogaPorCliente(id_prorroga: number): Observable<{ ok: boolean, mensaje: string }> {
+    let url = `${this.url_base}/eliminarProrrogaPorCliente/${id_prorroga}`;
+    return this.http.delete<{ ok: boolean, mensaje: string }>(url);
   }
 }
 

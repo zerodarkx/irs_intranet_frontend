@@ -27,3 +27,4 @@ export * from "./usuarioPerfiles";
 export * from "./salidas";
 export * from "./tipoSalidas"
 export * from "./bitacorasSalidas"
+export * from "./prorrogasSalidas"
