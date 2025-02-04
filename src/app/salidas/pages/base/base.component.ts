@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { SalidasService } from 'src/app/services';
+import { ClienteService, SalidasService } from 'src/app/services';
 
 @Component({
   selector: 'app-base',
@@ -14,7 +14,8 @@ export class BaseComponent {
   constructor(
     private activedRouter: ActivatedRoute,
     private router: Router,
-    private sSalida: SalidasService
+    private sSalida: SalidasService,
+    private sCliente: ClienteService
   ) { }
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class BaseComponent {
       .subscribe(({ idCliente }) => {
         this.idCliente = idCliente
         this.sSalida.setIdCliente(this.idCliente); // Pasamos el idCliente al servicio
+        this.sCliente.setIdCliente(this.idCliente); // Pasamos el idCliente al servicio
       });
 
     this.verificarExisteCliente();

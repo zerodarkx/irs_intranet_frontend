@@ -1,1 +1,259 @@
-<p>curse works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Curse</h1>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <h3>Cargar Documentos Curse</h3>
+    </div>
+    <form [formGroup]="formDocumentoCurse">
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <label for="">Tipo de Documento</label>
+                <ng-select [items]="selectTipoDocumentoCurse" placeholder="Seleccionar Documento"
+                    bindValue="id_tipoDocumento" bindLabel="nombre_tipoDocumento"
+                    notFoundText="No se encontraron coincidencias" formControlName="id_documento">
+                </ng-select>
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['id_documento']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-2">
+                <label for="">Moneda</label>
+                <ng-select placeholder="Seleccionar Moneda" notFoundText="No se encontraron coincidencias"
+                    formControlName="moneda">
+                    <ng-option value="UF">UF</ng-option>
+                    <ng-option value="CLP">CLP</ng-option>
+                    <ng-option value="USD">USD</ng-option>
+                </ng-select>
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['moneda']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+                <label for="">Monto</label>
+                <input type="text" class="form-control" (change)="formateadorMiles($event)" formControlName="monto">
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['monto']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-2">
+                <label for="">Tipo de Cuota</label>
+                <ng-select placeholder="Seleccionar tipo cuota" notFoundText="No se encontraron coincidencias"
+                    formControlName="tipo_cuota">
+                    <ng-option value="Ninguna">Ninguna</ng-option>
+                    <ng-option value="Mensual">Mensual</ng-option>
+                    <ng-option value="Anual">Anual</ng-option>
+                </ng-select>
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['tipo_cuota']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-2">
+                <label for="">Cuotas</label>
+                <input type="text" class="form-control" formControlName="cuotas">
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['cuotas']"></shared-mensaje-validador>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <label for="">Fecha Firma Contrato</label>
+                <input type="date" class="form-control text-center" formControlName="f_firma">
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['f_firma']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+                <label for="">Fecha Termino Contrato</label>
+                <input type="date" class="form-control text-center" formControlName="f_termino">
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['f_termino']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+                <label for="">Fecha Primer Vencimiento</label>
+                <input type="date" class="form-control text-center" formControlName="f_primer_vencimiento">
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['f_primer_vencimiento']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-3">
+                <label for="">Documento</label>
+                <input type="file" (change)="onFileSelected($event)" class="form-control" formControlName="documento">
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['documento']"></shared-mensaje-validador>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12 align-self-end">
+                <button type="button" class="btn btn-success w-100" (click)="guardarDocumentoCurse()"
+                    [disabled]="formDocumentoCurse.invalid">Guardar</button>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <hr>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h4>Contratos en Sistema</h4>
+        </div>
+        <div class="col-md-12">
+            <table width="100%" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th width="5%" class="text-center"></th>
+                        <th width="10%" class="text-center">Fecha Hora</th>
+                        <th width="17%" class="text-center">Documento</th>
+                        <th width="12%" class="text-center">Monto</th>
+                        <th width="6%" class="text-center">Tipo Cuota</th>
+                        <th width="5%" class="text-center">Cuotas</th>
+                        <th width="5%" class="text-center">Adjunto</th>
+                        <th width="11%" class="text-center">Fecha Firma Contrato</th>
+                        <th width="10%" class="text-center">Fecha Vencimiento</th>
+                        <th width="19%" class="text-center">Cargo Por</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let curse of documentosCurse">
+                        <td class="text-center">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <i class="bi bi-trash fs-5"
+                                    (click)="eliminarDocumentoCurse(curse.id_documentoCurse)"></i>
+                                <i class="bi bi-cloud-arrow-up fs-5"
+                                    (click)="abrirEditarArchivoDocumentoCurse(curse.id_documentoCurse)"></i>
+                                <i class="bi bi-pencil-square fs-5" (click)="abrirEditarDocumentoCurse(curse)"></i>
+                            </div>
+                        </td>
+                        <td class="text-center">{{ curse.fecha_ingreso | date:'dd-MM-yyyy' }}</td>
+                        <td class="text-center">{{ curse.nombre_tipoDocumento }}</td>
+                        <td class="text-end">{{curse.moneda }} {{ curse.monto | currencyPesoChileno }}</td>
+                        <td class="text-center">{{ curse.tipo_cuota }}</td>
+                        <td class="text-center"> 0 / {{ curse.cuotas }}</td>
+                        <td class="text-center">
+                            <a [href]="url + curse.ruta_documento +'?t=' + fechaNueva" target="__blank">
+                                <i class="bi bi-box-arrow-down fs-5"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">{{ curse.fecha_contrato | date: 'dd-MM-yyyy'}}</td>
+                        <td class="text-center">{{ curse.fecha_termino | date: 'dd-MM-yyyy'}}</td>
+                        <td class="text-center">{{ curse.usuario}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h5>Leyenda</h5>
+            <table width="50%">
+                <tr>
+                    <td width="30%">Color Rojo</td>
+                    <td width="5%">:</td>
+                    <td>Contrato Vencido</td>
+                </tr>
+                <tr>
+                    <td>Color Amarrilo</td>
+                    <td>:</td>
+                    <td>1 mes a Vencer el Contrato</td>
+                </tr>
+                <tr>
+                    <td>Color Naranjo</td>
+                    <td>:</td>
+                    <td>6 mes a Vencer el Contrato</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal editar documento curse-->
+<shared-modal #modalEditarDocumentoCurse modalId="editarDocumentoCurse" titulo="Editar Informacion">
+    <div modal-cuerpo [formGroup]="formEditarDocumentoCurse">
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label for="">Moneda</label>
+                <ng-select placeholder="Seleccionar Moneda" notFoundText="No se encontraron coincidencias"
+                    formControlName="moneda">
+                    <ng-option value="UF">UF</ng-option>
+                    <ng-option value="CLP">CLP</ng-option>
+                    <ng-option value="USD">USD</ng-option>
+                </ng-select>
+                <shared-mensaje-validador
+                    [forControl]="formEditarDocumentoCurse.controls['moneda']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-6">
+                <label for="">Monto</label>
+                <input type="text" class="form-control" (change)="formateadorMiles($event)" formControlName="monto">
+                <shared-mensaje-validador
+                    [forControl]="formEditarDocumentoCurse.controls['monto']"></shared-mensaje-validador>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label for="">Tipo de Cuota</label>
+                <ng-select placeholder="Seleccionar tipo cuota" notFoundText="No se encontraron coincidencias"
+                    formControlName="tipo_cuota">
+                    <ng-option value="Ninguna">Ninguna</ng-option>
+                    <ng-option value="Mensual">Mensual</ng-option>
+                    <ng-option value="Anual">Anual</ng-option>
+                </ng-select>
+                <shared-mensaje-validador
+                    [forControl]="formEditarDocumentoCurse.controls['tipo_cuota']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-6">
+                <label for="">Cuotas</label>
+                <input type="text" class="form-control" formControlName="cuotas">
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['cuotas']"></shared-mensaje-validador>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-4">
+                <label for="">Fecha Firma Contrato</label>
+                <input type="date" class="form-control text-center" formControlName="fecha_contrato">
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['fecha_contrato']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-4">
+                <label for="">Fecha Termino Contrato</label>
+                <input type="date" class="form-control text-center" formControlName="fecha_termino">
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['fecha_termino']"></shared-mensaje-validador>
+            </div>
+            <div class="col-md-4">
+                <label for="">Fecha Primer Vencimiento</label>
+                <input type="date" class="form-control text-center" formControlName="fecha_vencimiento">
+                <shared-mensaje-validador
+                    [forControl]="formDocumentoCurse.controls['fecha_vencimiento']"></shared-mensaje-validador>
+            </div>
+        </div>
+    </div>
+    <div modal-footer>
+        <button type="button" class="btn btn-primary" [disabled]="formEditarDocumentoCurse.invalid"
+            (click)="editarDocumentoCurse()">
+            Editar
+        </button>
+    </div>
+</shared-modal>
+
+<shared-modal #modalEditarArchivoDocumentoCurse modalId="editarArchivoDocumentoCurse" titulo="Editar Archivo Documento">
+    <div modal-cuerpo>
+        <div class="row mt-2" [formGroup]="formEditarArchivo">
+            <div class="col-md-6">
+                <label for="">Archivo</label>
+                <input type="file" class="form-control" formControlName="documento" (change)="onFileSelected($event)">
+                <shared-mensaje-validador
+                    [forControl]="formEditarArchivo.controls['documento']"></shared-mensaje-validador>
+            </div>
+        </div>
+    </div>
+    <div modal-footer>
+        <button type="button" class="btn btn-primary" [disabled]="formEditarArchivo.invalid"
+            (click)="editarArchivoDocumentoCurse()">
+            Editar
+        </button>
+    </div>
+</shared-modal>
+
+<div *ngIf="isAlertVisible" class="alert alert-danger alert-dismissible fade show alert-custom" role="alert">
+    <strong>Atención!</strong> documento o imagen no fue cargado correctamente
+</div>
