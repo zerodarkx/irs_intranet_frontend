@@ -1,10 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
+// import { Chart } from 'chart.js';
 
 import { GraficosService } from 'src/app/services';
 
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
+
+
+import { Chart, registerables } from 'chart.js';
+
+Chart.register(...registerables);
 
 @Component({
   selector: 'inicio-base-admin',
@@ -106,7 +112,7 @@ export class BaseAdminComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          
+
           const cantidades = [
             response.data.casosPendientes.dataPendiente.map((item) => item.cant),
             response.data.casosSaldos.dataSaldos.map((item) => item.suma!),
@@ -160,4 +166,53 @@ export class BaseAdminComponent {
         }
       })
   }
+
+  // ngAfterViewInit() {
+  //   setTimeout(() => {
+  //     if (this.chartCanvas) {
+  //       this.createChart();
+  //     }
+  //   });
+  // }
+
+  // @ViewChild('chartCanvas', { static: false }) chartCanvas!: ElementRef;
+  // chart!: Chart;
+
+  // casosPendientes = {
+  //   dataPendiente: [
+  //     { cant: 17, leyenda: 'Comite' },
+  //     { cant: 4, leyenda: 'Pendiente' },
+  //     { cant: 7, leyenda: 'PreAprobado' },
+  //     { cant: 8, leyenda: 'Aprobado' }
+  //   ],
+  //   titulo: 'Casos Pendientes'
+  // };
+
+  // createChart() {
+  //   if (this.chart) {
+  //     this.chart.destroy(); // Destruir gráfico si ya existe
+  //   }
+
+  //   const ctx = this.chartCanvas.nativeElement.getContext('2d');
+  //   this.chart = new Chart(ctx, {
+  //     type: 'bar',
+  //     data: {
+  //       labels: this.casosPendientes.dataPendiente.map(d => d.leyenda),
+  //       datasets: [{
+  //         label: this.casosPendientes.titulo,
+  //         data: this.casosPendientes.dataPendiente.map(d => d.cant),
+  //         backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+  //         borderColor: '#666',
+  //         borderWidth: 1
+  //       }]
+  //     },
+  //     options: {
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //       scales: {
+  //         y: { beginAtZero: true }
+  //       }
+  //     }
+  //   });
+  // }
 }
