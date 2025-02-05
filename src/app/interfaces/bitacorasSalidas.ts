@@ -9,11 +9,7 @@ export interface TodasBitacoras {
     id_usuario: number;
     comentario: string;
     fecha_ingresado: Date;
-    usuario: UsuarioBitacoras;
-}
-
-export interface UsuarioBitacoras {
-    nombre_ejecutivo: string;
+    usuario: { nombre_ejecutivo: string }
 }
 
 export interface ResultadoCrearEditarEliminarBitacora {

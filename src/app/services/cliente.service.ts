@@ -92,7 +92,7 @@ export class ClienteService {
 
   agregarGestionCliente(data: GestionCliente): Observable<any> {
     let url = `${this.url_base}/agregarGestionCliente/${this.id_cliente}`;
-    return this.http.post<ResultadoGestionCliente>(url, data);
+    return this.http.post<any>(url, data);
   }
 
   obtenerFichaComiteByCliente(): Observable<ResultadoObtenerFichaComite> {

@@ -15,6 +15,7 @@ import { ProrrogaComponent } from './components/prorroga/prorroga.component';
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { CurseComponent } from './components/curse/curse.component';
 import { SimulacionComponent } from './components/simulacion/simulacion.component';
+import { GestionesComponent } from './components/gestiones/gestiones.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SimulacionComponent } from './components/simulacion/simulacion.componen
     ProrrogaComponent,
     DocumentosComponent,
     CurseComponent,
-    SimulacionComponent
+    SimulacionComponent,
+    GestionesComponent
   ],
   imports: [
     CommonModule,

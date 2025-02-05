@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+
 import { env } from 'src/environments/environment';
+
 import { ResultadoAgregarProrroga, ResultadoCrearEditarEliminarBitacora, ResultadoObtenerClienteDetalle, ResultadoObtenerClientesSalida, ResultadoObtenerProrroga, ResultadoObtenerTodasBitacoras } from '../interfaces';
+import { ResultadoGestionSalidas } from '../interfaces/gestionesSalidas';
 
 @Injectable({
   providedIn: 'root'
@@ -81,6 +84,16 @@ export class SalidasService {
   eliminarProrrogaPorCliente(id_prorroga: number): Observable<{ ok: boolean, mensaje: string }> {
     let url = `${this.url_base}/eliminarProrrogaPorCliente/${id_prorroga}`;
     return this.http.delete<{ ok: boolean, mensaje: string }>(url);
+  }
+
+  obtenerGestionSalidaPorCliente(): Observable<ResultadoGestionSalidas> {
+    let url = `${this.url_base}/obtenerGestionSalidaPorCliente/${this.id_cliente}`;
+    return this.http.get<ResultadoGestionSalidas>(url);
+  }
+
+  agregarGestionPorCliente(data: any): Observable<any> {
+    let url = `${this.url_base}/agregarGestionPorCliente/${this.id_cliente}`;
+    return this.http.post<any>(url, data);
   }
 }
 

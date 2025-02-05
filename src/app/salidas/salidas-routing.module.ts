@@ -8,6 +8,7 @@ import { ProrrogaComponent } from './components/prorroga/prorroga.component';
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { CurseComponent } from './components/curse/curse.component';
 import { SimulacionComponent } from './components/simulacion/simulacion.component';
+import { GestionesComponent } from './components/gestiones/gestiones.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     component: BaseComponent,
     children: [
       { path: 'detalle', component: DetalleComponent },
+      { path: 'gestiones', component: GestionesComponent },
       { path: 'bitacora', component: BitacoraComponent },
       { path: 'prorroga', component: ProrrogaComponent },
       { path: 'simulacion', component: SimulacionComponent },

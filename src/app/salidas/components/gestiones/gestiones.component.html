@@ -1,0 +1,79 @@
+<div class="container-fluid">
+    <h2>Gestión del Cliente</h2>
+    <form [formGroup]="formGestion" (ngSubmit)="agregarGestionCliente()">
+      <div class="row mt-2">
+        <div class="col-md-3">
+          <label for="">Tipo Gestión</label>
+          <ng-select
+            [items]="tipo_gestion"
+            placeholder="Seleccionar Tipo Gestion"
+            [selectOnTab]="true"
+            bindValue="nombre_tipoGestion"
+            bindLabel="nombre_tipoGestion"
+            notFoundText="No se encontraron coincidencias"
+            formControlName="tipo_gestion"
+          >
+          </ng-select>
+          <shared-mensaje-validador
+            [forControl]="formGestion.controls['tipo_gestion']"
+          ></shared-mensaje-validador>
+        </div>
+        <div class="col-md-9">
+          <label for="">Mensaje</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="comentario_gestion"
+          />
+          <shared-mensaje-validador
+            [forControl]="formGestion.controls['comentario_gestion']"
+          ></shared-mensaje-validador>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col">
+          <button
+            class="btn btn-success w-100"
+            type="submit"
+            [disabled]="formGestion.invalid"
+          >
+            Agregar Gestión
+          </button>
+        </div>
+      </div>
+    </form>
+    <hr />
+    <div *ngIf="gestiones_cliente.length > 0; else noHayGestiones">
+      <div class="row mt-2" *ngFor="let gestion of gestiones_cliente">
+        <div class="col-md-12">
+          <table width="100%">
+            <tr>
+              <td class="fw-bold">Registrado por:</td>
+              <td colspan="2">
+                {{ gestion.usuario.nombre_ejecutivo }}
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td width="15%" class="fw-bold">Acción:</td>
+              <td width="70%" colspan="2">{{ gestion.tipo_accion }}</td>
+              <td width="15%" class="text-center">
+                {{ gestion.fecha_comentario | date:'dd/MM/yyyy h:mm a' }}
+              </td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Comentario:</td>
+              <td colspan="2">{{ gestion.comentario }}</td>
+            </tr>
+          </table>
+          <hr />
+        </div>
+      </div>
+    </div>
+    <ng-template #noHayGestiones class="row mt-2">
+      <div class="col">
+        <h3>No existen gestiones</h3>
+      </div>
+    </ng-template>
+  </div>
+  
