@@ -37,7 +37,7 @@
                 <tbody>
                     <tr *ngFor="let bitacora of comentariosBitacora">
                         <td>{{bitacora.comentario}}</td>
-                        <td>{{bitacora.fecha_ingresado | date: 'dd-MM-yyyy h:mm:ss a' : 'UTC'}}</td>
+                        <td>{{bitacora.fecha_ingresado | date: 'dd-MM-yyyy'}}</td>
                         <td>{{bitacora.usuario.nombre_ejecutivo}}</td>
                         <td>
                             <div class="d-flex gap-3">

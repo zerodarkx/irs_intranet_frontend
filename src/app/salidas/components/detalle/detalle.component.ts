@@ -35,6 +35,7 @@ export class DetalleComponent implements OnInit {
     comuna: [''],
     tipo_salida: [null, Validators.required],
     tipo_subSalida: [null, Validators.required],
+    fecha_termino_caso: [null, Validators.required],
   });
 
   constructor(
@@ -57,8 +58,6 @@ export class DetalleComponent implements OnInit {
             valor_comercial: formateadorMiles(response.data.valor_comercial),
             valor_contrato: formateadorMiles(response.data.valor_contrato),
             ltv: formateadorMiles(response.data.ltv),
-            tipo_salida: response.data.tipo_salida,
-            tipo_subSalida: response.data.tipo_subSalida
           });
         },
         error: (error: HttpErrorResponse) => {

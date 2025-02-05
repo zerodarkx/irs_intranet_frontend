@@ -55,6 +55,23 @@
                 </ng-select>
               </div>
             </div>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="">Inversionista</label>
+                <ng-select [items]="selectInversionista" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
+                  placeholder="Seleccionar Inversionista" bindValue="id_inv" bindLabel="inv"
+                  notFoundText="No se encontraron coincidencias" formControlName="inversionista">
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <label for="">Casos Activos</label>
+                <ng-select placeholder="Seleccionar Tipo Caso" notFoundText="No se encontraron coincidencias"
+                  formControlName="caso_activo">
+                  <ng-option [value]="1">Activos</ng-option>
+                  <ng-option [value]="2">No Activos</ng-option>
+                </ng-select>
+              </div>
+            </div>
           </form>
         </div>
         <div class="col-md-3">
@@ -67,8 +84,7 @@
               <button type="button" class="btn btn-warning w-100 mt-2" (click)="borrarFiltrosTabla()">
                 Borrar Filtro
               </button>
-              <button type="button" class="btn btn-secondary w-100 mt-2" (click)="exportarExcel()"
-                *ngIf="obtenerPermiso('VER_MODULO_SALIDAS', 'VER_BUSCAR_SALIDAS','BTN_EXPORTAREXCEL_SALIDAS')">
+              <button type="button" class="btn btn-secondary w-100 mt-2" (click)="exportarExcel()">
                 Exportar
               </button>
             </div>

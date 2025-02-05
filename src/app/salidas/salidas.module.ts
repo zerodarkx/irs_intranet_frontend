@@ -14,6 +14,7 @@ import { BitacoraComponent } from './components/bitacora/bitacora.component';
 import { ProrrogaComponent } from './components/prorroga/prorroga.component';
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { CurseComponent } from './components/curse/curse.component';
+import { SimulacionComponent } from './components/simulacion/simulacion.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CurseComponent } from './components/curse/curse.component';
     BitacoraComponent,
     ProrrogaComponent,
     DocumentosComponent,
-    CurseComponent
+    CurseComponent,
+    SimulacionComponent
   ],
   imports: [
     CommonModule,

@@ -3,9 +3,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
-import { ClientesSalida, nombreApellidoEjecutivoId, TipoSalidas, TipoSubSalidas } from 'src/app/interfaces';
+import { ClientesSalida, nombreApellidoEjecutivoId, SelectInversionistaDisponibles, TipoSalidas, TipoSubSalidas } from 'src/app/interfaces';
 
-import { PermisosService, SalidasService, TipoSalidasService, UsuarioService } from 'src/app/services';
+import { ExportarExcelService, PermisosService, SalidasService, TipoSalidasService, UsuarioService } from 'src/app/services';
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
 import { validarFechas } from 'src/app/shared/utils/validadores';
@@ -24,6 +24,7 @@ export class BuscadorComponent implements OnInit {
   tipoSalida: TipoSalidas[] = []
   tipoSubSalida: TipoSubSalidas[] = []
   selectEjecutivosBrokers: nombreApellidoEjecutivoId[] = [];
+  selectInversionista: SelectInversionistaDisponibles[] = []
 
   formFiltroBusqueda: FormGroup = this.fb.group({
     id_cliente: [, []],
@@ -34,6 +35,8 @@ export class BuscadorComponent implements OnInit {
       fechaDesde: [, []],
       fechaHasta: [, []],
     }, { validators: [validarFechas('fechaDesde', 'fechaHasta')] }),
+    inversionista: [, []],
+    caso_activo: [, []]
   });
 
   permisos!: Record<string, any>;
@@ -44,13 +47,15 @@ export class BuscadorComponent implements OnInit {
     private router: Router,
     private sTipoSalida: TipoSalidasService,
     private sUsuario: UsuarioService,
-    private sPermiso: PermisosService
+    private sPermiso: PermisosService,
+    private sExportar: ExportarExcelService
   ) { }
 
   ngOnInit(): void {
     this.permisos = this.sPermiso.obtenerPermisos();
     this.selectEjecutivoBroker();
     this.obtenerTipoSalidas();
+    this.obtenerSelectInversionistas();
 
     const formularioCache = localStorage.getItem('filtrosBusquedaSalidas')
     if (formularioCache) {
@@ -120,13 +125,32 @@ export class BuscadorComponent implements OnInit {
       })
   }
 
-  exportarExcel() { }
+  exportarExcel() {
+    let fechaHoy = new Date().toLocaleDateString();
+    let nombreArchivo = `exportarCliente_${fechaHoy}.xlsx`;
+
+    this.sExportar.exportarCasosSalidas(this.formFiltroBusqueda.value)
+      .subscribe({
+        next: (blob: Blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = nombreArchivo;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error);
+        }
+      });
+  }
 
   irDetalleCliente(id_cliente: number) {
     localStorage.setItem('filtrosBusquedaSalidas', JSON.stringify(this.formFiltroBusqueda.value));
     this.router.navigate(['/salidas', id_cliente])
   }
-
 
   selectEjecutivoBroker() {
     this.sUsuario.obtenerEjecutivosBrokers()
@@ -139,4 +163,18 @@ export class BuscadorComponent implements OnInit {
         }
       });
   }
+
+  obtenerSelectInversionistas() {
+    this.sUsuario.obtenerSelectInversionista()
+      .subscribe({
+        next: (response) => {
+          this.selectInversionista = response.data;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorConexionServidor(error)
+        }
+      })
+  }
+
+
 }

@@ -18,12 +18,20 @@ export class ExportarExcelService {
     let url = `${this.url_base}/exportarClientes`;
     return this.http.post(url, data, { responseType: 'blob' });
   }
+
   exportarCasosInversionistas(data: any): Observable<Blob>{
     let url = `${this.url_base}/exportarCasosInversionistas`;
     return this.http.post(url, data, { responseType: 'blob' });
   }
+
   exportarComentariosInversionistas(data: any): Observable<Blob>{
     let url = `${this.url_base}/exportarCasosInversionistas`;
     return this.http.post(url, data, { responseType: 'blob' });
   }
+
+  exportarCasosSalidas(data: any): Observable<Blob>{
+    let url = `${this.url_base}/exportarCasosSalidas`;
+    return this.http.post(url, data, { responseType: 'blob' });
+  }
+
 }

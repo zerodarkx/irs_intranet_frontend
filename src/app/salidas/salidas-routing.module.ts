@@ -7,6 +7,7 @@ import { BitacoraComponent } from './components/bitacora/bitacora.component';
 import { ProrrogaComponent } from './components/prorroga/prorroga.component';
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { CurseComponent } from './components/curse/curse.component';
+import { SimulacionComponent } from './components/simulacion/simulacion.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'detalle', component: DetalleComponent },
       { path: 'bitacora', component: BitacoraComponent },
       { path: 'prorroga', component: ProrrogaComponent },
+      { path: 'simulacion', component: SimulacionComponent },
       { path: 'documentos', component: DocumentosComponent },
       { path: 'curse', component: CurseComponent },
       { path: '**', redirectTo: 'detalle', pathMatch: 'full' }
