@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { ITipoDocumento, ResultadoAccionesTipoDocumento, ResultadoTipoDocumentos } from 'src/app/interfaces';
+import { ITipoDocumento, ResultadoTipoDocumentos } from 'src/app/interfaces';
 import { TipoDocuentosService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -83,7 +83,7 @@ export class TipoDocumentosComponent implements OnInit {
     if (this.formTipoDocumento.get('id_tipoDocumento')?.value) {
       this.sTipoDocumento.editarTipoDocumento(this.formTipoDocumento.value)
         .subscribe({
-          next: (response: ResultadoAccionesTipoDocumento) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,
@@ -102,7 +102,7 @@ export class TipoDocumentosComponent implements OnInit {
     } else {
       this.sTipoDocumento.agregarTipoDocumento(this.formTipoDocumento.value)
         .subscribe({
-          next: (response: ResultadoAccionesTipoDocumento) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,

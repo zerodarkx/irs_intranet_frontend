@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DocumentosCurse, ResultadoNuevoDocumentoCurse, ResultadoObtenerDocumentosCurse, ResultadoTipoDocumentosCurse, TipoDocumentoCurse } from 'src/app/interfaces';
+import { DocumentosCurse, TipoDocumentoCurse } from 'src/app/interfaces';
 import { ClienteService, TipoDocumentosCurseService } from 'src/app/services';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
@@ -141,7 +141,7 @@ export class CurseComponent implements OnInit {
   cargarData() {
     this.sCliente.obtenerDocumentosCurse()
       .subscribe({
-        next: (response: ResultadoObtenerDocumentosCurse) => {
+        next: (response) => {
           if (response.ok) {
             this.documentosCurse = response.data;
           }
@@ -155,7 +155,7 @@ export class CurseComponent implements OnInit {
   cargarTipoDocumentoCurse() {
     this.sTipoDocumentoCurse.obtenerTodosTipoDocumentos()
       .subscribe({
-        next: (response: ResultadoTipoDocumentosCurse) => {
+        next: (response) => {
           if (response.ok) {
             this.selectTipoDocumentoCurse = response.data;
           }
@@ -188,7 +188,7 @@ export class CurseComponent implements OnInit {
 
     this.sCliente.agregarDocumentoCurse(formData)
       .subscribe({
-        next: (response: ResultadoNuevoDocumentoCurse) => {
+        next: (response) => {
           if (response.ok) {
             mostrarMensaje({
               icono: IconoSweetAlert.Success,
@@ -254,7 +254,7 @@ export class CurseComponent implements OnInit {
 
     this.sCliente.editarArchivoDocumentoCurse(formData)
       .subscribe({
-        next: (response: ResultadoNuevoDocumentoCurse) => {
+        next: (response) => {
           if (response.ok) {
             mostrarMensaje({
               icono: IconoSweetAlert.Success,
@@ -287,7 +287,7 @@ export class CurseComponent implements OnInit {
   editarDocumentoCurse() {
     this.sCliente.editarDocumentoCurse(this.formEditarDocumentoCurse.value)
       .subscribe({
-        next: (response: ResultadoNuevoDocumentoCurse) => {
+        next: (response) => {
           if (response.ok) {
             mostrarMensaje({
               icono: IconoSweetAlert.Success,

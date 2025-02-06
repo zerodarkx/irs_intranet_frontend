@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { nombreApellidoEjecutivoId, Comuna, DataContador, obtenerComentarioPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoAgregarCasoNuevoReserva, ResultadoObtenerDataInversionista, ResultadoObtenerTodosInversionesContador, ResultadoObtenerTodosInversionesPorEstado, Iregiones, TipoPropiedad, ResultadoObtenerSelectInversionistaDisponibles, SelectInversionistaDisponibles } from 'src/app/interfaces';
+import { nombreApellidoEjecutivoId, Comuna, DataContador, obtenerComentarioPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoAgregarCasoNuevoReserva, ResultadoObtenerTodosInversionesPorEstado, Iregiones, TipoPropiedad, ResultadoObtenerSelectInversionistaDisponibles, SelectInversionistaDisponibles } from 'src/app/interfaces';
 import { ComunaService, ExportarExcelService, InversionistasService, RegionService, TipoPropiedadService, UsuarioService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -156,7 +156,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   obtenerContadorCasos() {
     this.sInversionista.obtenerTodosInversionistaContador()
       .subscribe({
-        next: (response: ResultadoObtenerTodosInversionesContador) => {
+        next: (response) => {
           this.contadorDatosPendiente = response.data.Pendiente || this.contadorDatosPendiente;
           this.contadorDatosComite = response.data.Comite || this.contadorDatosComite;
           this.contadorDatosRechazado = response.data.Rechazado || this.contadorDatosRechazado;
@@ -177,7 +177,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.tituloMostrar = data.titulo;
     this.sInversionista.obtenerTodosInversionesPorEstado(data.estado)
       .subscribe({
-        next: (response: ResultadoObtenerTodosInversionesPorEstado) => {
+        next: (response) => {
           this.datosMostar = response.data;
         },
         error: (error: HttpErrorResponse) => {
@@ -243,7 +243,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
       this.dataInversor = true;
       this.sInversionista.obtenerDataInverionista(event?.id_inv)
         .subscribe({
-          next: (response: ResultadoObtenerDataInversionista) => {
+          next: (response) => {
             if (this.detallePorCaso) {
               this.formAsignarAComite.patchValue({
                 id_cliente: this.detallePorCaso.id,
@@ -274,7 +274,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   aceptarCasoAComite() {
     this.sInversionista.agregarCasoNuevoReserva(this.formAsignarAComite.value)
       .subscribe({
-        next: (response: ResultadoAgregarCasoNuevoReserva) => {
+        next: (response) => {
           if (response.ok) {
             this.obtenerContadorCasos();
             mostrarMensaje({

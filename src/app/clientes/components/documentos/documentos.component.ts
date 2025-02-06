@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { DataObtenerTodosDocumentosCliente, DataObtenerTodosImagenCliente, ResultadoObtenerTodosDocumentosCliente, ResultadoObtenerTodosImagenCliente, ResultadoSubirDocumentoImagen, ITipoDocumento, ResultadoTipoDocumentos, ITipoImagen, ResultadoTipoImagenes } from 'src/app/interfaces';
+import { DataObtenerTodosDocumentosCliente, DataObtenerTodosImagenCliente, ITipoDocumento, ITipoImagen } from 'src/app/interfaces';
 import { ClienteService, PermisosService, TipoDocuentosService, TipoImagenesService } from 'src/app/services';
 
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
@@ -78,10 +78,10 @@ export class DocumentosComponent {
 
   cargarSelect() {
     const id_cliente = this.sCliente.id_cliente;
-    
+
     this.sTipoDocumento.obtenerTodosTipoDocumentosPorLineaNegocio(id_cliente!)
       .subscribe({
-        next: ({ data }: ResultadoTipoDocumentos) => {
+        next: ({ data }) => {
           this.documentos = data
         },
         error: (error: HttpErrorResponse) => {
@@ -91,7 +91,7 @@ export class DocumentosComponent {
 
     this.sTipoImagen.obtenerTodosTipoImagenes()
       .subscribe({
-        next: ({ data }: ResultadoTipoImagenes) => {
+        next: ({ data }) => {
           this.imagenes = data
         },
         error: (error: HttpErrorResponse) => {
@@ -125,7 +125,7 @@ export class DocumentosComponent {
   cargarDocumentosEnSistema() {
     this.sCliente.mostrarTodosDocumentosCliente()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodosDocumentosCliente) => {
+        next: ({ data }) => {
           this.fechaNueva = new Date().getTime().toString();
           this.documentosCargadosCliente = data
         },
@@ -138,7 +138,7 @@ export class DocumentosComponent {
   cargarImagenesEnSistema() {
     this.sCliente.mostrarTodosImagenesCliente()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodosImagenCliente) => {
+        next: ({ data }) => {
           this.fechaNueva = new Date().getTime().toString();
           this.imagenesCargadosCliente = data
         },
@@ -213,7 +213,7 @@ export class DocumentosComponent {
     if (await mostrarConfirmacion('Atención', 'estas seguro de eliminar el documento')) {
       this.sCliente.eliminarDocumentoCliente(id_documento)
         .subscribe({
-          next: (data: ResultadoSubirDocumentoImagen) => {
+          next: (data) => {
             mostrarMensaje({
               icono: data.ok ? IconoSweetAlert.Success : IconoSweetAlert.Error,
               mensaje: data.data.mensaje,
@@ -234,7 +234,7 @@ export class DocumentosComponent {
     if (await mostrarConfirmacion('Atención', 'estas seguro de eliminar la imagen')) {
       this.sCliente.eliminarImagenCliente(id_imagen)
         .subscribe({
-          next: (data: ResultadoSubirDocumentoImagen) => {
+          next: (data) => {
             mostrarMensaje({
               icono: data.ok ? IconoSweetAlert.Success : IconoSweetAlert.Error,
               mensaje: data.data.mensaje,

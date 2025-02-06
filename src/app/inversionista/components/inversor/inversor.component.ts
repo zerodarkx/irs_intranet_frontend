@@ -93,7 +93,7 @@ export class InversorComponent {
   obtenerContadorCasos() {
     this.sInversionista.obtenerTodosInversionistaContadorByInversionista(this.id_inv)
       .subscribe({
-        next: (response: ResultadoObtenerTodosInversionesContador) => {
+        next: (response) => {
           this.contadorDatosPendiente = response.data.Pendiente || this.contadorDatosPendiente;
           this.contadorDatosComite = response.data.Comite || this.contadorDatosComite;
           this.contadorDatosRechazado = response.data.Rechazado || this.contadorDatosRechazado;
@@ -113,7 +113,7 @@ export class InversorComponent {
     this.tituloMostrar = data.titulo;
     this.sInversionista.obtenerTodosInversionesPorEstadoByInversionista(this.id_inv, data.estado)
       .subscribe({
-        next: (response: ResultadoObtenerTodosInversionesPorEstado) => {
+        next: (response) => {
           this.datosMostar = response.data;
         },
         error: (error: HttpErrorResponse) => {

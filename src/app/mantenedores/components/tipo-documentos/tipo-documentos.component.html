@@ -89,8 +89,7 @@
         <div class="col-md-6">
           <label for="">Nombre Tipo Propiedad</label>
           <input type="text" class="form-control" formControlName="nombre_tipoDocumento" (keyup)="mayuscula($event)" />
-          <shared-mensaje-validador
-            [forControl]="formTipoDocumento.controls['nombre_tipoDocumento']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formTipoDocumento.controls['nombre_tipoDocumento']" />
         </div>
       </div>
     </div>

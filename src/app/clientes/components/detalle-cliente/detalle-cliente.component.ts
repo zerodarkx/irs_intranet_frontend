@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { Comuna, ResultadoObtenerComunas, Iregiones, ResultadoObtenerTodasRegiones, LineaNegocio, ResultadoObtenerTodasLineasNegocio, Plataforma, ResultadoObtenerTodasPlataformas, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad, nombreApellidoEjecutivoId, ResultadoCambiarEstado, ResultadoCrearCliente, ResultadoObtenerClienteById, ResultadoObtenerEjecutivoYbroker } from 'src/app/interfaces';
+import { Comuna, Iregiones, LineaNegocio, Plataforma, TipoPropiedad, nombreApellidoEjecutivoId } from 'src/app/interfaces';
 import { ComunaService, LineaNegocioService, PlataformaService, RegionService, TipoPropiedadService, UsuarioService, ClienteService, PermisosService } from 'src/app/services';
 
 import { agregarMayusculas, formatearRut, formateadorMiles, soloNumeros } from 'src/app/shared/utils/formateadores';
@@ -172,7 +172,7 @@ export class DetalleClienteComponent implements OnInit {
   selectRegion() {
     this.sRegion.obtenerTodasLasRegiones()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodasRegiones) => {
+        next: ({ data }) => {
           this.selectRegiones = data
         },
         error: (error: HttpErrorResponse) => {
@@ -184,7 +184,7 @@ export class DetalleClienteComponent implements OnInit {
   selectPlataforma() {
     this.sPlataforma.obtenerTodasLasPlataformas()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodasPlataformas) => {
+        next: ({ data }) => {
           this.selectPlataformas = data
         },
         error: (error: HttpErrorResponse) => {
@@ -196,7 +196,7 @@ export class DetalleClienteComponent implements OnInit {
   selectLineaNegocio() {
     this.sLineaNegocio.obtenerTodasLasLineasNegocio()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodasLineasNegocio) => {
+        next: ({ data }) => {
           this.selectLineaNegocios = data
         },
         error: (error: HttpErrorResponse) => {
@@ -208,7 +208,7 @@ export class DetalleClienteComponent implements OnInit {
   selectTipoPropiedad() {
     this.sTipoPropiedad.obtenerTodasLosTipoPropiedad()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodosTipoPropiedad) => {
+        next: ({ data }) => {
           this.selectTipoPropiedades = data
         },
         error: (error: HttpErrorResponse) => {
@@ -220,7 +220,7 @@ export class DetalleClienteComponent implements OnInit {
   selectEjecutivoBroker() {
     this.sUsuario.obtenerEjecutivosBrokers()
       .subscribe({
-        next: ({ data }: ResultadoObtenerEjecutivoYbroker) => {
+        next: ({ data }) => {
           this.selectEjecutivosBrokers = data
         },
         error: (error: HttpErrorResponse) => {
@@ -239,7 +239,7 @@ export class DetalleClienteComponent implements OnInit {
     if (region) {
       this.sComuna.obtenerComunasPorRegion(region)
         .subscribe({
-          next: ({ data }: ResultadoObtenerComunas) => {
+          next: ({ data }) => {
             this.selectComunas = data
           },
           error: (error: HttpErrorResponse) => {
@@ -253,7 +253,7 @@ export class DetalleClienteComponent implements OnInit {
   selectComunaPorRegionById(id_region: number) {
     this.sComuna.obtenerComunasPorRegion(id_region)
       .subscribe({
-        next: ({ data }: ResultadoObtenerComunas) => {
+        next: ({ data }) => {
           this.selectComunas = data
         },
         error: (error: HttpErrorResponse) => {
@@ -265,7 +265,7 @@ export class DetalleClienteComponent implements OnInit {
   obtenerCliente() {
     this.sCliente.obtenerClientePorId()
       .subscribe({
-        next: (response: ResultadoObtenerClienteById) => {
+        next: (response) => {
           console.log(response);
 
           if (response.ok) {
@@ -318,7 +318,7 @@ export class DetalleClienteComponent implements OnInit {
   guardarDatos(): void {
     this.sCliente.modificarClientePorId(this.miFormulario.value)
       .subscribe({
-        next: (response: ResultadoCrearCliente) => {
+        next: (response) => {
           mostrarMensaje({
             icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Warning,
             titulo: response.ok ? 'Exito' : "Atención",
@@ -335,7 +335,7 @@ export class DetalleClienteComponent implements OnInit {
   volverEstadoCliente() {
     this.sCliente.volverEstadoCliente()
       .subscribe({
-        next: (response: ResultadoCambiarEstado) => {
+        next: (response) => {
           mostrarMensaje({
             icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Warning,
             titulo: response.data.titulo,
@@ -356,7 +356,7 @@ export class DetalleClienteComponent implements OnInit {
   pasarSiguienteEstado() {
     this.sCliente.cambiarSiguienteEstado(this.miFormulario.value)
       .subscribe({
-        next: (response: ResultadoCambiarEstado) => {
+        next: (response) => {
           mostrarMensaje({
             icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Warning,
             titulo: response.data.titulo,

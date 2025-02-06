@@ -4,39 +4,21 @@
     <div class="row mt-2">
       <div class="col-md-3">
         <label for="">Tipo Gestión</label>
-        <ng-select
-          [items]="tipo_gestion"
-          placeholder="Seleccionar Tipo Gestion"
-          [selectOnTab]="true"
-          bindValue="nombre_tipoGestion"
-          bindLabel="nombre_tipoGestion"
-          notFoundText="No se encontraron coincidencias"
-          formControlName="tipo_gestion"
-        >
+        <ng-select [items]="tipo_gestion" placeholder="Seleccionar Tipo Gestion" [selectOnTab]="true"
+          bindValue="nombre_tipoGestion" bindLabel="nombre_tipoGestion" notFoundText="No se encontraron coincidencias"
+          formControlName="tipo_gestion">
         </ng-select>
-        <shared-mensaje-validador
-          [forControl]="formGestion.controls['tipo_gestion']"
-        ></shared-mensaje-validador>
+        <shared-mensaje-validador [forControl]="formGestion.controls['tipo_gestion']" />
       </div>
       <div class="col-md-9">
         <label for="">Mensaje</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="comentario_gestion"
-        />
-        <shared-mensaje-validador
-          [forControl]="formGestion.controls['comentario_gestion']"
-        ></shared-mensaje-validador>
+        <input type="text" class="form-control" formControlName="comentario_gestion" />
+        <shared-mensaje-validador [forControl]="formGestion.controls['comentario_gestion']" />
       </div>
     </div>
     <div class="row mt-2">
       <div class="col">
-        <button
-          class="btn btn-success w-100"
-          type="submit"
-          [disabled]="formGestion.invalid"
-        >
+        <button class="btn btn-success w-100" type="submit" [disabled]="formGestion.invalid">
           Agregar Gestión
         </button>
       </div>

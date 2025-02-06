@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { ResultadoCrearCliente, Comuna, ResultadoObtenerComunas, Plataforma, ResultadoObtenerTodasPlataformas, Iregiones, ResultadoObtenerTodasRegiones, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad } from 'src/app/interfaces';
+import { Comuna, Plataforma, Iregiones, TipoPropiedad } from 'src/app/interfaces';
 import { ClienteService, ComunaService, PlataformaService, RegionService, TipoPropiedadService } from 'src/app/services';
 
 import { agregarMayusculas, formateadorMiles, formatearRut, soloNumeros } from 'src/app/shared/utils/formateadores';
@@ -132,7 +132,7 @@ export class NuevoClienteComponent {
   selectRegion() {
     this.sRegion.obtenerTodasLasRegiones()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodasRegiones) => {
+        next: ({ data }) => {
           this.selectRegiones = data
         },
         error: (error: HttpErrorResponse) => {
@@ -145,7 +145,7 @@ export class NuevoClienteComponent {
   selectPlataforma() {
     this.sPlataforma.obtenerTodasLasPlataformas()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodasPlataformas) => {
+        next: ({ data }) => {
           this.selectPlataformas = data
         },
         error: (error: HttpErrorResponse) => {
@@ -158,7 +158,7 @@ export class NuevoClienteComponent {
   selectTipoPropiedad() {
     this.sTipoPropiedad.obtenerTodasLosTipoPropiedad()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodosTipoPropiedad) => {
+        next: ({ data }) => {
           this.selectTipoPropiedades = data
         },
         error: (error: HttpErrorResponse) => {
@@ -177,7 +177,7 @@ export class NuevoClienteComponent {
     if (region) {
       this.sComuna.obtenerComunasPorRegion(region)
         .subscribe({
-          next: ({ data }: ResultadoObtenerComunas) => {
+          next: ({ data }) => {
             this.selectComunas = data
           },
           error: (error: HttpErrorResponse) => {
@@ -191,7 +191,7 @@ export class NuevoClienteComponent {
     const data = this.miFormulario.value;
     this.sCLiente.crearNuevoCliente(data)
       .subscribe({
-        next: (resultado: ResultadoCrearCliente) => {
+        next: (resultado) => {
           mostrarMensaje({
             icono: IconoSweetAlert.Success,
             mensaje: resultado.data.mensaje,
@@ -203,7 +203,6 @@ export class NuevoClienteComponent {
           }
         },
         error: (error: HttpErrorResponse) => {
-          // this.errorMessage = 'Error al obtener los datos';
           console.error('Error al obtener los datos:', error);
           errorConexionServidor(error);
         }

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
 
-import { nombreApellidoEjecutivoId, ResultadoObtenerEjecutivoYbroker, ResultadoObtenerTodosClientes, TodosClientes, Estados } from 'src/app/interfaces';
+import { nombreApellidoEjecutivoId, TodosClientes, Estados } from 'src/app/interfaces';
 import { ClienteService, ExportarExcelService, PermisosService, UsuarioService } from 'src/app/services';
 
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
@@ -20,7 +20,7 @@ export class BuscarClienteComponent implements OnInit {
 
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
-  
+
   clientes: TodosClientes[] = [];
   selectEjecutivosBrokers: nombreApellidoEjecutivoId[] = [];
   estadosMostrar: Estados[] = [
@@ -105,7 +105,7 @@ export class BuscarClienteComponent implements OnInit {
   obtenerClientePorFiltro() {
     this.sCliente.obtenerClientesPorFiltro(this.formFiltroBusqueda.value)
       .subscribe({
-        next: (resultado: ResultadoObtenerTodosClientes) => {
+        next: (resultado) => {
           this.clientes = resultado.data
         },
         error: (error: HttpErrorResponse) => {
@@ -129,7 +129,7 @@ export class BuscarClienteComponent implements OnInit {
   selectEjecutivoBroker() {
     this.sUsuario.obtenerEjecutivosBrokers()
       .subscribe({
-        next: ({ data }: ResultadoObtenerEjecutivoYbroker) => {
+        next: ({ data }) => {
           this.selectEjecutivosBrokers = data
         },
         error: (error: HttpErrorResponse) => {

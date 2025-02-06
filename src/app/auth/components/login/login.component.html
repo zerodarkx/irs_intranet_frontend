@@ -5,13 +5,13 @@
       <div class="mb-3">
         <label for="usuario" class="form-label">Usuario</label>
         <input type="text" class="form-control" placeholder="Ingresa tu usuario" required formControlName="usuario" />
-        <shared-mensaje-validador [forControl]="formLogin.controls['usuario']"></shared-mensaje-validador>
+        <shared-mensaje-validador [forControl]="formLogin.controls['usuario']"/>
       </div>
       <div class="mb-3">
         <label for="contraseña" class="form-label">Contraseña</label>
         <input type="password" class="form-control" placeholder="Ingresa tu contraseña" required
           formControlName="password" />
-        <shared-mensaje-validador [forControl]="formLogin.controls['password']"></shared-mensaje-validador>
+        <shared-mensaje-validador [forControl]="formLogin.controls['password']" />
       </div>
       <div class="mb-3" *ngIf="mensajeError">
         <div class="alert alert-warning" role="alert" >{{mensajeError}}</div>

@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { ITipoDocumento, LineaNegocio, ResultadoAccionesLineaNegocio, ResultadoObtenerTodasLineasNegocio } from 'src/app/interfaces';
+import { ITipoDocumento, LineaNegocio } from 'src/app/interfaces';
 import { LineaNegocioService, TipoDocuentosService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -68,7 +68,7 @@ export class LineaNegocioComponent implements OnInit {
         documentos: this.fb.array(
           this.documentos.map((ele) => this.fb.control(lineaNegocio.documentos.includes(ele.id_tipoDocumento)))
         )
-      });      
+      });
     }
     this.cargaDeDocumento = true;
     this.modalLineaNegocio.abrirModal();
@@ -77,7 +77,7 @@ export class LineaNegocioComponent implements OnInit {
   obtenerLineaNegocio() {
     this.sLineaNegocio.obtenerTodasLasLineasNegocio()
       .subscribe({
-        next: (response: ResultadoObtenerTodasLineasNegocio) => {
+        next: (response) => {
           this.lineaNegocios = response.data
         },
         error: (error: HttpErrorResponse) => {
@@ -115,7 +115,7 @@ export class LineaNegocioComponent implements OnInit {
 
       this.sLineaNegocio.editarLineaNegocio(this.formLineaNegocio.value)
         .subscribe({
-          next: (response: ResultadoAccionesLineaNegocio) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,
@@ -134,7 +134,7 @@ export class LineaNegocioComponent implements OnInit {
     } else {
       this.sLineaNegocio.agregarLineaNegocio(this.formLineaNegocio.value)
         .subscribe({
-          next: (response: ResultadoAccionesLineaNegocio) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,

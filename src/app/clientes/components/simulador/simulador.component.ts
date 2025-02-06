@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { ISimulador, ResultadoCrearSimulacion, ResultadoObtenerTodasSimulacionPorCliente, ITipoCanales, ResultadoComisionTasaByID, ResultadoCanalesSimulacion, IBancos, ResultadoTodosBancos, exportarPdf, ResultadoObtenerClienteById } from 'src/app/interfaces';
+import { ISimulador, ITipoCanales, IBancos, ResultadoTodosBancos } from 'src/app/interfaces';
 import { TipoSimulacionCanalService, BancoService, SimuladorService, ClienteService, ExportarPdfService, PermisosService } from 'src/app/services';
 
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase, soloNumeros } from 'src/app/shared/utils/formateadores';
@@ -76,7 +76,7 @@ export class SimuladorComponent implements OnInit {
   cargarDatosService() {
     this.sTipoCanal.obtenerTodosTipoCanalesPorPermiso()
       .subscribe({
-        next: ({ data }: ResultadoCanalesSimulacion) => {
+        next: ({ data }) => {
           this.canales = data
         },
         error: (error: HttpErrorResponse) => {
@@ -101,7 +101,7 @@ export class SimuladorComponent implements OnInit {
   obtenerSimulaciones() {
     this.sSimulador.obtenerTodasSimulacionPorCliente()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodasSimulacionPorCliente) => {
+        next: ({ data }) => {
           this.simulacionesCliente = data
         },
         error: (error: HttpErrorResponse) => {
@@ -113,7 +113,7 @@ export class SimuladorComponent implements OnInit {
   abrirNuevaSimulacion() {
     this.sCliente.obtenerClientePorId()
       .subscribe({
-        next: (response: ResultadoObtenerClienteById) => {
+        next: (response) => {
 
           this.formSimulacion.reset({
             moneda: 'UF',
@@ -172,7 +172,7 @@ export class SimuladorComponent implements OnInit {
     if (tipoCanal) {
       this.sTipoCanal.obtenerComisionRentaById(tipoCanal.id_canal)
         .subscribe({
-          next: ({ tipoCanales }: ResultadoComisionTasaByID) => {
+          next: ({ tipoCanales }) => {
             this.formSimulacion.patchValue({
               comision: formateadorMilesDesdeBase(tipoCanales.comision_canal),
               rentaMensual: formateadorMilesDesdeBase(tipoCanales.renta_mensual)
@@ -223,7 +223,7 @@ export class SimuladorComponent implements OnInit {
   crearSimulacion(): void {
     this.sSimulador.crearNuevaSimulacion(this.formSimulacion.value)
       .subscribe({
-        next: (response: ResultadoCrearSimulacion) => {
+        next: (response) => {
           mostrarMensaje({
             icono: response.ok ? IconoSweetAlert.Success : IconoSweetAlert.Warning,
             titulo: response.ok ? 'Exito' : "Atención",
@@ -243,7 +243,7 @@ export class SimuladorComponent implements OnInit {
   descargarSimulacion(simulacion: ISimulador) {
     this.sExportarPDF.exportarSimulacionPdf(simulacion.id_simulacion)
       .subscribe({
-        next: (response: exportarPdf) => {
+        next: (response) => {
           const blob = new Blob([new Uint8Array(response.archivo.data).buffer])
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');

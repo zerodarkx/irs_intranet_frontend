@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { ITipoImagen, ResultadoAccionesTipoImagenes, ResultadoTipoImagenes } from 'src/app/interfaces';
+import { ITipoImagen } from 'src/app/interfaces';
 import { TipoImagenesService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -70,7 +70,7 @@ export class TipoImagenesComponent implements OnInit {
   obtenerTodosTipoPropiedad() {
     this.sTipoImagenes.obtenerTodosTipoImagenes()
       .subscribe({
-        next: (response: ResultadoTipoImagenes) => {
+        next: (response) => {
           this.tipoImagen = response.data
         },
         error: (error: HttpErrorResponse) => {
@@ -83,7 +83,7 @@ export class TipoImagenesComponent implements OnInit {
     if (this.formTipoImagen.get('id_tipoImagen')?.value) {
       this.sTipoImagenes.editarTipoImagen(this.formTipoImagen.value)
         .subscribe({
-          next: (response: ResultadoAccionesTipoImagenes) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,
@@ -102,7 +102,7 @@ export class TipoImagenesComponent implements OnInit {
     } else {
       this.sTipoImagenes.agregarTipoImagen(this.formTipoImagen.value)
         .subscribe({
-          next: (response: ResultadoAccionesTipoImagenes) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,

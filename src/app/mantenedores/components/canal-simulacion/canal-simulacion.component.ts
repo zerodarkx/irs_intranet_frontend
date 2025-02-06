@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { ITipoCanales, ResultadoAccionesCanalSimulacion, ResultadoCanalesSimulacion } from 'src/app/interfaces';
+import { ITipoCanales } from 'src/app/interfaces';
 import { TipoSimulacionCanalService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -86,7 +86,7 @@ export class CanalSimulacionComponent implements OnInit {
   obtenerLineaNegocio() {
     this.sSimulacionCanal.obtenerTodosTipoCanales()
       .subscribe({
-        next: (response: ResultadoCanalesSimulacion) => {
+        next: (response) => {
           this.canalSimulaciones = response.data
         },
         error: (error: HttpErrorResponse) => {
@@ -99,7 +99,7 @@ export class CanalSimulacionComponent implements OnInit {
     if (this.formCanalSimulacion.get('id_lineaNegocio')?.value) {
       this.sSimulacionCanal.editarCanalSimulacion(this.formCanalSimulacion.value)
         .subscribe({
-          next: (response: ResultadoAccionesCanalSimulacion) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,
@@ -118,7 +118,7 @@ export class CanalSimulacionComponent implements OnInit {
     } else {
       this.sSimulacionCanal.agregarCanalSimulacion(this.formCanalSimulacion.value)
         .subscribe({
-          next: (response: ResultadoAccionesCanalSimulacion) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,

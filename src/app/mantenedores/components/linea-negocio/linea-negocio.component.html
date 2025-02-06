@@ -90,8 +90,7 @@
         <div class="col-md-6">
           <label for="">Nombre Linea de Negocio</label>
           <input type="text" class="form-control" formControlName="nombre_lineaNegocio" (keyup)="mayuscula($event)" />
-          <shared-mensaje-validador
-            [forControl]="formLineaNegocio.controls['nombre_lineaNegocio']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formLineaNegocio.controls['nombre_lineaNegocio']" />
         </div>
       </div>
       <div class="row mt-2">

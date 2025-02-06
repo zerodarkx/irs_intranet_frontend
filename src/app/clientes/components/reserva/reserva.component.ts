@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
-import { ReservasClientes, ResultadoObtenerReservasClientes } from 'src/app/interfaces';
+import { ReservasClientes } from 'src/app/interfaces';
 import { ClienteService } from 'src/app/services';
 
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
@@ -22,7 +22,7 @@ export class ReservaComponent implements OnInit {
   ngOnInit(): void {
     this.sCliente.obtenerReservasCliente()
       .subscribe({
-        next: (response: ResultadoObtenerReservasClientes) => {
+        next: (response) => {
           this.datosInversionistas = response.data;
         },
         error: (error: HttpErrorResponse) => {

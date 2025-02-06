@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
-import { CategoriaGastoCliente, GastoClienteTipo, ResultadoObtenerGastoCliente, exportarPdf } from 'src/app/interfaces';
+import { CategoriaGastoCliente, GastoClienteTipo } from 'src/app/interfaces';
 import { ClienteService, ExportarPdfService } from 'src/app/services';
 
 import { formateadorMilesSinDecimal, formateadorMilesSinDecimalDesdeBase } from 'src/app/shared/utils/formateadores';
@@ -78,7 +78,7 @@ export class GastosClienteComponent implements OnInit {
 
     this.sCliente.obtenerGastosCliente()
       .subscribe({
-        next: (response: ResultadoObtenerGastoCliente) => {
+        next: (response) => {
           if (response.ok) {
             this.id_ficha = response.data.id_gasto;
             this.categorias[0].data = response.data.abonos;
@@ -154,7 +154,7 @@ export class GastosClienteComponent implements OnInit {
   descargarGastoCliente(id_ficha: number) {
     this.sExpotarPdf.exportarGastosClientePdf(id_ficha)
       .subscribe({
-        next: (response: exportarPdf) => {
+        next: (response) => {
           const blob = new Blob([new Uint8Array(response.archivo.data).buffer])
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');

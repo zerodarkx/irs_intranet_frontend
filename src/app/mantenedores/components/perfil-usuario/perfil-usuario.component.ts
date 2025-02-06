@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { PermisoConId ,ResultadoAccionesPerfil, ResultadoObtenerTodosPerfiles, TipoPerfilUsuario } from 'src/app/interfaces';
+import { PermisoConId, TipoPerfilUsuario } from 'src/app/interfaces';
 import { TipoPerfilService } from 'src/app/services';
 
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
@@ -75,7 +75,7 @@ export class PerfilUsuarioComponent implements OnInit {
   obtenerTodosPerfil() {
     this.sTipoPerfil.obtenerTodosPerfiles()
       .subscribe({
-        next: (response: ResultadoObtenerTodosPerfiles) => {
+        next: (response) => {
           this.tipoPerfiles = response.data
         },
         error: (error: HttpErrorResponse) => {
@@ -88,7 +88,7 @@ export class PerfilUsuarioComponent implements OnInit {
     if (this.formTipoPerfil.get('id_tipoUsuario')?.value) {
       this.sTipoPerfil.editarTipoPerfil(this.formTipoPerfil.value)
         .subscribe({
-          next: (response: ResultadoAccionesPerfil) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,
@@ -107,7 +107,7 @@ export class PerfilUsuarioComponent implements OnInit {
     } else {
       this.sTipoPerfil.agregarTipoPerfil(this.formTipoPerfil.value)
         .subscribe({
-          next: (response: ResultadoAccionesPerfil) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,

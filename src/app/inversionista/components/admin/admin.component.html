@@ -593,8 +593,7 @@
                 <div class="col-md-12">
                     <label for="">Comentario</label>
                     <textarea rows="3" class="form-control" formControlName="comentario"></textarea>
-                    <shared-mensaje-validador
-                        [forControl]="formComentario.controls['comentario']">></shared-mensaje-validador>
+                    <shared-mensaje-validador [forControl]="formComentario.controls['comentario']" />
                 </div>
                 <div class="col-md-6">
                     <button type="button" class="btn btn-success w-100" (click)="guardarComentario()"

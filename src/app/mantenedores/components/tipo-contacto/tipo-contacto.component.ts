@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { ResultadoAccionTipoCanalContacto, ResultadoTipoCanalContacto, TipoCanalContacto } from 'src/app/interfaces';
+import { TipoCanalContacto } from 'src/app/interfaces';
 import { TipoContactoService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -72,7 +72,7 @@ export class TipoContactoComponent implements OnInit {
 
       this.sTipoCanalContacto.cambiarEstadoCanalContacto(canalContacto)
         .subscribe({
-          next: (response: ResultadoAccionTipoCanalContacto) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,
@@ -93,7 +93,7 @@ export class TipoContactoComponent implements OnInit {
   obtenerTodoTipoCanalContacto() {
     this.sTipoCanalContacto.obtenerTodosTipoContacto()
       .subscribe({
-        next: (response: ResultadoTipoCanalContacto) => {
+        next: (response) => {
           this.tipoCanalContacto = response.data
         },
         error: (error: HttpErrorResponse) => {
@@ -106,7 +106,7 @@ export class TipoContactoComponent implements OnInit {
     if (this.formTipoCanalContacto.get('id_canal')?.value) {
       this.sTipoCanalContacto.editarTipoContacto(this.formTipoCanalContacto.value)
         .subscribe({
-          next: (response: ResultadoAccionTipoCanalContacto) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,
@@ -125,7 +125,7 @@ export class TipoContactoComponent implements OnInit {
     } else {
       this.sTipoCanalContacto.agregarTipoContacto(this.formTipoCanalContacto.value)
         .subscribe({
-          next: (response: ResultadoAccionTipoCanalContacto) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,

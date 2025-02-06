@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { GestionCliente, ResultadoAgregarGestionCliente, ResultadoGestionCliente, ResultadoTipoGestion, TipoGestion } from 'src/app/interfaces';
+import { GestionCliente, TipoGestion } from 'src/app/interfaces';
 import { ClienteService, TipoGestionService } from 'src/app/services';
 
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
@@ -43,7 +43,7 @@ export class GestionComponent implements OnInit {
   cargarTipoGestion() {
     this.sTipoGestion.obtenerTipoGestion()
       .subscribe({
-        next: ({ data }: ResultadoTipoGestion) => {
+        next: ({ data }) => {
           this.tipo_gestion = data
         },
         error: (error: HttpErrorResponse) => {
@@ -55,7 +55,7 @@ export class GestionComponent implements OnInit {
   cargarGestionesCliente() {
     this.sCliente.obtenerGestionesClientePorId()
       .subscribe({
-        next: ({ data }: ResultadoGestionCliente) => {
+        next: ({ data }) => {
           this.gestiones_cliente = data
         },
         error: (error: HttpErrorResponse) => {
@@ -67,7 +67,7 @@ export class GestionComponent implements OnInit {
   agregarGestionCliente() {
     this.sCliente.agregarGestionCliente(this.formGestion.value)
       .subscribe({
-        next: (response: ResultadoAgregarGestionCliente) => {
+        next: (response) => {
           mostrarMensaje({
             icono: response.data.icono as IconoSweetAlert,
             mensaje: response.data.mensaje,

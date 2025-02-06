@@ -70,7 +70,7 @@ export class TipoPropiedadComponent implements OnInit {
   obtenerTodosTipoPropiedad() {
     this.sTipoPropiedad.obtenerTodasLosTipoPropiedad()
       .subscribe({
-        next: (response: ResultadoObtenerTodosTipoPropiedad) => {
+        next: (response) => {
           this.tipoPropiedad = response.data
         },
         error: (error: HttpErrorResponse) => {
@@ -83,7 +83,7 @@ export class TipoPropiedadComponent implements OnInit {
     if (this.formTipoPropiedad.get('id_tipoPropiedad')?.value) {
       this.sTipoPropiedad.editarTipoPropiedad(this.formTipoPropiedad.value)
         .subscribe({
-          next: (response: ResultadoAccionesTipoPropiedad) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,
@@ -102,7 +102,7 @@ export class TipoPropiedadComponent implements OnInit {
     } else {
       this.sTipoPropiedad.agregarTipoPropiedad(this.formTipoPropiedad.value)
         .subscribe({
-          next: (response: ResultadoAccionesTipoPropiedad) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,

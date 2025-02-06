@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { lastValueFrom } from 'rxjs';
 
-import { Plataforma, ResultadoObtenerTodasPlataformas, CodigoTelefono, ResultadoObtenerTodosCodigoTelefono, PermisoConId, ResultadoAccionesUsuario, ResultadoObtenerTodosUsuario, ResultadoUsuario, ResultadoObtenerTodosPerfiles, TipoPerfilUsuario, ITipoDocumento, TipoPropiedad } from 'src/app/interfaces';
+import { Plataforma, CodigoTelefono, PermisoConId, ResultadoUsuario, TipoPerfilUsuario, ITipoDocumento, TipoPropiedad } from 'src/app/interfaces';
 import { CodigoTelefonoService, PlataformaService, TipoPerfilService, UsuarioService, TipoDocuentosService, TipoPropiedadService } from 'src/app/services';
 
 import { agregarMayusculas, formateadorMiles, formateadorMilesDesdeBase, formatearRut } from 'src/app/shared/utils/formateadores';
@@ -154,7 +154,7 @@ export class UsuarioComponent implements OnInit {
   obtenerSelectTipoPerfil() {
     this.sTipoPerfil.obtenerTodosPerfiles()
       .subscribe({
-        next: (response: ResultadoObtenerTodosPerfiles) => {
+        next: (response) => {
           this.selectTipoPerfil = response.data
         },
         error: (error) => {
@@ -166,7 +166,7 @@ export class UsuarioComponent implements OnInit {
   obtenerSelectPlataforma() {
     this.sPlataforma.obtenerTodasLasPlataformas()
       .subscribe({
-        next: (response: ResultadoObtenerTodasPlataformas) => {
+        next: (response) => {
           this.selectPlataforma = response.data;
         },
         error: (error) => {
@@ -182,7 +182,7 @@ export class UsuarioComponent implements OnInit {
   obtenerSelectCodigoTelefono() {
     this.sCodigoTelefono.obtenerTodosCodigoTelefono()
       .subscribe({
-        next: (response: ResultadoObtenerTodosCodigoTelefono) => {
+        next: (response) => {
           this.selectCodigoTelefono = response.data;
         },
         error: (error) => {
@@ -194,7 +194,7 @@ export class UsuarioComponent implements OnInit {
   obtenerUsuario() {
     this.sUsuario.obtenerTodosUsuario()
       .subscribe({
-        next: (response: ResultadoObtenerTodosUsuario) => {
+        next: (response) => {
           this.usuarios = response.data;
         },
         error: (error) => {
@@ -262,7 +262,6 @@ export class UsuarioComponent implements OnInit {
       })
     }
     this.modalAgregarUsuario.abrirModal()
-    // abrirModal('modalUsuario')
   }
 
   modalPassword(usuario: ResultadoUsuario) {
@@ -282,7 +281,7 @@ export class UsuarioComponent implements OnInit {
 
       this.sUsuario.cambiarEstadoUsuario(data)
         .subscribe({
-          next: (response: ResultadoAccionesUsuario) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,
@@ -309,7 +308,7 @@ export class UsuarioComponent implements OnInit {
 
     this.sUsuario.modificarPassword(data)
       .subscribe({
-        next: (response: ResultadoAccionesUsuario) => {
+        next: (response) => {
           mostrarMensaje({
             icono: response.data.icono as IconoSweetAlert,
             mensaje: response.data.mensaje,
@@ -331,7 +330,7 @@ export class UsuarioComponent implements OnInit {
     if (this.formUsuario.get('id_usuario')?.value) {
       this.sUsuario.editarUsuario(this.formUsuario.value)
         .subscribe({
-          next: (response: ResultadoAccionesUsuario) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,
@@ -350,7 +349,7 @@ export class UsuarioComponent implements OnInit {
     } else {
       this.sUsuario.agregarNuevoUsuario(this.formUsuario.value)
         .subscribe({
-          next: (response: ResultadoAccionesUsuario) => {
+          next: (response) => {
             mostrarMensaje({
               icono: response.data.icono as IconoSweetAlert,
               mensaje: response.data.mensaje,

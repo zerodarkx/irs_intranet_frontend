@@ -15,8 +15,7 @@
                     bindValue="id_tipoDocumento" bindLabel="nombre_tipoDocumento"
                     notFoundText="No se encontraron coincidencias" formControlName="id_documento">
                 </ng-select>
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['id_documento']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['id_documento']" />
             </div>
             <div class="col-md-2">
                 <label for="">Moneda</label>
@@ -26,14 +25,12 @@
                     <ng-option value="CLP">CLP</ng-option>
                     <ng-option value="USD">USD</ng-option>
                 </ng-select>
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['moneda']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['moneda']" />
             </div>
             <div class="col-md-3">
                 <label for="">Monto</label>
                 <input type="text" class="form-control" (change)="formateadorMiles($event)" formControlName="monto">
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['monto']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['monto']" />
             </div>
             <div class="col-md-2">
                 <label for="">Tipo de Cuota</label>
@@ -43,40 +40,34 @@
                     <ng-option value="Mensual">Mensual</ng-option>
                     <ng-option value="Anual">Anual</ng-option>
                 </ng-select>
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['tipo_cuota']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['tipo_cuota']" />
             </div>
             <div class="col-md-2">
                 <label for="">Cuotas</label>
                 <input type="text" class="form-control" formControlName="cuotas">
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['cuotas']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['cuotas']" />
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-md-3">
                 <label for="">Fecha Firma Contrato</label>
                 <input type="date" class="form-control text-center" formControlName="f_firma">
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['f_firma']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['f_firma']" />
             </div>
             <div class="col-md-3">
                 <label for="">Fecha Termino Contrato</label>
                 <input type="date" class="form-control text-center" formControlName="f_termino">
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['f_termino']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['f_termino']" />
             </div>
             <div class="col-md-3">
                 <label for="">Fecha Primer Vencimiento</label>
                 <input type="date" class="form-control text-center" formControlName="f_primer_vencimiento">
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['f_primer_vencimiento']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['f_primer_vencimiento']" />
             </div>
             <div class="col-md-3">
                 <label for="">Documento</label>
                 <input type="file" (change)="onFileSelected($event)" class="form-control" formControlName="documento">
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['documento']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['documento']" />
             </div>
         </div>
         <div class="row mt-4">
@@ -177,14 +168,12 @@
                     <ng-option value="CLP">CLP</ng-option>
                     <ng-option value="USD">USD</ng-option>
                 </ng-select>
-                <shared-mensaje-validador
-                    [forControl]="formEditarDocumentoCurse.controls['moneda']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formEditarDocumentoCurse.controls['moneda']" />
             </div>
             <div class="col-md-6">
                 <label for="">Monto</label>
                 <input type="text" class="form-control" (change)="formateadorMiles($event)" formControlName="monto">
-                <shared-mensaje-validador
-                    [forControl]="formEditarDocumentoCurse.controls['monto']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formEditarDocumentoCurse.controls['monto']" />
             </div>
         </div>
         <div class="row mt-2">
@@ -196,34 +185,29 @@
                     <ng-option value="Mensual">Mensual</ng-option>
                     <ng-option value="Anual">Anual</ng-option>
                 </ng-select>
-                <shared-mensaje-validador
-                    [forControl]="formEditarDocumentoCurse.controls['tipo_cuota']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formEditarDocumentoCurse.controls['tipo_cuota']" />
             </div>
             <div class="col-md-6">
                 <label for="">Cuotas</label>
                 <input type="text" class="form-control" formControlName="cuotas">
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['cuotas']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['cuotas']" />
             </div>
         </div>
         <div class="row mt-2">
             <div class="col-md-4">
                 <label for="">Fecha Firma Contrato</label>
                 <input type="date" class="form-control text-center" formControlName="fecha_contrato">
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['fecha_contrato']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['fecha_contrato']" />
             </div>
             <div class="col-md-4">
                 <label for="">Fecha Termino Contrato</label>
                 <input type="date" class="form-control text-center" formControlName="fecha_termino">
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['fecha_termino']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['fecha_termino']" />
             </div>
             <div class="col-md-4">
                 <label for="">Fecha Primer Vencimiento</label>
                 <input type="date" class="form-control text-center" formControlName="fecha_vencimiento">
-                <shared-mensaje-validador
-                    [forControl]="formDocumentoCurse.controls['fecha_vencimiento']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formDocumentoCurse.controls['fecha_vencimiento']" />
             </div>
         </div>
     </div>
@@ -241,8 +225,7 @@
             <div class="col-md-6">
                 <label for="">Archivo</label>
                 <input type="file" class="form-control" formControlName="documento" (change)="onFileSelected($event)">
-                <shared-mensaje-validador
-                    [forControl]="formEditarArchivo.controls['documento']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formEditarArchivo.controls['documento']" />
             </div>
         </div>
     </div>

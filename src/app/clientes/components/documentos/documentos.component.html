@@ -14,12 +14,12 @@
               notFoundText="No se encontraron coincidencias" formControlName="selectDocumento">
             </ng-select>
             <shared-mensaje-validador
-              [forControl]="formularioDocumento.controls['selectDocumento']"></shared-mensaje-validador>
+              [forControl]="formularioDocumento.controls['selectDocumento']"/>
           </div>
           <div class="col-md-8 mt-2">
             <input type="file" class="form-control" formControlName="archivo"
               (change)="onFileSelected($event, 'documento')" />
-            <shared-mensaje-validador [forControl]="formularioDocumento.controls['archivo']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formularioDocumento.controls['archivo']"/>
           </div>
           <div class="col-md-4 mt-2">
             <button class="btn btn-success w-100">Guardar Documento</button>
@@ -40,12 +40,12 @@
               formControlName="selectImagen">
             </ng-select>
             <shared-mensaje-validador
-              [forControl]="formularioImagen.controls['selectImagen']"></shared-mensaje-validador>
+              [forControl]="formularioImagen.controls['selectImagen']"/>
           </div>
           <div class="col-md-8 mt-2">
             <input type="file" class="form-control" formControlName="archivo"
               (change)="onFileSelected($event, 'imagen')" />
-            <shared-mensaje-validador [forControl]="formularioImagen.controls['archivo']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formularioImagen.controls['archivo']"/>
           </div>
           <div class="col-md-4 mt-2">
             <button class="btn btn-success w-100">Guardar Imagen</button>

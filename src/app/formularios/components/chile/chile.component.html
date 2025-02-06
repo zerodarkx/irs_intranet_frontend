@@ -4,23 +4,22 @@
             <div class="col-md-3">
                 <label for="">Rut</label>
                 <input type="text" class="form-control" formControlName="cli_rut" (input)="formatearRut($event)">
-                <shared-mensaje-validador [forControl]="formCliente.controls['cli_rut']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_rut']" />
             </div>
             <div class="col-md-3">
                 <label for="">Nombre Completo</label>
                 <input type="text" class="form-control" formControlName="cli_nombre" (change)="mayuscula($event)">
-                <shared-mensaje-validador [forControl]="formCliente.controls['cli_nombre']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_nombre']" />
             </div>
             <div class="col-md-3">
                 <label for="">Teléfono</label>
                 <input type="text" class="form-control" formControlName="cli_telefono">
-                <shared-mensaje-validador
-                    [forControl]="formCliente.controls['cli_telefono']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_telefono']" />
             </div>
             <div class="col-md-3">
                 <label for="">Correo</label>
                 <input type="email" class="form-control" formControlName="cli_correo">
-                <shared-mensaje-validador [forControl]="formCliente.controls['cli_correo']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_correo']" />
             </div>
         </div>
         <div class="row mt-2">
@@ -30,22 +29,19 @@
                     bindValue="id_tipoPropiedad" bindLabel="nombre_tipoPropiedad"
                     notFoundText="No se encontraron coincidencias" formControlName="id_tipoPropiedad">
                 </ng-select>
-                <shared-mensaje-validador
-                    [forControl]="formCliente.controls['id_tipoPropiedad']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['id_tipoPropiedad']" />
             </div>
             <div class="col-md-4">
                 <label for="">Valor Comercial (UF)</label>
                 <input type="text" class="form-control" formControlName="cli_valor_comercial"
                     (change)="formateadorMiles($event)">
-                <shared-mensaje-validador
-                    [forControl]="formCliente.controls['cli_valor_comercial']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_valor_comercial']" />
             </div>
             <div class="col-md-4">
                 <label for="">Deuda Estimada (UF)</label>
                 <input type="text" class="form-control" formControlName="cli_deuda_estimada"
                     (change)="formateadorMiles($event)">
-                <shared-mensaje-validador
-                    [forControl]="formCliente.controls['cli_deuda_estimada']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_deuda_estimada']" />
             </div>
         </div>
         <div class="row mt-2">
@@ -55,7 +51,7 @@
                     bindLabel="nombre_region" notFoundText="No se encontraron coincidencias"
                     (change)="obtenerComunasPorRegion($event)">
                 </ng-select>
-                <shared-mensaje-validador [forControl]="formCliente.controls['id_region']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['id_region']" />
             </div>
             <div class="col-md-4">
                 <label for="">Comuna</label>
@@ -63,22 +59,22 @@
                     bindLabel="nombre_comuna" notFoundText="No se encontraron coincidencias"
                     formControlName="id_comuna">
                 </ng-select>
-                <shared-mensaje-validador [forControl]="formCliente.controls['id_comuna']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['id_comuna']" />
             </div>
             <div class="col-md-4">
                 <label for="">Dirección</label>
                 <input type="text" class="form-control" formControlName="cli_direccion">
-                <shared-mensaje-validador [forControl]="formCliente.controls['cli_direccion']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['cli_direccion']" />
             </div>
         </div>
         <div class="row mt-2">
             <div class="col-md-12">
                 <label for="">Como supo de nosotros</label>
-                <ng-select [items]="selectComoSupoNosotros" placeholder="Seleccionar Como Supo de Nosotros" bindValue="id_canal"
-                    bindLabel="nombre_canal" notFoundText="No se encontraron coincidencias"
+                <ng-select [items]="selectComoSupoNosotros" placeholder="Seleccionar Como Supo de Nosotros"
+                    bindValue="id_canal" bindLabel="nombre_canal" notFoundText="No se encontraron coincidencias"
                     formControlName="id_canal">
                 </ng-select>
-                <shared-mensaje-validador [forControl]="formCliente.controls['id']"></shared-mensaje-validador>
+                <shared-mensaje-validador [forControl]="formCliente.controls['id']" />
             </div>
         </div>
         <div class="row mt-2">

@@ -13,29 +13,29 @@
           <div class="col-md-3">
             <label for="">RUT</label>
             <input type="text" class="form-control" formControlName="usu_rut" (keyup)="formatearRut($event)" />
-            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_rut']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_rut']" />
           </div>
           <div class="col-md-3">
             <label for="">Nombre</label>
             <input type="text" class="form-control" formControlName="usu_nombre" (change)="mayuscula($event)" />
-            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_nombre']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_nombre']" />
           </div>
           <div class="col-md-3">
             <label for="">Apellido Paterno</label>
             <input type="text" class="form-control" formControlName="usu_apep" (change)="mayuscula($event)" />
-            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_apep']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_apep']" />
           </div>
           <div class="col-md-3">
             <label for="">Apellido Materna</label>
             <input type="text" class="form-control" formControlName="usu_apem" (change)="mayuscula($event)" />
-            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_apem']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_apem']" />
           </div>
         </div>
         <div class="row mt-3">
           <div class="col-md-6">
             <label for="">Correo</label>
             <input type="text" class="form-control" formControlName="usu_correo" />
-            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_correo']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_correo']" />
           </div>
           <div class="col-md-2">
             <label for="">Codigo Telefono</label>
@@ -43,18 +43,18 @@
               placeholder="Seleccione estado" notFoundText="No se encontraron coincidencias"
               formControlName="id_codigoTelefonico">
             </ng-select>
-            <shared-mensaje-validador
-              [forControl]="formUsuario.controls['id_codigoTelefonico']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formUsuario.controls['id_codigoTelefonico']" />
           </div>
           <div class="col-md-4">
             <label for="">Telefono</label>
             <input type="text" class="form-control" formControlName="usu_tel" />
-            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_tel']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formUsuario.controls['usu_tel']" />
           </div>
         </div>
         <div class="row mt-2">
           <div class="col-md-12">
-            <button type="button" class="btn btn-success w-100" [disabled]="formUsuario.invalid" (click)="modificarUsuario()">Guardar</button>
+            <button type="button" class="btn btn-success w-100" [disabled]="formUsuario.invalid"
+              (click)="modificarUsuario()">Guardar</button>
           </div>
         </div>
       </form>
@@ -64,12 +64,12 @@
           <div class="col-md-6">
             <label for="">Password</label>
             <input type="text" class="form-control" formControlName="password" />
-            <shared-mensaje-validador [forControl]="formPassword.controls['password']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formPassword.controls['password']" />
           </div>
           <div class="col-md-6">
             <label for="">Confirmar Password</label>
             <input type="text" class="form-control" formControlName="password2" />
-            <shared-mensaje-validador [forControl]="formPassword.controls['password2']"></shared-mensaje-validador>
+            <shared-mensaje-validador [forControl]="formPassword.controls['password2']" />
             <ng-container *ngIf="
                     formPassword.hasError('passwordNotMach') &&
                     formPassword.get('password2')?.touched

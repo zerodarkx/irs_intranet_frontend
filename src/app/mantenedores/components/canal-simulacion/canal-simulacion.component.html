@@ -102,31 +102,26 @@
 </div>
 
 <!-- MODAL PARA AGREGAR O EDITAR -->
-<shared-modal #modalCanalSimulacion modalId="modalCanalSimulacion" [titulo]="titulo_cabecera + ' Tipo Canal Simulacion'">
+<shared-modal #modalCanalSimulacion modalId="modalCanalSimulacion"
+  [titulo]="titulo_cabecera + ' Tipo Canal Simulacion'">
   <div modal-cuerpo [formGroup]="formCanalSimulacion">
     <div class="row">
       <div class="col-md-6">
         <label for="">Nombre Linea de Negocio</label>
         <input type="text" class="form-control" formControlName="nombre_canal" (keyup)="mayuscula($event)" />
-        <shared-mensaje-validador [forControl]="
-            formCanalSimulacion.controls['nombre_canal']
-          "></shared-mensaje-validador>
+        <shared-mensaje-validador [forControl]="formCanalSimulacion.controls['nombre_canal']" />
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-md-6">
         <label for="">Comision</label>
         <input type="text" class="form-control" formControlName="comision_canal" (change)="formateadorMiles($event)" />
-        <shared-mensaje-validador [forControl]="
-            formCanalSimulacion.controls['comision_canal']
-          "></shared-mensaje-validador>
+        <shared-mensaje-validador [forControl]="formCanalSimulacion.controls['comision_canal']" />
       </div>
       <div class="col-md-6">
         <label for="">Renta Mensual</label>
         <input type="text" class="form-control" formControlName="renta_mensual" (change)="formateadorMiles($event)" />
-        <shared-mensaje-validador [forControl]="
-            formCanalSimulacion.controls['renta_mensual']
-          "></shared-mensaje-validador>
+        <shared-mensaje-validador [forControl]="formCanalSimulacion.controls['renta_mensual']" />
       </div>
     </div>
   </div>

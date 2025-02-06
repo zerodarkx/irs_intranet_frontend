@@ -89,8 +89,7 @@
         <div class="col-md-6">
           <label for="">Nombre Perfil</label>
           <input type="text" class="form-control" formControlName="nombre_tipoUsuario" (keyup)="mayuscula($event)" />
-          <shared-mensaje-validador
-            [forControl]="formTipoPerfil.controls['nombre_tipoUsuario']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formTipoPerfil.controls['nombre_tipoUsuario']" />
         </div>
       </div>
     </div>

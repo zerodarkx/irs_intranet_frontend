@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { IBancos, ResultadoTodosBancos, Comuna, ResultadoObtenerComunas, exportarPdf, ResultadoObtenerFichaComite, Iregiones, ResultadoObtenerTodasRegiones, ResultadoObtenerSimulacionPorCliente } from 'src/app/interfaces';
+import { IBancos, Comuna, Iregiones, ResultadoObtenerSimulacionPorCliente } from 'src/app/interfaces';
 import { BancoService, ClienteService, ComunaService, ExportarPdfService, RegionService, SimuladorService } from 'src/app/services';
 
 import { agregarMayusculas, formateadorMilesDesdeBase, formateadorMiles, formatearRut, soloNumeros, dejarNumeroBrutos } from 'src/app/shared/utils/formateadores';
@@ -202,7 +202,7 @@ export class FichaComiteComponent {
   selectBanco() {
     this.sBanco.obtenerTodosBancos()
       .subscribe({
-        next: (response: ResultadoTodosBancos) => {
+        next: (response) => {
           this.selectBancos = response.data;
         },
         error: (error: HttpErrorResponse) => {
@@ -214,7 +214,7 @@ export class FichaComiteComponent {
   selectRegion() {
     this.sRegion.obtenerTodasLasRegiones()
       .subscribe({
-        next: ({ data }: ResultadoObtenerTodasRegiones) => {
+        next: ({ data }) => {
           this.selectRegiones = data
         },
         error: (error: HttpErrorResponse) => {
@@ -233,7 +233,7 @@ export class FichaComiteComponent {
     if (region) {
       this.sComuna.obtenerComunasPorRegion(region)
         .subscribe({
-          next: ({ data }: ResultadoObtenerComunas) => {
+          next: ({ data }) => {
             this.selectComunas = data
           },
           error: (error: HttpErrorResponse) => {
@@ -246,7 +246,7 @@ export class FichaComiteComponent {
   selectComunaPorRegionById(id_region: number) {
     this.sComuna.obtenerComunasPorRegion(id_region)
       .subscribe({
-        next: ({ data }: ResultadoObtenerComunas) => {
+        next: ({ data }) => {
           this.selectComunas = data
         },
         error: (error: HttpErrorResponse) => {
@@ -306,7 +306,7 @@ export class FichaComiteComponent {
   obtenerDataInicial() {
     this.sCliente.obtenerFichaComiteByCliente()
       .subscribe({
-        next: (response: ResultadoObtenerFichaComite) => {
+        next: (response) => {
           if (response.ok) {
             this.formFichaComite.patchValue({
               id_fichaComite: response.data.id_fichaComite || '',
@@ -450,8 +450,6 @@ export class FichaComiteComponent {
     this.sCliente.guardarFichaComite(this.formFichaComite.value)
       .subscribe({
         next: (response) => {
-          console.log(response);
-
           if (response.ok) {
             this.formFichaComite.patchValue({
               id_fichaComite: response.data.id_fichaComite
@@ -470,10 +468,9 @@ export class FichaComiteComponent {
   }
 
   exportarFicha() {
-
     this.sExpotarPdf.exportarFichaComitePdf(this.formFichaComite.get('id_cliente')?.value)
       .subscribe({
-        next: (response: exportarPdf) => {
+        next: (response) => {
           const blob = new Blob([new Uint8Array(response.archivo.data).buffer])
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');

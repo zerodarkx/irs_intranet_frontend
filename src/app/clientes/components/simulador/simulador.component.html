@@ -164,20 +164,20 @@
         <div class="col-md-4">
           <label for="">Moneda</label>
           <input type="text" class="form-control" formControlName="moneda" readonly />
-          <shared-mensaje-validador [forControl]="formSimulacion.controls['moneda']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['moneda']" />
         </div>
         <div class="col-md-4">
           <label for="">Canal</label>
           <ng-select [items]="canales" [selectOnTab]="true" bindLabel="nombre_canal" bindValue="id_canal"
             formControlName="canal" notFoundText="No se encontraron coincidencias" placeholder="Seleccionar Canal"
             (change)="agregarCanal($event)"></ng-select>
-          <shared-mensaje-validador [forControl]="formSimulacion.controls['canal']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['canal']" />
         </div>
         <div class="col-md-4">
           <label for="">Valor Comercial</label>
           <input type="text" class="form-control" formControlName="valorComercial" (change)="formateadorMiles($event)"
             (change)="calcularSiluacion()" />
-          <shared-mensaje-validador [forControl]="formSimulacion.controls['valorComercial']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['valorComercial']" />
         </div>
       </div>
       <div class="row mt-2">
@@ -185,19 +185,19 @@
           <label for="">LTV %</label>
           <input type="text" class="form-control" formControlName="descuento" (change)="formateadorMiles($event)"
             (change)="calcularSiluacion()" />
-          <shared-mensaje-validador [forControl]="formSimulacion.controls['descuento']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['descuento']" />
         </div>
         <div class="col-md-4">
           <label for="">Plazo Total</label>
           <input type="text" class="form-control" formControlName="plazoTotal" (keyup)="soloNumeros($event)"
             (change)="calcularSiluacion()" />
-          <shared-mensaje-validador [forControl]="formSimulacion.controls['plazoTotal']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['plazoTotal']" />
         </div>
         <div class="col-md-4">
           <label for="">Plazo Prepago</label>
           <input type="text" class="form-control" formControlName="plazoPrepago" (keyup)="soloNumeros($event)"
             (change)="calcularSiluacion()" />
-          <shared-mensaje-validador [forControl]="formSimulacion.controls['plazoPrepago']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['plazoPrepago']" />
         </div>
       </div>
       <div class="row mt-2">
@@ -206,21 +206,20 @@
           <input type="text" class="form-control" formControlName="comision" (change)="formateadorMiles($event)"
             (change)="calcularSiluacion()"
             [readOnly]="!obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULADOR_CLIENTE', 'PER_MODIFICAR_COMISION')" />
-          <shared-mensaje-validador [forControl]="formSimulacion.controls['comision']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['comision']" />
         </div>
         <div class="col-md-4">
           <label for="">Banco</label>
           <ng-select [items]="bancos" [selectOnTab]="true" bindLabel="nombre_banco" bindValue="id_banco"
             formControlName="banco" notFoundText="No se encontraron coincidencias"
             placeholder="Seleccionar Banco"></ng-select>
-          <shared-mensaje-validador [forControl]="formSimulacion.controls['banco']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['banco']" />
         </div>
         <div class="col-md-4">
           <label for="">Deuda Hipotecaria UF</label>
           <input type="text" class="form-control" formControlName="deudaHipotecaria" (change)="formateadorMiles($event)"
             (change)="calcularSiluacion()" />
-          <shared-mensaje-validador
-            [forControl]="formSimulacion.controls['deudaHipotecaria']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['deudaHipotecaria']" />
         </div>
       </div>
       <div class="row mt-2">
@@ -228,21 +227,20 @@
           <label for="">Contribuciones UF</label>
           <input type="text" class="form-control" formControlName="contribuciones" (change)="formateadorMiles($event)"
             (change)="calcularSiluacion()" />
-          <shared-mensaje-validador [forControl]="formSimulacion.controls['contribuciones']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['contribuciones']" />
         </div>
         <div class="col-md-4">
           <label for="">Gastos Operacionales UF</label>
           <input type="text" class="form-control" formControlName="gastosOperacionales"
             (change)="formateadorMiles($event)" (change)="calcularSiluacion()" />
-          <shared-mensaje-validador
-            [forControl]="formSimulacion.controls['gastosOperacionales']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['gastosOperacionales']" />
         </div>
         <div class="col-md-4">
           <label for="">Renta Mensual Equivalente</label>
           <input type="text" class="form-control" formControlName="rentaMensual" (change)="formateadorMiles($event)"
             (change)="calcularSiluacion()"
             [readOnly]="!obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULADOR_CLIENTE', 'PER_MODIFICAR_RENTA')" />
-          <shared-mensaje-validador [forControl]="formSimulacion.controls['rentaMensual']"></shared-mensaje-validador>
+          <shared-mensaje-validador [forControl]="formSimulacion.controls['rentaMensual']" />
         </div>
       </div>
       <div class="row mt-2">

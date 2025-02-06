@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { ClienteEstados, ResultadoClienteEstados } from 'src/app/interfaces';
+import { ClienteEstados } from 'src/app/interfaces';
 import { ClienteEstadosService } from 'src/app/services';
 
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
@@ -55,7 +55,7 @@ export class EstadoClienteComponent implements OnInit {
   obtenerTodosEstadosCliente() {
     this.sEstadoCliente.obtenerTodosTipoCanales()
       .subscribe({
-        next: (response: ResultadoClienteEstados) => {
+        next: (response) => {
           this.estadoCliente = response.data
         },
         error: (error: HttpErrorResponse) => {
