@@ -6,6 +6,7 @@ import { ResultadoObtenerEjecutivoYbroker } from '../interfaces/cliente';
 import {
   ResultadoAccionesUsuario,
   ResultadoGuardarDataInversionista,
+  ResultadoObtenerDatosPorUsuario,
   ResultadoObtenerSelectInversionistaDisponibles,
   ResultadoObtenerTodosUsuario
 } from '../interfaces/usuario';
@@ -75,6 +76,11 @@ export class UsuarioService {
   guardarDataInversionista(data: any): Observable<ResultadoGuardarDataInversionista> {
     let url = `${this.url_base}/guardarDataInversionista`;
     return this.http.put<ResultadoGuardarDataInversionista>(url, data);
+  }
+
+  obtenerDatosUsuarioPorId(id_usuario: number): Observable<ResultadoObtenerDatosPorUsuario>{
+  let url = `${this.url_base}/obtenerDatosPorUsuario/${id_usuario}`;
+    return this.http.get<ResultadoObtenerDatosPorUsuario>(url);
   }
 
 }

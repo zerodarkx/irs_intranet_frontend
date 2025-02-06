@@ -67,24 +67,6 @@ export interface PermisoConId {
     permisos: PermisosModulo[];
 }
 
-// export interface ResultadoObtenerDataInversionista {
-//     ok: true;
-//     data: obtenerDataInversionista
-// }
-
-// export interface obtenerDataInversionista {
-//     id_inversionista: number;
-//     monto_invertir_desde: number;
-//     monto_invertir_hasta: number;
-//     ltv_desde: number;
-//     ltv_hasta: number;
-//     plazo_desde: number;
-//     plazo_hasta: number;
-//     tir: number;
-//     propiedades: any;
-//     documentos: number[]
-// }
-
 export interface ResultadoGuardarDataInversionista {
     ok: true;
     data: GuardarDataInversionista
@@ -92,4 +74,20 @@ export interface ResultadoGuardarDataInversionista {
 
 export interface GuardarDataInversionista {
     mensaje: string;
+}
+
+export interface ResultadoObtenerDatosPorUsuario {
+    ok: boolean;
+    data: ObtenerDatosPorUsuario;
+}
+
+export interface ObtenerDatosPorUsuario {
+    id_usuario: number;
+    id_codigoTelefonico: number;
+    usu_nombre: string;
+    usu_apep: string;
+    usu_apem: string;
+    usu_correo: string;
+    usu_rut: string;
+    usu_tel: number;
 }

@@ -33,6 +33,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'formularios',
     loadChildren: () => import('./formularios/formularios.module').then(m => m.FormulariosModule),
   },
