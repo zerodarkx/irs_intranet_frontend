@@ -175,7 +175,7 @@
     <div class="row mt-3">
       <div class="col-md-4">
         <label for="">Jefatura</label>
-        <input type="text" class="form-control" formControlName="id_jefatura" />
+        <input type="text" class="form-control" formControlName="id_jefatura" readonly/>
         <shared-mensaje-validador [forControl]="formUsuario.controls['id_jefatura']"></shared-mensaje-validador>
       </div>
       <div class="col-md-4">
@@ -270,7 +270,6 @@
     </button>
   </div>
 </shared-modal>
-
 
 <!-- Modal para agregar permisos -->
 <shared-modal #modalPermisos modalId="modalPermisos" [titulo]="'Modificar Permisos - Usuario :'+ nombre_usuario">
