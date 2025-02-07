@@ -24,7 +24,7 @@ export function mostrarMensaje({ icono, titulo, mensaje }: IMensajeResultado) {
     });
 }
 
-export function mostrarConfirmacion(titulo: string, mensaje: string): Promise<boolean> {
+export async function mostrarConfirmacion(titulo: string, mensaje: string): Promise<boolean> {
     return Swal.fire({
         title: titulo,
         text: mensaje,

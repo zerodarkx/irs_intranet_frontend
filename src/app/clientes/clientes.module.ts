@@ -20,6 +20,7 @@ import { CurseComponent } from './components/curse/curse.component';
 import { GastosClienteComponent } from './components/gastos-cliente/gastos-cliente.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { RechazarMasivoComponent } from './pages/rechazar-masivo/rechazar-masivo.component';
+import { SimulacionCierreComponent } from './components/simulacion-cierre/simulacion-cierre.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { RechazarMasivoComponent } from './pages/rechazar-masivo/rechazar-masivo
     GastosClienteComponent,
     MenuComponent,
     RechazarMasivoComponent,
+    SimulacionCierreComponent,
   ],
   imports: [
     ClientesRoutingModule,

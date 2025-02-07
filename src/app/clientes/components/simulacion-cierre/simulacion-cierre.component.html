@@ -1,0 +1,216 @@
+<div class="container-fluid">
+    <form [formGroup]="formSimuladorCierre">
+        <div class="row mt-2">
+            <div class="col-md-4">
+                <label for="">% Compraventa</label>
+                <input type="text" formControlName="porc_compraventa" class="form-control"
+                    (change)="formateadorMiles($event); calcularSimulacion();">
+            </div>
+            <div class="col-md-4">
+                <label for="">Comisión</label>
+                <input type="text" formControlName="comision" class="form-control"
+                    (change)="formateadorMiles($event); calcularSimulacion();">
+            </div>
+            <div class="col-md-4">
+                <label for="">Fecha</label>
+                <input type="date" formControlName="fecha" class="form-control">
+            </div>
+        </div>
+        <div class="container-fluid mt-4">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th width="40%" class="text-center">Concepto</th>
+                                    <th width="20%" class="text-center">UF</th>
+                                    <th width="40%" class="text-center">Observación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="align-middle">
+                                    <td>Valor Comercial</td>
+                                    <td>
+                                        <input type="text" class="form-control text-end"
+                                            formControlName="valor_comercial"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td>
+                                        <textarea formControlName="t_valor_comercial" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <td>Valor Compraventa</td>
+                                    <td>
+                                        <input type="text" class="form-control text-end"
+                                            formControlName="valor_compra_venta"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td>
+                                        <textarea formControlName="t_valor_compraventa" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <td>Fondo Opción a Favor Cliente</td>
+                                    <td>
+                                        <input type="text" class="form-control text-end"
+                                            formControlName="valorFavorCliente"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td>
+                                        <textarea formControlName="t_afavor" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <td>% de Toma</td>
+                                    <td>
+                                        <input type="text" class="form-control text-end" formControlName="descuento"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td>
+                                        <textarea formControlName="t_toma" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <td>Tasa</td>
+                                    <td>
+                                        <input type="text" class="form-control text-end" formControlName="renta_mensual"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td>
+                                        <textarea formControlName="t_tasa" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <td><strong>Valor Deuda Bruta</strong></td>
+                                    <td>
+                                        <input type="text" class="form-control text-end" readonly
+                                            formControlName="valor_contrato">
+                                    </td>
+                                    <td>
+                                        <textarea formControlName="t_deuda_bruta" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <td>(-) 12 Rentas</td>
+                                    <td>
+                                        <input type="text" class="form-control text-end" formControlName="costo_anual"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td>
+                                        <textarea formControlName="t_renta" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <td>(-) Gastos Operacionales</td>
+                                    <td>
+                                        <input type="text" class="form-control text-end"
+                                            formControlName="gastos_operacionales"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td>
+                                        <textarea formControlName="t_gastos" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>(-) Admin FIP 1</td>
+                                    <td class="text-center">
+                                        <input type="text" class="form-control text-end"
+                                            formControlName="administracion2"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td class="text-center">
+                                        <textarea formControlName="t_admin1" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>(-) Admin FIP 2</td>
+                                    <td class="text-center">
+                                        <input type="text" class="form-control text-end"
+                                            formControlName="administracion"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td class="text-center">
+                                        <textarea formControlName="t_admin2" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>(-) Gastos Operacionales </td>
+                                    <td class="text-center">
+                                        <input type="text" class="form-control text-end"
+                                            formControlName="gastos_operacionales"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td class="text-center">
+                                        <textarea formControlName="t_gastos" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>(-) Alzamiento </td>
+                                    <td class="text-center">
+                                        <input type="text" class="form-control text-end"
+                                            formControlName="deuda_hipotecaria"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td class="text-center">
+                                        <textarea name="t_alzamiento" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>(-) Contribuciones Vencidas </td>
+                                    <td class="text-center">
+                                        <input type="text" class="form-control text-end"
+                                            formControlName="contribuciones"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td class="text-center">
+                                        <textarea formControlName="t_contribuciones" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>(-) Contribuciones provisión Anual </td>
+                                    <td class="text-center">
+                                        <input type="text" class="form-control text-end"
+                                            formControlName="provision_contribucion"
+                                            (change)="formateadorMiles($event); calcularSimulacion();">
+                                    </td>
+                                    <td class="text-center">
+                                        <textarea formControlName="t_provision" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <td><strong>(-) Monto Líquido Cliente</strong></td>
+                                    <td>
+                                        <input type="text" class="form-control text-end" readonly
+                                            formControlName="liquido_cliente">
+                                    </td>
+                                    <td>
+                                        <textarea formControlName="t_liquido" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="">Observaciones : </label>
+                            <textarea formControlName="observaciones" rows="5" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mt-2">
+            <div class="col md-6">
+                <button class="btn btn-success w-100" (click)="guardarSimulacion()">Guardar</button>
+            </div>
+            <div class="col md-6">
+                <button id="btn-imprimir" class="btn btn-primary w-100"
+                    onclick="exportarNuevaSimulacion()">Imprimir</button>
+            </div>
+        </div>
+    </form>
+</div>

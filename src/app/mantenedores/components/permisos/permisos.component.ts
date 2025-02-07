@@ -102,6 +102,11 @@ export class PermisosComponent implements OnChanges {
           subcategorias: [],
           permiso: 'VER_ESTADOS_CLIENTE'
         },
+        {
+          nombre: 'Simulacion Cierre',
+          activo: false,
+          permiso: "VER_SIMULACIONCIERRE_CLIENTE"
+        }
       ],
       activo: false,
       permiso: 'VER_MODULO_CLIENTE'

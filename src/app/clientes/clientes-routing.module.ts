@@ -13,6 +13,7 @@ import { GestionComponent } from './components/gestion/gestion.component';
 import { GastosClienteComponent } from './components/gastos-cliente/gastos-cliente.component';
 import { CurseComponent } from './components/curse/curse.component';
 import { RechazarMasivoComponent } from './pages/rechazar-masivo/rechazar-masivo.component';
+import { SimulacionCierreComponent } from './components/simulacion-cierre/simulacion-cierre.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
       { path: 'fichaComite', component: FichaComiteComponent },
       { path: 'reserva', component: ReservaComponent },
       { path: 'simulador', component: SimuladorComponent },
+      { path: 'simuladorCierre', component: SimulacionCierreComponent },
       { path: 'gestion', component: GestionComponent },
       { path: 'gastoCliente', component: GastosClienteComponent },
       { path: 'curse', component: CurseComponent },
