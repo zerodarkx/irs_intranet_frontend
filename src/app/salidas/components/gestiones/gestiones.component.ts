@@ -2,8 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { TipoGestion } from 'src/app/interfaces';
-import { GestionSalidas } from 'src/app/interfaces/gestionesSalidas';
+import { TipoGestion, GestionSalidas } from 'src/app/interfaces';
 import { SalidasService, TipoGestionService } from 'src/app/services';
 
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
