@@ -208,8 +208,8 @@
                 <button class="btn btn-success w-100" (click)="guardarSimulacion()">Guardar</button>
             </div>
             <div class="col md-6">
-                <button id="btn-imprimir" class="btn btn-primary w-100"
-                    onclick="exportarNuevaSimulacion()">Imprimir</button>
+                <button id="btn-imprimir" class="btn btn-primary w-100" [disabled]="!descargar"
+                    (click)="exportarCierreFicha()">Imprimir</button>
             </div>
         </div>
     </form>

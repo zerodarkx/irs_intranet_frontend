@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { ClienteService, SimuladorService } from 'src/app/services';
+import { ClienteService, ExportarPdfService, SimuladorService } from 'src/app/services';
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase, soloNumeros } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
@@ -13,6 +13,8 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
   styleUrls: ['./simulacion-cierre.component.css']
 })
 export class SimulacionCierreComponent implements OnInit {
+
+  descargar: boolean = false;
 
   formSimuladorCierre: FormGroup = this.fb.group({
     id_simulacionCierre: [],
@@ -56,6 +58,7 @@ export class SimulacionCierreComponent implements OnInit {
     private fb: FormBuilder,
     private sCliente: ClienteService,
     private sSimulador: SimuladorService,
+    private sExportarPdf: ExportarPdfService
   ) { }
 
   ngOnInit(): void {
@@ -79,7 +82,7 @@ export class SimulacionCierreComponent implements OnInit {
     this.sSimulador.obtenerSimulacionCierre()
       .subscribe({
         next: (response) => {
-          console.log(response.data);
+          this.descargar = response.descargar;
 
           this.formSimuladorCierre.patchValue({
             ...response.data,
@@ -153,6 +156,9 @@ export class SimulacionCierreComponent implements OnInit {
         next: (respose) => {
           if (respose.ok) {
             this.formSimuladorCierre.patchValue({ id_simulacionCierre: respose.data.id_simulacionCierre });
+            this.descargar = true;
+          } else {
+            this.descargar = false;
           }
           mostrarMensaje({
             icono: IconoSweetAlert.Success,
@@ -164,6 +170,27 @@ export class SimulacionCierreComponent implements OnInit {
           errorConexionServidor(error);
         }
       })
+  }
+
+  exportarCierreFicha() {
+    this.sExportarPdf.exportarfichaCierreSimulacionPdf({
+      id_cliente: this.formSimuladorCierre.get('id_cliente')?.value
+    }).subscribe({
+      next: (response) => {
+        const blob = new Blob([new Uint8Array(response.archivo.data).buffer])
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = response.nombre_archivo;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error: HttpErrorResponse) => {
+        errorConexionServidor(error);
+      }
+    });
   }
 
 }

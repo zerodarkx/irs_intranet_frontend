@@ -255,8 +255,6 @@ export class SimuladorComponent implements OnInit {
           window.URL.revokeObjectURL(url);
         },
         error: (error: HttpErrorResponse) => {
-          console.log(error);
-
           errorConexionServidor(error);
         }
       });

@@ -31,4 +31,8 @@ export class ExportarPdfService {
     let url = `${this.url_base}/descargarFcihaInversionista`;
     return this.http.post<exportarPdf>(url, data);
   }
+  exportarfichaCierreSimulacionPdf(data: any): Observable<exportarPdf> {
+    let url = `${this.url_base}/descargarCierreSimulacion`;
+    return this.http.post<exportarPdf>(url, data);
+  }
 }

@@ -1,6 +1,7 @@
 export interface ResultadoObtenerSimulacionCierre {
     ok: boolean;
-    data: ObtenerSimulacionCierre
+    data: ObtenerSimulacionCierre;
+    descargar: boolean;
 }
 
 export interface ObtenerSimulacionCierre {
