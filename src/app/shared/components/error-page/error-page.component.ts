@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class ErrorPageComponent {
 
+  constructor(private location: Location) { }  // Inyecta el servicio Location
+
+  // Método para regresar a la página anterior
+  goBack() {
+    this.location.back();  // Vuelve a la ruta anterior en el historial
+  }
 }
