@@ -147,7 +147,7 @@ export class ChileComponent implements OnInit {
     this.sCanaContacto.obtenerTodosTipoContacto()
       .subscribe({
         next: (response) => {
-          this.selectComoSupoNosotros = response.data;
+          this.selectComoSupoNosotros = response.data.filter(ele => ele.estado);
         },
         error: (error: HttpErrorResponse) => {
           errorConexionServidor(error)

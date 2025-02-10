@@ -134,7 +134,8 @@
                     </div>
                     <div class="col-md-3">
                         <label for="">Inversionista</label>
-                        <ng-select [items]="selectInversionista" bindValue="id_inv" bindLabel="inv"
+                        <ng-select [items]="selectInversionista" [multiple]="true" [closeOnSelect]="false"
+                            [hideSelected]="true" bindValue="id_inv" bindLabel="inv"
                             placeholder="Seleccione Inversionista" notFoundText="No se encontraron coincidencias"
                             formControlName="id_inversionista">
                         </ng-select>

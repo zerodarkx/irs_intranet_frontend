@@ -48,7 +48,7 @@ export class SimulacionCierreComponent implements OnInit {
     t_admin1: ['Comisiones de Administracion 1'],
     t_admin2: ['Comisiones de Administracion 2'],
     t_gastos: ['Gastos Operacionales'],
-    t_alzamiento: ['Acreedor Hipotecari'],
+    t_alzamiento: ['Acreedor Hipotecario'],
     t_contribuciones: ['Pago Contribuciones Vencidas'],
     t_provision: ['Provisión de fondo Anual'],
     t_liquido: ['Liquido Cliente'],
@@ -56,7 +56,6 @@ export class SimulacionCierreComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private sCliente: ClienteService,
     private sSimulador: SimuladorService,
     private sExportarPdf: ExportarPdfService
   ) { }
@@ -132,8 +131,8 @@ export class SimulacionCierreComponent implements OnInit {
     // //formula para sacar liquido
     let valor_contrato = valor_comercial * (descuento / 100);
     let costo_anual = valor_contrato * plazo_prepagado * (renta_mensual / 100);
-    let administracion = valor_contrato * ((comision - 2) / 100);
-    let administracion2 = valor_contrato * 0.02;
+    let administracion = (valor_contrato * ((comision - 2) / 100) * 1.19);
+    let administracion2 = (valor_contrato * 0.02) * 1.19;
     let montoPreAprobado = valor_contrato - costo_anual - administracion - administracion2 - gastos_operacionales - deuda_hipotecaria - contribuciones - provsion_contribuciones;
 
     saldo = compraventa_res - valor_contrato;
