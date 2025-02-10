@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ClienteService, ExportarPdfService, SimuladorService } from 'src/app/services';
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase, soloNumeros } from 'src/app/shared/utils/formateadores';
@@ -57,7 +57,9 @@ export class SimulacionCierreComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private sSimulador: SimuladorService,
-    private sExportarPdf: ExportarPdfService
+    private sExportarPdf: ExportarPdfService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -81,6 +83,16 @@ export class SimulacionCierreComponent implements OnInit {
     this.sSimulador.obtenerSimulacionCierre()
       .subscribe({
         next: (response) => {
+
+          if (!response.ok) {
+            mostrarMensaje({
+              icono: IconoSweetAlert.Warning,
+              titulo: "Atencion",
+              mensaje: "Falta generar simulacion al cliente"
+            });
+            this.router.navigate(['../simulador'], { relativeTo: this.route });
+          }
+
           this.descargar = response.descargar;
 
           this.formSimuladorCierre.patchValue({

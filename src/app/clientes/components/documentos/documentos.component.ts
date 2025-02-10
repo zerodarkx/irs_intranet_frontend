@@ -81,8 +81,15 @@ export class DocumentosComponent {
 
     this.sTipoDocumento.obtenerTodosTipoDocumentosPorLineaNegocio(id_cliente!)
       .subscribe({
-        next: ({ data }) => {
-          this.documentos = data
+        next: (response) => {
+          if (!response.ok) {
+            mostrarMensaje({
+              icono: IconoSweetAlert.Warning,
+              titulo: "Atencion",
+              mensaje: "Falta agregar linea de negocio para subir documentos"
+            })
+          }
+          this.documentos = response.data
         },
         error: (error: HttpErrorResponse) => {
           errorConexionServidor(error)

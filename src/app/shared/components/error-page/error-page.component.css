@@ -1,0 +1,16 @@
+.container {
+    height: 100vh;
+}
+
+.alert {
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.alert h4 {
+    font-size: 2rem;
+}
+
+.alert p {
+    font-size: 1.2rem;
+}

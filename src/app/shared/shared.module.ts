@@ -9,6 +9,7 @@ import { CargandoComponent } from './components/cargando/cargando.component';
 import { CurrencyPesoChilenoPipe } from '../pipe/currency-peso-chileno.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ModalComponent } from './components/modal/modal.component';
     CargandoComponent,
     CurrencyPesoChilenoPipe,
     NavbarComponent,
-    ModalComponent
+    ModalComponent,
+    ErrorPageComponent
   ],
   imports: [
     CommonModule,
