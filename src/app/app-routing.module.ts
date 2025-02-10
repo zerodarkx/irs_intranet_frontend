@@ -43,7 +43,7 @@ const routes: Routes = [
     loadChildren: () => import('./formularios/formularios.module').then(m => m.FormulariosModule),
   },
   {
-    path: '/',
+    path: '',
     redirectTo: 'inicio',
     pathMatch: 'full'
   },
