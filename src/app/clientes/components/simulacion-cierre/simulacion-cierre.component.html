@@ -113,7 +113,7 @@
                                         <textarea formControlName="t_gastos" class="form-control"></textarea>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="align-middle">
                                     <td>(-) Admin FIP 1</td>
                                     <td class="text-center">
                                         <input type="text" class="form-control text-end"
@@ -124,7 +124,7 @@
                                         <textarea formControlName="t_admin1" class="form-control"></textarea>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="align-middle">
                                     <td>(-) Admin FIP 2</td>
                                     <td class="text-center">
                                         <input type="text" class="form-control text-end"
@@ -135,18 +135,7 @@
                                         <textarea formControlName="t_admin2" class="form-control"></textarea>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>(-) Gastos Operacionales </td>
-                                    <td class="text-center">
-                                        <input type="text" class="form-control text-end"
-                                            formControlName="gastos_operacionales"
-                                            (change)="formateadorMiles($event); calcularSimulacion();">
-                                    </td>
-                                    <td class="text-center">
-                                        <textarea formControlName="t_gastos" class="form-control"></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
+                                <tr class="align-middle">
                                     <td>(-) Alzamiento </td>
                                     <td class="text-center">
                                         <input type="text" class="form-control text-end"
@@ -157,7 +146,7 @@
                                         <textarea name="t_alzamiento" class="form-control"></textarea>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="align-middle">
                                     <td>(-) Contribuciones Vencidas </td>
                                     <td class="text-center">
                                         <input type="text" class="form-control text-end"
@@ -168,7 +157,7 @@
                                         <textarea formControlName="t_contribuciones" class="form-control"></textarea>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="align-middle">
                                     <td>(-) Contribuciones provisión Anual </td>
                                     <td class="text-center">
                                         <input type="text" class="form-control text-end"
@@ -201,8 +190,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="row mt-2">
             <div class="col md-6">
                 <button class="btn btn-success w-100" (click)="guardarSimulacion()">Guardar</button>
