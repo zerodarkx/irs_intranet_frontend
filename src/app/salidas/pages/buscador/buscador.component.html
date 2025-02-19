@@ -163,12 +163,21 @@
                     </div>
                   </div>
                 </th>
-                <th pSortableColumn="Fecha Vencimiento" [style]="{ 'min-width': '150px' }">
+                <th pSortableColumn="fecha_termino" [style]="{ 'min-width': '150px' }">
                   <div class="d-flex justify-content-between align-items-center">
-                    <label for="">fecha_termino</label>
+                    <label for="">Fecha Vencimiento</label>
                     <div class="d-flex flex-column">
                       <p-columnFilter type="text" field="fecha_termino" display="menu"></p-columnFilter>
                       <p-sortIcon field="fecha_termino"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="modificar_despues" [style]="{ 'min-width': '150px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Fecha Termino</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="modificar_despues" display="menu"></p-columnFilter>
+                      <p-sortIcon field="modificar_despues"></p-sortIcon>
                     </div>
                   </div>
                 </th>
@@ -255,6 +264,7 @@
                 <td>{{ cliente.nombre }}</td>
                 <td>{{ cliente.fecha_cursado | date: 'dd-MM-yyyy'}}</td>
                 <td>{{ cliente.fecha_termino | date: 'dd-MM-yyyy'}}</td>
+                <td></td>
                 <td>{{ cliente.direccion }}</td>
                 <td>{{ cliente.telefono }}</td>
                 <td>{{ cliente.ejecutivo }}</td>
