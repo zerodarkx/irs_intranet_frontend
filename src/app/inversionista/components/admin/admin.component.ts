@@ -348,7 +348,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
           if (response.ok) {
             this.cargarComentario();
-            this.formComentario.reset();
+            this.formComentario.get('comentario')?.reset();
           }
         },
         error: (error: HttpErrorResponse) => {
