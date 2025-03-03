@@ -8,8 +8,9 @@ export interface ClienteSalidaDetalle {
     rut: string;
     nombre: string;
     correo: string;
-    fecha_cursado: Date;
-    fecha_termino: Date;
+    fecha_cursado_inicio: Date;
+    fecha_cursado_termino: Date;
+    fecha_cliente_termino: Date;
     direccion: string;
     telefono: string;
     ejecutivo: string;
@@ -31,8 +32,9 @@ export interface ResultadoObtenerClientesSalida {
 export interface ClientesSalida {
     id_cliente: number;
     nombre: string;
-    fecha_cursado: Date;
-    fecha_termino: Date;
+    fecha_cursado_inicio: Date;
+    fecha_cursado_termino: Date;
+    fecha_cliente_termino: Date;
     direccion: string;
     telefono: string;
     ejecutivo: string;
@@ -43,4 +45,5 @@ export interface ClientesSalida {
     valor_contrato: number;
     tipo_salida: string;
     tipo_subSalida: string;
+
 }

@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="row mt-2">
-        <div class="col-md-12">
+        <div class="col-md-12" *ngIf="comentariosBitacora.length > 0; else noDataBitacora">
             <table class="table" width="100%">
                 <thead>
                     <tr>
@@ -37,7 +37,7 @@
                 <tbody>
                     <tr *ngFor="let bitacora of comentariosBitacora">
                         <td>{{bitacora.comentario}}</td>
-                        <td>{{bitacora.fecha_ingresado | date: 'dd-MM-yyyy'}}</td>
+                        <td>{{bitacora.fecha_ingresado | date: 'dd-MM-yyyy'}} [{{ bitacora.semana + 1 }}]</td>
                         <td>{{bitacora.usuario.nombre_ejecutivo}}</td>
                         <td>
                             <div class="d-flex gap-3">
@@ -49,7 +49,11 @@
                 </tbody>
             </table>
         </div>
+        <ng-template class="col-md-12" #noDataBitacora>
+            <h5>Sin datos en la bitacora</h5>
+        </ng-template>
     </div>
+
 </div>
 
 <shared-modal #modalBitacoraEditar modalId="modalBitacoraEditar" titulo="Modificar Bitacora">

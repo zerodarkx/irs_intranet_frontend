@@ -9,6 +9,7 @@ export interface TodasBitacoras {
     id_usuario: number;
     comentario: string;
     fecha_ingresado: Date;
+    semana: number;
     usuario: { nombre_ejecutivo: string }
 }
 

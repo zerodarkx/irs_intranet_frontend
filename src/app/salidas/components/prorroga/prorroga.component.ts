@@ -95,7 +95,7 @@ export class ProrrogaComponent {
         next: (response) => {
           this.data_previo.valor_contrato = response.data.valor_contrato;
           this.data_previo.valor_contrato_ant = response.data.valor_contrato;
-          this.data_previo.fecha_contrato = response.data.fecha_termino;
+          this.data_previo.fecha_contrato = response.data.fecha_cursado_termino;
           this.formProrroga.patchValue({ monto_contrato_ant: this.data_previo.valor_contrato_ant })
         },
         error: (error) => {

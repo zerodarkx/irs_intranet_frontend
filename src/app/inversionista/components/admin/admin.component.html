@@ -632,7 +632,7 @@
                 <ng-template pTemplate="body" let-data let-i="rowIndex">
                     <tr>
                         <td>{{ data.comentario }}</td>
-                        <td>{{ data.fecha }}</td>
+                        <td>{{ data.fecha | date:'dd-MM-yyyy' }}</td>
                     </tr>
                 </ng-template>
                 <!-- MENSAJE DE QUE NO HAY DATOS -->

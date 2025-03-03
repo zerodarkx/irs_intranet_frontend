@@ -22,8 +22,8 @@ export class DetalleComponent implements OnInit {
     rut: [''],
     nombre: [''],
     correo: [''],
-    fecha_cursado: [''],
-    fecha_termino: [''],
+    fecha_cursado_inicio: [''],
+    fecha_cursado_termino: [''],
     direccion: [''],
     telefono: [''],
     ejecutivo: [''],
@@ -35,7 +35,7 @@ export class DetalleComponent implements OnInit {
     comuna: [''],
     tipo_salida: [null, Validators.required],
     tipo_subSalida: [null, Validators.required],
-    fecha_termino_caso: [null, Validators.required],
+    fecha_cliente_termino: [null, Validators.required],
   });
 
   constructor(
@@ -88,8 +88,8 @@ export class DetalleComponent implements OnInit {
   }
 
   modificarClienteSalidaDetalle() {
-    const { tipo_salida, tipo_subSalida } = this.formSalida.value;
-    const data = { id_tipoSalida: tipo_salida, id_tipoSubSalida: tipo_subSalida };
+    const { tipo_salida, tipo_subSalida, fecha_cliente_termino } = this.formSalida.value;
+    const data = { id_tipoSalida: tipo_salida, id_tipoSubSalida: tipo_subSalida, fecha_cliente_termino };
 
     this.sSalidas.modificarClienteSalidaDetalle(data)
       .subscribe({
