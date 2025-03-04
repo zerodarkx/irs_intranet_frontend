@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { TipoCanalContacto } from 'src/app/interfaces';
+import { ErrorHttpCustom, TipoCanalContacto } from 'src/app/interfaces';
 import { TipoContactoService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -83,7 +82,7 @@ export class TipoContactoComponent implements OnInit {
               canalContacto.estado = !canalContacto.estado;
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -96,7 +95,7 @@ export class TipoContactoComponent implements OnInit {
         next: (response) => {
           this.tipoCanalContacto = response.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -118,7 +117,7 @@ export class TipoContactoComponent implements OnInit {
               this.obtenerTodoTipoCanalContacto();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -137,7 +136,7 @@ export class TipoContactoComponent implements OnInit {
               this.obtenerTodoTipoCanalContacto();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })

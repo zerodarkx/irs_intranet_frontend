@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
 
-import { ISimulador, ITipoCanales, IBancos, ResultadoTodosBancos } from 'src/app/interfaces';
+import { ISimulador, ITipoCanales, IBancos, ResultadoTodosBancos, ErrorHttpCustom } from 'src/app/interfaces';
 import { TipoSimulacionCanalService, BancoService, SimuladorService, ClienteService, ExportarPdfService, PermisosService } from 'src/app/services';
 
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase, soloNumeros } from 'src/app/shared/utils/formateadores';
@@ -79,7 +78,7 @@ export class SimuladorComponent implements OnInit {
         next: ({ data }) => {
           this.canales = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -89,7 +88,7 @@ export class SimuladorComponent implements OnInit {
         next: ({ data }: ResultadoTodosBancos) => {
           this.bancos = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -104,7 +103,7 @@ export class SimuladorComponent implements OnInit {
         next: ({ data }) => {
           this.simulacionesCliente = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -124,7 +123,7 @@ export class SimuladorComponent implements OnInit {
 
           this.modalnuevaSimulacion.abrirModal();
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -179,7 +178,7 @@ export class SimuladorComponent implements OnInit {
             })
             this.calcularSiluacion()
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -234,7 +233,7 @@ export class SimuladorComponent implements OnInit {
             this.obtenerSimulaciones();
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -254,7 +253,7 @@ export class SimuladorComponent implements OnInit {
           document.body.removeChild(a);
           window.URL.revokeObjectURL(url);
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });

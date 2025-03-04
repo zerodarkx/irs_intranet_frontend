@@ -12,8 +12,7 @@ export class MensajeValidadorComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   get errorMsg(): string {
     let error = this.control!.errors;

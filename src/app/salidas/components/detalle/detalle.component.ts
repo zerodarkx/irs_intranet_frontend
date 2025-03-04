@@ -1,8 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { TipoSalidas, TipoSubSalidas } from 'src/app/interfaces';
+import { ErrorHttpCustom, TipoSalidas, TipoSubSalidas } from 'src/app/interfaces';
 import { SalidasService, TipoSalidasService } from 'src/app/services';
 import { formateadorMiles } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
@@ -60,7 +59,7 @@ export class DetalleComponent implements OnInit {
             ltv: formateadorMiles(response.data.ltv),
           });
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });
@@ -72,7 +71,7 @@ export class DetalleComponent implements OnInit {
         next: (response) => {
           this.tipoSalida = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });
@@ -81,7 +80,7 @@ export class DetalleComponent implements OnInit {
         next: (response) => {
           this.tipoSubSalida = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });
@@ -100,7 +99,7 @@ export class DetalleComponent implements OnInit {
             mensaje: response.mensaje
           })
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })

@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { nombreApellidoEjecutivoId, Comuna, DataContador, obtenerComentarioPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoAgregarCasoNuevoReserva, ResultadoObtenerTodosInversionesPorEstado, Iregiones, TipoPropiedad, ResultadoObtenerSelectInversionistaDisponibles, SelectInversionistaDisponibles } from 'src/app/interfaces';
+import { nombreApellidoEjecutivoId, Comuna, DataContador, obtenerComentarioPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoAgregarCasoNuevoReserva, ResultadoObtenerTodosInversionesPorEstado, Iregiones, TipoPropiedad, ResultadoObtenerSelectInversionistaDisponibles, SelectInversionistaDisponibles, ErrorHttpCustom } from 'src/app/interfaces';
 import { ComunaService, ExportarExcelService, InversionistasService, RegionService, TipoPropiedadService, UsuarioService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -165,7 +164,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
           this.contadorDatosAprobado = response.data.Aprobado || this.contadorDatosAprobado;
           this.contadorDatosCursado = response.data.Cursado || this.contadorDatosCursado;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -180,7 +179,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         next: (response) => {
           this.datosMostar = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -196,7 +195,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
           this.datosMostar = response.data;
           this.contadorDatosDisponibles.cantidad = response.data.filter(data => data).length
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -230,7 +229,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         next: (response: ResultadoObtenerSelectInversionistaDisponibles) => {
           this.selectInversionistaDisponibles = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -253,7 +252,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
               this.rentabilidad = this.detallePorCaso.v_contrato - this.total_inversion;
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error);
           }
         })
@@ -285,7 +284,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
             this.modalDetalleCasoDisponible.cerrarModal();
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -307,7 +306,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
             this.modalDetalleCaso.cerrarModal();
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -321,7 +320,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         next: (response) => {
           this.comentarioCaso = response.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -351,7 +350,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
             this.formComentario.get('comentario')?.reset();
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -369,7 +368,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         next: (response) => {
           this.selectEjecutivos = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -379,7 +378,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         next: (response) => {
           this.selectInversionista = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -389,7 +388,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         next: (response) => {
           this.selectTipoPropiedad = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -411,7 +410,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
           document.body.removeChild(a);
           window.URL.revokeObjectURL(url);
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });
@@ -433,7 +432,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         next: ({ data }) => {
           this.selectRegiones = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -452,7 +451,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
           next: ({ data }) => {
             this.selectComunas = data
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error);
           }
         });

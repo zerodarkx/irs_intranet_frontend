@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { ResultadoAccionesTipoPropiedad, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad } from 'src/app/interfaces';
+import { ErrorHttpCustom, ResultadoAccionesTipoPropiedad, ResultadoObtenerTodosTipoPropiedad, TipoPropiedad } from 'src/app/interfaces';
 import { TipoPropiedadService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -73,7 +72,7 @@ export class TipoPropiedadComponent implements OnInit {
         next: (response) => {
           this.tipoPropiedad = response.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -95,7 +94,7 @@ export class TipoPropiedadComponent implements OnInit {
               this.obtenerTodosTipoPropiedad();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -114,7 +113,7 @@ export class TipoPropiedadComponent implements OnInit {
               this.obtenerTodosTipoPropiedad();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })

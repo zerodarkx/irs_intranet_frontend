@@ -1,8 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { DataObtenerTodosDocumentosCliente, DataObtenerTodosImagenCliente, ITipoDocumento, ITipoImagen } from 'src/app/interfaces';
+import { DataObtenerTodosDocumentosCliente, DataObtenerTodosImagenCliente, ErrorHttpCustom, ITipoDocumento, ITipoImagen } from 'src/app/interfaces';
 import { ClienteService, PermisosService, TipoDocuentosService, TipoImagenesService } from 'src/app/services';
 
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
@@ -91,7 +90,7 @@ export class DocumentosComponent {
           }
           this.documentos = response.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -101,7 +100,7 @@ export class DocumentosComponent {
         next: ({ data }) => {
           this.imagenes = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -136,7 +135,7 @@ export class DocumentosComponent {
           this.fechaNueva = new Date().getTime().toString();
           this.documentosCargadosCliente = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -149,7 +148,7 @@ export class DocumentosComponent {
           this.fechaNueva = new Date().getTime().toString();
           this.imagenesCargadosCliente = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -179,7 +178,7 @@ export class DocumentosComponent {
           this.formularioDocumento.reset();
           this.cargarDocumentosEnSistema()
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -209,7 +208,7 @@ export class DocumentosComponent {
           this.formularioImagen.reset();
           this.cargarImagenesEnSistema()
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -229,7 +228,7 @@ export class DocumentosComponent {
             this.formularioImagen.reset();
             this.cargarDocumentosEnSistema()
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -250,7 +249,7 @@ export class DocumentosComponent {
             this.formularioImagen.reset();
             this.cargarImagenesEnSistema()
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })

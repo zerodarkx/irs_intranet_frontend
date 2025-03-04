@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
+import { ErrorHttpCustom } from 'src/app/interfaces';
+
+import { AuthService } from 'src/app/services';
 
 @Component({
-  selector: 'app-recuperar-contrasena',
+  selector: 'auth-recuperar-contrasena',
   templateUrl: './recuperar-contrasena.component.html',
   styleUrls: ['./recuperar-contrasena.component.css']
 })
@@ -29,7 +29,7 @@ export class RecuperarContrasenaComponent {
           }
           this.mensajeError = response.data.message;
         },
-        error: (error: any) => {
+        error: (error: ErrorHttpCustom) => {
           this.mensajeError = 'Favor avisar a un administrador'
         }
       })

@@ -1,8 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { IBancos, Comuna, Iregiones, ResultadoObtenerSimulacionPorCliente } from 'src/app/interfaces';
+import { IBancos, Comuna, Iregiones, ResultadoObtenerSimulacionPorCliente, ErrorHttpCustom } from 'src/app/interfaces';
 import { BancoService, ClienteService, ComunaService, ExportarPdfService, RegionService, SimuladorService } from 'src/app/services';
 
 import { agregarMayusculas, formateadorMilesDesdeBase, formateadorMiles, formatearRut, soloNumeros, dejarNumeroBrutos } from 'src/app/shared/utils/formateadores';
@@ -205,7 +204,7 @@ export class FichaComiteComponent {
         next: (response) => {
           this.selectBancos = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -217,7 +216,7 @@ export class FichaComiteComponent {
         next: ({ data }) => {
           this.selectRegiones = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -236,7 +235,7 @@ export class FichaComiteComponent {
           next: ({ data }) => {
             this.selectComunas = data
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         });
@@ -249,7 +248,7 @@ export class FichaComiteComponent {
         next: ({ data }) => {
           this.selectComunas = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -433,14 +432,14 @@ export class FichaComiteComponent {
                   })
                   this.detalleComitePropuesta()
                 },
-                error: (error: HttpErrorResponse) => {
+                error: (error: ErrorHttpCustom) => {
                   errorConexionServidor(error)
                 },
               })
           }
           this.selectComunaPorRegionById(response.data.id_region);
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -461,7 +460,7 @@ export class FichaComiteComponent {
             })
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -481,7 +480,7 @@ export class FichaComiteComponent {
           document.body.removeChild(a);
           window.URL.revokeObjectURL(url);
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });

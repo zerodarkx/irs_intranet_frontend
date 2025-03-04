@@ -1,6 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
+import { ErrorHttpCustom } from 'src/app/interfaces';
 
 import { GraficosService } from 'src/app/services';
 
@@ -95,7 +95,7 @@ export class BaseEjecutivoComponent {
             })
           })
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })

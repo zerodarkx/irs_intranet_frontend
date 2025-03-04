@@ -1,8 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DocumentosCurse, TipoDocumentoCurse } from 'src/app/interfaces';
+import { DocumentosCurse, ErrorHttpCustom, TipoDocumentoCurse } from 'src/app/interfaces';
 import { ClienteService, TipoDocumentosCurseService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -119,7 +118,7 @@ export class CurseComponent {
             this.documentosCurse = response.data;
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -133,7 +132,7 @@ export class CurseComponent {
             this.selectTipoDocumentoCurse = response.data;
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -180,7 +179,7 @@ export class CurseComponent {
           });
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -199,7 +198,7 @@ export class CurseComponent {
             this.formDocumentoCurse.reset();
             this.cargarData()
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -246,7 +245,7 @@ export class CurseComponent {
             mensaje: response.data.mensaje
           });
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -280,7 +279,7 @@ export class CurseComponent {
           });
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })

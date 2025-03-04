@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { ITipoCanales } from 'src/app/interfaces';
+import { ErrorHttpCustom, ITipoCanales } from 'src/app/interfaces';
 import { TipoSimulacionCanalService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -89,7 +88,7 @@ export class CanalSimulacionComponent implements OnInit {
         next: (response) => {
           this.canalSimulaciones = response.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -111,7 +110,7 @@ export class CanalSimulacionComponent implements OnInit {
               this.obtenerLineaNegocio();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -130,7 +129,7 @@ export class CanalSimulacionComponent implements OnInit {
               this.obtenerLineaNegocio();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })

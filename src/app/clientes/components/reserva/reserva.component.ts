@@ -1,7 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
-import { ReservasClientes } from 'src/app/interfaces';
+import { ErrorHttpCustom, ReservasClientes } from 'src/app/interfaces';
 import { ClienteService } from 'src/app/services';
 
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
@@ -25,7 +24,7 @@ export class ReservaComponent implements OnInit {
         next: (response) => {
           this.datosInversionistas = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })

@@ -1,6 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorHttpCustom } from 'src/app/interfaces';
 
 import { ClienteService, SalidasService } from 'src/app/services';
 
@@ -36,14 +36,14 @@ export class BaseComponent {
           if (!response.ok) return this.router.navigate(['/salidas']);
           return
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           console.error('Error al obtener los datos:', error);
           return this.router.navigate(['/salidas']);
         }
       });
   }
 
-  volverAtrasPagina(){
+  volverAtrasPagina() {
     this.router.navigate(['/salidas'])
   }
 }

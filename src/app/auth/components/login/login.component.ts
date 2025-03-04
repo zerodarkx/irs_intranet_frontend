@@ -1,15 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { AuthService, PermisosService } from 'src/app/services';
+import { Payload, ResultadoAuthLogin, ErrorHttpCustom, PermisosModulo } from 'src/app/interfaces';
 import { jwtDecode } from 'jwt-decode';
-import { Payload, ResultadoAuthLogin } from 'src/app/interfaces/auth';
-import { PermisosModulo } from 'src/app/interfaces/usuario';
-import { AuthService } from 'src/app/services/auth.service';
-import { PermisosService } from 'src/app/services/permisos.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'auth-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -52,7 +50,7 @@ export class LoginComponent {
             }
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           this.mensajeError = 'Usuario o Contraseña invalida';
         }
       })

@@ -1,10 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+
+import { AuthService } from 'src/app/services';
+import { ErrorHttpCustom } from 'src/app/interfaces';
 
 @Component({
-  selector: 'app-base-login',
+  selector: 'auth-base-login',
   templateUrl: './base-login.component.html',
   styleUrls: ['./base-login.component.css']
 })
@@ -24,7 +25,7 @@ export class BaseLoginComponent implements OnInit {
               this.router.navigate(['/inicio']);
             }
           },
-          error: (error: HttpErrorResponse) => { }
+          error: (error: ErrorHttpCustom) => { }
         })
     }
   }

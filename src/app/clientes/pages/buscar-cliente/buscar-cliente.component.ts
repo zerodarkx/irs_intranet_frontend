@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
 
-import { nombreApellidoEjecutivoId, TodosClientes, Estados } from 'src/app/interfaces';
+import { nombreApellidoEjecutivoId, TodosClientes, Estados, ErrorHttpCustom } from 'src/app/interfaces';
 import { ClienteService, ExportarExcelService, PermisosService, UsuarioService } from 'src/app/services';
 
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
@@ -108,7 +107,7 @@ export class BuscarClienteComponent implements OnInit {
         next: (resultado) => {
           this.clientes = resultado.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         },
       });
@@ -132,7 +131,7 @@ export class BuscarClienteComponent implements OnInit {
         next: ({ data }) => {
           this.selectEjecutivosBrokers = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });
@@ -159,7 +158,7 @@ export class BuscarClienteComponent implements OnInit {
           document.body.removeChild(a);
           window.URL.revokeObjectURL(url);
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });

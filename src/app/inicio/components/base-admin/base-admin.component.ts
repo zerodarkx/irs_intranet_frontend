@@ -1,12 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
 // import { Chart } from 'chart.js';
 
 import { GraficosService } from 'src/app/services';
+import { ErrorHttpCustom } from 'src/app/interfaces';
 
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
-
 
 import { Chart, registerables } from 'chart.js';
 
@@ -103,7 +102,7 @@ export class BaseAdminComponent {
             })
           })
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -161,7 +160,7 @@ export class BaseAdminComponent {
             })
           })
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })

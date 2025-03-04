@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from "@angular/common/http";
+import { ErrorHttpCustom } from "src/app/interfaces";
 import Swal from "sweetalert2";
 
 interface IMensajeResultado {
@@ -37,7 +37,7 @@ export async function mostrarConfirmacion(titulo: string, mensaje: string): Prom
     });
 }
 
-export function errorConexionServidor(error: HttpErrorResponse) {
+export function errorConexionServidor(errorHttp: ErrorHttpCustom) {
     Swal.fire({
         icon: IconoSweetAlert.Error,
         title: "Ups hubo un problema",
@@ -45,10 +45,10 @@ export function errorConexionServidor(error: HttpErrorResponse) {
                 <table class="table table-bordered" width="100%">
                     <tr >
                         <td width="25%" class="align-middle">
-                            <b>Mensaje</b>
+                            <b>Ruta</b>
                         </td>
                         <td>
-                            ${error.message}
+                            ${errorHttp.ruta}
                         </td>
                     </tr>
                     <tr>
@@ -56,7 +56,7 @@ export function errorConexionServidor(error: HttpErrorResponse) {
                             <b>Tipo</b>
                         </td>
                         <td>
-                            ${error.name}
+                            ${errorHttp.mensaje} - ${errorHttp.codigo}
                         </td>
                     </tr>
                     <tr>
@@ -64,7 +64,7 @@ export function errorConexionServidor(error: HttpErrorResponse) {
                             <b>Interno</b>
                         </td>
                         <td>
-                            ${error.error.error}
+                            ${errorHttp.customMessage}
                         </td>
                     </tr>
                 </table>`,

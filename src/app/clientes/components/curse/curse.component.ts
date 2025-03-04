@@ -1,8 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DocumentosCurse, TipoDocumentoCurse } from 'src/app/interfaces';
+import { DocumentosCurse, ErrorHttpCustom, TipoDocumentoCurse } from 'src/app/interfaces';
 import { ClienteService, TipoDocumentosCurseService } from 'src/app/services';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
@@ -126,7 +125,7 @@ export class CurseComponent implements OnInit {
             })
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -146,7 +145,7 @@ export class CurseComponent implements OnInit {
             this.documentosCurse = response.data;
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -160,7 +159,7 @@ export class CurseComponent implements OnInit {
             this.selectTipoDocumentoCurse = response.data;
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -207,7 +206,7 @@ export class CurseComponent implements OnInit {
           });
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -226,7 +225,7 @@ export class CurseComponent implements OnInit {
             this.formDocumentoCurse.reset();
             this.cargarData()
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -273,7 +272,7 @@ export class CurseComponent implements OnInit {
             mensaje: response.data.mensaje
           });
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -307,7 +306,7 @@ export class CurseComponent implements OnInit {
           });
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -339,7 +338,7 @@ export class CurseComponent implements OnInit {
             mensaje: "no se guardo correctamente"
           });
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })

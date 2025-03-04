@@ -1,8 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { TipoGestion, GestionSalidas } from 'src/app/interfaces';
+import { TipoGestion, GestionSalidas, ErrorHttpCustom } from 'src/app/interfaces';
 import { SalidasService, TipoGestionService } from 'src/app/services';
 
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
@@ -45,7 +44,7 @@ export class GestionesComponent {
         next: ({ data }) => {
           this.tipo_gestion = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -57,7 +56,7 @@ export class GestionesComponent {
         next: ({ data }) => {
           this.gestiones_cliente = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -78,7 +77,7 @@ export class GestionesComponent {
             this.formGestion.reset()
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });

@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
-import { TodasBitacoras } from 'src/app/interfaces';
+import { ErrorHttpCustom, TodasBitacoras } from 'src/app/interfaces';
 import { SalidasService } from 'src/app/services';
 
 import { errorConexionServidor, IconoSweetAlert, mostrarConfirmacion, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
@@ -51,7 +50,7 @@ export class BitacoraComponent implements OnInit {
         next: (response) => {
           this.comentariosBitacora = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -69,7 +68,7 @@ export class BitacoraComponent implements OnInit {
           this.obtenerComentarios();
           this.formBitacora.reset();
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -95,7 +94,7 @@ export class BitacoraComponent implements OnInit {
             mensaje: response.mensaje
           })
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -116,7 +115,7 @@ export class BitacoraComponent implements OnInit {
               mensaje: response.mensaje
             })
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })

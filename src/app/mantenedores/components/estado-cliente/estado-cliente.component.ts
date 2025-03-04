@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { ClienteEstados } from 'src/app/interfaces';
+import { ClienteEstados, ErrorHttpCustom } from 'src/app/interfaces';
 import { ClienteEstadosService } from 'src/app/services';
 
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
@@ -58,7 +57,7 @@ export class EstadoClienteComponent implements OnInit {
         next: (response) => {
           this.estadoCliente = response.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })

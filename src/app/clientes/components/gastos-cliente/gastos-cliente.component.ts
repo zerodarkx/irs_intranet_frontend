@@ -1,7 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
-import { CategoriaGastoCliente, GastoClienteTipo } from 'src/app/interfaces';
+import { CategoriaGastoCliente, ErrorHttpCustom, GastoClienteTipo } from 'src/app/interfaces';
 import { ClienteService, ExportarPdfService } from 'src/app/services';
 
 import { formateadorMilesSinDecimal, formateadorMilesSinDecimalDesdeBase } from 'src/app/shared/utils/formateadores';
@@ -68,7 +67,7 @@ export class GastosClienteComponent implements OnInit {
           }
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -165,7 +164,7 @@ export class GastosClienteComponent implements OnInit {
           document.body.removeChild(a);
           window.URL.revokeObjectURL(url);
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });

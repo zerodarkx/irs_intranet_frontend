@@ -11,10 +11,5 @@ export class CargandoComponent {
 
   constructor(
     private sCargando: CargandoService
-  ) {
-  }
-
-
-
-
+  ) { }
 }

@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { ErrorHttpCustom } from 'src/app/interfaces';
 import { ClienteService } from 'src/app/services';
 
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
@@ -54,7 +54,7 @@ export class RechazarMasivoComponent {
           })
           this.formRechazar.reset();
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });

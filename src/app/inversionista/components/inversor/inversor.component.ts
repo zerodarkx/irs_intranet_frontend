@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Table } from 'primeng/table';
 
-import { Payload, DataContador, DocumentosPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoObtenerTodosInversionesContador, ResultadoObtenerTodosInversionesPorEstado, SelectInversionistaDisponibles } from 'src/app/interfaces';
+import { Payload, DataContador, DocumentosPorInversionista, ObtenerTodosInversionesPorEstado, ResultadoObtenerTodosInversionesContador, ResultadoObtenerTodosInversionesPorEstado, SelectInversionistaDisponibles, ErrorHttpCustom } from 'src/app/interfaces';
 import { ExportarPdfService, InversionistasService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -102,7 +101,7 @@ export class InversorComponent {
           this.contadorDatosAprobado = response.data.Aprobado || this.contadorDatosAprobado;
           this.contadorDatosCursado = response.data.Cursado || this.contadorDatosCursado;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -116,7 +115,7 @@ export class InversorComponent {
         next: (response) => {
           this.datosMostar = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -138,7 +137,7 @@ export class InversorComponent {
         next: (response) => {
           this.documentosPorInversionista = response.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -164,7 +163,7 @@ export class InversorComponent {
           document.body.removeChild(a);
           window.URL.revokeObjectURL(url);
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });

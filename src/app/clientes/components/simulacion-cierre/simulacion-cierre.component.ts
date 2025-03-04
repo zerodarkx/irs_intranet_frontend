@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorHttpCustom } from 'src/app/interfaces';
 
 import { ClienteService, ExportarPdfService, SimuladorService } from 'src/app/services';
 import { dejarNumeroBrutos, formateadorMiles, formateadorMilesDesdeBase, soloNumeros } from 'src/app/shared/utils/formateadores';
@@ -114,7 +114,7 @@ export class SimulacionCierreComponent implements OnInit {
           this.calcularSimulacion();
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -177,7 +177,7 @@ export class SimulacionCierreComponent implements OnInit {
             titulo: respose.data.titulo
           });
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -198,7 +198,7 @@ export class SimulacionCierreComponent implements OnInit {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
       },
-      error: (error: HttpErrorResponse) => {
+      error: (error: ErrorHttpCustom) => {
         errorConexionServidor(error);
       }
     });

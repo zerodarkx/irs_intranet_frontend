@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { PermisoConId, TipoPerfilUsuario } from 'src/app/interfaces';
+import { ErrorHttpCustom, PermisoConId, TipoPerfilUsuario } from 'src/app/interfaces';
 import { TipoPerfilService } from 'src/app/services';
 
 import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
@@ -78,7 +77,7 @@ export class PerfilUsuarioComponent implements OnInit {
         next: (response) => {
           this.tipoPerfiles = response.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -100,7 +99,7 @@ export class PerfilUsuarioComponent implements OnInit {
               this.obtenerTodosPerfil();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -119,7 +118,7 @@ export class PerfilUsuarioComponent implements OnInit {
               this.obtenerTodosPerfil();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -147,7 +146,7 @@ export class PerfilUsuarioComponent implements OnInit {
             this.modalPermisos.cerrarModal();
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })

@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Comuna, Plataforma, Iregiones, TipoPropiedad } from 'src/app/interfaces';
+import { Comuna, Plataforma, Iregiones, TipoPropiedad, ErrorHttpCustom } from 'src/app/interfaces';
 import { ClienteService, ComunaService, PlataformaService, RegionService, TipoPropiedadService } from 'src/app/services';
 
 import { agregarMayusculas, formateadorMiles, formatearRut, soloNumeros } from 'src/app/shared/utils/formateadores';
@@ -135,9 +134,8 @@ export class NuevoClienteComponent {
         next: ({ data }) => {
           this.selectRegiones = data
         },
-        error: (error: HttpErrorResponse) => {
-          // this.errorMessage = 'Error al obtener los datos';
-          console.error('Error al obtener los datos:', error);
+        error: (error: ErrorHttpCustom) => {
+          errorConexionServidor(error);
         }
       });
   }
@@ -148,9 +146,8 @@ export class NuevoClienteComponent {
         next: ({ data }) => {
           this.selectPlataformas = data
         },
-        error: (error: HttpErrorResponse) => {
-          // this.errorMessage = 'Error al obtener los datos';
-          console.error('Error al obtener los datos:', error);
+        error: (error: ErrorHttpCustom) => {
+          errorConexionServidor(error);
         }
       });
   }
@@ -161,9 +158,8 @@ export class NuevoClienteComponent {
         next: ({ data }) => {
           this.selectTipoPropiedades = data
         },
-        error: (error: HttpErrorResponse) => {
-          // this.errorMessage = 'Error al obtener los datos';
-          console.error('Error al obtener los datos:', error);
+        error: (error: ErrorHttpCustom) => {
+          errorConexionServidor(error);
         }
       });
   }
@@ -180,8 +176,8 @@ export class NuevoClienteComponent {
           next: ({ data }) => {
             this.selectComunas = data
           },
-          error: (error: HttpErrorResponse) => {
-            console.error('Error al obtener los datos:', error);
+          error: (error: ErrorHttpCustom) => {
+            errorConexionServidor(error);
           }
         });
     }
@@ -202,8 +198,7 @@ export class NuevoClienteComponent {
             this.router.navigate(["/cliente", resultado.data.id_cliente])
           }
         },
-        error: (error: HttpErrorResponse) => {
-          console.error('Error al obtener los datos:', error);
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });

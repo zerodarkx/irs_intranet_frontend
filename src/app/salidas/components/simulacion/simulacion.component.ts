@@ -1,8 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { IBancos, ISimulador, ITipoCanales } from 'src/app/interfaces';
+import { ErrorHttpCustom, IBancos, ISimulador, ITipoCanales } from 'src/app/interfaces';
 import { BancoService, ClienteService, ExportarPdfService, PermisosService, SimuladorService, TipoSimulacionCanalService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -78,7 +77,7 @@ export class SimulacionComponent {
         next: ({ data }) => {
           this.canales = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -88,7 +87,7 @@ export class SimulacionComponent {
         next: ({ data }) => {
           this.bancos = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -103,7 +102,7 @@ export class SimulacionComponent {
         next: ({ data }) => {
           this.simulacionesCliente = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -123,7 +122,7 @@ export class SimulacionComponent {
 
           this.modalnuevaSimulacion.abrirModal();
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -178,7 +177,7 @@ export class SimulacionComponent {
             })
             this.calcularSiluacion()
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -233,7 +232,7 @@ export class SimulacionComponent {
           document.body.removeChild(a);
           window.URL.revokeObjectURL(url);
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           console.log(error);
 
           errorConexionServidor(error);

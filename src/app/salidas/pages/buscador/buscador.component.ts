@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
-import { ClientesSalida, nombreApellidoEjecutivoId, SelectInversionistaDisponibles, TipoSalidas, TipoSubSalidas } from 'src/app/interfaces';
+import { ClientesSalida, ErrorHttpCustom, nombreApellidoEjecutivoId, SelectInversionistaDisponibles, TipoSalidas, TipoSubSalidas } from 'src/app/interfaces';
 
 import { ExportarExcelService, PermisosService, SalidasService, TipoSalidasService, UsuarioService } from 'src/app/services';
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
@@ -36,7 +35,7 @@ export class BuscadorComponent implements OnInit {
       fechaHasta: [, []],
     }, { validators: [validarFechas('fechaDesde', 'fechaHasta')] }),
     inversionista: [, []],
-    caso_activo: [, []]
+    caso_activo: [1, []]
   });
 
   permisos!: Record<string, any>;
@@ -98,7 +97,7 @@ export class BuscadorComponent implements OnInit {
         next: (response) => {
           this.tipoSalida = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });
@@ -107,7 +106,7 @@ export class BuscadorComponent implements OnInit {
         next: (response) => {
           this.tipoSubSalida = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });
@@ -119,7 +118,7 @@ export class BuscadorComponent implements OnInit {
         next: (response) => {
           this.clientes = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -141,7 +140,7 @@ export class BuscadorComponent implements OnInit {
           document.body.removeChild(a);
           window.URL.revokeObjectURL(url);
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });
@@ -158,7 +157,7 @@ export class BuscadorComponent implements OnInit {
         next: (response) => {
           this.selectEjecutivosBrokers = response.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });
@@ -170,7 +169,7 @@ export class BuscadorComponent implements OnInit {
         next: (response) => {
           this.selectInversionista = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })

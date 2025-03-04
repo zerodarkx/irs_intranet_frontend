@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 
-import { ITipoDocumento, LineaNegocio } from 'src/app/interfaces';
+import { ErrorHttpCustom, ITipoDocumento, LineaNegocio } from 'src/app/interfaces';
 import { LineaNegocioService, TipoDocuentosService } from 'src/app/services';
 
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -80,7 +79,7 @@ export class LineaNegocioComponent implements OnInit {
         next: (response) => {
           this.lineaNegocios = response.data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -101,7 +100,7 @@ export class LineaNegocioComponent implements OnInit {
             )
           });
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -127,7 +126,7 @@ export class LineaNegocioComponent implements OnInit {
               this.obtenerLineaNegocio();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -146,7 +145,7 @@ export class LineaNegocioComponent implements OnInit {
               this.obtenerLineaNegocio();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })

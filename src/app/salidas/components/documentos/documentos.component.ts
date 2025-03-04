@@ -1,7 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 
-import { DataObtenerTodosDocumentosCliente } from 'src/app/interfaces';
+import { DataObtenerTodosDocumentosCliente, ErrorHttpCustom } from 'src/app/interfaces';
 import { ClienteService, PermisosService } from 'src/app/services';
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
@@ -49,7 +48,7 @@ export class DocumentosComponent {
           this.fechaNueva = new Date().getTime().toString();
           this.documentosCargadosCliente = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })

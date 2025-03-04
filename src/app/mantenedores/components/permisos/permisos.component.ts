@@ -1,8 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-import { PermisoConId, PermisosModulo } from 'src/app/interfaces';
+import { ErrorHttpCustom, PermisoConId, PermisosModulo } from 'src/app/interfaces';
 import { EstadoClientesService, TipoSimulacionCanalService } from 'src/app/services';
 
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
@@ -220,7 +219,7 @@ export class PermisosComponent implements OnChanges {
             dataCategoria!.subcategorias!.push({ nombre: sub.nombre_canal, activo: false, permiso: sub.det_canalSimulacion.toLocaleUpperCase() });
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });
@@ -236,7 +235,7 @@ export class PermisosComponent implements OnChanges {
             dataCategoria!.subcategorias!.push({ nombre: sub.nombre_estado, activo: false, permiso: sub.det_estado.toLocaleUpperCase() });
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       });

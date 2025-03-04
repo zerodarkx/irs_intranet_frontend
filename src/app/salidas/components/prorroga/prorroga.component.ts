@@ -1,7 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { dataPreviaProrroga, ObtenerProrroga } from 'src/app/interfaces';
+import { dataPreviaProrroga, ErrorHttpCustom, ObtenerProrroga } from 'src/app/interfaces';
 
 import { SalidasService } from 'src/app/services';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -83,7 +82,7 @@ export class ProrrogaComponent {
             this.formProrroga.patchValue({ monto_contrato_ant: this.data_previo.valor_contrato })
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -147,7 +146,7 @@ export class ProrrogaComponent {
           })
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -187,7 +186,7 @@ export class ProrrogaComponent {
           })
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -207,7 +206,7 @@ export class ProrrogaComponent {
               mensaje: response.mensaje
             })
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })

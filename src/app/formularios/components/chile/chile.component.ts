@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { Comuna, Iregiones, TipoCanalContacto, TipoPropiedad } from 'src/app/interfaces';
+import { Comuna, ErrorHttpCustom, Iregiones, TipoCanalContacto, TipoPropiedad } from 'src/app/interfaces';
 import { ClienteService, ComunaService, RegionService, TipoContactoService, TipoPropiedadService } from 'src/app/services';
 
 import { agregarMayusculas, formateadorMiles, formatearRut } from 'src/app/shared/utils/formateadores';
@@ -107,7 +106,7 @@ export class ChileComponent implements OnInit {
         next: (response) => {
           this.selectRegiones = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error);
         }
       })
@@ -124,7 +123,7 @@ export class ChileComponent implements OnInit {
           next: ({ data }) => {
             this.selectComunas = data
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             console.error('Error al obtener los datos:', error);
           }
         });
@@ -137,7 +136,7 @@ export class ChileComponent implements OnInit {
         next: (response) => {
           this.selectTipoPropiedad = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -149,7 +148,7 @@ export class ChileComponent implements OnInit {
         next: (response) => {
           this.selectComoSupoNosotros = response.data.filter(ele => ele.estado);
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -168,7 +167,7 @@ export class ChileComponent implements OnInit {
           this.formCliente.reset()
           this.formCliente.get('id_plataforma')?.setValue(this.plataforma)
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })

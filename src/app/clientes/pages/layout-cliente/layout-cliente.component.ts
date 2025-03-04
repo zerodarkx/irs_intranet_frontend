@@ -1,6 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorHttpCustom } from 'src/app/interfaces';
 
 import { ClienteService } from 'src/app/services';
 
@@ -36,8 +36,7 @@ export class LayoutClienteComponent {
           if (!response.ok) return this.router.navigate(['/cliente']);
           return
         },
-        error: (error: HttpErrorResponse) => {
-          console.error('Error al obtener los datos:', error);
+        error: (error: ErrorHttpCustom) => {
           return this.router.navigate(['/cliente']);
         }
       });

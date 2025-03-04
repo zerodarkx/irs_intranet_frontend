@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { jwtDecode } from 'jwt-decode';
 
-import { CodigoTelefono, Payload } from 'src/app/interfaces';
+import { CodigoTelefono, ErrorHttpCustom, Payload } from 'src/app/interfaces';
 import { CodigoTelefonoService, UsuarioService } from 'src/app/services';
 
 import { agregarMayusculas, formatearRut } from 'src/app/shared/utils/formateadores';
@@ -91,7 +90,7 @@ export class BaseComponent implements OnInit {
           next: (response) => {
             this.formUsuario.patchValue(response.data);
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         });
@@ -121,7 +120,7 @@ export class BaseComponent implements OnInit {
             mensaje: response.data.titulo
           })
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -137,7 +136,7 @@ export class BaseComponent implements OnInit {
             mensaje: response.data.titulo
           })
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });

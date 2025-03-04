@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { lastValueFrom } from 'rxjs';
 
-import { Plataforma, CodigoTelefono, PermisoConId, ResultadoUsuario, TipoPerfilUsuario, ITipoDocumento, TipoPropiedad } from 'src/app/interfaces';
+import { Plataforma, CodigoTelefono, PermisoConId, ResultadoUsuario, TipoPerfilUsuario, ITipoDocumento, TipoPropiedad, ErrorHttpCustom } from 'src/app/interfaces';
 import { CodigoTelefonoService, PlataformaService, TipoPerfilService, UsuarioService, TipoDocuentosService, TipoPropiedadService } from 'src/app/services';
 
 import { agregarMayusculas, formateadorMiles, formateadorMilesDesdeBase, formatearRut } from 'src/app/shared/utils/formateadores';
@@ -209,7 +208,7 @@ export class UsuarioComponent implements OnInit {
         next: (response) => {
           this.documentosParaVer = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -221,7 +220,7 @@ export class UsuarioComponent implements OnInit {
         next: (response) => {
           this.propiedadesParaVer = response.data;
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -292,7 +291,7 @@ export class UsuarioComponent implements OnInit {
               usuario.activo = !usuario.activo;
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -320,7 +319,7 @@ export class UsuarioComponent implements OnInit {
             this.formPassword.reset();
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -342,7 +341,7 @@ export class UsuarioComponent implements OnInit {
               this.obtenerUsuario();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -361,7 +360,7 @@ export class UsuarioComponent implements OnInit {
               this.obtenerUsuario();
             }
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             errorConexionServidor(error)
           }
         })
@@ -387,7 +386,7 @@ export class UsuarioComponent implements OnInit {
             mensaje: response.data.mensaje
           });
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })
@@ -445,7 +444,7 @@ export class UsuarioComponent implements OnInit {
             mensaje: response.data.mensaje
           })
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })

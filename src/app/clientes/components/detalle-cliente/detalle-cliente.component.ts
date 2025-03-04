@@ -1,8 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { Comuna, Iregiones, LineaNegocio, Plataforma, TipoPropiedad, nombreApellidoEjecutivoId } from 'src/app/interfaces';
+import { Comuna, ErrorHttpCustom, Iregiones, LineaNegocio, Plataforma, TipoPropiedad, nombreApellidoEjecutivoId } from 'src/app/interfaces';
 import { ComunaService, LineaNegocioService, PlataformaService, RegionService, TipoPropiedadService, UsuarioService, ClienteService, PermisosService } from 'src/app/services';
 
 import { agregarMayusculas, formatearRut, formateadorMiles, soloNumeros } from 'src/app/shared/utils/formateadores';
@@ -175,7 +174,7 @@ export class DetalleClienteComponent implements OnInit {
         next: ({ data }) => {
           this.selectRegiones = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -187,7 +186,7 @@ export class DetalleClienteComponent implements OnInit {
         next: ({ data }) => {
           this.selectPlataformas = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -199,7 +198,7 @@ export class DetalleClienteComponent implements OnInit {
         next: ({ data }) => {
           this.selectLineaNegocios = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -211,7 +210,7 @@ export class DetalleClienteComponent implements OnInit {
         next: ({ data }) => {
           this.selectTipoPropiedades = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -223,7 +222,7 @@ export class DetalleClienteComponent implements OnInit {
         next: ({ data }) => {
           this.selectEjecutivosBrokers = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -242,7 +241,7 @@ export class DetalleClienteComponent implements OnInit {
           next: ({ data }) => {
             this.selectComunas = data
           },
-          error: (error: HttpErrorResponse) => {
+          error: (error: ErrorHttpCustom) => {
             // this.errorMessage = 'Error al obtener los datos';
             console.error('Error al obtener los datos:', error);
           }
@@ -256,7 +255,7 @@ export class DetalleClienteComponent implements OnInit {
         next: ({ data }) => {
           this.selectComunas = data
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -309,7 +308,7 @@ export class DetalleClienteComponent implements OnInit {
 
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -326,7 +325,7 @@ export class DetalleClienteComponent implements OnInit {
           })
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -347,7 +346,7 @@ export class DetalleClienteComponent implements OnInit {
           }
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -368,7 +367,7 @@ export class DetalleClienteComponent implements OnInit {
           }
 
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       });
@@ -397,7 +396,7 @@ export class DetalleClienteComponent implements OnInit {
             this.modalRechazarCliente.cerrarModal();
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: ErrorHttpCustom) => {
           errorConexionServidor(error)
         }
       })

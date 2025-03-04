@@ -25,8 +25,9 @@ export * from "./tipoSimulacionCanales";
 export * from "./usuario";
 export * from "./usuarioPerfiles";
 export * from "./salidas";
-export * from "./tipoSalidas"
-export * from "./bitacorasSalidas"
-export * from "./prorrogasSalidas"
-export * from "./gestionesSalidas"
-export * from "./simulacionCierre"
+export * from "./tipoSalidas";
+export * from "./bitacorasSalidas";
+export * from "./prorrogasSalidas";
+export * from "./gestionesSalidas";
+export * from "./simulacionCierre";
+export * from "./error";
