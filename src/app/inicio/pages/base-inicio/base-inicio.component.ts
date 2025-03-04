@@ -16,4 +16,7 @@ export class BaseInicioComponent {
     const decodedToken = jwtDecode<Payload>(token!);
     this.perfil = decodedToken.perfil
   }
+
+
+
 }

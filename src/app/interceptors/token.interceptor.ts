@@ -10,7 +10,7 @@ import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
-export class TokenInterceptorService implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
 
   private isRefreshing = false; // Evita múltiples solicitudes de renovación simultáneamente
   private excludedUrls: string[] = ['/auth/login', '/auth/recuperarPassword', '/auth/generarTokenTemporal', '/formularios']

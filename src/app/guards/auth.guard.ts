@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Payload } from '../interfaces';
 import { AuthService } from '../services';
 
 import { jwtDecode } from 'jwt-decode';
+import { IconoSweetAlert, mostrarMensaje } from '../shared/utils/sweetAlert';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard {
 
   constructor(
     private sAuth: AuthService,
@@ -19,35 +19,59 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.sAuth.isLoggedIn()) {
+    if (!this.sAuth.isLoggedIn()) {
+      this.handleLogout();
+      return false;
+    }
 
-      const decoded = jwtDecode<Payload>(this.sAuth.getToken()!);
+    const token = this.sAuth.getToken();
+    if (!token) {
+      this.handleLogout();
+      return false;
+    }
+    
+    try {
+      const decoded = jwtDecode<Payload>(token);
       const currentTime = Date.now() / 1000; // Obtener el tiempo actual en segundos
 
       // Comparar la fecha de expiración con la hora actual
       if (decoded.exp < currentTime) {
-        localStorage.removeItem('token');
-        this.router.navigate(['/auth']);
+        this.handleLogout();
+        return false;
       } else {
-        this.sAuth.verificarToken()
-          .subscribe({
+        return new Observable<boolean>(observer => {
+          this.sAuth.verificarToken().subscribe({
             next: (response) => {
               if (!response) {
-                this.router.navigate(['/auth']);
+                this.handleLogout();
+                observer.next(false);
+              } else {
+                observer.next(true);
               }
+              observer.complete();
             },
-            error: (error: HttpErrorResponse) => { 
-              this.router.navigate(['/auth']);
+            error: () => {
+              this.handleLogout();
+              observer.next(false);
+              observer.complete();
             }
-          })
+          });
+        });
       }
-      return true;
-    } else {
-      // Si el usuario no está autenticado, redirigir a la página de login
-      localStorage.removeItem('token');
-      this.router.navigate(['/auth']);
+    } catch (error) {
+      this.handleLogout();
       return false;
     }
+  }
+
+  private handleLogout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/auth']);
+    mostrarMensaje({
+      icono: IconoSweetAlert.Warning,
+      titulo: 'Sesión expirada',
+      mensaje: 'Su sesión ha expirado, por favor inicie sesión nuevamente'
+    });
   }
 
 }

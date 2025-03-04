@@ -7,7 +7,7 @@ import { CargandoService } from '../services';
 @Injectable({
   providedIn: 'root'
 })
-export class CargandoInterceptorService {
+export class CargandoInterceptor {
 
   constructor(private cargandoService: CargandoService) { }
 

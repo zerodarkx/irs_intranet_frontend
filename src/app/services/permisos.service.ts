@@ -44,7 +44,6 @@ export class PermisosService {
     if (!token) return []
     const decodedToken = jwtDecode<Payload>(token);
     return decodedToken.permisos;
-
   }
 
   generarPermisosJson(arreglo: PermisosModulo[]): Record<string, any> {
