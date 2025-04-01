@@ -126,12 +126,12 @@ export interface TodosClientes {
     com: string;
     dEst: number;
     vCom: number;
+    vCon: number;
     nombre_ejecutivo: string
     origen: string;
     canal: string;
     reserva_r: string;
     reserva_i: string;
-    id_estado: number;
     estado: string;
     det_estado: string;
     fec_ingreso: Date;
