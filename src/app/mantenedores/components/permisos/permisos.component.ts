@@ -131,6 +131,18 @@ export class PermisosComponent implements OnChanges {
       ],
       activo: false,
       permiso: 'VER_MODULO_SALIDAS'
+    },
+    {
+      nombre: '1House',
+      categorias: [
+        {
+          nombre: 'Buscar Propiedades',
+          activo: false,
+          permiso: 'VER_BUSCAR_PROPIEDADES'
+        }
+      ],
+      activo: false,
+      permiso: 'VER_MODULO_PROPIEDADES'
     }
   ];
 
