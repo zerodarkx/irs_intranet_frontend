@@ -188,6 +188,15 @@
                     </div>
                   </div>
                 </th>
+                <th pSortableColumn="vCon" [style]="{ 'min-width': '200px' }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label for="">Valor Contrato</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter type="text" field="vCon" display="menu"></p-columnFilter>
+                      <p-sortIcon field="vCon"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
                 <th pSortableColumn="nombre_ejecutivo" [style]="{ 'min-width': '170px' }">
                   <div class="d-flex justify-content-between align-items-center">
                     <label for="">Nombre Ejecutivo</label>
@@ -247,7 +256,7 @@
             <!-- CUERPO DE LA TABLA -->
             <ng-template pTemplate="body" let-cliente>
               <tr (click)="irDetalleCliente(cliente.id)" style="cursor: pointer"
-                [ngClass]="cliente.fec_contacto !== null ? 'contactado' : ''">
+                [ngClass]="{ 'contactado': cliente.fec_contacto !== null }">
                 <td pFrozenColumn>{{ cliente.id }}</td>
                 <td>{{ cliente.nom_cli }}</td>
                 <td>{{ cliente.nombre_inversionista }}</td>
@@ -255,6 +264,7 @@
                 <td>{{ cliente.com }}</td>
                 <td class="text-center">{{ cliente.vCom | currencyPesoChileno}}</td>
                 <td class="text-center">{{ cliente.dEst | currencyPesoChileno}}</td>
+                <td class="text-center">{{ cliente.vCon | currencyPesoChileno}}</td>
                 <td>{{ cliente.nombre_ejecutivo }}</td>
                 <td>{{ cliente.origen }}</td>
                 <td>{{ cliente.canal }}</td>

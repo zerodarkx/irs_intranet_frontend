@@ -39,6 +39,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'propiedades',
+    loadChildren: () => import('./corretaje/corretaje.module').then(m => m.CorretajeModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'formularios',
     loadChildren: () => import('./formularios/formularios.module').then(m => m.FormulariosModule),
   },

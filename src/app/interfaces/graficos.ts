@@ -4,7 +4,7 @@ export interface ResultadoObtenerGraficosEjecutivo {
 }
 
 export interface ObtenerGraficosEjecutivo {
-    propiedad: Propiedad;
+    propiedad: TipoPropiedadGrafico;
     mensuales: Mensuales;
     historico: Historico;
 }
@@ -19,7 +19,7 @@ export interface Mensuales {
     titulo: string;
 }
 
-export interface Propiedad {
+export interface TipoPropiedadGrafico {
     contadorPorPropiedad: ContadorPor[];
     titulo: string;
 }
