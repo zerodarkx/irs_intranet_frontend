@@ -40,20 +40,20 @@ export class NavbarComponent implements OnInit {
     return categoriaData.subcategorias?.[subcategoria]?.activo ?? false;
   }
 
-  toggleDropdown(id: string) {
+  toggleDropdown(id: string): void {
     const dropdownElement = document.getElementById(id);
-    if (dropdownElement) {
-      this.dropdownInstance = new Dropdown(dropdownElement);
-    }
-    this.dropdownInstance.toggle();
+    if (!dropdownElement) return;
+
+    const instance = Dropdown.getOrCreateInstance(dropdownElement);
+    instance.toggle();
   }
 
-  toggleOffcanvas() {
+  toggleOffcanvas(): void {
     const offcanvasElement = document.getElementById('menuDelNavegador');
-    if (offcanvasElement) {
-      this.offcanvasInstance = new Offcanvas(offcanvasElement);
-    }
-    this.offcanvasInstance.toggle();
+    if (!offcanvasElement) return;
+
+    const instance = Offcanvas.getOrCreateInstance(offcanvasElement);
+    instance.toggle();
   }
 
   cerrarSession() {
