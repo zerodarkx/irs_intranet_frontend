@@ -65,6 +65,18 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown" *ngIf="obtenerPermiso('VER_MODULO_SALIDAS')">
+                        <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
+                            (click)="toggleDropdown('menuCorretaje')" aria-expanded="false">
+                            1House
+                        </a>
+                        <ul id="menuCorretaje" class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item fs-5" [routerLink]="['/propiedades']"
+                                    routerLinkActive="active">Buscador</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item dropdown" *ngIf="obtenerPermiso('VER_MODULO_MANTENEDORES')">
                         <a class="nav-link dropdown-toggle fs-3" href="#" role="button" data-bs-toggle="dropdown"
                             (click)="toggleDropdown('menuMantenedores')" aria-expanded="false">
