@@ -1,0 +1,224 @@
+<shared-navbar></shared-navbar>
+<div class="container-fluid pt-3 pb-3 fondoTodo">
+    <div class="row pt3">
+        <div class="col-md-6">
+            <h2>Buscador de Propiedades</h2>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+    <div class="card">
+        <div class="card-body mb-4">
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <a [routerLink]="['/cliente', 'nuevoCliente']" class="btn btn-success w-100">
+                        Nueva Propiedad
+                    </a>
+                </div>
+            </div>
+            <!-- FILTROS PARA LA BUSQUEDA -->
+            <div class="row mt-2">
+                <!-- FILTROS PARA BUSQUEDAS -->
+                <div class="col-md-9">
+                    <form [formGroup]="formFiltroBusqueda">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">Buscar por ID</label>
+                                <input type="text" class="form-control" formControlName="id_propiedad" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Buscar por estado</label>
+                                <ng-select [items]="estadosMostrar" [multiple]="true" [closeOnSelect]="false"
+                                    [hideSelected]="true" bindValue="id_estado" bindLabel="nombre"
+                                    placeholder="Seleccione estado" notFoundText="No se encontraron coincidencias"
+                                    formControlName="estado_propiedad">
+                                </ng-select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Buscar por ejecutivo</label>
+                                <ng-select [items]="selectCorredores" [multiple]="true" [closeOnSelect]="false"
+                                    [hideSelected]="true" placeholder="Seleccionar Ejecutivo" bindValue="idUser"
+                                    bindLabel="nombreCompleto" notFoundText="No se encontraron coincidencias"
+                                    formControlName="ejecutivo">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="row" formGroupName="fechasIngreso">
+                            <div class="col-md-4">
+                                <label for="">Fecha desde Ingreso</label>
+                                <input type="date" class="form-control text-center" formControlName="fechaDesde" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Fecha Hasta Ingreso</label>
+                                <input type="date" class="form-control text-center" formControlName="fechaHasta" />
+                                <div *ngIf="formFiltroBusqueda.get('fechasIngreso')?.hasError('fechaRangoInvalido')">
+                                    <small class="text-danger">La fecha inicial debe ser menor o igual a la fecha final
+                                        en
+                                        búsqueda.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-success w-100 mt-2"
+                                (click)="obtenerPropiedadesPorFiltro()" [disabled]="formFiltroBusqueda.invalid">
+                                Buscar
+                            </button>
+                            <button type="button" class="btn btn-warning w-100 mt-2" (click)="borrarFiltrosTabla()">
+                                Borrar Filtro
+                            </button>
+                            <button type="button" class="btn btn-secondary w-100 mt-2" (click)="exportarExcel()">
+                                Exportar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- TABLA PARA MOSTRAR -->
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p-table #tabla [value]="propiedades" styleClass="p-datatable-striped" [paginator]="true"
+                        [rows]="10" [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
+                        [rowsPerPageOptions]="[10, 25, 50, 100]" [globalFilterFields]="[
+                            'id_interno',
+                            'id_externo'
+                        ]" selectionMode="single" dataKey="id_propiedad" [scrollable]="true"
+                        scrollDirection="horizontal" [style]="{ width: '100%' }">
+                        <!-- FILTRO GENERAL -->
+                        <ng-template pTemplate="caption">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button pButton class="btn btn-success" (click)="clear(tabla)">
+                                        <i class="bi bi-filter"></i>Limpiar Filtros
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <input #iBuscarTodo type="text" class="form-control" (input)="handleFilter($event)"
+                                        placeholder="Buscar en toda la tabla" />
+                                </div>
+                            </div>
+                        </ng-template>
+                        <!-- FILTROS POR COLUMNAS -->
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pFrozenColumn pSortableColumn="id_propiedad" ngClass="columna-150">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">ID Propiedad Interno</label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="id_interno"
+                                                display="menu"></p-columnFilter>
+                                            <p-sortIcon field="id_interno"></p-sortIcon>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th pFrozenColumn pSortableColumn="id_externo" ngClass="columna-150">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">ID Convecta </label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="id_externo"
+                                                display="menu"></p-columnFilter>
+                                            <p-sortIcon field="id_externo"></p-sortIcon>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th pSortableColumn="id_irs" ngClass="columna-150">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">ID IRS</label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="id_irs" display="menu"></p-columnFilter>
+                                            <p-sortIcon field="id_irs"></p-sortIcon>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th pSortableColumn="texto1" ngClass="columna-150">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">Estado</label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="texto1" display="menu"></p-columnFilter>
+                                            <p-sortIcon field="texto1"></p-sortIcon>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th pSortableColumn="venta-arriendo" ngClass="columna-150">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">Venta Arriendo</label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="venta-arriendo"
+                                                display="menu"></p-columnFilter>
+                                            <p-sortIcon field="venta-arriendo"></p-sortIcon>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th pSortableColumn="ejecutivo" ngClass="columna-normal">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">Ejecutivo</label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="ejecutivo"
+                                                display="menu"></p-columnFilter>
+                                            <p-sortIcon field="ejecutivo"></p-sortIcon>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th pSortableColumn="comuna" ngClass="columna-normal">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">Comuna</label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="comuna" display="menu"></p-columnFilter>
+                                            <p-sortIcon field="comuna"></p-sortIcon>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th pSortableColumn="precio-venta-arriendo" ngClass="columna-normal">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">Precio Venta - Arriendo</label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="precio-venta-arriendo"
+                                                display="menu"></p-columnFilter>
+                                            <p-sortIcon field="precio-venta-arriendo"></p-sortIcon>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th pSortableColumn="moneda" ngClass="columna-normal">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">Tipo Moneda</label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="moneda" display="menu"></p-columnFilter>
+                                            <p-sortIcon field="moneda"></p-sortIcon>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <!-- CUERPO DE LA TABLA -->
+                        <ng-template pTemplate="body" let-propiedad>
+                            <tr (click)="irDetallePropiedad(propiedad.id_propiedad)" style="cursor: pointer">
+                                <td pFrozenColumn>P# {{ propiedad.id_propiedad }}</td>
+                                <td pFrozenColumn>{{ propiedad.id_externo }}</td>
+                                <td></td>
+                                <td> activo </td>
+                                <td>{{ obtenerTipoArriendoVenta(propiedad.sale, propiedad.rent) }}</td>
+                                <td>{{ obntenerUsuario(propiedad.id_usuario)}}</td>
+                                <td>{{ obtenerComunaConRegion(propiedad.id_comuna)}}</td>
+                                <td>{{ obtenerValoresFormateados(propiedad.priceSale, propiedad.priceRent) }}</td>
+                                <td>{{ obtenerTipoMoneda(propiedad.idCurrencySale, propiedad.idCurrencyRent) }} </td>
+                            </tr>
+                        </ng-template>
+                        <!-- MENSAJE DE QUE NO HAY DATOS -->
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="99" class="text-center">
+                                    No hay datos disponibles
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<shared-footer></shared-footer>

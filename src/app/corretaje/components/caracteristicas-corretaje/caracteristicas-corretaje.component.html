@@ -1,0 +1,562 @@
+<div class="container-fluid mt-3" [formGroup]="formCaracteristicas">
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Distribucion</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">N° de Suites</label>
+            <input type="text" class="form-control" formControlName="suites">
+        </div>
+        <div class="col-md-3">
+            <label for="">Piezas de servicio</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('serviceRoom', true)"
+                    (click)="setButtonValue('serviceRoom', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('serviceRoom', false)"
+                    (click)="setButtonValue('serviceRoom', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">Jacuzzi</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('jacuzzi', true)"
+                    (click)="setButtonValue('jacuzzi', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('jacuzzi', false)"
+                    (click)="setButtonValue('jacuzzi', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">N° de salas de estar</label>
+            <input type="text" class="form-control" formControlName="livingRooms">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Caracteristicas</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">Sup. de terraza</label>
+            <input type="text" class="form-control" formControlName="terraceSurface">
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">Orientación</label>
+            <ng-select placeholder="Seleccionar Orientacion" notFoundText="No se encontraron coincidencias"
+                formControlName="orientation">
+                <ng-option value="128">Norte</ng-option>
+                <ng-option value="129">Sur</ng-option>
+                <ng-option value="130">Oriente</ng-option>
+                <ng-option value="131">Poniente</ng-option>
+                <ng-option value="132">Nor-Oriente</ng-option>
+                <ng-option value="133">Nor-Poniente</ng-option>
+                <ng-option value="134">Sur-Oriente</ng-option>
+                <ng-option value="135">Sur-Poniente</ng-option>
+                <ng-option selected="selected" value="503">NorPoniente-Sur</ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-3">
+            <label for="">Año de construcción</label>
+            <input type="text" class="form-control" formControlName="constructionYear">
+        </div>
+        <div class="col-md-3">
+            <label for="">Nº de pisos</label>
+            <input type="text" class="form-control" formControlName="floors">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">Permiten mascotas</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('petsAllowed', true)"
+                    (click)="setButtonValue('petsAllowed', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('petsAllowed', false)"
+                    (click)="setButtonValue('petsAllowed', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">Tipo de calefacción</label>
+            <ng-select placeholder="Seleccionar Orientacion" notFoundText="No se encontraron coincidencias"
+                formControlName="typeHeating">
+                <ng-option value="0">Seleccione...</ng-option>
+                <ng-option selected="selected" value="59">Ninguna</ng-option>
+                <ng-option value="60">Aire caliente /Aire Acondicionado</ng-option>
+                <ng-option value="61">Caldera/Central</ng-option>
+                <ng-option value="62">Eléctrica</ng-option>
+                <ng-option value="63">Losa radiante</ng-option>
+                <ng-option value="64">Central</ng-option>
+                <ng-option value="65">Radiadores</ng-option>
+                <ng-option value="66">Estufa Murales</ng-option>
+                <ng-option value="201">Chimenea</ng-option>
+                <ng-option value="202">Bosca a leña</ng-option>
+            </ng-select>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Exteriores</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">Cancha de tenis</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('tennisCourt', true)"
+                    (click)="setButtonValue('tennisCourt', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('tennisCourt', false)"
+                    (click)="setButtonValue('tennisCourt', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">Piscina</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('pool', true)"
+                    (click)="setButtonValue('pool', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('pool', false)"
+                    (click)="setButtonValue('pool', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">Portón automático</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('automaticGate', true)"
+                    (click)="setButtonValue('automaticGate', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('automaticGate', false)"
+                    (click)="setButtonValue('automaticGate', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Urbanizacion</h3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label for="">Portón automático</label>
+        <div class="btn-group w-100" role="group">
+            <button type="button" class="btn" [ngClass]="getButtonClasses('withGatedCommunity', true)"
+                (click)="setButtonValue('withGatedCommunity', true)">
+                Sí
+            </button>
+            <button type="button" class="btn" [ngClass]="getButtonClasses('withGatedCommunity', false)"
+                (click)="setButtonValue('withGatedCommunity', false)">
+                No
+            </button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Portal Inm. > Ficha técnica</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">Bodegas</label>
+            <input type="text" class="form-control" formControlName="warehouses">
+        </div>
+        <div class="col-md-3">
+            <label for="">Horario de contacto</label>
+            <input type="text" class="form-control" formControlName="contactSchedule">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Portal Inm. > Adicionales</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="">Alarma</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('alarm', true)"
+                    (click)="setButtonValue('alarm', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('alarm', false)"
+                    (click)="setButtonValue('alarm', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="">Gas natural</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasNaturalGas', true)"
+                    (click)="setButtonValue('hasNaturalGas', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasNaturalGas', false)"
+                    (click)="setButtonValue('hasNaturalGas', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="">Línea telefónica</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasTelephoneLine', true)"
+                    (click)="setButtonValue('hasTelephoneLine', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasTelephoneLine', false)"
+                    (click)="setButtonValue('hasTelephoneLine', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="">Solo familias</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('onlyFamilies', true)"
+                    (click)="setButtonValue('onlyFamilies', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('onlyFamilies', false)"
+                    (click)="setButtonValue('onlyFamilies', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Portal Inm. > Ambientes</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="balcon_si">Balcón</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasBalcony', true)"
+                    (click)="setButtonValue('hasBalcony', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasBalcony', false)"
+                    (click)="setButtonValue('hasBalcony', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="banoVisitas_si">Baño de visitas</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('bathroomVisit', true)"
+                    (click)="setButtonValue('bathroomVisit', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('bathroomVisit', false)"
+                    (click)="setButtonValue('bathroomVisit', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="closets_si">Closets</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasCloset', true)"
+                    (click)="setButtonValue('hasCloset', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasCloset', false)"
+                    (click)="setButtonValue('hasCloset', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="cocina_si">Cocina</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('kitchen', true)"
+                    (click)="setButtonValue('kitchen', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('kitchen', false)"
+                    (click)="setButtonValue('kitchen', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="comedor_si">Comedor</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasDinningRoom', true)"
+                    (click)="setButtonValue('hasDinningRoom', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasDinningRoom', false)"
+                    (click)="setButtonValue('hasDinningRoom', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="homeoffice_si">Homeoffice</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasStudy', true)"
+                    (click)="setButtonValue('hasStudy', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasStudy', false)"
+                    (click)="setButtonValue('hasStudy', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="jardin_si">Jardín</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('jardinFormado', true)"
+                    (click)="setButtonValue('jardinFormado', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('jardinFormado', false)"
+                    (click)="setButtonValue('jardinFormado', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="mansarda_si">Mansarda</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasAttic', true)"
+                    (click)="setButtonValue('hasAttic', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasAttic', false)"
+                    (click)="setButtonValue('hasAttic', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="parrilla_si">Parrilla</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasGrill', true)"
+                    (click)="setButtonValue('hasGrill', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasGrill', false)"
+                    (click)="setButtonValue('hasGrill', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="patio_si">Patio</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('yard', true)"
+                    (click)="setButtonValue('yard', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('yard', false)"
+                    (click)="setButtonValue('yard', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="playroom_si">Playroom</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('gameRoom', true)"
+                    (click)="setButtonValue('gameRoom', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('gameRoom', false)"
+                    (click)="setButtonValue('gameRoom', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="terraza_si">Terraza</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasTerrace', true)"
+                    (click)="setButtonValue('hasTerrace', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasTerrace', false)"
+                    (click)="setButtonValue('hasTerrace', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="walkInCloset_si">Walk-in clóset</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('walkinCloset', true)"
+                    (click)="setButtonValue('walkinCloset', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('walkinCloset', false)"
+                    (click)="setButtonValue('walkinCloset', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Portal Inm. > Comodidades y Amenities</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="internet_si">Acceso a internet</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasInternetAccess', true)"
+                    (click)="setButtonValue('hasInternetAccess', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasInternetAccess', false)"
+                    (click)="setButtonValue('hasInternetAccess', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="aireAcondicionado_si">Aire acondicionado</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasAirConditioning', true)"
+                    (click)="setButtonValue('hasAirConditioning', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasAirConditioning', false)"
+                    (click)="setButtonValue('hasAirConditioning', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="canchaBasquetbol_si">Cancha de básquetbol</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('indoorBasketballCourt', true)"
+                    (click)="setButtonValue('indoorBasketballCourt', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('indoorBasketballCourt', false)"
+                    (click)="setButtonValue('indoorBasketballCourt', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="canchaPaddle_si">Cancha de paddle</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasPaddleCourt', true)"
+                    (click)="setButtonValue('hasPaddleCourt', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasPaddleCourt', false)"
+                    (click)="setButtonValue('hasPaddleCourt', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="chimenea_si">Chimenea</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('chimney', true)"
+                    (click)="setButtonValue('chimney', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('chimney', false)"
+                    (click)="setButtonValue('chimney', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="conserjeria24h_si">Conserjería 24 horas</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasSecurity', true)"
+                    (click)="setButtonValue('hasSecurity', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('hasSecurity', false)"
+                    (click)="setButtonValue('hasSecurity', false)">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="gimnasio_si">Gimnasio</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('gym', true)"
+                    (click)="setButtonValue('gym', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('gym', false)"
+                    (click)="setButtonValue('gym', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Portal Inm. > Otros</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="conexionLavarropas_si">Con conexión para lavarropas</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn" [ngClass]="getButtonClasses('withLaundryConnection', true)"
+                    (click)="setButtonValue('withLaundryConnection', true)">
+                    Sí
+                </button>
+                <button type="button" class="btn" [ngClass]="getButtonClasses('withLaundryConnection', false)"
+                    (click)="setButtonValue('withLaundryConnection', false)">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

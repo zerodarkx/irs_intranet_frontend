@@ -1,0 +1,10 @@
+/* Clase para reducir el tamaño de las primeras columnas */
+.columna-150 {
+    min-width: 150px !important;
+    max-width: 150px !important;
+}
+
+/* Clase para una columna normal */
+.columna-normal {
+    min-width: 250px;
+}
