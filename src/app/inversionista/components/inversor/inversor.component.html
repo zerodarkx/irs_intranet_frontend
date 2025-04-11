@@ -171,7 +171,7 @@
                                     </div>
                                 </div>
                             </th>
-                            <th pSortableColumn="nom_cli" *ngIf="tituloMostrar !== 'Comite'">
+                            <th pSortableColumn="nom_cli" *ngIf="!['Comite', 'Pendiente'].includes(tituloMostrar)">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <label for="">Cliente</label>
                                     <div class="d-flex flex-column">
@@ -254,7 +254,7 @@
                     <ng-template pTemplate="body" let-data let-i="rowIndex">
                         <tr>
                             <td>{{ data.id }}</td>
-                            <td *ngIf="tituloMostrar !== 'Comite'">{{ data.nom_cli }}</td>
+                            <td *ngIf="!['Comite', 'Pendiente'].includes(tituloMostrar)">{{ data.nom_cli }}</td>
                             <td>{{ data.propiedad }}</td>
                             <td>{{ data.comuna }}</td>
                             <td>{{ data.v_comercial | currencyPesoChileno }}</td>
@@ -293,7 +293,7 @@
             <div class="col-md-12">
                 <table class="table" width="100%">
                     <tbody>
-                        <tr *ngIf="detallePorCaso?.estado !== 'Comite'">
+                        <tr *ngIf="!['Comite', 'Pendiente'].includes(tituloMostrar)">
                             <td width="30%">Nombre Cliente</td>
                             <td width="70%">{{detallePorCaso?.nom_cli}}</td>
                         </tr>
