@@ -171,17 +171,7 @@
                                     </div>
                                 </div>
                             </th>
-                            <th pSortableColumn="inversionista">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <label for="">Inversionista</label>
-                                    <div class="d-flex flex-column">
-                                        <p-columnFilter type="text" field="inversionista"
-                                            display="menu"></p-columnFilter>
-                                        <p-sortIcon field="inversionista"></p-sortIcon>
-                                    </div>
-                                </div>
-                            </th>
-                            <th pSortableColumn="nom_cli">
+                            <th pSortableColumn="nom_cli" *ngIf="tituloMostrar !== 'Comite'">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <label for="">Cliente</label>
                                     <div class="d-flex flex-column">
@@ -264,15 +254,13 @@
                     <ng-template pTemplate="body" let-data let-i="rowIndex">
                         <tr>
                             <td>{{ data.id }}</td>
-                            <td>{{ data.inversionista }}</td>
-                            <td>{{ data.nom_cli }}</td>
+                            <td *ngIf="tituloMostrar !== 'Comite'">{{ data.nom_cli }}</td>
                             <td>{{ data.propiedad }}</td>
                             <td>{{ data.comuna }}</td>
                             <td>{{ data.v_comercial | currencyPesoChileno }}</td>
                             <td>{{ data.v_contrato | currencyPesoChileno}}</td>
                             <td>{{ data.ltv }}%</td>
-                            <td>{{ data.v_contrato / ((100 + data.tir) / 100) |
-                                currencyPesoChileno}}</td>
+                            <td>{{ data.v_contrato / ((100 + data.tir) / 100) | currencyPesoChileno}}</td>
                             <td>{{ data.tir }}%</td>
                             <td>
                                 <div class="text-center">
@@ -305,7 +293,7 @@
             <div class="col-md-12">
                 <table class="table" width="100%">
                     <tbody>
-                        <tr>
+                        <tr *ngIf="detallePorCaso?.estado !== 'Comite'">
                             <td width="30%">Nombre Cliente</td>
                             <td width="70%">{{detallePorCaso?.nom_cli}}</td>
                         </tr>
