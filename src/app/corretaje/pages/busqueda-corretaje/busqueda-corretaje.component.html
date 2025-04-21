@@ -83,8 +83,16 @@
                         [rows]="10" [showCurrentPageReport]="true"
                         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} Registros"
                         [rowsPerPageOptions]="[10, 25, 50, 100]" [globalFilterFields]="[
-                            'id_interno',
-                            'id_externo'
+                            'id_propiedad',
+                            'id_externo',
+                            'id_irs',
+                            'estado_interno',
+                            'estado_convecta',
+                            'venta-arriendo',
+                            'ejecutivo',
+                            'comuna',
+                            'precio-venta-arriendo',
+                            'moneda',
                         ]" selectionMode="single" dataKey="id_propiedad" [scrollable]="true"
                         scrollDirection="horizontal" [style]="{ width: '100%' }">
                         <!-- FILTRO GENERAL -->
@@ -133,12 +141,23 @@
                                         </div>
                                     </div>
                                 </th>
-                                <th pSortableColumn="texto1" ngClass="columna-150">
+                                <th pSortableColumn="estado_interno" ngClass="columna-150">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <label for="">Estado</label>
+                                        <label for="">Estado Interno</label>
                                         <div class="d-flex flex-column">
-                                            <p-columnFilter type="text" field="texto1" display="menu"></p-columnFilter>
-                                            <p-sortIcon field="texto1"></p-sortIcon>
+                                            <p-columnFilter type="text" field="estado_interno"
+                                                display="menu"></p-columnFilter>
+                                            <p-sortIcon field="estado_interno"></p-sortIcon>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th pSortableColumn="estado_convecta" ngClass="columna-150">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label for="">Estado Convecta</label>
+                                        <div class="d-flex flex-column">
+                                            <p-columnFilter type="text" field="estado_convecta"
+                                                display="menu"></p-columnFilter>
+                                            <p-sortIcon field="estado_convecta"></p-sortIcon>
                                         </div>
                                     </div>
                                 </th>
@@ -198,6 +217,7 @@
                                 <td pFrozenColumn>P# {{ propiedad.id_propiedad }}</td>
                                 <td pFrozenColumn>{{ propiedad.id_externo }}</td>
                                 <td></td>
+                                <td>estado interno</td>
                                 <td> activo </td>
                                 <td>{{ obtenerTipoArriendoVenta(propiedad.sale, propiedad.rent) }}</td>
                                 <td>{{ obntenerUsuario(propiedad.id_usuario)}}</td>

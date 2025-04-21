@@ -74,3 +74,40 @@ export interface ResultadoObtenerCaracteristicasPropiedad {
     ok: boolean;
     data: Caracteristicas[];
 }
+
+export interface ResultadoObtenerDocumentosPropiedad {
+    ok: boolean;
+    data: ObtenerTodosDocumentosPropiedad[];
+}
+export interface ObtenerTodosDocumentosPropiedad {
+    path: string;
+    nom_documento: string;
+    id_documento: number;
+}
+
+export interface ResultadoPropiedadDocumentoAgregarEliminar {
+    ok: boolean;
+    data: { mensaje: string };
+}
+
+export interface ResultadoObtenerBitacoraPropiedad {
+    ok: boolean;
+    data: BitacoraPropiedad[];
+}
+
+export interface BitacoraPropiedad {
+    id_bitacora: number;
+    id_propiedad: number;
+    id_usuario: number;
+    id_usuario_convecta: number;
+    observacion_bitacora: string;
+    respuesta_bitacora: string;
+    fecha_bitacora: string;
+    usuario: { nombre_ejecutivo: string };
+    semana: number;
+}
+
+export interface ResultadoPropiedadBitacoraAgregarEliminar {
+    ok: boolean;
+    data: { mensaje: string };
+}

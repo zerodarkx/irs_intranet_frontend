@@ -1446,93 +1446,92 @@ export const regionesConvecta = [{
     "name": "Magallanes y Antártica"
 }]
 
-export const usuariosConvecta = [
-    {
-        "idUser": 1272,
-        "nombreCompleto": "Convecta Prop360"
-    },
-    {
-        "idUser": 1273,
-        "nombreCompleto": "Paola Villarroel Leon"
-    },
-    {
-        "idUser": 1274,
-        "nombreCompleto": "Ana Rosa Leon Diaz"
-    },
-    {
-        "idUser": 1275,
-        "nombreCompleto": "Carlos Vega"
-    },
-    {
-        "idUser": 1276,
-        "nombreCompleto": "Natalia Rodriguez"
-    },
-    {
-        "idUser": 1277,
-        "nombreCompleto": "Henry Becerra Tine"
-    },
-    {
-        "idUser": 1278,
-        "nombreCompleto": "Basly Silva"
-    },
-    {
-        "idUser": 1279,
-        "nombreCompleto": "Gigliola Vicencio"
-    },
-    {
-        "idUser": 1280,
-        "nombreCompleto": "Pablo Peralta Pavez"
-    },
-    {
-        "idUser": 1281,
-        "nombreCompleto": "Alvaro Donoso Bravo"
-    },
-    {
-        "idUser": 1282,
-        "nombreCompleto": "Yivana Yanez"
-    },
-    {
-        "idUser": 1283,
-        "nombreCompleto": "Jessica Galvez"
-    },
-    {
-        "idUser": 1284,
-        "nombreCompleto": "Maciel Moreno Alarcon"
-    },
-    {
-        "idUser": 1285,
-        "nombreCompleto": "Jacqueline Sepulveda"
-    },
-    {
-        "idUser": 1286,
-        "nombreCompleto": "Victoria Araujo"
-    },
-    {
-        "idUser": 1287,
-        "nombreCompleto": "Lizeth Huerta"
-    },
-    {
-        "idUser": 1288,
-        "nombreCompleto": "Marcelo Fredericksen"
-    },
-    {
-        "idUser": 1289,
-        "nombreCompleto": "Vannia Suarez"
-    },
-    {
-        "idUser": 1290,
-        "nombreCompleto": "Maria Jacqueline Valderas"
-    },
-    {
-        "idUser": 1291,
-        "nombreCompleto": "Oriana Quijada"
-    },
-    {
-        "idUser": 1292,
-        "nombreCompleto": "Mary Carmen Angulo"
-    },
-    {
-        "idUser": 1293,
-        "nombreCompleto": "Laila Kadadihi"
-    }
-];
+export const usuariosConvecta = [{
+    "idUser": 1272,
+    "nombreCompleto": "Convecta Prop360",
+    "email": "info@convecta.cl"
+}, {
+    "idUser": 1273,
+    "nombreCompleto": "Paola Villarroel Leon",
+    "email": "pvillarroel@1house.cl"
+}, {
+    "idUser": 1274,
+    "nombreCompleto": "Ana Rosa Leon Diaz",
+    "email": "aleon@1house.cl"
+}, {
+    "idUser": 1275,
+    "nombreCompleto": "Carlos Vega",
+    "email": "cvega@1house.cl"
+}, {
+    "idUser": 1276,
+    "nombreCompleto": "Natalia Rodriguez",
+    "email": "nrodriguez@1house.cl"
+}, {
+    "idUser": 1277,
+    "nombreCompleto": "Henry Becerra Tine",
+    "email": "hbecerra@1house.cl"
+}, {
+    "idUser": 1278,
+    "nombreCompleto": "Basly Silva",
+    "email": "bsilva@1house.cl"
+}, {
+    "idUser": 1279,
+    "nombreCompleto": "Gigliola Vicencio",
+    "email": "gvicencio@1house.cl"
+}, {
+    "idUser": 1280,
+    "nombreCompleto": "Pablo Peralta Pavez",
+    "email": "pperalta@1house.cl"
+}, {
+    "idUser": 1281,
+    "nombreCompleto": "Alvaro Donoso Bravo",
+    "email": "adonoso@1house.cl"
+}, {
+    "idUser": 1282,
+    "nombreCompleto": "Yivana Yanez",
+    "email": "yyanez@1house.cl"
+}, {
+    "idUser": 1283,
+    "nombreCompleto": "Jessica Galvez",
+    "email": "jgalvez@1house.cl"
+}, {
+    "idUser": 1284,
+    "nombreCompleto": "Maciel Moreno Alarcon",
+    "email": "mmoreno@1house.cl"
+}, {
+    "idUser": 1286,
+    "nombreCompleto": "Victoria Araujo",
+    "email": "coordinadora@1house.cl"
+}, {
+    "idUser": 1287,
+    "nombreCompleto": "Lizeth Huerta",
+    "email": "lhuerta@1house.cl"
+}, {
+    "idUser": 1288,
+    "nombreCompleto": "Marcelo Fredericksen",
+    "email": "mfredericksen@1house.cl"
+}, {
+    "idUser": 1289,
+    "nombreCompleto": "Vannia Suarez",
+    "email": "vsuarez@1house.cl"
+}, {
+    "idUser": 1290,
+    "nombreCompleto": "Maria Jacqueline Valderas",
+    "email": "mvalderas@1house.cl"
+}, {
+    "idUser": 1291,
+    "nombreCompleto": "Oriana Quijada",
+    "email": "oquijada@1house.cl"
+}, {
+    "idUser": 1292,
+    "nombreCompleto": "Mary Carmen Angulo",
+    "email": "mangulo@1house.cl"
+}, {
+    "idUser": 1293,
+    "nombreCompleto": "Laila Kadadihi",
+    "email": "lkadadihi@1house.cl"
+}, {
+    "idUser": 1294,
+    "nombreCompleto": "Sergio Herrera",
+    "email": "sherrera@1house.cl"
+}]

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PropiedadesService } from 'src/app/services';
 
 @Component({
@@ -14,14 +14,19 @@ export class InicioCorretajeComponent {
   constructor(
     private activedRouter: ActivatedRoute,
     private sPropiedades: PropiedadesService,
+    private router: Router
   ) {
     this.activedRouter.params
       .subscribe(({ idPropiedad }) => {
         this.idPropiedad = idPropiedad
-        this.sPropiedades.setIdCliente(this.idPropiedad); // Pasamos el idCliente al servicio
+        this.sPropiedades.setIdPropiedad(this.idPropiedad); // Pasamos el idCliente al servicio
       })
 
     // this.verificarExisteCliente();
+  }
+
+  volverAtrasPagina(){
+    this.router.navigate(['/propiedades'])
   }
 
 

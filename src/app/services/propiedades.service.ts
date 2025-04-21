@@ -3,7 +3,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { env } from 'src/environments/environment';
 
-import { ResultadoObtenerCaracteristicasPropiedad, ResultadoPropiedades } from '../interfaces';
+import {
+  ResultadoPropiedadDocumentoAgregarEliminar,
+  ResultadoObtenerCaracteristicasPropiedad,
+  ResultadoObtenerDocumentosPropiedad,
+  ResultadoPropiedades,
+  ResultadoObtenerBitacoraPropiedad,
+  ResultadoPropiedadBitacoraAgregarEliminar
+} from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +29,8 @@ export class PropiedadesService {
     this.currentIdPropiedad.subscribe(id => { return this.id_propiedad = id })
   }
 
-  setIdCliente(idCliente: string) {
-    this.idPropiedad.next(idCliente);
+  setIdPropiedad(idPropiedad: string) {
+    this.idPropiedad.next(idPropiedad);
   }
 
   existePropiedadSistema(): Observable<{ ok: boolean }> {
@@ -45,4 +52,38 @@ export class PropiedadesService {
     let url = `${this.url_base}/obtenerCaracteristicasPropiedad/${id_propiedad}`;
     return this.http.get<ResultadoObtenerCaracteristicasPropiedad>(url);
   }
+
+  // DOCUMENTOS PROPIEDAD
+  obtenerDocumentosPropiedad(): Observable<ResultadoObtenerDocumentosPropiedad> {
+    let url = `${this.url_base}/obtenerDocumentosPropiedad/${this.id_propiedad}`;
+    return this.http.get<ResultadoObtenerDocumentosPropiedad>(url);
+  }
+
+  agregarDocumentoPropiedad(formData: FormData): Observable<ResultadoPropiedadDocumentoAgregarEliminar> {
+    let url = `${this.url_base}/subirDocumentoPropiedad/${this.id_propiedad}`;
+    return this.http.post<ResultadoPropiedadDocumentoAgregarEliminar>(url, formData);
+  }
+
+  eliminarDocumentoPropiedad(id_documento: number): Observable<ResultadoPropiedadDocumentoAgregarEliminar> {
+    let url = `${this.url_base}/eliminarDocumentoPropiedad/${this.id_propiedad}/${id_documento}`;
+    return this.http.delete<ResultadoPropiedadDocumentoAgregarEliminar>(url);
+  }
+
+  // BITACORA PROPIEDAD
+  obtenerBitacoraPropiedad(): Observable<ResultadoObtenerBitacoraPropiedad> {
+    let url = `${this.url_base}/obtenerBitacorasPropiedad/${this.id_propiedad}`;
+    return this.http.get<ResultadoObtenerBitacoraPropiedad>(url);
+  }
+
+  agregaBitacoraPropiedad(data: any): Observable<ResultadoPropiedadBitacoraAgregarEliminar> {
+    let url = `${this.url_base}/agregarBitacoraPropiedad/${this.id_propiedad}`;
+    return this.http.post<ResultadoPropiedadBitacoraAgregarEliminar>(url, data);
+  }
+
+  eliminarBitacoraPropiedad(id_bitacora: number): Observable<ResultadoPropiedadBitacoraAgregarEliminar> {
+    let url = `${this.url_base}/eliminarBitacoraPropiedad/${id_bitacora}`;
+    return this.http.delete<ResultadoPropiedadBitacoraAgregarEliminar>(url);
+  }
+
 }
+
