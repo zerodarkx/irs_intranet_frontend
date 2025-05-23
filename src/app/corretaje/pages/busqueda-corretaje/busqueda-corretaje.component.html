@@ -116,9 +116,9 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <label for="">ID Propiedad Interno</label>
                                         <div class="d-flex flex-column">
-                                            <p-columnFilter type="text" field="id_interno"
+                                            <p-columnFilter type="text" field="id_propiedad"
                                                 display="menu"></p-columnFilter>
-                                            <p-sortIcon field="id_interno"></p-sortIcon>
+                                            <p-sortIcon field="id_propiedad"></p-sortIcon>
                                         </div>
                                     </div>
                                 </th>
@@ -161,13 +161,13 @@
                                         </div>
                                     </div>
                                 </th>
-                                <th pSortableColumn="venta-arriendo" ngClass="columna-150">
+                                <th pSortableColumn="tipo_venta_arriendo" ngClass="columna-150">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <label for="">Venta Arriendo</label>
                                         <div class="d-flex flex-column">
-                                            <p-columnFilter type="text" field="venta-arriendo"
+                                            <p-columnFilter type="text" field="tipo_venta_arriendo"
                                                 display="menu"></p-columnFilter>
-                                            <p-sortIcon field="venta-arriendo"></p-sortIcon>
+                                            <p-sortIcon field="tipo_venta_arriendo"></p-sortIcon>
                                         </div>
                                     </div>
                                 </th>
@@ -217,13 +217,13 @@
                                 <td pFrozenColumn>P# {{ propiedad.id_propiedad }}</td>
                                 <td pFrozenColumn>{{ propiedad.id_externo }}</td>
                                 <td></td>
-                                <td>estado interno</td>
+                                <td>{{ propiedad.estado }}</td>
                                 <td> activo </td>
-                                <td>{{ obtenerTipoArriendoVenta(propiedad.sale, propiedad.rent) }}</td>
-                                <td>{{ obntenerUsuario(propiedad.id_usuario)}}</td>
-                                <td>{{ obtenerComunaConRegion(propiedad.id_comuna)}}</td>
-                                <td>{{ obtenerValoresFormateados(propiedad.priceSale, propiedad.priceRent) }}</td>
-                                <td>{{ obtenerTipoMoneda(propiedad.idCurrencySale, propiedad.idCurrencyRent) }} </td>
+                                <td>{{ propiedad.tipo_venta_arriendo }}</td>
+                                <td>{{ propiedad.ejecutivo }}</td>
+                                <td>{{ propiedad.comuna }}</td>
+                                <td>{{ propiedad.precio }}</td>
+                                <td>{{ propiedad.moneda }} </td>
                             </tr>
                         </ng-template>
                         <!-- MENSAJE DE QUE NO HAY DATOS -->

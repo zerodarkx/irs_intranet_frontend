@@ -85,5 +85,11 @@ export class PropiedadesService {
     return this.http.delete<ResultadoPropiedadBitacoraAgregarEliminar>(url);
   }
 
+  //CAMBIAR DE ESTADO PROPIEDAD
+  cambiarEstadoPropiedad(t_estado: number): Observable<any> {
+    let url = `${this.url_base}/cambiarEstadoPropiedad/${this.id_propiedad}`;
+    return this.http.put<any>(url, { estado: t_estado });
+  }
+
 }
 

@@ -48,6 +48,15 @@ export class BusquedaCorretajeComponent {
     private sPropiedades: PropiedadesService,
   ) { }
 
+  ngOnInit(): void {
+
+    const formularioCache = localStorage.getItem('filtrosBusquedaPropiedad')
+    if (formularioCache) {
+      this.formFiltroBusqueda.patchValue(JSON.parse(formularioCache));
+      this.obtenerPropiedadesPorFiltro();
+    }
+  }
+
   clear(table: Table) {
     table.clear();
     this.iBuscarTodo.nativeElement.value = ''
@@ -58,9 +67,13 @@ export class BusquedaCorretajeComponent {
     this.tabla.filterGlobal(inputElement.value, 'contains');
   }
 
-  borrarFiltrosTabla() { }
+  borrarFiltrosTabla() {
+    this.formFiltroBusqueda.reset();
+    this.obtenerPropiedadesPorFiltro();
+    localStorage.removeItem('filtrosBusquedaPropiedad');
+  }
   irDetallePropiedad(id_propiedad: string) {
-    // localStorage.setItem('filtrosBusquedaCliente', JSON.stringify(this.formFiltroBusqueda.value));
+    localStorage.setItem('filtrosBusquedaPropiedad', JSON.stringify(this.formFiltroBusqueda.value));
     this.router.navigate(['/propiedades', id_propiedad])
   }
 
@@ -69,7 +82,15 @@ export class BusquedaCorretajeComponent {
       .subscribe({
         next: (resp) => {
           if (resp.ok) {
-            this.propiedades = resp.data;
+            this.propiedades = resp.data.map(p => ({
+              ...p,
+              tipo_venta_arriendo: this.obtenerTipoArriendoVenta(p.sale, p.rent),
+              ejecutivo: this.obntenerUsuario(p.id_usuario),
+              comuna: this.obtenerComunaConRegion(p.id_comuna),
+              precio: this.obtenerValoresFormateados(p.priceSale, p.priceRent),
+              moneda: this.obtenerTipoMoneda(p.idCurrencySale, p.idCurrencyRent),
+              estado: this.obtenerEstadoSistema(p.id_estado)
+            }));
           }
         },
         error: (error: ErrorHttpCustom) => {
@@ -115,6 +136,11 @@ export class BusquedaCorretajeComponent {
   obntenerUsuario(id_usuario: number) {
     let usuario = this.selectCorredores.find(c => c.idUser === id_usuario);
     return usuario?.nombreCompleto;
+  }
+
+  obtenerEstadoSistema(id_estadi: number) {
+    let estado = ['REVISIÓN Y ASIGNACIÓN', 'PUBLICACIÓN EN PORTALES', 'MÓDULO INTERMADIO', 'LEGAL/OPERACIONES', 'NOTARÍA', 'CIERRE'];
+    return estado[id_estadi - 1];
   }
 
 }

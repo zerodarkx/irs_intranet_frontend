@@ -7,8 +7,9 @@ export interface Propiedad {
     id_propiedad: number;
     id_externo: number;
     id_irs: number | null;
-    id_usuario: number | null;
+    id_usuario: number;
     id_comuna: number;
+    id_estado: number;
     street: string;
     webAddress: string;
     sale: boolean;
@@ -24,6 +25,7 @@ export interface Propiedad {
     observations: string;
     featured: boolean;
     onWeb: boolean;
+    estado: string;
 }
 
 export interface Caracteristicas {
