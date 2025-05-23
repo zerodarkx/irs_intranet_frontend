@@ -8,7 +8,9 @@ body {
   background-color: transparent !important;
   box-shadow: none !important;
   border: none !important;
+  color: white !important
 }
 .form-control {
   background-color: rgba(255, 255, 255, 0.8); /* o transparent */
 }
+
