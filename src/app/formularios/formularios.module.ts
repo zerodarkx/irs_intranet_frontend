@@ -6,17 +6,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from '../shared/shared.module';
 
-import { ChileComponent } from './components/chile/chile.component';
 import { FormularioComponent } from './pages/formulario/formulario.component';
 import { PeruComponent } from './components/peru/peru.component';
 import { ContactanosComponent } from './components/chile/contactanos/contactanos.component';
+import { IngresoComponent } from './components/chile/ingreso/ingreso.component';
 
 @NgModule({
   declarations: [
-    ChileComponent,
     FormularioComponent,
     PeruComponent,
-    ContactanosComponent
+    ContactanosComponent,
+    IngresoComponent
   ],
   imports: [
     CommonModule,

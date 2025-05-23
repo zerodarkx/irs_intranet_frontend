@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ChileComponent } from './components/chile/chile.component';
 import { FormularioComponent } from './pages/formulario/formulario.component';
 import { ContactanosComponent } from './components/chile/contactanos/contactanos.component';
+import { IngresoComponent } from './components/chile/ingreso/ingreso.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: 'chile/:plataforma',
-        component: ChileComponent
+        component: IngresoComponent
       },
       {
         path: 'chile/:plataforma/contactanos',

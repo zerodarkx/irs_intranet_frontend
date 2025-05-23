@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
 import { Comuna, ErrorHttpCustom, Iregiones, TipoCanalContacto, TipoPropiedad } from 'src/app/interfaces';
 import { ClienteService, ComunaService, RegionService, TipoContactoService, TipoPropiedadService } from 'src/app/services';
-
 import { agregarMayusculas, formateadorMiles, formatearRut } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 import { rutValidator } from 'src/app/shared/utils/validadores';
 
 @Component({
-  selector: 'app-chile',
-  templateUrl: './chile.component.html',
-  styleUrls: ['./chile.component.css']
+  selector: 'app-ingreso',
+  templateUrl: './ingreso.component.html',
+  styleUrls: ['./ingreso.component.css']
 })
-export class ChileComponent implements OnInit {
+export class IngresoComponent {
   plataforma: string = ''
   simulacion: string = ''
 
