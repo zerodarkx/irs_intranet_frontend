@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChileComponent } from './components/chile/chile.component';
 import { FormularioComponent } from './pages/formulario/formulario.component';
+import { ContactanosComponent } from './components/chile/contactanos/contactanos.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
       {
         path: 'chile/:plataforma',
         component: ChileComponent
+      },
+      {
+        path: 'chile/:plataforma/contactanos',
+        component: ContactanosComponent
       }
     ]
   },

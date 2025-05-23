@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h2>Contáctanos</h2>
+            </div>
+            <div class="row gap-3" [formGroup]="form_contactanos">
+                <div class="col-md-6">
+                    <label for="">Nombre</label>
+                    <input type="text" class="form-control" formControlName="cli_nombre">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Teléfono</label>
+                    <input type="text" class="form-control" formControlName="cli_telefono">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Correo</label>
+                    <input type="text" class="form-control" formControlName="cli_correo">
+                </div>
+                <div class="col-md-12">
+                    <label for="">Mensaje</label>
+                    <textarea class="form-control" formControlName="cli_obs"></textarea>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-primary w-100" (click)="enviarFormulario()">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

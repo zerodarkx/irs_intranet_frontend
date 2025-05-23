@@ -9,12 +9,14 @@ import { SharedModule } from '../shared/shared.module';
 import { ChileComponent } from './components/chile/chile.component';
 import { FormularioComponent } from './pages/formulario/formulario.component';
 import { PeruComponent } from './components/peru/peru.component';
+import { ContactanosComponent } from './components/chile/contactanos/contactanos.component';
 
 @NgModule({
   declarations: [
     ChileComponent,
     FormularioComponent,
-    PeruComponent
+    PeruComponent,
+    ContactanosComponent
   ],
   imports: [
     CommonModule,
