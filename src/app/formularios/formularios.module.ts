@@ -8,15 +8,15 @@ import { SharedModule } from '../shared/shared.module';
 
 import { FormularioComponent } from './pages/formulario/formulario.component';
 import { PeruComponent } from './components/peru/peru.component';
-import { ContactanosComponent } from './components/chile/contactanos/contactanos.component';
-import { IngresoComponent } from './components/chile/ingreso/ingreso.component';
+import { IngresoChileComponent } from './components/chile/ingreso-chile/ingreso-chile.component';
+import { ContactanosChileComponent } from './components/chile/contactanos-chile/contactanos-chile.component';
 
 @NgModule({
   declarations: [
     FormularioComponent,
     PeruComponent,
-    ContactanosComponent,
-    IngresoComponent
+    IngresoChileComponent,
+    ContactanosChileComponent
   ],
   imports: [
     CommonModule,

@@ -8,11 +8,11 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 import { rutValidator } from 'src/app/shared/utils/validadores';
 
 @Component({
-  selector: 'app-ingreso',
-  templateUrl: './ingreso.component.html',
-  styleUrls: ['./ingreso.component.css']
+  selector: 'app-ingreso-chile',
+  templateUrl: './ingreso-chile.component.html',
+  styleUrls: ['./ingreso-chile.component.css']
 })
-export class IngresoComponent {
+export class IngresoChileComponent {
   plataforma: string = ''
   simulacion: string = ''
 

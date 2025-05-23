@@ -7,13 +7,12 @@ import { agregarMayusculas } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
-  selector: 'app-contactanos',
-  templateUrl: './contactanos.component.html',
-  styleUrls: ['./contactanos.component.css']
+  selector: 'app-contactanos-chile',
+  templateUrl: './contactanos-chile.component.html',
+  styleUrls: ['./contactanos-chile.component.css']
 })
-export class ContactanosComponent {
-
-  plataforma: string = '';
+export class ContactanosChileComponent {
+plataforma: string = '';
 
   form_contactanos = this.fb.group({
     id_plataforma: [''],
@@ -69,5 +68,4 @@ export class ContactanosComponent {
         }
       })
   }
-
 }
