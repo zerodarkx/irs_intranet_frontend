@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ErrorHttpCustom } from 'src/app/interfaces';
@@ -9,10 +9,11 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 @Component({
   selector: 'app-contactanos-chile',
   templateUrl: './contactanos-chile.component.html',
-  styleUrls: ['./contactanos-chile.component.css']
+  styleUrls: ['./contactanos-chile.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ContactanosChileComponent {
-plataforma: string = '';
+  plataforma: string = '';
 
   form_contactanos = this.fb.group({
     id_plataforma: [''],
