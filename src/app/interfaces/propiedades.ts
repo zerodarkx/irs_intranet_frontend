@@ -3,6 +3,11 @@ export interface ResultadoPropiedades {
     data: Propiedad[];
 }
 
+export interface ResultadoPropiedad {
+    ok: boolean;
+    data: Propiedad;
+}
+
 export interface Propiedad {
     id_propiedad: number;
     id_externo: number;
@@ -112,4 +117,9 @@ export interface BitacoraPropiedad {
 export interface ResultadoPropiedadBitacoraAgregarEliminar {
     ok: boolean;
     data: { mensaje: string };
+}
+
+export interface ResultadoCambiarEstadoPropiedad {
+    ok: boolean;
+    data: { id_estado: number };
 }
