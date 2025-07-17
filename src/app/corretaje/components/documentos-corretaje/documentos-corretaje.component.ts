@@ -19,20 +19,40 @@ export class DocumentosCorretajeComponent {
 
   documentosCargadosPropiedad: ObtenerTodosDocumentosPropiedad[] = [];
 
+  // documentosSelect = [
+  //   { id: 1, nombre: 'Tasacion' },
+  //   { id: 2, nombre: 'Copia de inscripción de dominio vigente en el conservador de bienes raíces conjuntamente con certificado de vigencia de fecha reciente ( 30 días )' },
+  //   { id: 3, nombre: 'Certificado de hipotecas y gravámenes, con litigios y antigüedad no superior a 30 días' },
+  //   { id: 4, nombre: 'Las escrituras públicas de compra venta o aquellas por las cuales se adquirió el dominio sobre el inmueble' },
+  //   { id: 5, nombre: 'Demás antecedentes hasta completar 10 años, tales como inscripciones anteriores, compraventas, pagos de saldos de precios y cancelaciones, escrituras de poderes en caso que hayan personas jurídicas en los propietarios anteriores etc.' },
+  //   { id: 6, nombre: 'Si hay sub división o fusión de lotes, copias de planos con sus respectivos certificados que acrediten las aprobaciones que correspondan, municipalidad, SAG o la entidad que corresponda, registro de plano, certificados de asignación de roles o aprobación de la fusión emitida por el SII, etc.' },
+  //   { id: 7, nombre: 'Certificado deuda contribuciones' },
+  //   { id: 8, nombre: 'Certificado de no expropiación municipal' },
+  //   { id: 9, nombre: 'Certificado de Numeros Municipal' },
+  //   { id: 10, nombre: 'Certificado de no expropiación Serviu' },
+  //   { id: 11, nombre: 'En el caso de que existan propiedades arrendadas, adjuntar los contratos de arriendo.' },
+  //   { id: 12, nombre: 'Certificado de avalúo fiscal detallado' },
+  //   { id: 13, nombre: 'Personerias  y clausula de Alzamiento, en caso que propiedad posea una hipoteca, gravamén o litigio' },
+  //   { id: 13, nombre: 'Certificado de Pago de Aseo si corresponde' },
+  //   { id: 13, nombre: 'Certificado de afectacion utilidad publica' },
+  //   { id: 13, nombre: 'Certificado de recepcion final' },
+  //   { id: 13, nombre: 'Certificado de vivienda social si corresponde' },
+  // ];
+
   documentosSelect = [
-    { id: 1, nombre: 'Tasacion' },
-    { id: 2, nombre: 'Copia de inscripción de dominio vigente en el conservador de bienes raíces conjuntamente con certificado de vigencia de fecha reciente ( 30 días )' },
-    { id: 3, nombre: 'Certificado de hipotecas y gravámenes, con litigios y antigüedad no superior a 30 días' },
-    { id: 4, nombre: 'Las escrituras públicas de compra venta o aquellas por las cuales se adquirió el dominio sobre el inmueble' },
-    { id: 5, nombre: 'Demás antecedentes hasta completar 10 años, tales como inscripciones anteriores, compraventas, pagos de saldos de precios y cancelaciones, escrituras de poderes en caso que hayan personas jurídicas en los propietarios anteriores etc.' },
-    { id: 6, nombre: 'Si hay sub división o fusión de lotes, copias de planos con sus respectivos certificados que acrediten las aprobaciones que correspondan, municipalidad, SAG o la entidad que corresponda, registro de plano, certificados de asignación de roles o aprobación de la fusión emitida por el SII, etc.' },
-    { id: 7, nombre: 'Certificado deuda contribuciones' },
+    { id: 1, nombre: 'Tasación' },
+    { id: 2, nombre: 'Inscripción dominio y vigencia' },
+    { id: 3, nombre: 'Hipotecas, gravámenes y litigios' },
+    { id: 4, nombre: 'Escrituras de compraventa' },
+    { id: 5, nombre: 'Antecedentes últimos 10 años' },
+    { id: 6, nombre: 'Planos y certificados de subdivisión/fusión' },
+    { id: 7, nombre: 'Certificado de deuda de contribuciones' },
     { id: 8, nombre: 'Certificado de no expropiación municipal' },
-    { id: 9, nombre: 'Certificado de Numeros Municipal' },
+    { id: 9, nombre: 'Certificado de número municipal' },
     { id: 10, nombre: 'Certificado de no expropiación Serviu' },
-    { id: 11, nombre: 'En el caso de que existan propiedades arrendadas, adjuntar los contratos de arriendo.' },
-    { id: 12, nombre: 'Certificado de avalúo fiscal detallado' },
-    { id: 13, nombre: 'Personerias  y clausula de Alzamiento, en caso que propiedad posea una hipoteca, gravamén o litigio' },
+    { id: 11, nombre: 'Contratos de arriendo (si aplica)' },
+    { id: 12, nombre: 'Certificado de avalúo fiscal' },
+    { id: 13, nombre: 'Personerías y cláusula de alzamiento' },
   ];
 
   selectedDocuemento: File | null = null;

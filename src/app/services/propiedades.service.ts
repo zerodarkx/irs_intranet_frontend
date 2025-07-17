@@ -9,7 +9,9 @@ import {
   ResultadoObtenerDocumentosPropiedad,
   ResultadoPropiedades,
   ResultadoObtenerBitacoraPropiedad,
-  ResultadoPropiedadBitacoraAgregarEliminar
+  ResultadoPropiedadBitacoraAgregarEliminar,
+  ResultadoPropiedad,
+  ResultadoCambiarEstadoPropiedad
 } from '../interfaces';
 
 @Injectable({
@@ -43,9 +45,9 @@ export class PropiedadesService {
     return this.http.post<ResultadoPropiedades>(url, filtro);
   }
 
-  obtenerPropiedadesPorId(id_propiedad: string): Observable<any> {
-    let url = `${this.url_base}/obtenerPropiedadesPorId/${id_propiedad}`;
-    return this.http.get<any>(url);
+  obtenerPropiedadesPorId(): Observable<ResultadoPropiedad> {
+    let url = `${this.url_base}/obtenerPropiedadesPorId/${this.id_propiedad}`;
+    return this.http.get<ResultadoPropiedad>(url);
   }
 
   obtenerCaracteristicasPropiedad(id_propiedad: string): Observable<ResultadoObtenerCaracteristicasPropiedad> {
@@ -86,9 +88,9 @@ export class PropiedadesService {
   }
 
   //CAMBIAR DE ESTADO PROPIEDAD
-  cambiarEstadoPropiedad(t_estado: number): Observable<any> {
+  cambiarEstadoPropiedad(t_estado: number): Observable<ResultadoCambiarEstadoPropiedad> {
     let url = `${this.url_base}/cambiarEstadoPropiedad/${this.id_propiedad}`;
-    return this.http.put<any>(url, { estado: t_estado });
+    return this.http.put<ResultadoCambiarEstadoPropiedad>(url, { estado: t_estado });
   }
 
 }

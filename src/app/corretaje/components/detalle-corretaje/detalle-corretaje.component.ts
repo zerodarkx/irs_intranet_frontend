@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PropiedadesService } from 'src/app/services';
+import { IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
   selector: 'app-detalle-corretaje',
@@ -10,6 +11,9 @@ import { PropiedadesService } from 'src/app/services';
 export class DetalleCorretajeComponent {
 
   formDetallePropiedad!: FormGroup;
+  estado_actual: string = '';
+
+  estados = ['REVISIÓN Y ASIGNACIÓN', 'PUBLICACIÓN EN PORTALES', 'MÓDULO INTERMADIO', 'LEGAL/OPERACIONES', 'NOTARÍA', 'CIERRE'];
 
   constructor(
     private fb: FormBuilder,
@@ -17,7 +21,8 @@ export class DetalleCorretajeComponent {
   ) { }
 
   ngOnInit() {
-    this.formDetallePropiedad = this.fb.group({})
+    this.formDetallePropiedad = this.fb.group({});
+    this.obtenerDetallePropiedad();
   }
 
   // Función que genera las clases dinámicamente
@@ -31,14 +36,30 @@ export class DetalleCorretajeComponent {
     this.formDetallePropiedad.get(controlName)?.setValue(value);
   }
 
+  obtenerDetallePropiedad() {
+    this.sPropiedades.obtenerPropiedadesPorId()
+      .subscribe({
+        next: (resp) => {
+          console.log(resp);
+          this.estado_actual = this.estados[resp.data.id_estado - 1];
+        },
+        error: (error) => {
+          console.error('Error al obtener los detalles de la propiedad:', error);
+        }
+      })
+  }
+
   siguienteEstado() {
     this.sPropiedades.cambiarEstadoPropiedad(1)
       .subscribe({
         next: (res) => {
           if (res.ok) {
-            // Aquí puedes manejar la respuesta exitosa
-            console.log('Estado cambiado exitosamente 1');
-            alert('Estado avanzo exitosamente')
+            this.estado_actual = this.estados[res.data.id_estado - 1];
+            mostrarMensaje({
+              icono: IconoSweetAlert.Success,
+              titulo: 'Estado cambiado',
+              mensaje: 'El estado de la propiedad ha sido cambiado exitosamente a ' + this.estado_actual
+            });
           } else {
             // Aquí puedes manejar el error
             console.error('Error al cambiar el estado');
@@ -56,9 +77,12 @@ export class DetalleCorretajeComponent {
       .subscribe({
         next: (res) => {
           if (res.ok) {
-            // Aquí puedes manejar la respuesta exitosa
-            console.log('Estado cambiado exitosamente 2');
-            alert('Estado retrocedio exitosamente')
+            this.estado_actual = this.estados[res.data.id_estado - 1];
+            mostrarMensaje({
+              icono: IconoSweetAlert.Success,
+              titulo: 'Estado cambiado',
+              mensaje: 'El estado de la propiedad ha sido cambiado exitosamente a ' + this.estado_actual
+            });
           } else {
             // Aquí puedes manejar el error
             console.error('Error al cambiar el estado');

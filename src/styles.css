@@ -32,13 +32,15 @@
 
 .truncar-texto {
     display: inline-block;
-    max-width: 200px;  /* Ajusta según necesidad */
+    max-width: 200px;
+    /* Ajusta según necesidad */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
-  }
-  
-  .ocultar-ellipsis {
-    text-overflow: clip; /* No agrega "..." a los textos cortos */
-  }
+}
+
+.ocultar-ellipsis {
+    text-overflow: clip;
+    /* No agrega "..." a los textos cortos */
+}
