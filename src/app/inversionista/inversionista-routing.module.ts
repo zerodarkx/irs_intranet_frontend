@@ -15,13 +15,13 @@ const routes: Routes = [
         path: 'admin',
         component: AdminComponent,
         canActivate: [InversionistaGuard],
-        data: { perfil: [1, 2] }
+        data: { perfil: [1, 2, 10] }
       },
       {
         path: 'inversor',
         component: InversorComponent,
         canActivate: [InversionistaAdminGuard],
-        data: { perfil: [1, 2] }
+        data: { perfil: [1, 2, 10] }
       },
       {
         path: '**',
