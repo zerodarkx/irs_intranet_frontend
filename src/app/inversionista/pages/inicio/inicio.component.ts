@@ -13,9 +13,6 @@ export class InicioComponent {
   constructor() {
     const token = localStorage.getItem('token');
     const decodedToken = jwtDecode<Payload>(token!);
-    console.log(decodedToken.perfil);
-    
-    
     this.perfil = decodedToken.perfil
   }
 }
