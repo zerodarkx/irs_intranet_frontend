@@ -13,7 +13,7 @@ import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 import { env } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-inversor',
+  selector: 'inversionista-inversor',
   templateUrl: './inversor.component.html',
   styleUrls: ['./inversor.component.css']
 })

@@ -2,7 +2,12 @@
 <div class="container-fluid pt-3 pb-3 fondoTodo">
     <div class="card">
         <div class="card-body mb-4">
-            <router-outlet></router-outlet>
+            <ng-container *ngIf="[1,2,10].includes(perfil); else noAutorizado">
+                <inversionista-admin></inversionista-admin>
+            </ng-container>
+            <ng-template #noAutorizado>
+                <inversionista-inversor></inversionista-inversor>
+            </ng-template>
         </div>
     </div>
 </div>

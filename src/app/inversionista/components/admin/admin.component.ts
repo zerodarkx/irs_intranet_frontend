@@ -12,7 +12,7 @@ import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/
 import { validarFechas } from 'src/app/shared/utils/validadores';
 
 @Component({
-  selector: 'app-admin',
+  selector: 'inversionista-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
