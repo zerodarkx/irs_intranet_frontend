@@ -20,16 +20,15 @@ export class LoginComponent {
       Validators.required,
     ]],
     password: ['', [
-      Validators.required
+      Validators.required,
     ]]
-  })
+  });
 
   constructor(
     private fb: FormBuilder,
     private sAuth: AuthService,
     private router: Router,
     private sPermisos: PermisosService,
-
   ) { }
 
   loginCliente() {
@@ -53,6 +52,6 @@ export class LoginComponent {
         error: (error: ErrorHttpCustom) => {
           this.mensajeError = 'Usuario o Contraseña invalida';
         }
-      })
+      });
   }
 }
