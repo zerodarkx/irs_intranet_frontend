@@ -19,19 +19,24 @@ export class ExportarExcelService {
     return this.http.post(url, data, { responseType: 'blob' });
   }
 
-  exportarCasosInversionistas(data: any): Observable<Blob>{
+  exportarCasosInversionistas(data: any): Observable<Blob> {
     let url = `${this.url_base}/exportarCasosInversionistas`;
     return this.http.post(url, data, { responseType: 'blob' });
   }
 
-  exportarComentariosInversionistas(data: any): Observable<Blob>{
+  exportarComentariosInversionistas(data: any): Observable<Blob> {
     let url = `${this.url_base}/exportarCasosInversionistas`;
     return this.http.post(url, data, { responseType: 'blob' });
   }
 
-  exportarCasosSalidas(data: any): Observable<Blob>{
+  exportarCasosSalidas(data: any): Observable<Blob> {
     let url = `${this.url_base}/exportarCasosSalidas`;
     return this.http.post(url, data, { responseType: 'blob' });
+  }
+
+  exportarGestionesCormercialesCLiente(data: any): Observable<Blob> {
+    let url = `${this.url_base}/exportarGestionesCorcialesCliente`;
+    return this.http.post(url, {}, { responseType: 'blob' });
   }
 
 }

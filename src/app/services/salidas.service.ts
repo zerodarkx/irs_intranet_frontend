@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { env } from 'src/environments/environment';
 
-import { ResultadoAgregarProrroga, ResultadoCrearEditarEliminarBitacora, ResultadoObtenerClienteDetalle, ResultadoObtenerClientesSalida, ResultadoObtenerProrroga, ResultadoObtenerTodasBitacoras } from '../interfaces';
+import { exportarPdf, Prorroga, ResponseExportarPDF, ResultadoAgregarProrroga, ResultadoCrearEditarEliminarBitacora, ResultadoObtenerClienteDetalle, ResultadoObtenerClientesSalida, ResultadoObtenerProrroga, ResultadoObtenerTodasBitacoras } from '../interfaces';
 import { ResultadoGestionSalidas } from '../interfaces/gestionesSalidas';
 
 @Injectable({
@@ -41,6 +41,12 @@ export class SalidasService {
     return this.http.post<ResultadoObtenerClientesSalida>(url, filtro);
   }
 
+  modificarClienteSalidaDetalle(data: any): Observable<{ ok: boolean, mensaje: string }> {
+    let url = `${this.url_base}/modificarClienteSalidaDetalle/${this.id_cliente}`;
+    return this.http.put<{ ok: boolean, mensaje: string }>(url, data);
+  }
+
+  // BITACORA
   obtenerBitacorasPorCliente(): Observable<ResultadoObtenerTodasBitacoras> {
     let url = `${this.url_base}/obtenerBitacorasSalidasPorCliente/${this.id_cliente}`;
     return this.http.get<ResultadoObtenerTodasBitacoras>(url);
@@ -61,11 +67,7 @@ export class SalidasService {
     return this.http.delete<ResultadoCrearEditarEliminarBitacora>(url);
   }
 
-  modificarClienteSalidaDetalle(data: any): Observable<{ ok: boolean, mensaje: string }> {
-    let url = `${this.url_base}/modificarClienteSalidaDetalle/${this.id_cliente}`;
-    return this.http.put<{ ok: boolean, mensaje: string }>(url, data);
-  }
-
+  // PRORROGAS
   obtenerProrrogaPorCliente(): Observable<ResultadoObtenerProrroga> {
     let url = `${this.url_base}/obtenerProrrogaPorCliente/${this.id_cliente}`;
     return this.http.get<ResultadoObtenerProrroga>(url);
@@ -76,7 +78,12 @@ export class SalidasService {
     return this.http.post<ResultadoAgregarProrroga>(url, data);
   }
 
-  modificarProrrogaPorCliente(data: any): Observable<{ ok: boolean, mensaje: string }> {
+  aceptarProrrogaPorCliente(id_prorroga: number): Observable<{ ok: boolean, mensaje: string }> {
+    let url = `${this.url_base}/cambiarEstadoProrrogaPorCliente/${id_prorroga}`;
+    return this.http.put<{ ok: boolean, mensaje: string }>(url, {});
+  }
+
+  modificarProrrogaPorCliente(data: Prorroga): Observable<{ ok: boolean, mensaje: string }> {
     let url = `${this.url_base}/modificarProrrogaPorCliente`;
     return this.http.put<{ ok: boolean, mensaje: string }>(url, data);
   }
@@ -86,6 +93,12 @@ export class SalidasService {
     return this.http.delete<{ ok: boolean, mensaje: string }>(url);
   }
 
+  exportarFichaDetalleProrroga(id_prorroga: number, tipo: string): Observable<ResponseExportarPDF> {
+    let url = `${this.url_base}/exportarFichaDetalleProrroga/${id_prorroga}/${tipo}`;
+    return this.http.get<ResponseExportarPDF>(url);
+  }
+
+  // GESTIONES
   obtenerGestionSalidaPorCliente(): Observable<ResultadoGestionSalidas> {
     let url = `${this.url_base}/obtenerGestionSalidaPorCliente/${this.id_cliente}`;
     return this.http.get<ResultadoGestionSalidas>(url);

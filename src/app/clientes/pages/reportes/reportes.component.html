@@ -1,0 +1,71 @@
+<shared-navbar></shared-navbar>
+<div class="container-fluid pt-3 pb-3 fondoTodo">
+    <div class="row pt3">
+        <div class="col-md-6">
+            <h2>Reportes Clientes</h2>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <h3>Reportes gestiones comerciales</h3>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <label for="">Fecha Entrada Gestion</label>
+                            <input type="date" class="form-control text-center">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Fecha Termino Gestion</label>
+                            <input type="date" class="form-control text-center">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Ejecutivo</label>
+                            <select class="form-control">
+                                <option value="">Ejecutivo 1</option>
+                                <option value="">Ejecutivo 2</option>
+                                <option value="">Ejecutivo 3</option>
+                                <option value="">Ejecutivo 4</option>
+                                <option value="">Ejecutivo 5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <label for="">Fecha Ingreso Desde</label>
+                            <input type="date" class="form-control text-center">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Fecha Ingreso Hasta</label>
+                            <input type="date" class="form-control text-center">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <label for="">Fecha Contacto Desde</label>
+                            <input type="date" class="form-control text-center">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Fecha Contacto Hasta</label>
+                            <input type="date" class="form-control text-center">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-12 text-center">
+                            <button class="btn btn-success w-50" (click)="exportarExcel()">Exportar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<shared-footer></shared-footer>

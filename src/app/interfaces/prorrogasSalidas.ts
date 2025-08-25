@@ -6,19 +6,39 @@ export interface dataPreviaProrroga {
 
 export interface ResultadoObtenerProrroga {
     ok: boolean;
-    data: ObtenerProrroga[];
+    data: Prorroga[];
 }
-export interface ObtenerProrroga {
+export interface Prorroga {
     id_prorroga: number;
     id_cliente: number;
     id_usuario: number;
-    pagada: string;
-    cantidad_meses: number;
-    abono: string;
-    porcentaje: number;
-    monto_contrato: number;
-    monto_contrato_ant: number;
-    fecha_vencimiento: Date;
+    estado: boolean;
+    fechaCurseActual: Date;
+    fechaVencimientoActual: Date;
+    saldoCapital: number;
+    abonoCapital: number;
+    saldoCapitalActualizado: number;
+    mesesProrroga: number;
+    fechaNuevaVencimiento: Date;
+    valorUfHoy: number;
+    comisionEnPesos: number;
+    comisionEnPorcentaje: number;
+    seguroValorAnual: number;
+    seguroCantidadMeses: number;
+    seguroValorMensual: number;
+    contribucinesValorAnual: number;
+    contribucionesCantidadMeses: number;
+    contribucionesValorMensual: number;
+    rentasValorEnPesos: number;
+    fechaFirmaCurse: Date;
+    valorUfFechaCurse: number;
+    valorRentaCurse: number;
+    valorTasaContrato: number;
+    valorTasaCliente: number;
+    sobretasaMensual: number;
+    sobretasaProrroga: number;
+    gastosOperacionales: number;
+    gastosLegales: number;
     usuario: { nombre_ejecutivo: string }
 }
 
@@ -29,11 +49,34 @@ export interface ResultadoAgregarProrroga {
 }
 
 export interface AgregarProrroga {
-    pagada: string;
-    cantidad_meses: number;
-    abono: string;
-    porcentaje: number;
-    monto_contrato: number;
-    monto_contrato_ant: number;
-    fecha_vencimiento: Date;
+    id_prorroga: number;
+    id_cliente: number;
+    id_usuario: number;
+    estado: boolean;
+    fechaCurseActual: Date;
+    fechaVencimientoActual: Date;
+    saldoCapital: number;
+    abonoCapital: number;
+    saldoCapitalActualizado: number;
+    mesesProrroga: number;
+    fechaNuevaVencimiento: Date;
+    valorUfHoy: number;
+    comisionEnPesos: number;
+    comisionEnPorcentaje: number;
+    seguroValorAnual: number;
+    seguroCantidadMeses: number;
+    seguroValorMensual: number;
+    contribucinesValorAnual: number;
+    contribucionesCantidadMeses: number;
+    contribucionesValorMensual: number;
+    rentasValorEnPesos: number;
+    fechaFirmaCurse: Date;
+    valorUfFechaCurse: number;
+    valorRentaCurse: number;
+    valorTasaContrato: number;
+    valorTasaCliente: number;
+    sobretasaMensual: number;
+    sobretasaProrroga: number;
+    gastosOperacionales: number;
+    gastosLegales: number;
 }

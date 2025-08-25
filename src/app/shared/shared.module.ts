@@ -10,6 +10,8 @@ import { CurrencyPesoChilenoPipe } from '../pipe/currency-peso-chileno.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { FormatoNumericoMilesDirective } from './directives/formato-numerico-miles.directive';
+import { FormatoNumericoMilesDecimalDirective } from './directives/formato-numerico-miles-decimal.directive';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
     CurrencyPesoChilenoPipe,
     NavbarComponent,
     ModalComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    FormatoNumericoMilesDirective,
+    FormatoNumericoMilesDecimalDirective
   ],
   imports: [
     CommonModule,
@@ -33,7 +37,9 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
     CurrencyPesoChilenoPipe,
     NavbarComponent,
     ChartModule,
-    ModalComponent
+    ModalComponent,
+    FormatoNumericoMilesDirective,
+    FormatoNumericoMilesDecimalDirective
   ],
 })
 export class SharedModule { }

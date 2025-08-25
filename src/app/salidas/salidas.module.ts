@@ -11,11 +11,11 @@ import { BuscadorComponent } from './pages/buscador/buscador.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { BitacoraComponent } from './components/bitacora/bitacora.component';
-import { ProrrogaComponent } from './components/prorroga/prorroga.component';
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { CurseComponent } from './components/curse/curse.component';
 import { SimulacionComponent } from './components/simulacion/simulacion.component';
 import { GestionesComponent } from './components/gestiones/gestiones.component';
+import { ProrrogasComponent } from './components/prorrogas/prorrogas.component';
 
 
 @NgModule({
@@ -25,11 +25,11 @@ import { GestionesComponent } from './components/gestiones/gestiones.component';
     DetalleComponent,
     MenuComponent,
     BitacoraComponent,
-    ProrrogaComponent,
     DocumentosComponent,
     CurseComponent,
     SimulacionComponent,
-    GestionesComponent
+    GestionesComponent,
+    ProrrogasComponent
   ],
   imports: [
     CommonModule,

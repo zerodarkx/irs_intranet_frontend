@@ -1,0 +1,405 @@
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <h3>Prorrogas</h3>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <button class="btn btn-success w-100" (click)="modalAgregarProrroga()" [disabled]="simulacionPendiente">Agregar Simulacion Prorroga</button>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3>Historial de Prorrogas</h3>
+        </div>
+        <div class="col-md-12 mt-2">
+            <table class="table table-striped text-center align-middle w-100">
+                <thead>
+                    <tr>
+                        <th scope="col" width="10%">Estado</th>
+                        <th scope="col" width="10%">Meses</th>
+                        <th scope="col" width="10%">Porcentaje Abono</th>
+                        <th scope="col" width="10%">Monto Abono</th>
+                        <th scope="col" width="10%">Monto Contrato</th>
+                        <th scope="col" width="10%">Contrato Anterior</th>
+                        <th scope="col" width="10%">Fecha Contrato</th>
+                        <th scope="col" width="10%">Fecha Vencimiento</th>
+                        <th scope="col" width="10%">Usuario</th>
+                        <th scope="col" width="10%">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let prorroga of prorrogas; index as i; first as isFirst;">
+                        <td>{{prorroga.estado ? 'Activo' : 'Pendiente'}}</td>
+                        <td>{{prorroga.mesesProrroga}}</td>
+                        <td>{{prorroga.abonoCapital | currencyPesoChileno}}%</td>
+                        <td>{{(prorroga.saldoCapital - prorroga.saldoCapitalActualizado) | currencyPesoChileno}}</td>
+                        <td>{{prorroga.saldoCapitalActualizado | currencyPesoChileno}} UF</td>
+                        <td>{{prorroga.saldoCapital | currencyPesoChileno}} UF</td>
+                        <td>{{prorroga.fechaFirmaCurse | date: 'dd-MM-yyyy'}}</td>
+                        <td>{{prorroga.fechaNuevaVencimiento | date: 'dd-MM-yyyy'}}</td>
+                        <td>{{prorroga.usuario.nombre_ejecutivo}}</td>
+                        <td>
+                            <div class="d-flex gap-3 justify-content-center">
+                                <i class="bi bi-eye fs-5" title="Ver Detalle" (click)="modalDetalleProrroga(prorroga)"></i>
+                                <!-- solamente para personas que tienen permiso para aceptar prorroga-->
+                                <ng-container *ngIf="1">
+                                    <i class="bi bi-check-circle fs-5" *ngIf="!prorroga.estado" (click)="validarProrrogaAceptada(prorroga)"></i>
+                                </ng-container>
+                                <ng-container *ngIf="isFirst && prorroga.estado === false">
+                                    <i class="bi bi-pencil-square fs-5" title="Editar" (click)="modalEditarProrroga(prorroga)"></i>
+                                    <i class="bi bi-trash fs-5" title="Eliminar" (click)="eliminarProrroga(prorroga.id_prorroga)"></i>
+                                </ng-container>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- MODALES PARA VIZUALIZAR - AGREGAR - EDITAR -->
+<shared-modal #modalProrrogaAgregarEditar modalId="modalProrrogaAgregarEditar" titulo="Datos Prorroga">
+    <div modal-cuerpo>
+        <div [formGroup]="formAgregarProrroga">
+            <div class="row">
+                <div class="col md-12">
+                    <h4>Detalle</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-4">
+                    <label for="">Fecha Cursado</label>
+                    <input type="date" class="form-control text-center" formControlName="fechaCurseActual" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="">Fecha Vencimiento</label>
+                    <input type="date" class="form-control text-center" formControlName="fechaVencimientoActual" readonly>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <label for="">Saldo Capital (valor contrato)</label>
+                    <input type="text" class="form-control" formControlName="saldoCapital" formatoMilesDecimalInput readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="">Abono Capital %</label>
+                    <input type="text" class="form-control" formControlName="abonoCapital" formatoMilesDecimalInput (input)="calcularSaldoCapitarActualizado()">
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['abonoCapital']" />
+                </div>
+                <div class="col-md-4">
+                    <label for="">Saldo Capital Actualizado</label>
+                    <input type="text" class="form-control" formControlName="saldoCapitalActualizado" formatoMilesDecimalInput readonly>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <label for="">Meses de Prorroga</label>
+                    <input type="text" class="form-control" formControlName="mesesProrroga" (input)="calcularNuevoVencimiento(1)">
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['mesesProrroga']" />
+                </div>
+                <div class="col-md-4">
+                    <label for="">Nueva Fecha Vencimiento</label>
+                    <input type="date" class="form-control text-center" formControlName="fechaNuevaVencimiento" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="">Valor UF <b>HOY</b></label>
+                    <input type="text" class="form-control" formControlName="valorUfHoy" readonly>
+                </div>
+            </div>
+            <!-- comision prorroga -->
+            <div class="row mt-3">
+                <div class="col md-12">
+                    <h4>Comision</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-4">
+                    <label for="">Comision en <b>pesos</b> prorroga</label>
+                    <input type="text" class="form-control" formControlName="comisionEnPesos" formatoMilesInput (input)="calcularPorcentajeComisionProrroga()">
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['comisionEnPesos']" />
+                </div>
+                <div class="col-md-4">
+                    <label for="">Comision en <b>%</b> prorroga</label>
+                    <input type="text" class="form-control" formControlName="comisionEnPorcentaje" readonly>
+                </div>
+            </div>
+            <!-- Seguros -->
+            <div class="row mt-3">
+                <div class="col md-12">
+                    <h4>Seguros</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-4">
+                    <label for="">Valor Anual UF</label>
+                    <input type="text" class="form-control" formControlName="seguroValorAnual" formatoMilesDecimalInput (input)="calcularValorSeguro()">
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['seguroValorAnual']" />
+                </div>
+                <div class="col-md-4">
+                    <label for="">Cantidad Meses</label>
+                    <input type="text" class="form-control" formControlName="seguroCantidadMeses" (input)="calcularValorSeguro()">
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['seguroCantidadMeses']" />
+                </div>
+                <div class="col-md-4">
+                    <label for="">Valor Mensual UF</label>
+                    <input type="text" class="form-control" formControlName="seguroValorMensual" readonly>
+                </div>
+            </div>
+            <!-- contribuciones -->
+            <div class="row mt-3">
+                <div class="col md-12">
+                    <h4>Contribuciones</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-4">
+                    <label for="">Valor Anual CLP</label>
+                    <input type="text" class="form-control" formControlName="contribucinesValorAnual" formatoMilesInput (input)="calcularValorContribucion()">
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['contribucinesValorAnual']" />
+                </div>
+                <div class="col-md-4">
+                    <label for="">Periodos</label>
+                    <input type="text" class="form-control" formControlName="contribucionesCantidadMeses" (input)="calcularValorContribucion()">
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['contribucionesCantidadMeses']" />
+                </div>
+                <div class="col-md-4">
+                    <label for="">Valor Mensual UF</label>
+                    <input type="text" class="form-control" formControlName="contribucionesValorMensual" readonly>
+                </div>
+            </div>
+            <!-- rentas -->
+            <div class="row mt-3">
+                <div class="col md-12">
+                    <h4>Rentas</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-4">
+                    <label for="">Valor en pesos Mensual</label>
+                    <input type="text" class="form-control" formControlName="rentasValorEnPesos" formatoMilesInput (input)="calcularTasas()">
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['rentasValorEnPesos']" />
+                </div>
+                <div class="col-md-4">
+                    <label for="">Fecha Firme Curse</label>
+                    <input type="date" class="form-control text-center" formControlName="fechaFirmaCurse" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="">Valor <b>UF</b> a la firma</label>
+                    <input type="text" class="form-control" formControlName="valorUfFechaCurse" readonly>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-4">
+                    <label for="">Valor Renta UF Curse</label>
+                    <input type="text" class="form-control" formControlName="valorRentaCurse" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="">Valor Tasa de Contrato</label>
+                    <input type="text" class="form-control" formControlName="valorTasaContrato" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="">Valor Tasa Cliente</label>
+                    <input type="text" class="form-control" formControlName="valorTasaCliente" formatoMilesDecimalInput (input)="calcularTasas()">
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['valorTasaCliente']" />
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-4">
+                    <label for="">ST Mensual</label>
+                    <input type="text" class="form-control" formControlName="sobretasaMensual" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="">ST Prorroga</label>
+                    <input type="text" class="form-control" formControlName="sobretasaProrroga" readonly>
+                </div>
+            </div>
+            <!-- Gastos Internos -->
+            <div class="row mt-3">
+                <div class="col md-12">
+                    <h4>Gastos Legales - Operacionales</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-4">
+                    <label for="">Gastos Operacionales</label>
+                    <input type="text" class="form-control" formControlName="gastosOperacionales" formatoMilesDecimalInput>
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['gastosOperacionales']" />
+                </div>
+                <div class="col-md-4">
+                    <label for="">Gastos Legales</label>
+                    <input type="text" class="form-control" formControlName="gastosLegales" formatoMilesDecimalInput>
+                    <shared-mensaje-validador [forControl]="formAgregarProrroga.controls['gastosLegales']" />
+                </div>
+            </div>
+        </div>
+        <!-- resultante antes de guardar -->
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-success w-50" (click)="calcularSimulacionFinal()" [disabled]="formAgregarProrroga.invalid">Calcular Simulador</button>
+            </div>
+        </div>
+        <div class="row mt-3" *ngIf="calcularSimulacionEstado">
+            <div class="col-md-12">
+                <h4>Simulacion Prorroga (solo informativo)</h4>
+            </div>
+            <div class="col-md-12">
+                <table width="100%" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="50%">Nombre cliente o ID</th>
+                            <th width="20%" class="text-center">UF</th>
+                            <th width="30%" class="text-center">$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Meses de prorroga</td>
+                            <td colspan="2">{{detalleProrroga.mesesProrroga}}</td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Inicial</td>
+                            <td colspan="2">{{detalleProrroga.fechaInicial | date: 'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Prorroga Nueva</td>
+                            <td colspan="2">{{detalleProrroga.fechaProrrogaNueva | date: 'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Opcion de recompra</td>
+                            <td class="text-end">{{detalleProrroga.opcionRecompra | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.opcionRecompra * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Renta Prorroga</td>
+                            <td class="text-end">{{detalleProrroga.arriendoProrroga | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.arriendoProrroga * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Comision prorroga</td>
+                            <td class="text-end">{{ detalleProrroga.comisionProrroga | currencyPesoChileno}}</td>
+                            <td class="text-end">{{ (detalleProrroga.comisionProrroga * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Contribuciones Prorroga</td>
+                            <td class="text-end">{{detalleProrroga.contribucionesProrroga | currencyPesoChileno}}</td>
+                            <td class="text-end">{{( valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Seguro Prorroga</td>
+                            <td class="text-end">{{detalleProrroga.seguroProrroga | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.seguroProrroga * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Gastos Operacionales</td>
+                            <td class="text-end">{{detalleProrroga.gastosOperacionales | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.gastosOperacionales * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Gastos legales (cobranza)</td>
+                            <td class="text-end">{{detalleProrroga.gastosLegales | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.gastosLegales * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>(=) TOTAL PRÓRROGA</td>
+                            <td class="text-end">{{detalleProrroga.total | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.total * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div modal-footer>
+        <button class="btn btn-success" (click)="agregarNuevaProrroga()" [disabled]="formAgregarProrroga.invalid" *ngIf="!simulacionPendiente">Agregar Prorroga</button>
+        <button class="btn btn-success" (click)="editarProrroga()" [disabled]="formAgregarProrroga.invalid" *ngIf="simulacionPendiente">Editar Prorroga</button>
+    </div>
+</shared-modal>
+
+<!-- FIN MODALES PARA VIZUALIZAR -->
+<shared-modal #modalProrrogaVizualizar modalId="modalProrrogaVizualizar" titulo="Detalle Prorroga">
+    <div modal-cuerpo>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Simulacion Prorroga</h4>
+            </div>
+            <div class="col-md-12">
+                <table width="100%" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="50%">ID : {{id_cliente}}</th>
+                            <th width="20%" class="text-center">UF</th>
+                            <th width="30%" class="text-center">$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Meses de prorroga</td>
+                            <td colspan="2">{{detalleProrroga.mesesProrroga}}</td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Inicial</td>
+                            <td colspan="2">{{detalleProrroga.fechaInicial | date: 'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Prorroga Nueva</td>
+                            <td colspan="2">{{detalleProrroga.fechaProrrogaNueva | date: 'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Opcion de recompra</td>
+                            <td class="text-end">{{detalleProrroga.opcionRecompra | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.opcionRecompra * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Renta Prorroga</td>
+                            <td class="text-end">{{detalleProrroga.arriendoProrroga | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.arriendoProrroga * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Comision prorroga</td>
+                            <td class="text-end">{{ detalleProrroga.comisionProrroga | currencyPesoChileno}}</td>
+                            <td class="text-end">{{ (detalleProrroga.comisionProrroga * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Contribuciones Prorroga</td>
+                            <td class="text-end">{{detalleProrroga.contribucionesProrroga | currencyPesoChileno}}</td>
+                            <td class="text-end">{{( valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Seguro Prorroga</td>
+                            <td class="text-end">{{detalleProrroga.seguroProrroga | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.seguroProrroga * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Gastos Operacionales</td>
+                            <td class="text-end">{{detalleProrroga.gastosOperacionales | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.gastosOperacionales * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Gastos legales (cobranza)</td>
+                            <td class="text-end">{{detalleProrroga.gastosLegales | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.gastosLegales * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>(=) TOTAL PRÓRROGA</td>
+                            <td class="text-end">{{detalleProrroga.total | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.total * valorUfHoy) | currencyPesoChileno}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div modal-footer>
+        <div class="d-flex gap-2">
+            <button class="btn btn-warning" (click)="imprimirDetalle('cliente')">Imprimir Cliente</button>
+            <button class="btn btn-warning" (click)="imprimirDetalle('inversionista')">Imprimir Inversionista</button>
+        </div>
+    </div>
+</shared-modal>

@@ -14,6 +14,7 @@ import { GastosClienteComponent } from './components/gastos-cliente/gastos-clien
 import { CurseComponent } from './components/curse/curse.component';
 import { RechazarMasivoComponent } from './pages/rechazar-masivo/rechazar-masivo.component';
 import { SimulacionCierreComponent } from './components/simulacion-cierre/simulacion-cierre.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'rechazarMasivo',
     component: RechazarMasivoComponent
+  },
+  {
+    path: 'reportes',
+    component: ReportesComponent
   },
   {
     path: ':idCliente',

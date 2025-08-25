@@ -32,3 +32,4 @@ export * from "./gestionesSalidas";
 export * from "./simulacionCierre";
 export * from "./error";
 export * from "./propiedades";
+export * from "./valorUf";

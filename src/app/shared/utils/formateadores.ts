@@ -36,7 +36,7 @@ export function formateadorMiles(valor: string | number): string {
     if (!valor) {
         return '0,00';
     }
-    if(valor.includes(',') || valor.includes('.')){
+    if (valor.includes(',') || valor.includes('.')) {
         valor = valor.replaceAll('.', '')
         valor = valor.replace(',', '.')
     }
@@ -55,7 +55,7 @@ export function formateadorMilesSinDecimal(valor: string | number): string {
     if (!valor || valor.includes(' ')) {
         return '0';
     }
-    if(valor.includes('.')){
+    if (valor.includes('.')) {
         valor = valor.replaceAll('.', '')
     }
 
@@ -70,7 +70,7 @@ export function formateadorMilesSinDecimalDesdeBase(valor: string | number): str
     if (!valor || valor.includes(' ')) {
         return '0';
     }
-    if(valor.includes('.')){
+    if (valor.includes('.')) {
         valor = valor.replaceAll('.', '')
     }
     return valor;
@@ -91,8 +91,18 @@ export function formateadorMilesDesdeBase(valor: string | number): string {
 }
 
 export function dejarNumeroBrutos(valor: string): string {
-    if (valor == '0' || typeof(valor) == 'number') return valor;
+    if (valor == '0' || typeof (valor) == 'number') return valor;
     valor = valor.replace(/\./g, '');
     valor = valor.replace(',', '.');
     return valor
+}
+
+export function formatearNumeroBrutosAMiles(valor: string | number): string {
+    valor = valor.toString();
+    valor = valor.replace(/\./g, ',');
+    return formateadorMiles(valor);
+}
+
+export function redondearDosDecimales(num: number): number {
+    return Math.round((num + Number.EPSILON) * 100) / 100;
 }

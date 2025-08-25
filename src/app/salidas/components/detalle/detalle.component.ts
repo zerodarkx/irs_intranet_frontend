@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ErrorHttpCustom, TipoSalidas, TipoSubSalidas } from 'src/app/interfaces';
 import { SalidasService, TipoSalidasService } from 'src/app/services';
-import { formateadorMiles } from 'src/app/shared/utils/formateadores';
+import { formateadorMilesDesdeBase } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor, IconoSweetAlert, mostrarMensaje } from 'src/app/shared/utils/sweetAlert';
 
 @Component({
@@ -54,9 +54,9 @@ export class DetalleComponent implements OnInit {
         next: (response) => {
           this.formSalida.patchValue({
             ...response.data,
-            valor_comercial: formateadorMiles(response.data.valor_comercial),
-            valor_contrato: formateadorMiles(response.data.valor_contrato),
-            ltv: formateadorMiles(response.data.ltv),
+            valor_comercial: formateadorMilesDesdeBase(response.data.valor_comercial),
+            valor_contrato: formateadorMilesDesdeBase(response.data.valor_contrato),
+            ltv: formateadorMilesDesdeBase(response.data.ltv),
           });
         },
         error: (error: ErrorHttpCustom) => {

@@ -4,7 +4,7 @@ import { BaseComponent } from './pages/base/base.component';
 import { BuscadorComponent } from './pages/buscador/buscador.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
 import { BitacoraComponent } from './components/bitacora/bitacora.component';
-import { ProrrogaComponent } from './components/prorroga/prorroga.component';
+import { ProrrogasComponent } from './components/prorrogas/prorrogas.component';
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { CurseComponent } from './components/curse/curse.component';
 import { SimulacionComponent } from './components/simulacion/simulacion.component';
@@ -22,7 +22,7 @@ const routes: Routes = [
       { path: 'detalle', component: DetalleComponent },
       { path: 'gestiones', component: GestionesComponent },
       { path: 'bitacora', component: BitacoraComponent },
-      { path: 'prorroga', component: ProrrogaComponent },
+      { path: 'prorrogas', component: ProrrogasComponent },
       { path: 'simulacion', component: SimulacionComponent },
       { path: 'documentos', component: DocumentosComponent },
       { path: 'curse', component: CurseComponent },

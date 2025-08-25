@@ -21,6 +21,7 @@ import { GastosClienteComponent } from './components/gastos-cliente/gastos-clien
 import { MenuComponent } from './components/menu/menu.component';
 import { RechazarMasivoComponent } from './pages/rechazar-masivo/rechazar-masivo.component';
 import { SimulacionCierreComponent } from './components/simulacion-cierre/simulacion-cierre.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SimulacionCierreComponent } from './components/simulacion-cierre/simula
     MenuComponent,
     RechazarMasivoComponent,
     SimulacionCierreComponent,
+    ReportesComponent,
   ],
   imports: [
     ClientesRoutingModule,
