@@ -285,7 +285,7 @@
                         <tr>
                             <td>Contribuciones Prorroga</td>
                             <td class="text-end">{{detalleProrroga.contribucionesProrroga | currencyPesoChileno}}</td>
-                            <td class="text-end">{{( valorUfHoy) | currencyPesoChileno}}</td>
+                            <td class="text-end">{{(detalleProrroga.contribucionesProrroga * valorUfHoy) | currencyPesoChileno}}</td>
                         </tr>
                         <tr>
                             <td>Seguro Prorroga</td>

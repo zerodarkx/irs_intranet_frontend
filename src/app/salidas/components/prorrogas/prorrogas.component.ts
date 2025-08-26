@@ -437,6 +437,16 @@ export class ProrrogasComponent {
       fechaProrrogaNueva: prorroga.fechaNuevaVencimiento.toString().split('T')[0],
       mesesProrroga: prorroga.mesesProrroga
     }
+    this.detalleProrroga = {
+      ...this.detalleProrroga,
+      total: this.detalleProrroga.comisionProrroga +
+        this.detalleProrroga.contribucionesProrroga +
+        this.detalleProrroga.seguroProrroga +
+        this.detalleProrroga.arriendoProrroga +
+        this.detalleProrroga.gastosOperacionales +
+        this.detalleProrroga.gastosLegales +
+        (this.formatearNumero(prorroga.saldoCapital) / this.formatearNumero(prorroga.abonoCapital))
+    }
   }
 
   eliminarProrroga(id_prorroga: number) {
