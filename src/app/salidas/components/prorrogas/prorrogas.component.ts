@@ -279,15 +279,28 @@ export class ProrrogasComponent {
   calcularTasas() {
     let formulario = this.formAgregarProrroga;
 
+    if (!formulario.value.rentasValorEnPesos || !formulario.value.valorTasaCliente) return;
+
     let valorEnPesos = this.formatearNumero(formulario.value.rentasValorEnPesos);
-    let valorTasaCliente = this.formatearNumero(formulario.value.valorTasaCliente | 0);
+    let valorTasaCliente = Number(dejarNumeroBrutos(formulario.value.valorTasaCliente));
 
     if (!valorEnPesos || !valorTasaCliente) return;
 
     let valorRentaBruto = valorEnPesos / this.formatearNumero(formulario.value.valorUfFechaCurse);
-    let valorTasaContrato = valorRentaBruto / this.formatearNumero(formulario.value.saldoCapital);
+    let valorTasaContrato = valorRentaBruto / this.formatearNumero(formulario.value.saldoCapital) * 100;
+
+    console.log(valorTasaCliente);
+    console.log(valorTasaContrato);
+
+
     let sobreTasa = valorTasaCliente - valorTasaContrato;
+
+    console.log(sobreTasa);
+
     let sobreTasaProrroga = sobreTasa * formulario.value.mesesProrroga;
+
+    console.log(sobreTasaProrroga);
+
 
     formulario.patchValue({
       valorRentaCurse: formatearNumeroBrutosAMiles(valorRentaBruto),
