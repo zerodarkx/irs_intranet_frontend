@@ -13,6 +13,7 @@ export interface Prorroga {
     id_cliente: number;
     id_usuario: number;
     estado: boolean;
+    fechaIngreso: Date;
     fechaCurseActual: Date;
     fechaVencimientoActual: Date;
     saldoCapital: number;
