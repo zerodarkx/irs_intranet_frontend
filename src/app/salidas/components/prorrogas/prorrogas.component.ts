@@ -355,6 +355,7 @@ export class ProrrogasComponent {
 
   // calcular el total de la prorroga
   calcularSimulacionFinal() {
+    console.log('entre aqui');
     this.calcularSimulacionEstado = true;
 
     let formulario = this.formAgregarProrroga.value;
@@ -395,7 +396,7 @@ export class ProrrogasComponent {
           this.formatearNumero(formulario.abonoCapital),
     };
 
-    console.log(this.detalleProrroga);
+    console.log(this.detalleProrroga.total);
   }
 
   formatearNumero(valor: any) {
@@ -430,8 +431,6 @@ export class ProrrogasComponent {
   }
 
   modalEditarProrroga(prorroga: Prorroga) {
-    console.log(prorroga);
-
     this.formAgregarProrroga.patchValue({
       id_prorroga: prorroga.id_prorroga,
       fechaCurseActual: prorroga.fechaCurseActual,
