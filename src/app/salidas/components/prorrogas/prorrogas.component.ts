@@ -546,7 +546,7 @@ export class ProrrogasComponent {
         this.detalleProrroga.gastosOperacionales +
         this.detalleProrroga.gastosLegales +
         this.formatearNumero(prorroga.saldoCapital) /
-          this.formatearNumero(prorroga.abonoCapital),
+          this.formatearNumero(prorroga.saldoCapitalActualizado),
     };
   }
 
