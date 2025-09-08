@@ -396,6 +396,10 @@ export class ProrrogasComponent {
           this.formatearNumero(formulario.abonoCapital),
     };
 
+    console.log( this.formatearNumero(formulario.saldoCapital) /
+          this.formatearNumero(formulario.abonoCapital),);
+    
+
     console.log(this.detalleProrroga.total);
   }
 
