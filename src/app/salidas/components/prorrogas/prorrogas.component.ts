@@ -393,14 +393,8 @@ export class ProrrogasComponent {
         this.detalleProrroga.gastosOperacionales +
         this.detalleProrroga.gastosLegales +
         this.formatearNumero(formulario.saldoCapital) /
-          this.formatearNumero(formulario.abonoCapital),
+          this.formatearNumero(formulario.saldoCapitalActualizado),
     };
-
-    console.log( formulario.saldoCapital ,
-          formulario.abonoCapital);
-    
-
-    console.log(this.detalleProrroga.total);
   }
 
   formatearNumero(valor: any) {
