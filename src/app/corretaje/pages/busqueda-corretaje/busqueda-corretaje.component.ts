@@ -4,7 +4,11 @@ import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
 import { ErrorHttpCustom, Propiedad } from 'src/app/interfaces';
 import { PropiedadesService } from 'src/app/services';
-import { comunasConvecta, regionesConvecta, usuariosConvecta } from 'src/app/shared/utils/convetaUtils';
+import {
+  comunasConvecta,
+  regionesConvecta,
+  usuariosConvecta,
+} from 'src/app/shared/utils/convetaUtils';
 import { formateadorMilesSinDecimal } from 'src/app/shared/utils/formateadores';
 import { errorConexionServidor } from 'src/app/shared/utils/sweetAlert';
 
@@ -13,10 +17,9 @@ import { validarFechas } from 'src/app/shared/utils/validadores';
 @Component({
   selector: 'app-busqueda-corretaje',
   templateUrl: './busqueda-corretaje.component.html',
-  styleUrls: ['./busqueda-corretaje.component.css']
+  styleUrls: ['./busqueda-corretaje.component.css'],
 })
 export class BusquedaCorretajeComponent {
-
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
 
@@ -24,10 +27,13 @@ export class BusquedaCorretajeComponent {
     id_propiedad: [],
     estado_propiedad: [],
     ejecutivo: [],
-    fechasIngreso: this.fb.group({
-      fechaDesde: ['', []],
-      fechaHasta: ['', []],
-    }, { validators: [validarFechas('fechaDesde', 'fechaHasta')] }),
+    fechasIngreso: this.fb.group(
+      {
+        fechaDesde: ['', []],
+        fechaHasta: ['', []],
+      },
+      { validators: [validarFechas('fechaDesde', 'fechaHasta')] }
+    ),
   });
 
   estadosMostrar = [
@@ -45,12 +51,11 @@ export class BusquedaCorretajeComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private sPropiedades: PropiedadesService,
-  ) { }
+    private sPropiedades: PropiedadesService
+  ) {}
 
   ngOnInit(): void {
-
-    const formularioCache = localStorage.getItem('filtrosBusquedaPropiedad')
+    const formularioCache = localStorage.getItem('filtrosBusquedaPropiedad');
     if (formularioCache) {
       this.formFiltroBusqueda.patchValue(JSON.parse(formularioCache));
       this.obtenerPropiedadesPorFiltro();
@@ -59,7 +64,7 @@ export class BusquedaCorretajeComponent {
 
   clear(table: Table) {
     table.clear();
-    this.iBuscarTodo.nativeElement.value = ''
+    this.iBuscarTodo.nativeElement.value = '';
   }
 
   handleFilter(event: Event) {
@@ -73,74 +78,103 @@ export class BusquedaCorretajeComponent {
     localStorage.removeItem('filtrosBusquedaPropiedad');
   }
   irDetallePropiedad(id_propiedad: string) {
-    localStorage.setItem('filtrosBusquedaPropiedad', JSON.stringify(this.formFiltroBusqueda.value));
-    this.router.navigate(['/propiedades', id_propiedad])
+    localStorage.setItem(
+      'filtrosBusquedaPropiedad',
+      JSON.stringify(this.formFiltroBusqueda.value)
+    );
+    this.router.navigate(['/propiedades', id_propiedad]);
   }
 
   obtenerPropiedadesPorFiltro() {
-    this.sPropiedades.obtenerPropiedadesPorFiltro(this.formFiltroBusqueda.value)
+    this.sPropiedades
+      .obtenerPropiedadesPorFiltro(this.formFiltroBusqueda.value)
       .subscribe({
         next: (resp) => {
           if (resp.ok) {
-            this.propiedades = resp.data.map(p => ({
+            this.propiedades = resp.data.map((p) => ({
               ...p,
-              tipo_venta_arriendo: this.obtenerTipoArriendoVenta(p.sale, p.rent),
+              tipo_venta_arriendo: this.obtenerTipoArriendoVenta(
+                p.sale,
+                p.rent
+              ),
               ejecutivo: this.obntenerUsuario(p.id_usuario),
               comuna: this.obtenerComunaConRegion(p.id_comuna),
               precio: this.obtenerValoresFormateados(p.priceSale, p.priceRent),
-              moneda: this.obtenerTipoMoneda(p.idCurrencySale, p.idCurrencyRent),
-              estado: this.obtenerEstadoSistema(p.id_estado)
+              moneda: this.obtenerTipoMoneda(
+                p.idCurrencySale,
+                p.idCurrencyRent
+              ),
+              estado: this.obtenerEstadoSistema(p.id_estado),
             }));
           }
         },
         error: (error: ErrorHttpCustom) => {
           console.log(error);
-          errorConexionServidor(error)
-        }
+          errorConexionServidor(error);
+        },
       });
   }
 
-  exportarExcel() { }
+  exportarExcel() {}
 
   obtenerTipoArriendoVenta(venta: boolean, arriendo: boolean) {
     let tipo = [];
-    if (venta) { tipo.push('Venta') }
-    if (arriendo) { tipo.push('Arriendo') }
+    if (venta) {
+      tipo.push('Venta');
+    }
+    if (arriendo) {
+      tipo.push('Arriendo');
+    }
 
     return tipo.join(' / ');
   }
 
   obtenerValoresFormateados(venta: number, arriendo: number) {
     let tipo = [];
-    if (venta) { tipo.push(formateadorMilesSinDecimal(venta)) }
-    if (arriendo) { tipo.push(formateadorMilesSinDecimal(arriendo)) }
+    if (venta) {
+      tipo.push(formateadorMilesSinDecimal(venta));
+    }
+    if (arriendo) {
+      tipo.push(formateadorMilesSinDecimal(arriendo));
+    }
 
     return tipo.join(' / ');
   }
 
   obtenerTipoMoneda(venta: number, arriendo: number) {
     let tipo = [];
-    if (venta) { tipo.push('UF') }
-    if (arriendo) { tipo.push('CLP') }
+    if (venta) {
+      tipo.push('UF');
+    }
+    if (arriendo) {
+      tipo.push('CLP');
+    }
 
     return tipo.join(' / ');
   }
 
   obtenerComunaConRegion(comuna: number) {
-    let comunas = comunasConvecta.find(c => c.idBorough === comuna);
-    let region = regionesConvecta.find(r => r.idRegion === comunas?.idRegion);
+    let comunas = comunasConvecta.find((c) => c.idBorough === comuna);
+    let region = regionesConvecta.find((r) => r.idRegion === comunas?.idRegion);
 
     return `${comunas?.name}, ${region?.name}`;
   }
 
   obntenerUsuario(id_usuario: number) {
-    let usuario = this.selectCorredores.find(c => c.idUser === id_usuario);
+    let usuario = this.selectCorredores.find((c) => c.idUser === id_usuario);
     return usuario?.nombreCompleto;
   }
 
-  obtenerEstadoSistema(id_estadi: number) {
-    let estado = ['REVISIÓN Y ASIGNACIÓN', 'PUBLICACIÓN EN PORTALES', 'MÓDULO INTERMADIO', 'LEGAL/OPERACIONES', 'NOTARÍA', 'CIERRE'];
-    return estado[id_estadi - 1];
+  obtenerEstadoSistema(id_estado: number) {
+    let estado = [
+      'REVISIÓN Y ASIGNACIÓN',
+      'MONITOREO AL AGENTE',
+      'COMITÉ',
+      'MÓDULO INTERMADIO',
+      'LEGAL/OPERACIONES',
+      'NOTARÍA',
+      'CIERRE',
+    ];
+    return estado[id_estado - 1];
   }
-
 }

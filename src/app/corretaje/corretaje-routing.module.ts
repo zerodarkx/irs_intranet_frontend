@@ -12,29 +12,29 @@ import { ImagenesCorretajeComponent } from './components/imagenes-corretaje/imag
 const routes: Routes = [
   {
     path: 'buscarPropiedad',
-    component: BusquedaCorretajeComponent
+    component: BusquedaCorretajeComponent,
   },
   {
     path: ':idPropiedad',
     component: InicioCorretajeComponent,
     children: [
       { path: 'detalle', component: DetalleCorretajeComponent },
-      { path: 'caracteristicas', component: CaracteristicasCorretajeComponent },
+      // { path: 'caracteristicas', component: CaracteristicasCorretajeComponent },
       { path: 'documentos', component: DocumentosCorretajeComponent },
       { path: 'bitacora', component: BitacoraCorretajeComponent },
       { path: 'imagenes', component: ImagenesCorretajeComponent },
-      { path: '**', redirectTo: 'detalle', pathMatch: 'full' }
-    ]
+      { path: '**', redirectTo: 'detalle', pathMatch: 'full' },
+    ],
   },
   {
     path: '**',
     redirectTo: 'buscarPropiedad',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CorretajeRoutingModule { }
+export class CorretajeRoutingModule {}

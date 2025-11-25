@@ -1,22 +1,107 @@
 <div class="container-fluid mt-3">
-    <div class="row mt-2">
-        <div class="col-md-4">
-            <label for="">Estado</label>
-            <input type="text" value="{{estado_actual}}" class="form-control" disabled>
-        </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label for="">Rut</label>
+      <input
+        type="text"
+        class="form-control"
+        [ngModel]="detalleCorretaje.rut"
+        disabled
+      />
     </div>
+    <div class="col-md-6">
+      <label for="">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        [ngModel]="detalleCorretaje.nombre"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <label for="">Tipo Propiedad</label>
+      <input
+        type="text"
+        class="form-control"
+        [ngModel]="detalleCorretaje.tipo_propiedad"
+        disabled
+      />
+    </div>
+    <div class="col-md-4">
+      <label for="">Direccion</label>
+      <input
+        type="text"
+        class="form-control"
+        [ngModel]="detalleCorretaje.direccion"
+        disabled
+      />
+    </div>
+    <div class="col-md-4">
+      <label for="">Comuna</label>
+      <input
+        type="text"
+        class="form-control"
+        [ngModel]="detalleCorretaje.comuna"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <label for="">Ejecutivo</label>
+      <input
+        type="text"
+        class="form-control"
+        [ngModel]="detalleCorretaje.ejecutivo"
+        disabled
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="">Estado</label>
+      <input
+        type="text"
+        [ngModel]="detalleCorretaje.estado"
+        class="form-control"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-12">
+      <label for="">Observaciones</label>
+      <textarea
+        class="form-control"
+        [ngModel]="detalleCorretaje.observaciones"
+        disabled
+        rows="4"
+      >
+      </textarea>
+    </div>
+  </div>
 
-    <div class="row mt-4">
-        <div class="col" *ngIf="estado_actual != 'REVISIÓN Y ASIGNACIÓN'">
-            <button type="button" class="btn btn-warning w-100" (click)="volverEstado()">Volver Estado</button>
-        </div>
-        <div class="col" *ngIf="estado_actual != 'CIERRE'">
-            <button type="button" class="btn btn-primary w-100" (click)="siguienteEstado()">Siguiente Estado</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-success w-100">Guardar</button>
-        </div>
+  <div class="row mt-4">
+    <div class="col" *ngIf="estado_actual != 'REVISIÓN Y ASIGNACIÓN'">
+      <button
+        type="button"
+        class="btn btn-warning w-100"
+        (click)="volverEstado()"
+      >
+        Volver Estado
+      </button>
     </div>
+    <div class="col" *ngIf="estado_actual != 'CIERRE'">
+      <button
+        type="button"
+        class="btn btn-primary w-100"
+        (click)="siguienteEstado()"
+      >
+        Siguiente Estado
+      </button>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-success w-100">Guardar</button>
+    </div>
+  </div>
 </div>
-
-    
