@@ -31,6 +31,7 @@ export interface Propiedad {
   featured: boolean;
   onWeb: boolean;
   estado: string;
+  activo: number;
 }
 
 export interface Caracteristicas {

@@ -91,6 +91,8 @@ export class BusquedaCorretajeComponent {
       .subscribe({
         next: (resp) => {
           if (resp.ok) {
+            console.log(resp.data);
+
             this.propiedades = resp.data.map((p) => ({
               ...p,
               tipo_venta_arriendo: this.obtenerTipoArriendoVenta(
@@ -105,7 +107,9 @@ export class BusquedaCorretajeComponent {
                 p.idCurrencyRent
               ),
               estado: this.obtenerEstadoSistema(p.id_estado),
+              activo: p.activo,
             }));
+            console.log(this.propiedades);
           }
         },
         error: (error: ErrorHttpCustom) => {

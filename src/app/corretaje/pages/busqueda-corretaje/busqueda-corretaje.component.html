@@ -252,6 +252,21 @@
                   <div
                     class="d-flex justify-content-between align-items-center"
                   >
+                    <label for="">Fondo</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter
+                        type="text"
+                        field="estado_convecta"
+                        display="menu"
+                      ></p-columnFilter>
+                      <p-sortIcon field="estado_convecta"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="estado_convecta" ngClass="columna-150">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
                     <label for="">Estado Convecta</label>
                     <div class="d-flex flex-column">
                       <p-columnFilter
@@ -308,17 +323,25 @@
                     </div>
                   </div>
                 </th>
-                <!-- <th pSortableColumn="precio-venta-arriendo" ngClass="columna-normal">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <label for="">Precio Venta - Arriendo</label>
-                                        <div class="d-flex flex-column">
-                                            <p-columnFilter type="text" field="precio-venta-arriendo"
-                                                display="menu"></p-columnFilter>
-                                            <p-sortIcon field="precio-venta-arriendo"></p-sortIcon>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th pSortableColumn="moneda" ngClass="columna-normal">
+                <th
+                  pSortableColumn="precio-venta-arriendo"
+                  ngClass="columna-normal"
+                >
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <label for="">Precio Venta - Arriendo</label>
+                    <div class="d-flex flex-column">
+                      <p-columnFilter
+                        type="text"
+                        field="precio-venta-arriendo"
+                        display="menu"
+                      ></p-columnFilter>
+                      <p-sortIcon field="precio-venta-arriendo"></p-sortIcon>
+                    </div>
+                  </div>
+                </th>
+                <!-- <th pSortableColumn="moneda" ngClass="columna-normal">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <label for="">Tipo Moneda</label>
                                         <div class="d-flex flex-column">
@@ -338,13 +361,14 @@
                 <td pFrozenColumn>P# {{ propiedad.id_propiedad }}</td>
                 <td pFrozenColumn>{{ propiedad.id_externo }}</td>
                 <td></td>
+                <td>{{ propiedad.activo ? "Activo" : "Inactivo" }}</td>
                 <td>{{ propiedad.estado }}</td>
-                <td>activo</td>
+                <td></td>
                 <td>{{ propiedad.tipo_venta_arriendo }}</td>
                 <td>{{ propiedad.ejecutivo }}</td>
                 <td>{{ propiedad.comuna }}</td>
-                <!-- <td>{{ propiedad.precio }}</td>
-                                <td>{{ propiedad.moneda }} </td> -->
+                <td>{{ propiedad.precio }}</td>
+                <!-- <td>{{ propiedad.moneda }}</td> -->
               </tr>
             </ng-template>
             <!-- MENSAJE DE QUE NO HAY DATOS -->
