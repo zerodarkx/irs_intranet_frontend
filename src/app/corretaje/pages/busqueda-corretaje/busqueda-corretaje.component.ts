@@ -32,7 +32,7 @@ export class BusquedaCorretajeComponent {
         fechaDesde: ['', []],
         fechaHasta: ['', []],
       },
-      { validators: [validarFechas('fechaDesde', 'fechaHasta')] }
+      { validators: [validarFechas('fechaDesde', 'fechaHasta')] },
     ),
   });
 
@@ -51,7 +51,7 @@ export class BusquedaCorretajeComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private sPropiedades: PropiedadesService
+    private sPropiedades: PropiedadesService,
   ) {}
 
   ngOnInit(): void {
@@ -80,7 +80,7 @@ export class BusquedaCorretajeComponent {
   irDetallePropiedad(id_propiedad: string) {
     localStorage.setItem(
       'filtrosBusquedaPropiedad',
-      JSON.stringify(this.formFiltroBusqueda.value)
+      JSON.stringify(this.formFiltroBusqueda.value),
     );
     this.router.navigate(['/propiedades', id_propiedad]);
   }
@@ -91,25 +91,22 @@ export class BusquedaCorretajeComponent {
       .subscribe({
         next: (resp) => {
           if (resp.ok) {
-            console.log(resp.data);
-
             this.propiedades = resp.data.map((p) => ({
               ...p,
               tipo_venta_arriendo: this.obtenerTipoArriendoVenta(
                 p.sale,
-                p.rent
+                p.rent,
               ),
               ejecutivo: this.obntenerUsuario(p.id_usuario),
               comuna: this.obtenerComunaConRegion(p.id_comuna),
               precio: this.obtenerValoresFormateados(p.priceSale, p.priceRent),
               moneda: this.obtenerTipoMoneda(
                 p.idCurrencySale,
-                p.idCurrencyRent
+                p.idCurrencyRent,
               ),
               estado: this.obtenerEstadoSistema(p.id_estado),
               activo: p.activo,
             }));
-            console.log(this.propiedades);
           }
         },
         error: (error: ErrorHttpCustom) => {

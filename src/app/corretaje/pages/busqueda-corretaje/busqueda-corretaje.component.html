@@ -146,7 +146,7 @@
               'ejecutivo',
               'comuna',
               'precio-venta-arriendo',
-              'moneda'
+              'moneda',
             ]"
             selectionMode="single"
             dataKey="id_propiedad"
@@ -360,7 +360,7 @@
               >
                 <td pFrozenColumn>P# {{ propiedad.id_propiedad }}</td>
                 <td pFrozenColumn>{{ propiedad.id_externo }}</td>
-                <td></td>
+                <td>{{ propiedad.id_irs }}</td>
                 <td>{{ propiedad.activo ? "Activo" : "Inactivo" }}</td>
                 <td>{{ propiedad.estado }}</td>
                 <td></td>
