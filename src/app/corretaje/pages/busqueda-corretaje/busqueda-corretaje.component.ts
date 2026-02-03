@@ -34,6 +34,8 @@ export class BusquedaCorretajeComponent {
       },
       { validators: [validarFechas('fechaDesde', 'fechaHasta')] },
     ),
+    fondo: [],
+    activo: [],
   });
 
   estadosMostrar = [
