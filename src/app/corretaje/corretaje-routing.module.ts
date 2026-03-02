@@ -8,11 +8,16 @@ import { CaracteristicasCorretajeComponent } from './components/caracteristicas-
 import { DocumentosCorretajeComponent } from './components/documentos-corretaje/documentos-corretaje.component';
 import { BitacoraCorretajeComponent } from './components/bitacora-corretaje/bitacora-corretaje.component';
 import { ImagenesCorretajeComponent } from './components/imagenes-corretaje/imagenes-corretaje.component';
+import { RespuestaBitacoraComponent } from './components/respuesta-bitacora/respuesta-bitacora.component';
 
 const routes: Routes = [
   {
     path: 'buscarPropiedad',
     component: BusquedaCorretajeComponent,
+  },
+  {
+    path: 'respuestaBitacora/:idRespuesta',
+    component: RespuestaBitacoraComponent,
   },
   {
     path: ':idPropiedad',

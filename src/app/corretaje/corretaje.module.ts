@@ -15,6 +15,7 @@ import { CaracteristicasCorretajeComponent } from './components/caracteristicas-
 import { DocumentosCorretajeComponent } from './components/documentos-corretaje/documentos-corretaje.component';
 import { BitacoraCorretajeComponent } from './components/bitacora-corretaje/bitacora-corretaje.component';
 import { ImagenesCorretajeComponent } from './components/imagenes-corretaje/imagenes-corretaje.component';
+import { RespuestaBitacoraComponent } from './components/respuesta-bitacora/respuesta-bitacora.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ImagenesCorretajeComponent } from './components/imagenes-corretaje/imag
     CaracteristicasCorretajeComponent,
     DocumentosCorretajeComponent,
     BitacoraCorretajeComponent,
-    ImagenesCorretajeComponent
+    ImagenesCorretajeComponent,
+    RespuestaBitacoraComponent
   ],
   imports: [
     CommonModule,

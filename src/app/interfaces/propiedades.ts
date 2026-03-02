@@ -124,3 +124,12 @@ export interface ResultadoCambiarEstadoPropiedad {
   ok: boolean;
   data: { id_estado: number };
 }
+
+export interface ResultadoObtenerBitacoraPorId {
+  ok: boolean;
+  data: {
+    id_propiedad: string;
+    observacion_bitacora: string;
+    respuesta_bitacora: string;
+  };
+}

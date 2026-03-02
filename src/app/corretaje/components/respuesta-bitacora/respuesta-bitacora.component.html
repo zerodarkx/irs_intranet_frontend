@@ -1,0 +1,40 @@
+<div
+  class="container d-flex justify-content-center align-items-center"
+  style="min-height: 100vh"
+>
+  <div class="card shadow-lg" style="width: 100%; max-width: 700px">
+    <div class="card-body">
+      <form [formGroup]="formRespuesta">
+        <div class="mb-3">
+          <h3>Respuesta a la Bitácora Propiedad Interno #{{ id_propiedad }}</h3>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Observación</label>
+          <textarea class="form-control" rows="4" readonly>
+          {{ observacionBitacora }}
+        </textarea
+          >
+        </div>
+        <div class="mb-3">
+          <label for="responder" class="form-label">Responder</label>
+          <textarea
+            class="form-control"
+            id="responder"
+            rows="4"
+            placeholder="Ingrese su respuesta"
+            formControlName="respuesta"
+          ></textarea>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button
+            type="button"
+            (click)="guardarRespuesta()"
+            class="btn btn-primary"
+          >
+            Enviar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
