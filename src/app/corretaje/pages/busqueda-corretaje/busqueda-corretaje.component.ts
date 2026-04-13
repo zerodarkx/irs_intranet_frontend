@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
 import { ErrorHttpCustom, Propiedad } from 'src/app/interfaces';
-import { PropiedadesService } from 'src/app/services';
+import { PermisosService, PropiedadesService } from 'src/app/services';
 import {
   comunasConvecta,
   regionesConvecta,
@@ -22,6 +22,8 @@ import { validarFechas } from 'src/app/shared/utils/validadores';
 export class BusquedaCorretajeComponent {
   @ViewChild('tabla') tabla!: Table;
   @ViewChild('iBuscarTodo') iBuscarTodo!: ElementRef;
+
+  permisos!: Record<string, any>;
 
   formFiltroBusqueda: FormGroup = this.fb.group({
     id_propiedad: [],
@@ -54,9 +56,11 @@ export class BusquedaCorretajeComponent {
     private fb: FormBuilder,
     private router: Router,
     private sPropiedades: PropiedadesService,
+    private sPermiso: PermisosService,
   ) {}
 
   ngOnInit(): void {
+    this.permisos = this.sPermiso.obtenerPermisos();
     const formularioCache = localStorage.getItem('filtrosBusquedaPropiedad');
     if (formularioCache) {
       this.formFiltroBusqueda.patchValue(JSON.parse(formularioCache));
@@ -116,6 +120,24 @@ export class BusquedaCorretajeComponent {
           errorConexionServidor(error);
         },
       });
+  }
+
+  obtenerPermiso(
+    modulo: string = '',
+    categoria: string = '',
+    subcategoria: string = '',
+  ) {
+    try {
+      if (!modulo) return false;
+      if (!categoria) return this.permisos[modulo].activo;
+      if (!subcategoria)
+        return this.permisos[modulo].categorias[categoria].activo;
+      return this.permisos[modulo].categorias[categoria].subcategorias[
+        subcategoria
+      ].activo;
+    } catch (error) {
+      return false;
+    }
   }
 
   exportarExcel() {}

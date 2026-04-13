@@ -8,7 +8,7 @@
   </div>
   <div class="card">
     <div class="card-body mb-4">
-      <div class="row mt-2">
+      <!-- <div class="row mt-2">
         <div class="col-md-12">
           <a
             [routerLink]="['/cliente', 'nuevoCliente']"
@@ -17,7 +17,7 @@
             Nueva Propiedad
           </a>
         </div>
-      </div>
+      </div> -->
       <!-- FILTROS PARA LA BUSQUEDA -->
       <div class="row mt-2">
         <!-- FILTROS PARA BUSQUEDAS -->
@@ -47,7 +47,16 @@
                 >
                 </ng-select>
               </div>
-              <div class="col-md-4">
+              <div
+                class="col-md-4"
+                *ngIf="
+                  obtenerPermiso(
+                    'VER_MODULO_PROPIEDADES',
+                    'VER_BUSCAR_PROPIEDADES',
+                    'PER_FILTRAREJECUTIVO_PROPIEDAD'
+                  )
+                "
+              >
                 <label for="">Buscar por ejecutivo</label>
                 <ng-select
                   [items]="selectCorredores"
