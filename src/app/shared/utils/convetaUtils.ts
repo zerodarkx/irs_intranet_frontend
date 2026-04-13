@@ -1915,4 +1915,19 @@ export const usuariosConvecta = [
     nombreCompleto: 'Ricardo Munizaga',
     email: 'rmunizaga@1house.cl',
   },
+  {
+    idUser: 1308,
+    nombreCompleto: 'Alejandra Rodriguez',
+    email: 'mrodriguez@1house.cl',
+  },
+  {
+    idUser: 1309,
+    nombreCompleto: 'Ignacio Rojas',
+    email: 'irojas@1house.cl',
+  },
+  {
+    idUser: 1310,
+    nombreCompleto: 'Bernardita Suazo',
+    email: 'bsuazo@1house.cl',
+  },
 ];
