@@ -9,6 +9,7 @@ import { DocumentosCorretajeComponent } from './components/documentos-corretaje/
 import { BitacoraCorretajeComponent } from './components/bitacora-corretaje/bitacora-corretaje.component';
 import { ImagenesCorretajeComponent } from './components/imagenes-corretaje/imagenes-corretaje.component';
 import { RespuestaBitacoraComponent } from './components/respuesta-bitacora/respuesta-bitacora.component';
+import { SincronizarComponent } from './components/sincronizar/sincronizar.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
     component: InicioCorretajeComponent,
     children: [
       { path: 'detalle', component: DetalleCorretajeComponent },
-      // { path: 'caracteristicas', component: CaracteristicasCorretajeComponent },
+      { path: 'sincronizar', component: SincronizarComponent },
       { path: 'documentos', component: DocumentosCorretajeComponent },
       { path: 'bitacora', component: BitacoraCorretajeComponent },
       { path: 'imagenes', component: ImagenesCorretajeComponent },

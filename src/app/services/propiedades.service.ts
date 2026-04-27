@@ -131,4 +131,9 @@ export class PropiedadesService {
     let url = `${this.url_base}/guardarPropiedadDetalle/${this.id_propiedad}`;
     return this.http.put<ResultadoPropiedad>(url, data);
   }
+
+  sincronizarPropiedad(): Observable<ResultadoPropiedad> {
+    let url = `${this.url_base}/sincronizarPropiedad/${this.id_propiedad}`;
+    return this.http.get<ResultadoPropiedad>(url);
+  }
 }
