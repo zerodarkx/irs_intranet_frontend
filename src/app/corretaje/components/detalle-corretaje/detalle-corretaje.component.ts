@@ -20,12 +20,13 @@ export class DetalleCorretajeComponent {
   estado_actual: string = '';
 
   estados = [
-    'REVISIÓN Y ASIGNACIÓN',
-    'PUBLICACIÓN EN PORTALES',
-    'MÓDULO INTERMADIO',
-    'LEGAL/OPERACIONES',
-    'NOTARÍA',
-    'CIERRE',
+    { nombre: 'REVISIÓN Y ASIGNACIÓN', id_estado: 1 },
+    { nombre: 'MONITOREO AL AGENTE', id_estado: 2 },
+    { nombre: 'COMITÉ', id_estado: 3 },
+    { nombre: 'MÓDULO INTERMADIO', id_estado: 4 },
+    { nombre: 'LEGAL/OPERACIONES', id_estado: 5 },
+    { nombre: 'NOTARÍA', id_estado: 6 },
+    { nombre: 'CIERRE', id_estado: 7 },
   ];
 
   detalleCorretaje = {
@@ -67,7 +68,8 @@ export class DetalleCorretajeComponent {
       next: (resp) => {
         console.log(resp);
         this.detalleCorretaje.direccion = resp.data.street;
-        this.detalleCorretaje.estado = this.estados[resp.data.id_estado - 1];
+        this.detalleCorretaje.estado =
+          this.estados[resp.data.id_estado - 1].nombre;
         this.detalleCorretaje.tipo_propiedad = resp.data.propertyTitle;
         this.detalleCorretaje.comuna =
           comunasConvecta.find((c) => c.idBorough === resp.data.id_comuna)
@@ -90,7 +92,7 @@ export class DetalleCorretajeComponent {
     this.sPropiedades.cambiarEstadoPropiedad(1).subscribe({
       next: (res) => {
         if (res.ok) {
-          this.estado_actual = this.estados[res.data.id_estado - 1];
+          this.estado_actual = this.estados[res.data.id_estado - 1].nombre;
           mostrarMensaje({
             icono: IconoSweetAlert.Success,
             titulo: 'Estado cambiado',
@@ -115,7 +117,7 @@ export class DetalleCorretajeComponent {
     this.sPropiedades.cambiarEstadoPropiedad(0).subscribe({
       next: (res) => {
         if (res.ok) {
-          this.estado_actual = this.estados[res.data.id_estado - 1];
+          this.estado_actual = this.estados[res.data.id_estado - 1].nombre;
           mostrarMensaje({
             icono: IconoSweetAlert.Success,
             titulo: 'Estado cambiado',
