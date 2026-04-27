@@ -31,6 +31,8 @@ export class DetalleCorretajeComponent {
   detalleCorretaje = {
     rut: '',
     nombre: '',
+    telefono: '',
+    correo: '',
     direccion: '',
     comuna: '',
     ejecutivo: '',
@@ -41,7 +43,7 @@ export class DetalleCorretajeComponent {
 
   constructor(
     private fb: FormBuilder,
-    private sPropiedades: PropiedadesService
+    private sPropiedades: PropiedadesService,
   ) {}
 
   ngOnInit() {
@@ -75,7 +77,7 @@ export class DetalleCorretajeComponent {
             ?.nombreCompleto || '';
         this.detalleCorretaje.observaciones = resp.data.observations.replace(
           /<br\s*\/?>/gi,
-          '\n'
+          '\n',
         );
       },
       error: (error) => {
@@ -96,6 +98,7 @@ export class DetalleCorretajeComponent {
               'El estado de la propiedad ha sido cambiado exitosamente a ' +
               this.estado_actual,
           });
+          this.detalleCorretaje.estado = this.estado_actual;
         } else {
           // Aquí puedes manejar el error
           console.error('Error al cambiar el estado');
@@ -120,6 +123,7 @@ export class DetalleCorretajeComponent {
               'El estado de la propiedad ha sido cambiado exitosamente a ' +
               this.estado_actual,
           });
+          this.detalleCorretaje.estado = this.estado_actual;
         } else {
           // Aquí puedes manejar el error
           console.error('Error al cambiar el estado');
@@ -127,6 +131,32 @@ export class DetalleCorretajeComponent {
       },
       error: (error) => {
         // Manejo de errores
+        console.error('Error en la solicitud:', error);
+      },
+    });
+  }
+
+  guardarPropiedad() {
+    const propiedad = {
+      rut: this.detalleCorretaje.rut,
+      nombre: this.detalleCorretaje.nombre,
+      correo: this.detalleCorretaje.correo,
+      telefono: this.detalleCorretaje.telefono,
+    };
+    this.sPropiedades.guardaPropiedadDetalle(propiedad).subscribe({
+      next: (res) => {
+        if (res.ok) {
+          mostrarMensaje({
+            icono: IconoSweetAlert.Success,
+            titulo: 'Propiedad guardada',
+            mensaje:
+              'Los detalles de la propiedad han sido guardados exitosamente.',
+          });
+        } else {
+          console.error('Error al guardar la propiedad');
+        }
+      },
+      error: (error) => {
         console.error('Error en la solicitud:', error);
       },
     });

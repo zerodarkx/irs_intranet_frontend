@@ -126,4 +126,9 @@ export class PropiedadesService {
       estado: t_estado,
     });
   }
+
+  guardaPropiedadDetalle(data: any): Observable<ResultadoPropiedad> {
+    let url = `${this.url_base}/guardarPropiedadDetalle/${this.id_propiedad}`;
+    return this.http.put<ResultadoPropiedad>(url, data);
+  }
 }
