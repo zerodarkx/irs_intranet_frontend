@@ -11,7 +11,45 @@ import {
   styleUrls: ['./sincronizar.component.css'],
 })
 export class SincronizarComponent {
-  constructor(private sPropiedad: PropiedadesService) {}
+  fondo: number = 0;
+
+  constructor(private sPropiedad: PropiedadesService) {
+    this.traerFondo();
+  }
+
+  traerFondo() {
+    this.sPropiedad.traerFondo().subscribe({
+      next: (res) => {
+        this.fondo = res.data;
+      },
+      error: (err) => {
+        mostrarMensaje({
+          icono: IconoSweetAlert.Error,
+          titulo: 'Error al traer fondo',
+          mensaje: 'Ocurrió un error al intentar traer el fondo.',
+        });
+      },
+    });
+  }
+
+  guardarFondo() {
+    this.sPropiedad.guardarFondo(this.fondo).subscribe({
+      next: (res) => {
+        mostrarMensaje({
+          icono: IconoSweetAlert.Success,
+          titulo: 'Fondo guardado',
+          mensaje: 'El fondo se ha guardado correctamente.',
+        });
+      },
+      error: (err) => {
+        mostrarMensaje({
+          icono: IconoSweetAlert.Error,
+          titulo: 'Error al guardar fondo',
+          mensaje: 'Ocurrió un error al intentar guardar el fondo.',
+        });
+      },
+    });
+  }
 
   sincronizar() {
     this.sPropiedad.sincronizarPropiedad().subscribe({

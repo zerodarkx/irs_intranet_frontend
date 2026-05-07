@@ -32,6 +32,10 @@ export interface Propiedad {
   onWeb: boolean;
   estado: string;
   activo: number;
+  nombre: string;
+  telefono: string;
+  rut: string;
+  correo: string;
 }
 
 export interface Caracteristicas {
@@ -132,4 +136,9 @@ export interface ResultadoObtenerBitacoraPorId {
     observacion_bitacora: string;
     respuesta_bitacora: string;
   };
+}
+
+export interface ResultadoTraerFondo {
+  ok: boolean;
+  data: number;
 }

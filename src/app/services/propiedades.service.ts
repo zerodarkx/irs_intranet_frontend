@@ -13,6 +13,7 @@ import {
   ResultadoPropiedad,
   ResultadoCambiarEstadoPropiedad,
   ResultadoObtenerBitacoraPorId,
+  ResultadoTraerFondo,
 } from '../interfaces';
 
 @Injectable({
@@ -135,5 +136,15 @@ export class PropiedadesService {
   sincronizarPropiedad(): Observable<ResultadoPropiedad> {
     let url = `${this.url_base}/sincronizarPropiedad/${this.id_propiedad}`;
     return this.http.get<ResultadoPropiedad>(url);
+  }
+
+  traerFondo(): Observable<ResultadoTraerFondo> {
+    let url = `${this.url_base}/traerFondo/${this.id_propiedad}`;
+    return this.http.get<ResultadoTraerFondo>(url);
+  }
+
+  guardarFondo(fondo: number): Observable<ResultadoTraerFondo> {
+    let url = `${this.url_base}/guardarFondo/${this.id_propiedad}`;
+    return this.http.put<ResultadoTraerFondo>(url, { fondo });
   }
 }

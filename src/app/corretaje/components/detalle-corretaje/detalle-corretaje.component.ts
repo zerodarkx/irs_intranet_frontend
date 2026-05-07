@@ -66,7 +66,12 @@ export class DetalleCorretajeComponent {
   obtenerDetallePropiedad() {
     this.sPropiedades.obtenerPropiedadesPorId().subscribe({
       next: (resp) => {
-        console.log(resp);
+        console.log(resp.data);
+
+        this.detalleCorretaje.rut = resp.data.rut;
+        this.detalleCorretaje.nombre = resp.data.nombre;
+        this.detalleCorretaje.correo = resp.data.correo;
+        this.detalleCorretaje.telefono = resp.data.telefono;
         this.detalleCorretaje.direccion = resp.data.street;
         this.detalleCorretaje.estado =
           this.estados[resp.data.id_estado - 1].nombre;
