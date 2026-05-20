@@ -143,8 +143,8 @@ export class PropiedadesService {
     return this.http.get<ResultadoTraerFondo>(url);
   }
 
-  guardarFondo(fondo: number): Observable<ResultadoTraerFondo> {
+  guardarFondo(fondo: number, id_irs: number): Observable<ResultadoTraerFondo> {
     let url = `${this.url_base}/guardarFondo/${this.id_propiedad}`;
-    return this.http.put<ResultadoTraerFondo>(url, { fondo });
+    return this.http.put<ResultadoTraerFondo>(url, { fondo, id_irs });
   }
 }

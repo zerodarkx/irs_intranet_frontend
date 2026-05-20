@@ -140,5 +140,8 @@ export interface ResultadoObtenerBitacoraPorId {
 
 export interface ResultadoTraerFondo {
   ok: boolean;
-  data: number;
+  data: {
+    fondo: number;
+    id_irs: number;
+  };
 }

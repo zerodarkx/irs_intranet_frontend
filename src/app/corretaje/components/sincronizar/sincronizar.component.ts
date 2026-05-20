@@ -12,6 +12,7 @@ import {
 })
 export class SincronizarComponent {
   fondo: number = 0;
+  idIrs: number = 0;
 
   constructor(private sPropiedad: PropiedadesService) {
     this.traerFondo();
@@ -20,7 +21,8 @@ export class SincronizarComponent {
   traerFondo() {
     this.sPropiedad.traerFondo().subscribe({
       next: (res) => {
-        this.fondo = res.data;
+        this.fondo = res.data.fondo;
+        this.idIrs = res.data.id_irs;
       },
       error: (err) => {
         mostrarMensaje({
@@ -33,7 +35,7 @@ export class SincronizarComponent {
   }
 
   guardarFondo() {
-    this.sPropiedad.guardarFondo(this.fondo).subscribe({
+    this.sPropiedad.guardarFondo(this.fondo, this.idIrs).subscribe({
       next: (res) => {
         mostrarMensaje({
           icono: IconoSweetAlert.Success,
