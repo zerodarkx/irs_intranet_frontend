@@ -150,6 +150,7 @@ export class DetalleCorretajeComponent {
       correo: this.detalleCorretaje.correo,
       telefono: this.detalleCorretaje.telefono,
     };
+
     this.sPropiedades.guardaPropiedadDetalle(propiedad).subscribe({
       next: (res) => {
         if (res.ok) {
