@@ -27,6 +27,13 @@ import {
 } from 'src/app/shared/utils/sweetAlert';
 import { rutValidator } from 'src/app/shared/utils/validadores';
 
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
+
 @Component({
   selector: 'app-ingreso-chile',
   templateUrl: './ingreso-chile.component.html',
@@ -63,7 +70,7 @@ export class IngresoChileComponent {
     private sTipoPropiedad: TipoPropiedadService,
     private sCanaContacto: TipoContactoService,
     private activedRouter: ActivatedRoute,
-    private sCliente: ClienteService
+    private sCliente: ClienteService,
   ) {}
 
   async ngOnInit() {
@@ -75,6 +82,8 @@ export class IngresoChileComponent {
     this.obtenerRegiones();
     this.obtenerTipoPropiedad();
     this.obtenerCanalesComoSupo();
+
+    this.initGoogleAnalytics();
   }
 
   mayuscula(event: Event): void {
@@ -195,5 +204,28 @@ export class IngresoChileComponent {
         mensaje: 'Esta comuna por ahora no esta disponible.',
       });
     }
+  }
+
+  initGoogleAnalytics() {
+    // Crear dataLayer
+    window.dataLayer = window.dataLayer || [];
+
+    // Crear función gtag
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
+
+    // Inicialización
+    window.gtag('js', new Date());
+
+    window.gtag('config', 'G-9L60QB27L8');
+
+    // Cargar librería externa
+    const script = document.createElement('script');
+
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-9L60QB27L8';
+
+    document.head.appendChild(script);
   }
 }
