@@ -4,15 +4,12 @@ import { Observable } from 'rxjs';
 import { env } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExportarExcelService {
-
   private url_base: string = `${env.apiUrl}/exportarExcel`;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   exportarCliente(data: any): Observable<Blob> {
     let url = `${this.url_base}/exportarClientes`;
@@ -39,4 +36,8 @@ export class ExportarExcelService {
     return this.http.post(url, {}, { responseType: 'blob' });
   }
 
+  exportarPropiedades1House(): Observable<Blob> {
+    let url = `${this.url_base}/exportarPropiedades1House`;
+    return this.http.post(url, {}, { responseType: 'blob' });
+  }
 }

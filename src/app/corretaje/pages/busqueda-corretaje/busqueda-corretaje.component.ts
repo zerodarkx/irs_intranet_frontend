@@ -3,7 +3,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
 import { ErrorHttpCustom, Propiedad } from 'src/app/interfaces';
-import { PermisosService, PropiedadesService } from 'src/app/services';
+import {
+  ExportarExcelService,
+  PermisosService,
+  PropiedadesService,
+} from 'src/app/services';
 import {
   comunasConvecta,
   regionesConvecta,
@@ -57,6 +61,7 @@ export class BusquedaCorretajeComponent {
     private router: Router,
     private sPropiedades: PropiedadesService,
     private sPermiso: PermisosService,
+    private sExportarExcel: ExportarExcelService,
   ) {}
 
   ngOnInit(): void {
@@ -201,5 +206,26 @@ export class BusquedaCorretajeComponent {
       'CIERRE',
     ];
     return estado[id_estado - 1];
+  }
+
+  exportarPropiedadesExcel() {
+    let fechaHoy = new Date().toLocaleDateString();
+    let nombreArchivo = `exportarCliente_${fechaHoy}.xlsx`;
+
+    this.sExportarExcel.exportarPropiedades1House().subscribe({
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = nombreArchivo;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error: ErrorHttpCustom) => {
+        errorConexionServidor(error);
+      },
+    });
   }
 }

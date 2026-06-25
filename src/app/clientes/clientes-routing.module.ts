@@ -15,23 +15,24 @@ import { CurseComponent } from './components/curse/curse.component';
 import { RechazarMasivoComponent } from './pages/rechazar-masivo/rechazar-masivo.component';
 import { SimulacionCierreComponent } from './components/simulacion-cierre/simulacion-cierre.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
+import { SimuladorInversionistaComponent } from './components/simulador-inversionista/simulador-inversionista.component';
 
 const routes: Routes = [
   {
     path: 'buscarCliente',
-    component: BuscarClienteComponent
+    component: BuscarClienteComponent,
   },
   {
     path: 'nuevoCliente',
-    component: NuevoClienteComponent
+    component: NuevoClienteComponent,
   },
   {
     path: 'rechazarMasivo',
-    component: RechazarMasivoComponent
+    component: RechazarMasivoComponent,
   },
   {
     path: 'reportes',
-    component: ReportesComponent
+    component: ReportesComponent,
   },
   {
     path: ':idCliente',
@@ -46,18 +47,22 @@ const routes: Routes = [
       { path: 'gestion', component: GestionComponent },
       { path: 'gastoCliente', component: GastosClienteComponent },
       { path: 'curse', component: CurseComponent },
-      { path: '**', redirectTo: 'detalle', pathMatch: 'full' }
-    ]
+      {
+        path: 'simuladorInversionista',
+        component: SimuladorInversionistaComponent,
+      },
+      { path: '**', redirectTo: 'detalle', pathMatch: 'full' },
+    ],
   },
   {
     path: '**',
     redirectTo: 'buscarCliente',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ClientesRoutingModule { }
+export class ClientesRoutingModule {}

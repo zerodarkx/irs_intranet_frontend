@@ -1,56 +1,103 @@
 <ul class="nav nav-tabs d-flex mb-4">
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link" [routerLink]="['detalle']" routerLinkActive="active"
-            *ngIf="obtenerPermiso('VER_MODULO_CLIENTE','VER_DETALLE_CLIENTE')">
-            Detalle
-        </a>
-    </li>
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link" [routerLink]="['simulador']" routerLinkActive="active"
-            *ngIf="obtenerPermiso('VER_MODULO_CLIENTE','VER_SIMULADOR_CLIENTE')">
-            Simulador
-        </a>
-    </li>
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link" [routerLink]="['simuladorCierre']" routerLinkActive="active"
-            *ngIf="obtenerPermiso('VER_MODULO_CLIENTE','VER_SIMULACIONCIERRE_CLIENTE')">
-            Simulador Cierre
-        </a>
-    </li>
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link" [routerLink]="['reserva']" routerLinkActive="active"
-            *ngIf="obtenerPermiso('VER_MODULO_CLIENTE','VER_RESERVA_CLIENTE')">
-            Reserva
-        </a>
-    </li>
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link" [routerLink]="['gestion']" routerLinkActive="active"
-            *ngIf="obtenerPermiso('VER_MODULO_CLIENTE','VER_GESTION_CLIENTE')">
-            Gestión
-        </a>
-    </li>
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link" [routerLink]="['documentos']" routerLinkActive="active"
-            *ngIf="obtenerPermiso('VER_MODULO_CLIENTE','VER_DOCUMENTOS_CLIENTE')">
-            Documentos
-        </a>
-    </li>
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link" [routerLink]="['fichaComite']" routerLinkActive="active"
-            *ngIf="obtenerPermiso('VER_MODULO_CLIENTE','VER_FICHACOMITE_CLIENTE')">
-            Ficha Comité
-        </a>
-    </li>
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link" [routerLink]="['gastoCliente']" routerLinkActive="active"
-            *ngIf="obtenerPermiso('VER_MODULO_CLIENTE','VER_GASTOS_CLIENTE')">
-            Gastos Cliente
-        </a>
-    </li>
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link" [routerLink]="['curse']" routerLinkActive="active"
-            *ngIf="obtenerPermiso('VER_MODULO_CLIENTE','VER_CURSE_CLIENTE')">
-            Curse
-        </a>
-    </li>
+  <li class="nav-item flex-fill text-center">
+    <a
+      class="nav-link"
+      [routerLink]="['detalle']"
+      routerLinkActive="active"
+      *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_DETALLE_CLIENTE')"
+    >
+      Detalle
+    </a>
+  </li>
+  <li class="nav-item flex-fill text-center">
+    <a
+      class="nav-link"
+      [routerLink]="['simulador']"
+      routerLinkActive="active"
+      *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULADOR_CLIENTE')"
+    >
+      Simulador
+    </a>
+  </li>
+  <li class="nav-item flex-fill text-center">
+    <a
+      class="nav-link"
+      [routerLink]="['simuladorCierre']"
+      routerLinkActive="active"
+      *ngIf="
+        obtenerPermiso('VER_MODULO_CLIENTE', 'VER_SIMULACIONCIERRE_CLIENTE')
+      "
+    >
+      Simulador Cierre
+    </a>
+  </li>
+  <li class="nav-item flex-fill text-center">
+    <a
+      class="nav-link"
+      [routerLink]="['reserva']"
+      routerLinkActive="active"
+      *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_RESERVA_CLIENTE')"
+    >
+      Reserva
+    </a>
+  </li>
+  <li class="nav-item flex-fill text-center">
+    <a
+      class="nav-link"
+      [routerLink]="['gestion']"
+      routerLinkActive="active"
+      *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_GESTION_CLIENTE')"
+    >
+      Gestión
+    </a>
+  </li>
+  <li class="nav-item flex-fill text-center">
+    <a
+      class="nav-link"
+      [routerLink]="['documentos']"
+      routerLinkActive="active"
+      *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_DOCUMENTOS_CLIENTE')"
+    >
+      Documentos
+    </a>
+  </li>
+  <li class="nav-item flex-fill text-center">
+    <a
+      class="nav-link"
+      [routerLink]="['fichaComite']"
+      routerLinkActive="active"
+      *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_FICHACOMITE_CLIENTE')"
+    >
+      Ficha Comité
+    </a>
+  </li>
+  <li class="nav-item flex-fill text-center">
+    <a
+      class="nav-link"
+      [routerLink]="['gastoCliente']"
+      routerLinkActive="active"
+      *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_GASTOS_CLIENTE')"
+    >
+      Gastos Cliente
+    </a>
+  </li>
+  <li class="nav-item flex-fill text-center">
+    <a
+      class="nav-link"
+      [routerLink]="['curse']"
+      routerLinkActive="active"
+      *ngIf="obtenerPermiso('VER_MODULO_CLIENTE', 'VER_CURSE_CLIENTE')"
+    >
+      Curse
+    </a>
+  </li>
+  <li class="nav-item flex-fill text-center">
+    <a
+      class="nav-link"
+      [routerLink]="['simuladorInversionista']"
+      routerLinkActive="active"
+    >
+      Opcion Nueva
+    </a>
+  </li>
 </ul>

@@ -22,6 +22,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { RechazarMasivoComponent } from './pages/rechazar-masivo/rechazar-masivo.component';
 import { SimulacionCierreComponent } from './components/simulacion-cierre/simulacion-cierre.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
+import { SimuladorInversionistaComponent } from './components/simulador-inversionista/simulador-inversionista.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ReportesComponent } from './pages/reportes/reportes.component';
     RechazarMasivoComponent,
     SimulacionCierreComponent,
     ReportesComponent,
+    SimuladorInversionistaComponent,
   ],
   imports: [
     ClientesRoutingModule,
