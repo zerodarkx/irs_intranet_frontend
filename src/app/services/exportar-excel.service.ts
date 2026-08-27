@@ -40,4 +40,9 @@ export class ExportarExcelService {
     let url = `${this.url_base}/exportarPropiedades1House`;
     return this.http.post(url, {}, { responseType: 'blob' });
   }
+
+  exportarGastosOperacionales(data: any): Observable<Blob> {
+    let url = `${this.url_base}/exportarGastosOperacionales`;
+    return this.http.post(url, data, { responseType: 'blob' });
+  }
 }

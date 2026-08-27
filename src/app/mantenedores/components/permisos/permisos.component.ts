@@ -48,6 +48,11 @@ export class PermisosComponent implements OnChanges {
               activo: false,
               permiso: 'PER_RECHAZOMASIVO_CLIENTE',
             },
+            {
+              nombre: 'Reportes',
+              activo: false,
+              permiso: 'PER_REPORTES_CLIENTE',
+            },
           ],
           activo: false,
           permiso: 'VER_BUSCAR_CLIENTE',
